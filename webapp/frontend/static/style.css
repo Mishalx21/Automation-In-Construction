@@ -68,6 +68,11 @@ h1 { margin: 0 0 .2rem; font-size: 1.45rem; letter-spacing: -.01em; }
 .history-item b { color: var(--ink); }
 .history-actions { display: flex; gap: .55rem; margin-top: .15rem; }
 .preview-card { margin-top: 1.25rem; }
+.preview-head-actions { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; justify-content: flex-end; }
+.preview-tabs { display: inline-flex; padding: .18rem; gap: .15rem; border: 1px solid var(--line); border-radius: 8px; background: var(--chip); }
+.preview-tab { border: 0; border-radius: 6px; padding: .3rem .55rem; background: transparent; color: var(--muted); font: inherit; font-size: .74rem; font-weight: 700; cursor: pointer; }
+.preview-tab.active { background: var(--card); color: var(--accent); box-shadow: var(--shadow); }
+.preview-tab:disabled { cursor: not-allowed; opacity: .45; }
 .viewer-shell { position: relative; height: min(62vw, 34rem); min-height: 20rem; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #202833; }
 #ifc-viewer { display: block; width: 100%; height: 100%; }
 .viewer-loading { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; background: rgba(32,40,51,.72); font-weight: 600; }

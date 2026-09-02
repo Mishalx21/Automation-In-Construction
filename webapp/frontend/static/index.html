@@ -79,7 +79,13 @@
     <section class="card preview-card hidden" id="preview-card">
       <div class="section-head">
         <div><span class="eyebrow">Model preview</span><h2>Explore the IFC model</h2></div>
-        <span id="preview-status" class="history-hint">Preparing viewer…</span>
+        <div class="preview-head-actions">
+          <div class="preview-tabs" role="group" aria-label="Choose IFC preview">
+            <button id="preview-original" class="preview-tab active" type="button">Original IFC</button>
+            <button id="preview-violating" class="preview-tab" type="button" disabled>Violating IFC</button>
+          </div>
+          <span id="preview-status" class="history-hint">Preparing viewer…</span>
+        </div>
       </div>
       <p class="hint">Orbit: left-drag · Pan: right-drag · Zoom: scroll · Select: click an element.</p>
       <div class="viewer-shell">

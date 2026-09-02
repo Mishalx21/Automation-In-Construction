@@ -44,7 +44,23 @@ function pickFile(file) {
   show("picked-name");
   $("inject-upload-btn").disabled = false;
   $("check-upload-btn").disabled = false;
-  window.loadIfcPreview?.(file);
+
+  // Give immediate feedback even when xeokit/WebIFC is still downloading or
+  // initialising. The viewer module will replace this state as it starts
+  // reading the model.
+  show("preview-card");
+  show("viewer-loading");
+  $("preview-status").textContent = "Preparing IFC preview…";
+  $("viewer-selection").textContent = "Starting the IFC viewer in your browser…";
+  // xeokit is an ES module and may still be initialising when a user picks a
+  // file. Keep the file until the viewer exposes its loader, rather than
+  // silently skipping the preview.
+  if (window.loadIfcPreview) {
+    window.pendingIfcPreviewFile = null;
+    window.loadIfcPreview(file);
+  } else {
+    window.pendingIfcPreviewFile = file;
+  }
 }
 
 function showError(id, msg) { const el = $(id); el.textContent = msg; show(el, true); }
@@ -270,6 +286,7 @@ function renderInjectResults(job) {
 
   $("inject-download").href = `/ifc/api/jobs/${ifcJobId}/download`;
   $("inject-report").href = `/ifc/api/jobs/${ifcJobId}/download/report`;
+  window.loadIfcPreviewUrl?.(`/ifc/api/jobs/${ifcJobId}/download`);
   show("inject-results", true);
 }
 
