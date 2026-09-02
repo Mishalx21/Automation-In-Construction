@@ -47,6 +47,15 @@ Put TLS in front (Caddy/nginx/certbot) — the frontend listens on :8080.
 The two engine services are `expose`-only, never published to the host.
 No authentication anywhere: treat it as a demo tool, not a public service.
 
+## Moving to a multi-user application
+
+The current stack is intentionally an anonymous demonstration. The production
+architecture for login, organization/project access control, durable user job
+history, shared IFC storage, and background workers is documented in
+[PRODUCTION-PLAN.md](PRODUCTION-PLAN.md). It keeps the two existing engines
+but moves identity, job ownership, and persistence into shared platform
+services.
+
 ## File layout
 
 ```

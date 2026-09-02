@@ -179,6 +179,7 @@ $("inject-btn").addEventListener("click", async () => {
     stopProgress("inject-progress");
     lastInjectResultsJob = job;
     renderInjectResults(job);
+    window.recordHistory?.("ifcinject", job);
   } catch (e) {
     stopProgress("inject-progress");
     showError("inject-error", e.message);
@@ -333,6 +334,7 @@ $("check-btn").addEventListener("click", async () => {
     stopProgress("check-progress");
     lastCheckJob = job;
     renderCheckResults(job);
+    window.recordHistory?.("bnbc", job);
   } catch (e) {
     stopProgress("check-progress");
     showError("check-error", e.message);
@@ -671,4 +673,13 @@ function renderCheckResults(job) {
 }
 
 // --- boot -------------------------------------------------------------------------
-renderCheckerCatalogue();
+function selectWorkflow(id) {
+  document.querySelectorAll(".workflow-card").forEach((card) =>
+    card.classList.toggle("active", card.id === id));
+  document.querySelectorAll(".workflow-choice").forEach((button) =>
+    button.classList.toggle("active", button.dataset.workflow === id));
+}
+document.querySelectorAll(".workflow-choice").forEach((button) =>
+  button.addEventListener("click", () => selectWorkflow(button.dataset.workflow)));
+selectWorkflow("check-card");
+window.authReady.then(renderCheckerCatalogue);

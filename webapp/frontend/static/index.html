@@ -21,13 +21,45 @@
         violations into a model, or <strong>check</strong> a model against the accepted
         BNBC rule checkers.</p>
       </div>
+      <div id="user-bar" class="user-bar hidden">
+        <span class="user-avatar" aria-hidden="true">U</span>
+        <span id="user-name"></span>
+        <button id="logout-btn" class="btn small" type="button">Sign out</button>
+      </div>
     </div>
   </header>
 
-  <main>
+  <main id="auth-main">
+    <section class="card auth-card" id="auth-card">
+      <h2>Sign in to your workspace</h2>
+      <p class="hint">Your jobs and reports are private to your account.</p>
+      <form id="auth-form" class="auth-form">
+        <label>Email<input id="auth-email" type="email" autocomplete="email" required></label>
+        <label>Password<input id="auth-password" type="password" autocomplete="current-password" minlength="10" required></label>
+        <label id="auth-name-row" class="hidden">Name<input id="auth-name" type="text" autocomplete="name" maxlength="120"></label>
+        <p id="auth-error" class="error hidden"></p>
+        <button id="auth-submit" class="btn primary" type="submit">Sign in</button>
+      </form>
+      <p class="hint"><button id="auth-mode" class="link-btn" type="button">Create an account</button></p>
+    </section>
+  </main>
+
+  <main id="workspace" class="hidden">
+    <section class="workspace-intro">
+      <div>
+        <span class="eyebrow">Engineering workspace</span>
+        <h2>Review IFC models with confidence.</h2>
+        <p>Use one model file to create verified test cases or run fixture-validated BNBC checks.</p>
+      </div>
+      <div class="security-note"><strong>Private workspace</strong><span>Your models and history are linked to your account.</span></div>
+    </section>
+    <section class="card" id="history-card">
+      <div class="section-head"><div><span class="eyebrow">Activity</span><h2>Your recent work</h2></div><span class="history-hint">Completed jobs appear here</span></div>
+      <div id="history-list" class="history-list">No completed jobs yet.</div>
+    </section>
     <!-- shared: pick the file once, use it in either panel -->
     <section class="card" id="pick-card">
-      <h2><span class="step-num">1</span> Pick an IFC model</h2>
+      <div class="section-head"><div><span class="eyebrow">Start here</span><h2><span class="step-num">1</span> Pick an IFC model</h2></div><span class="format-chip">IFC • up to 400 MB</span></div>
       <div id="dropzone" class="dropzone" tabindex="0" role="button"
            aria-label="Upload an IFC file">
         <svg class="dz-icon" viewBox="0 0 48 48" aria-hidden="true">
@@ -43,9 +75,20 @@
       <p class="error hidden" id="pick-error"></p>
     </section>
 
+    <section class="workflow-switch" aria-label="Choose workflow">
+      <button class="workflow-choice active" type="button" data-workflow="check-card">
+        <span class="choice-icon">✓</span><span><b>Check compliance</b><small>Find BNBC issues in a model</small></span>
+      </button>
+      <button class="workflow-choice" type="button" data-workflow="inject-card">
+        <span class="choice-icon warn">↯</span><span><b>Create test cases</b><small>Inject and verify known violations</small></span>
+      </button>
+    </section>
+    <div class="workflow-grid">
     <!-- panel A: ifcinject -->
-    <section class="card" id="inject-card">
-      <h2><span class="step-num">2</span> Inject violations <span class="tag">ifcinject</span></h2>
+    <section class="card workflow-card inject-workflow" id="inject-card">
+      <span class="workflow-icon" aria-hidden="true">↯</span>
+      <span class="eyebrow">Create test cases</span>
+      <h2><span class="step-num">2A</span> Inject violations <span class="tag">ifcinject</span></h2>
       <p class="hint">Deterministically perturbs the model into a fixture with a known,
       documented code violation — then independently re-verifies it.</p>
       <button id="inject-upload-btn" class="btn primary" disabled>Upload &amp; analyze</button>
@@ -77,8 +120,10 @@
     </section>
 
     <!-- panel B: bnbc checkers -->
-    <section class="card" id="check-card">
-      <h2><span class="step-num">3</span> Check compliance <span class="tag">BNBC checkers</span></h2>
+    <section class="card workflow-card check-workflow" id="check-card">
+      <span class="workflow-icon" aria-hidden="true">✓</span>
+      <span class="eyebrow">Review a model</span>
+      <h2><span class="step-num">2B</span> Check compliance <span class="tag">BNBC checkers</span></h2>
       <p class="hint">Runs the accepted rule checkers (fixture-verified code generation,
       no LLM at request time) against the model.</p>
       <button id="check-upload-btn" class="btn primary" disabled>Upload model</button>
@@ -108,6 +153,7 @@
         </p>
       </div>
     </section>
+    </div>
   </main>
 
   <footer>
@@ -115,6 +161,7 @@
        bnbc-web: accepted checkers, fixture-injected verification (FIV)</p>
   </footer>
 
+  <script src="auth.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

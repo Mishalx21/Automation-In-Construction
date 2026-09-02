@@ -21,8 +21,38 @@ services:
     ports:
       - "8080:80"                     # the only port exposed to the host
     depends_on:
+      - auth-api
       - ifcweb
       - bnbc-web
+    restart: unless-stopped
+
+  auth-api:
+    build: ./auth
+    environment:
+      DATABASE_URL: postgresql://capstone:capstone_dev_password@postgres:5432/capstone
+      COOKIE_SECURE: "false"  # local HTTP only; set true behind production TLS
+    depends_on:
+      postgres:
+        condition: service_healthy
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: capstone
+      POSTGRES_USER: capstone
+      POSTGRES_PASSWORD: capstone_dev_password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U capstone -d capstone"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - "5432"
     restart: unless-stopped
 
   ifcweb:
@@ -46,3 +76,4 @@ services:
 volumes:
   ifcweb_data:
   bnbcweb_data:
+  postgres_data:
