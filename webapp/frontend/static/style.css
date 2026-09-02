@@ -77,9 +77,18 @@ h1 { margin: 0 0 .2rem; font-size: 1.45rem; letter-spacing: -.01em; }
 body { background: radial-gradient(circle at 18% -10%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 32rem), var(--bg); }
 header { padding-top: 1.5rem; }
 header .brand { align-items: center; padding: .8rem 0 1.15rem; border-bottom: 1px solid var(--line); }
+.brand-identity { display: flex; align-items: center; gap: .8rem; min-width: 0; }
+.product-kicker { display: block; color: var(--accent); font-size: .66rem; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; margin-bottom: .08rem; }
+header h1 { font-size: clamp(1.15rem, 2.4vw, 1.55rem); letter-spacing: -.025em; }
+header .sub { font-size: .82rem; max-width: 38rem; }
+.brand-mark { box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 28%, transparent); }
 .brand-mark { width: 38px; height: 38px; }
+.user-bar { padding: .32rem .38rem .32rem .32rem; border: 1px solid var(--line); border-radius: 999px; background: var(--card); box-shadow: var(--shadow); }
 .user-avatar { display: inline-flex; width: 1.9rem; height: 1.9rem; align-items: center; justify-content: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 800; }
+.user-bar .btn { border-color: transparent; background: transparent; padding: .3rem .55rem; }
 .workspace-intro { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; padding: 2.5rem 0 .5rem; }
+.workspace-intro::before { content: ""; position: absolute; width: 15rem; height: 15rem; border-radius: 50%; background: color-mix(in srgb, var(--accent) 10%, transparent); filter: blur(12px); right: 3rem; top: 4rem; z-index: -1; }
+.workspace-intro { position: relative; }
 .workspace-intro h2 { font-size: clamp(1.6rem, 3vw, 2.25rem); letter-spacing: -.035em; margin: .15rem 0 .35rem; }
 .workspace-intro p { color: var(--muted); max-width: 42rem; margin: 0; }
 .eyebrow { display: block; color: var(--accent); font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; margin-bottom: .3rem; }
@@ -91,6 +100,7 @@ header .brand { align-items: center; padding: .8rem 0 1.15rem; border-bottom: 1p
 .workflow-switch { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1.25rem 0 .75rem; }
 .workflow-choice { display: flex; align-items: center; gap: .75rem; padding: .85rem 1rem; text-align: left; border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); font: inherit; cursor: pointer; }
 .workflow-choice:hover, .workflow-choice.active { border-color: var(--accent); background: var(--accent-soft); }
+.workflow-choice.active { box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 13%, transparent); }
 .workflow-choice b, .workflow-choice small { display: block; }
 .workflow-choice small { color: var(--muted); font-size: .78rem; margin-top: .1rem; }
 .choice-icon { display: inline-flex; width: 2rem; height: 2rem; align-items: center; justify-content: center; border-radius: 7px; color: var(--accent); background: var(--accent-soft); font-weight: 900; }
