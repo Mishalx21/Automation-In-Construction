@@ -20,7 +20,14 @@ function setAuthError(message = "") {
 function renderHistory(rows) {
   const el = auth$("history-list");
   if (!rows.length) { el.textContent = "No completed jobs yet."; return; }
-  el.innerHTML = rows.map((row) => `<div class="history-item"><b>${row.filename}</b><span>${row.engine} · ${row.state} · ${new Date(row.created_at).toLocaleString()}</span></div>`).join("");
+  const renderRows = (limit) => {
+    const shown = rows.slice(0, limit);
+    el.innerHTML = shown.map((row) => `<div class="history-item"><b>${row.filename}</b><span>${row.engine} · ${row.state} · ${new Date(row.created_at).toLocaleString()}</span></div>`).join("") +
+      `<div class="history-actions">${rows.length > limit ? `<button class="btn small history-more" type="button">Load ${Math.min(5, rows.length - limit)} more</button>` : ""}${limit > 5 ? `<button class="btn small history-less" type="button">Show less</button>` : ""}</div>`;
+    el.querySelector(".history-more")?.addEventListener("click", () => renderRows(limit + 5));
+    el.querySelector(".history-less")?.addEventListener("click", () => renderRows(5));
+  };
+  renderRows(5);
 }
 
 async function refreshHistory() {
@@ -77,4 +84,3 @@ auth$("logout-btn").addEventListener("click", async () => {
   await authApi("/api/auth/logout", {method:"POST"}).catch(() => {});
   location.reload();
 });
-
