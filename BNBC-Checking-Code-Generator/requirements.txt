@@ -1,0 +1,18 @@
+# Agent orchestration
+langgraph>=0.2.0
+langsmith>=0.2.0
+
+# LLM backends (bnbc/llm) — google-genai for Gemini, openai for OpenRouter's
+# OpenAI-compatible API.
+google-genai>=1.40.0
+openai>=1.60.0
+
+# IFC + data
+ifcopenshell>=0.8.0
+numpy>=1.26.0
+pydantic>=2.0
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# Tests
+pytest>=8.0

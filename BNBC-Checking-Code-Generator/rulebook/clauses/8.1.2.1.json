@@ -1,0 +1,91 @@
+{
+  "section_id": "8.1.2.1",
+  "title": "Standard hooks",
+  "page": 4,
+  "clauses": [
+    {
+      "clause_id": "8.1.2.1(a)",
+      "text": "(a) A standard hook may have a 180° bend plus an extension of at least 4 bar diameters, but not less than 65 mm, at the free end of the bar.",
+      "notes": "Hook - A curved or bent portion at the end of a rebar.\n\nStandard hook - A reinforcing bar's end that is bent in a specified shape and length according to code requirements.\n\nExtension length - length of the bar beyond the bend",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 4
+    },
+    {
+      "clause_id": "8.1.2.1(b)",
+      "text": "(b) A standard hook may have a 90° bend plus an extension of at least 12 bar diameters at the free end of the bar.",
+      "notes": "Hook - A curved or bent portion at the end of a rebar.\n\nStandard hook - A reinforcing bar's end that is bent in a specified shape and length according to code requirements.\n\nExtension length - length of the bar beyond the bend",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 4
+    },
+    {
+      "clause_id": "8.1.2.1(c)(i)",
+      "text": "Standard hooks in case of stirrup and tie anchorage: (c)(i) if the diameter of stirrup or tie bar is 16 mm or smaller, the hooks shall have a 90° bend plus an extension of at least 6 bar diameters at the free end of the bar",
+      "notes": "Stirrups and ties - small reinforcing bars used to confine and support the main steel bars in beams and columns.\nAnchorage - how the ends of stirrups and ties are bent, hooked, or extended.\n\nBend angle - the angle through which a reinforcing bar, stirrup, tie, or hook is bent from its original straight direction.\n\nExtension length - length of the bar beyond the bend point at the free end of the bar",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 4
+    },
+    {
+      "clause_id": "8.1.2.1(c)(ii)",
+      "text": "Standard hooks in case of stirrup and tie anchorage: (c)(ii) if the diameter of stirrup or tie bar is between 19 mm to 25 mm, the hooks shall have a 90° bend plus an extension of at least 12 bar diameters at the free end of the bar",
+      "notes": "Stirrups and ties - small reinforcing bars used to confine and support the main steel bars in beams and columns.\nAnchorage - how the ends of stirrups and ties are bent, hooked, or extended.\nBend angle - the angle through which a reinforcing bar, stirrup, tie, or hook is bent from its original straight direction.\nExtension length - length of the bar beyond the bend point at the free end of the bar",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 4
+    },
+    {
+      "clause_id": "8.1.2.1(c)(iii)",
+      "text": "Standard hooks in case of stirrup and tie anchorage: (c)(iii) if the diameter of stirrup or tie bar is 25 mm or larger, the hooks shall have a 135° bend plus an extension of at least 6 bar diameters at the free end of the bar",
+      "notes": "Stirrups and ties - small reinforcing bars used to confine and support the main steel bars in beams and columns.\nAnchorage - how the ends of stirrups and ties are bent, hooked, or extended.\nBend angle - the angle through which a reinforcing bar, stirrup, tie, or hook is bent from its original straight direction.\nExtension length - length of the bar beyond the bend point at the free end of the bar",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 4
+    },
+    {
+      "clause_id": "8.1.2.1(c)(iv)",
+      "text": "Standard hooks in case of stirrup and tie anchorage: (c)(iv) For closed ties and continuously wound ties, the hooks shall have a 135° bend plus an extension of at least 6 bar diameters, but not less than 75 mm.",
+      "notes": "Stirrups and ties - small reinforcing bars used to confine and support the main steel bars in beams and columns.\nAnchorage - how the ends of stirrups and ties are bent, hooked, or extended.\nBend angle - the angle through which a reinforcing bar, stirrup, tie, or hook is bent from its original straight direction.\nExtension length - length of the bar beyond the bend point at the free end of the bar\nClosed ties - Ties that form a completely closed loop around the main reinforcement bars in a column. Their ends are anchored with proper hooks so the tie fully encloses the bars.\nContinuously wound ties - Spiral-type reinforcement made from a continuous bar or wire wrapped repeatedly around the longitudinal reinforcement in a helical or spiral form. Instead of separate individual ties, the reinforcement is continuous along the height or length of the member.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 4
+    },
+    {
+      "clause_id": "8.1.2.1(d)",
+      "text": "(d) Seismic hook is defined as a hook on a stirrup, hoop, or crosstie having a bend not less than 135°, except that circular hoops shall have a bend not less than 90°. Hooks shall have a six-diameter (but not less than 75 mm ) extension that engages the longitudinal reinforcement and projects into the interior of the stirrup or hoop.",
+      "notes": "Seismic hook - a special hook used on stirrups, hoops, or crossties designed to perform under seismic (earthquake) loading conditions\nStirrup - a transverse reinforcing bar used to resist shear forces in a beam or column\nHoop - a closed loop of reinforcing bar enclosing longitudinal bars\nCrosstie - a bar with hooks at each end used to tie opposite sides of a reinforcement cage together",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 4
+    }
+  ]
+}

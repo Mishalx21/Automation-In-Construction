@@ -1,0 +1,29 @@
+{
+  "rule_id": "8.3.7.2",
+  "title": "Beam-column joint transverse reinforcement",
+  "source_clauses": [
+    "8.3.7.2(a)",
+    "8.3.7.2(b)",
+    "8.3.7.2(c)"
+  ],
+  "statement": "(a) Transverse hoop reinforcement shall be provided within the joint, as specified in Sec 8.3.5.4, unless the joint is confined by structural members as specified in the condition described in sub-rule (b) of this section. \n(b) Within the depth of the shallowest framing member, where members frame into all four sides of the joint and where each member width is at least three-fourths the column width, transverse reinforcement equal to at least one-half the amount required by Sec 8.3.5.4(a) shall be provided; at these locations, the spacing specified in Sec 8.3.5.4(b) may be increased to 150 mm. \n(c) Transverse reinforcement shall be provided through the joint, as required by Sec 8.3.5.4, to provide confinement for longitudinal beam reinforcement outside the column core if such confinement is not provided by a beam framing into the joint.",
+  "scope_note": "Covers clauses (a)-(c): transverse reinforcement within beam-column joints. The amount itself is defined by 8.3.5.4.",
+  "references": {
+    "clauses": [
+      "8.3.5.4"
+    ]
+  },
+  "terms": [
+    "transverse_hoop_reinforcement",
+    "joint",
+    "confinement_by_structural_members",
+    "depth_of_the_shallowest_framing_member",
+    "member_width",
+    "column_width",
+    "transverse_reinforcement",
+    "spacing",
+    "longitudinal_beam_reinforcement",
+    "column_core",
+    "confinement"
+  ]
+}

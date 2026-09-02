@@ -1,0 +1,7 @@
+{
+  "table_id": "6.8.1",
+  "title": "Table 6.8.1: Minimum Diameters of Bend",
+  "markdown": "| Bar Size | Minimum Diameter of Bend |\n| --- | --- |\n| 10 mm ≤ d_b ≤ 25 mm | 6d_b |\n| 25 mm < d_b ≤ 40 mm | 8d_b |\n| 40 mm < d_b ≤ 57 mm | 10d_b |",
+  "notes": [],
+  "page": 5
+}

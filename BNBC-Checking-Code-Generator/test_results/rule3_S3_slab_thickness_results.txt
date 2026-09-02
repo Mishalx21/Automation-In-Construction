@@ -1,0 +1,3418 @@
+STRUCTURAL RULE 3 (S3) - Slab thickness below minimum
+Checker: rule-8.Slab_thickness/check_s3_slab_thickness.py
+====================================================================================================
+
+####################################################################################################
+### POSITIVE TEST CASES (injected S3 violation expected -> verdict should be FAIL)
+####################################################################################################
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/dental_clinic/dental_clinic_str_S3_slab_thickness.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Positive/dental_clinic/dental_clinic_str_S3_slab_thickness.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:64mm Concrete With 38mm Metal Deck:164823 (3yX498NoH6cAogvPd4Mk$Y)",
+          "storey": "Second Floor",
+          "measured": "thickness=102 mm, span=47226 mm, required>=1687 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Slab on Grade:164090 (2XnCNfbvb5mfgxvK1MPFfM)",
+          "storey": "First Floor",
+          "measured": "thickness=150 mm, span=56372 mm, required>=2013 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Exterior Slab on Grade:240432 (1lGrrtZObD3BCuxBCd$E_H)",
+          "storey": "First Floor",
+          "measured": "thickness=150 mm, span=18716 mm, required>=668 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Slab on Grade:221475 (2lH_RQeBDBG8rH6PWO_5fC)",
+          "storey": "First Floor",
+          "measured": "thickness=120 mm, span=7971 mm, required>=285 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:64mm Concrete With 38mm Metal Deck:235649 (0EBxs8wY934BfjQnQnJP9Z)",
+          "storey": "Roof - Main",
+          "measured": "thickness=102 mm, span=10579 mm, required>=378 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:192693 (0VsgkmPnbAuO2d6$Acv6Id)",
+          "storey": "Second Floor",
+          "measured": "thickness=120 mm, span=9070 mm, required>=324 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234334 (1qmIE0AT530u6nHie7uwmF)",
+          "storey": "Roof - Main",
+          "measured": "thickness=120 mm, span=8927 mm, required>=319 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:190761 (22_kIllv127wWuzeSbBoPm)",
+          "storey": "Roof - Main",
+          "measured": "thickness=120 mm, span=47226 mm, required>=1687 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234248 (3R2xqSpSb6wxaYrNqlG$vR)",
+          "storey": "Roof - Main",
+          "measured": "thickness=120 mm, span=8927 mm, required>=319 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234050 (1qPR37XKvCSO5N6BiX3XUG)",
+          "storey": "Roof - Main",
+          "measured": "thickness=120 mm, span=15099 mm, required>=539 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234228 (30p3vwvQ9DnhwTF3lHIih8)",
+          "storey": "Roof - Main",
+          "measured": "thickness=120 mm, span=15099 mm, required>=539 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:192254 (2oJ$jhEMn3nhAqn0NbtYKu)",
+          "storey": "Second Floor",
+          "measured": "thickness=120 mm, span=56366 mm, required>=2013 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 12,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 13,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "12 of 13 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] Floor:64mm Concrete With 38mm Metal Deck:164823 (3yX498NoH6cAogvPd4Mk$Y) @ Second Floor: thickness=102 mm, span=47226 mm, required>=1687 mm
+  - [slab_thickness_min] Floor:150mm Slab on Grade:164090 (2XnCNfbvb5mfgxvK1MPFfM) @ First Floor: thickness=150 mm, span=56372 mm, required>=2013 mm
+  - [slab_thickness_min] Floor:150mm Exterior Slab on Grade:240432 (1lGrrtZObD3BCuxBCd$E_H) @ First Floor: thickness=150 mm, span=18716 mm, required>=668 mm
+  - [slab_thickness_min] Floor:150mm Slab on Grade:221475 (2lH_RQeBDBG8rH6PWO_5fC) @ First Floor: thickness=120 mm, span=7971 mm, required>=285 mm
+  - [slab_thickness_min] Floor:64mm Concrete With 38mm Metal Deck:235649 (0EBxs8wY934BfjQnQnJP9Z) @ Roof - Main: thickness=102 mm, span=10579 mm, required>=378 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:192693 (0VsgkmPnbAuO2d6$Acv6Id) @ Second Floor: thickness=120 mm, span=9070 mm, required>=324 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234334 (1qmIE0AT530u6nHie7uwmF) @ Roof - Main: thickness=120 mm, span=8927 mm, required>=319 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:190761 (22_kIllv127wWuzeSbBoPm) @ Roof - Main: thickness=120 mm, span=47226 mm, required>=1687 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234248 (3R2xqSpSb6wxaYrNqlG$vR) @ Roof - Main: thickness=120 mm, span=8927 mm, required>=319 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234050 (1qPR37XKvCSO5N6BiX3XUG) @ Roof - Main: thickness=120 mm, span=15099 mm, required>=539 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234228 (30p3vwvQ9DnhwTF3lHIih8) @ Roof - Main: thickness=120 mm, span=15099 mm, required>=539 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:192254 (2oJ$jhEMn3nhAqn0NbtYKu) @ Second Floor: thickness=120 mm, span=56366 mm, required>=2013 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/schependomlaan/schependomlaan_str_engineer_S3_slab_thickness.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Positive/schependomlaan/schependomlaan_str_engineer_S3_slab_thickness.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):169028 (0eXPrOxTf4UhQHrOKpb9xJ)",
+          "storey": "1e Verdiepingvloer",
+          "measured": "thickness=380 mm, span=21300 mm, required>=761 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):185994 (1is8Uv8vP1wRSM1vfQv_oB)",
+          "storey": "3e Verdiepingsvloer",
+          "measured": "thickness=380 mm, span=16000 mm, required>=571 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):201310 (2FL1hVU$v8$gTpVEQfqgbz)",
+          "storey": "2e Verdiepingvloer",
+          "measured": "thickness=120 mm, span=16000 mm, required>=571 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_breedplaat_220mm_(C20/25):201819 (2FL1hVU$v8$gTpVEQfqgzu)",
+          "storey": "aanzicht dakvloer",
+          "measured": "thickness=220 mm, span=13240 mm, required>=473 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):303941 (1z4Od8M919Vwu_mHcP9nMW)",
+          "storey": "Bk fundering",
+          "measured": "thickness=250 mm, span=20680 mm, required>=739 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_systeemvloer_200mm:318282 (2HEf$AeUbB2QLvW2lPZjoB)",
+          "storey": "Begane grondvloer",
+          "measured": "thickness=200 mm, span=15800 mm, required>=564 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_systeemvloer_200mm:318282:2 (3PfN4yss12YwcAOmbRIGZ2)",
+          "storey": "Begane grondvloer",
+          "measured": "thickness=200 mm, span=15150 mm, required>=541 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_systeemvloer_200mm:318282:3 (1cBVv4GLD6w8DdA5NozQpL)",
+          "storey": "Begane grondvloer",
+          "measured": "thickness=200 mm, span=15066 mm, required>=538 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:CL_27_zinken dak_200mm:476459 (1lZj5Q5zH18h0wiYNISvHT)",
+          "storey": "aanzicht dakvloer",
+          "measured": "thickness=200 mm, span=5984 mm, required>=214 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:CL_27_plat dak_245mm:481119 (07SbRFrHH0MO6TxL71tbgc)",
+          "storey": "aanzicht dakvloer",
+          "measured": "thickness=245 mm, span=13855 mm, required>=495 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):607002 (3sPEflO3n3dBAeeV778MUw)",
+          "storey": "Bk fundering",
+          "measured": "thickness=250 mm, span=15300 mm, required>=546 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):607002:2 (31XgSbjRj5Yvbt8YkDBHT6)",
+          "storey": "Bk fundering",
+          "measured": "thickness=250 mm, span=15436 mm, required>=551 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 12,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 29,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "12 of 29 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):169028 (0eXPrOxTf4UhQHrOKpb9xJ) @ 1e Verdiepingvloer: thickness=380 mm, span=21300 mm, required>=761 mm
+  - [slab_thickness_min] Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):185994 (1is8Uv8vP1wRSM1vfQv_oB) @ 3e Verdiepingsvloer: thickness=380 mm, span=16000 mm, required>=571 mm
+  - [slab_thickness_min] Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):201310 (2FL1hVU$v8$gTpVEQfqgbz) @ 2e Verdiepingvloer: thickness=120 mm, span=16000 mm, required>=571 mm
+  - [slab_thickness_min] Floor:CL_23_breedplaat_220mm_(C20/25):201819 (2FL1hVU$v8$gTpVEQfqgzu) @ aanzicht dakvloer: thickness=220 mm, span=13240 mm, required>=473 mm
+  - [slab_thickness_min] Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):303941 (1z4Od8M919Vwu_mHcP9nMW) @ Bk fundering: thickness=250 mm, span=20680 mm, required>=739 mm
+  - [slab_thickness_min] Floor:CL_23_systeemvloer_200mm:318282 (2HEf$AeUbB2QLvW2lPZjoB) @ Begane grondvloer: thickness=200 mm, span=15800 mm, required>=564 mm
+  - [slab_thickness_min] Floor:CL_23_systeemvloer_200mm:318282:2 (3PfN4yss12YwcAOmbRIGZ2) @ Begane grondvloer: thickness=200 mm, span=15150 mm, required>=541 mm
+  - [slab_thickness_min] Floor:CL_23_systeemvloer_200mm:318282:3 (1cBVv4GLD6w8DdA5NozQpL) @ Begane grondvloer: thickness=200 mm, span=15066 mm, required>=538 mm
+  - [slab_thickness_min] Basic Roof:CL_27_zinken dak_200mm:476459 (1lZj5Q5zH18h0wiYNISvHT) @ aanzicht dakvloer: thickness=200 mm, span=5984 mm, required>=214 mm
+  - [slab_thickness_min] Basic Roof:CL_27_plat dak_245mm:481119 (07SbRFrHH0MO6TxL71tbgc) @ aanzicht dakvloer: thickness=245 mm, span=13855 mm, required>=495 mm
+  - [slab_thickness_min] Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):607002 (3sPEflO3n3dBAeeV778MUw) @ Bk fundering: thickness=250 mm, span=15300 mm, required>=546 mm
+  - [slab_thickness_min] Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):607002:2 (31XgSbjRj5Yvbt8YkDBHT6) @ Bk fundering: thickness=250 mm, span=15436 mm, required>=551 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/schependomlaan/schependomlaan_str_hollowcore_floors_S3_slab_thickness.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Positive/schependomlaan/schependomlaan_str_hollowcore_floors_S3_slab_thickness.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000LY34qCZOnDJKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8182 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Lb34qCZOnDJKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8182 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Le34qCZOnDJKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8182 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Lh34qCZOnDJKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8182 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Lk34qCZOnDJKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8182 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000O634qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000O934qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OC34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OF34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OI34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OL34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OO34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OR34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OU34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Psp4qCZOnDJOq)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7976 mm, required>=285 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Pvp4qCZOnDJOq)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7976 mm, required>=285 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Svp4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Syp4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000S$p4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000T2p4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000T5p4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000T8p4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000TBp4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000TEp4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7946 mm, required>=284 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UNJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UQJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UTJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UWJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UZJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UcJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UfJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UiJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7346 mm, required>=262 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UnJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7346 mm, required>=262 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UqJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7346 mm, required>=262 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UtJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7346 mm, required>=262 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UwJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7346 mm, required>=262 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000iHJ4qCZOnDJWq)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000n2Z4qCZOnDJWv)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7976 mm, required>=285 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L4cnC000VuJ4qCZSoDpKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 39,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 146,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "39 of 146 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000LY34qCZOnDJKt) @ Undefined: thickness=200 mm, span=8182 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Lb34qCZOnDJKt) @ Undefined: thickness=200 mm, span=8182 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Le34qCZOnDJKt) @ Undefined: thickness=200 mm, span=8182 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Lh34qCZOnDJKt) @ Undefined: thickness=200 mm, span=8182 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Lk34qCZOnDJKt) @ Undefined: thickness=200 mm, span=8182 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000O634qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000O934qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OC34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OF34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OI34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OL34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OO34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OR34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OU34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Psp4qCZOnDJOq) @ Undefined: thickness=200 mm, span=7976 mm, required>=285 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Pvp4qCZOnDJOq) @ Undefined: thickness=200 mm, span=7976 mm, required>=285 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Svp4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Syp4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000S$p4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000T2p4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000T5p4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000T8p4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000TBp4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000TEp4qCZOnDJSn) @ Undefined: thickness=200 mm, span=7946 mm, required>=284 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UNJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UQJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UTJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UWJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UZJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UcJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UfJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UiJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7346 mm, required>=262 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UnJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7346 mm, required>=262 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UqJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7346 mm, required>=262 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UtJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7346 mm, required>=262 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UwJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7346 mm, required>=262 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000iHJ4qCZOnDJWq) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000n2Z4qCZOnDJWv) @ Undefined: thickness=200 mm, span=7976 mm, required>=285 mm
+  - [slab_thickness_min] KANAALPLAAT (1L4cnC000VuJ4qCZSoDpKt) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/sixty5/sixty5_str_S3_slab_thickness.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Positive/sixty5/sixty5_str_S3_slab_thickness.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_ge\u00efsoleerde kanaalplaatvloer_200:595438 (12jWe1_Rb2cR0ot5ICgwJd)",
+          "storey": "00 begane grond",
+          "measured": "thickness=340 mm, span=33340 mm, required>=1191 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_ge\u00efsoleerde kanaalplaatvloer_200:595438:2 (2AdmJesrX1hvCLMi34Jlkx)",
+          "storey": "00 begane grond",
+          "measured": "thickness=340 mm, span=21880 mm, required>=781 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_ge\u00efsoleerde kanaalplaatvloer_200:595438:4 (3RqcUiwovFxAb87$GZczDX)",
+          "storey": "00 begane grond",
+          "measured": "thickness=120 mm, span=4230 mm, required>=151 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C35/45):595508 (12jWe1_Rb2cR0ot5ICgwSz)",
+          "storey": "01 eerste verdieping",
+          "measured": "thickness=260 mm, span=45430 mm, required>=1622 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):604017 (1sQadmabDAXhmoypCqMSh9)",
+          "storey": "02 tweede verdieping",
+          "measured": "thickness=260 mm, span=45380 mm, required>=1621 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):605080 (0Lr_ZNonTAHfu3OvmrUO7P)",
+          "storey": "03 derde verdieping",
+          "measured": "thickness=260 mm, span=45380 mm, required>=1621 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):606154 (0Lr_ZNonTAHfu3OvmrUOMB)",
+          "storey": "04 vierde verdieping",
+          "measured": "thickness=260 mm, span=45380 mm, required>=1621 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):607315 (0Lr_ZNonTAHfu3OvmrUVuI)",
+          "storey": "05 vijfde verdieping",
+          "measured": "thickness=260 mm, span=45380 mm, required>=1621 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):608059 (0Lr_ZNonTAHfu3OvmrUVrw)",
+          "storey": "06 zesde verdieping",
+          "measured": "thickness=260 mm, span=45380 mm, required>=1621 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):608772 (0Lr_ZNonTAHfu3OvmrUV15)",
+          "storey": "07 zevende verdieping",
+          "measured": "thickness=260 mm, span=45249 mm, required>=1616 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):615173 (2q6JbPWZf08Pzpj_4wXbWx)",
+          "storey": "08 achtste verdieping",
+          "measured": "thickness=260 mm, span=41309 mm, required>=1475 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):616667 (1qVDfD5xzBSgJs_2S6zsft)",
+          "storey": "09 negende verdieping",
+          "measured": "thickness=260 mm, span=37561 mm, required>=1341 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):617934 (1UIEr2Og9FQeOC6qXfbpNi)",
+          "storey": "10 tiende verdieping",
+          "measured": "thickness=260 mm, span=33810 mm, required>=1207 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):619170 (1y5LKpzCz0ke0P87__dWQT)",
+          "storey": "11 elfde verdieping",
+          "measured": "thickness=260 mm, span=30065 mm, required>=1074 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):620623 (07ykdjoGLBROeD1VZtZeh9)",
+          "storey": "12 twaalfde verdieping",
+          "measured": "thickness=260 mm, span=26311 mm, required>=940 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):623000 (0H$FJYIhPAIRZLj8NgdkRD)",
+          "storey": "13 dertiende verdieping",
+          "measured": "thickness=260 mm, span=22561 mm, required>=806 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):623730 (0l_G9aYQ13bBQo16w$QfwR)",
+          "storey": "14 veertiende verdieping",
+          "measured": "thickness=260 mm, span=21880 mm, required>=781 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):625547 (0d9wMG5JL8XQfnLuhkcXZD)",
+          "storey": "15 vijftiende verdieping",
+          "measured": "thickness=260 mm, span=21880 mm, required>=781 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):629245 (0$RIVnfCX8oAAtt7kUU_Cs)",
+          "storey": "16 zestiende verdieping",
+          "measured": "thickness=260 mm, span=21880 mm, required>=781 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):630507 (0$RIVnfCX8oAAtt7kUU_GW)",
+          "storey": "17 zeventiende verdieping",
+          "measured": "thickness=260 mm, span=21880 mm, required>=781 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_400 (C35/45):635493 (17Baw4hsj6$gEaZeMrBuRv)",
+          "storey": "01 eerste verdieping",
+          "measured": "thickness=400 mm, span=11490 mm, required>=410 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):651767 (1VfDhI82vB_v96ZFVMCU6u)",
+          "storey": "02 tweede verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):653106 (1Bvmyvx$j84gQmLAyuYHeQ)",
+          "storey": "03 derde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):653859 (0TQmjm8YDFp9iYyf2tNDzK)",
+          "storey": "04 vierde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):654777 (0TQmjm8YDFp9iYyf2tNDZE)",
+          "storey": "05 vijfde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):654808 (0TQmjm8YDFp9iYyf2tNDYl)",
+          "storey": "06 zesde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):655992 (0MqOlrJcvBJQL2Z5VGP_g4)",
+          "storey": "07 zevende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):656912 (0H2HeiUXfAvhHqh9G07Teo)",
+          "storey": "08 achtste verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):657702 (2dx7F5PdT4SPmaNh5ATeen)",
+          "storey": "09 negende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658708 (0wg1$hCMLDKvTPQst2hGty)",
+          "storey": "10 tiende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658736 (0wg1$hCMLDKvTPQst2hGtO)",
+          "storey": "11 elfde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658764 (0wg1$hCMLDKvTPQst2hGsa)",
+          "storey": "12 twaalfde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661248 (2_gHrixZfCzOg26Kf_5cOO)",
+          "storey": "13 dertiende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661276 (2_gHrixZfCzOg26Kf_5cO4)",
+          "storey": "14 veertiende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661304 (2_gHrixZfCzOg26Kf_5cOW)",
+          "storey": "15 vijftiende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 35,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 70,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "35 of 70 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] Floor:23_FL_AT_geïsoleerde kanaalplaatvloer_200:595438 (12jWe1_Rb2cR0ot5ICgwJd) @ 00 begane grond: thickness=340 mm, span=33340 mm, required>=1191 mm
+  - [slab_thickness_min] Floor:23_FL_AT_geïsoleerde kanaalplaatvloer_200:595438:2 (2AdmJesrX1hvCLMi34Jlkx) @ 00 begane grond: thickness=340 mm, span=21880 mm, required>=781 mm
+  - [slab_thickness_min] Floor:23_FL_AT_geïsoleerde kanaalplaatvloer_200:595438:4 (3RqcUiwovFxAb87$GZczDX) @ 00 begane grond: thickness=120 mm, span=4230 mm, required>=151 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C35/45):595508 (12jWe1_Rb2cR0ot5ICgwSz) @ 01 eerste verdieping: thickness=260 mm, span=45430 mm, required>=1622 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):604017 (1sQadmabDAXhmoypCqMSh9) @ 02 tweede verdieping: thickness=260 mm, span=45380 mm, required>=1621 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):605080 (0Lr_ZNonTAHfu3OvmrUO7P) @ 03 derde verdieping: thickness=260 mm, span=45380 mm, required>=1621 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):606154 (0Lr_ZNonTAHfu3OvmrUOMB) @ 04 vierde verdieping: thickness=260 mm, span=45380 mm, required>=1621 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):607315 (0Lr_ZNonTAHfu3OvmrUVuI) @ 05 vijfde verdieping: thickness=260 mm, span=45380 mm, required>=1621 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):608059 (0Lr_ZNonTAHfu3OvmrUVrw) @ 06 zesde verdieping: thickness=260 mm, span=45380 mm, required>=1621 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):608772 (0Lr_ZNonTAHfu3OvmrUV15) @ 07 zevende verdieping: thickness=260 mm, span=45249 mm, required>=1616 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):615173 (2q6JbPWZf08Pzpj_4wXbWx) @ 08 achtste verdieping: thickness=260 mm, span=41309 mm, required>=1475 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):616667 (1qVDfD5xzBSgJs_2S6zsft) @ 09 negende verdieping: thickness=260 mm, span=37561 mm, required>=1341 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):617934 (1UIEr2Og9FQeOC6qXfbpNi) @ 10 tiende verdieping: thickness=260 mm, span=33810 mm, required>=1207 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):619170 (1y5LKpzCz0ke0P87__dWQT) @ 11 elfde verdieping: thickness=260 mm, span=30065 mm, required>=1074 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):620623 (07ykdjoGLBROeD1VZtZeh9) @ 12 twaalfde verdieping: thickness=260 mm, span=26311 mm, required>=940 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):623000 (0H$FJYIhPAIRZLj8NgdkRD) @ 13 dertiende verdieping: thickness=260 mm, span=22561 mm, required>=806 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):623730 (0l_G9aYQ13bBQo16w$QfwR) @ 14 veertiende verdieping: thickness=260 mm, span=21880 mm, required>=781 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):625547 (0d9wMG5JL8XQfnLuhkcXZD) @ 15 vijftiende verdieping: thickness=260 mm, span=21880 mm, required>=781 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):629245 (0$RIVnfCX8oAAtt7kUU_Cs) @ 16 zestiende verdieping: thickness=260 mm, span=21880 mm, required>=781 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):630507 (0$RIVnfCX8oAAtt7kUU_GW) @ 17 zeventiende verdieping: thickness=260 mm, span=21880 mm, required>=781 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_400 (C35/45):635493 (17Baw4hsj6$gEaZeMrBuRv) @ 01 eerste verdieping: thickness=400 mm, span=11490 mm, required>=410 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):651767 (1VfDhI82vB_v96ZFVMCU6u) @ 02 tweede verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):653106 (1Bvmyvx$j84gQmLAyuYHeQ) @ 03 derde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):653859 (0TQmjm8YDFp9iYyf2tNDzK) @ 04 vierde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):654777 (0TQmjm8YDFp9iYyf2tNDZE) @ 05 vijfde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):654808 (0TQmjm8YDFp9iYyf2tNDYl) @ 06 zesde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):655992 (0MqOlrJcvBJQL2Z5VGP_g4) @ 07 zevende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):656912 (0H2HeiUXfAvhHqh9G07Teo) @ 08 achtste verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):657702 (2dx7F5PdT4SPmaNh5ATeen) @ 09 negende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658708 (0wg1$hCMLDKvTPQst2hGty) @ 10 tiende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658736 (0wg1$hCMLDKvTPQst2hGtO) @ 11 elfde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658764 (0wg1$hCMLDKvTPQst2hGsa) @ 12 twaalfde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661248 (2_gHrixZfCzOg26Kf_5cOO) @ 13 dertiende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661276 (2_gHrixZfCzOg26Kf_5cO4) @ 14 veertiende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661304 (2_gHrixZfCzOg26Kf_5cOW) @ 15 vijftiende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/wbdg_office/wbdg_office_str_S3_slab_thickness.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Positive/wbdg_office/wbdg_office_str_S3_slab_thickness.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:64mm Concrete With 38mm Metal Deck:153041 (0OCKWbE5XClAxb7e2zYhgz)",
+          "storey": "Level 2",
+          "measured": "thickness=102 mm, span=49933 mm, required>=1783 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:127mm Slab on Grade:153025 (0OCKWbE5XClAxb7e2zYhgj)",
+          "storey": "Level 1",
+          "measured": "thickness=127 mm, span=49933 mm, required>=1783 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:161063 (2rIeV2mo5CHhZGv9WI3EzJ)",
+          "storey": "Roof",
+          "measured": "thickness=120 mm, span=49933 mm, required>=1783 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:160924 (1jmZpLgL1AP88fZDKuzEWR)",
+          "storey": "Roof",
+          "measured": "thickness=120 mm, span=49933 mm, required>=1783 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 4,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 6,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "4 of 6 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] Floor:64mm Concrete With 38mm Metal Deck:153041 (0OCKWbE5XClAxb7e2zYhgz) @ Level 2: thickness=102 mm, span=49933 mm, required>=1783 mm
+  - [slab_thickness_min] Floor:127mm Slab on Grade:153025 (0OCKWbE5XClAxb7e2zYhgj) @ Level 1: thickness=127 mm, span=49933 mm, required>=1783 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:161063 (2rIeV2mo5CHhZGv9WI3EzJ) @ Roof: thickness=120 mm, span=49933 mm, required>=1783 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:160924 (1jmZpLgL1AP88fZDKuzEWR) @ Roof: thickness=120 mm, span=49933 mm, required>=1783 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/west_riverside_hospital/west_riverside_hospital_str_S3_slab_thickness.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Positive/west_riverside_hospital/west_riverside_hospital_str_S3_slab_thickness.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:186254 (0e8pm26Tv5vPrj6zU55Mad)",
+          "storey": "Level 2",
+          "measured": "thickness=150 mm, span=98934 mm, required>=3533 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:186356 (0e8pm26Tv5vPrj6zU55MbT)",
+          "storey": "Level 3",
+          "measured": "thickness=150 mm, span=100827 mm, required>=3601 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:186370 (0e8pm26Tv5vPrj6zU55MQh)",
+          "storey": "Level 4",
+          "measured": "thickness=150 mm, span=97985 mm, required>=3499 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:186384 (0e8pm26Tv5vPrj6zU55MQv)",
+          "storey": "Level 5",
+          "measured": "thickness=150 mm, span=97822 mm, required>=3494 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:186398 (0e8pm26Tv5vPrj6zU55MQt)",
+          "storey": "Level 6",
+          "measured": "thickness=150 mm, span=87561 mm, required>=3127 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:Concrete-150 mm slab on 300mm base:186552 (0e8pm26Tv5vPrj6zU55MOH)",
+          "storey": "Level 1",
+          "measured": "thickness=450 mm, span=98567 mm, required>=3520 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:203304 (3Csn1z$1v5Q8DXdumWYJUE)",
+          "storey": "Level 7",
+          "measured": "thickness=120 mm, span=87598 mm, required>=3129 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:75mm Metal Roof Deck:256916 (25VG$Fj5jDzP7LbWNvGVA4)",
+          "storey": "Level 2 TOS",
+          "measured": "thickness=75 mm, span=27556 mm, required>=984 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:260580 (01QiYp4Bv6gOSNZBUav55O)",
+          "storey": "Level 7A",
+          "measured": "thickness=150 mm, span=32311 mm, required>=1154 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 9,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 11,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "9 of 11 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:186254 (0e8pm26Tv5vPrj6zU55Mad) @ Level 2: thickness=150 mm, span=98934 mm, required>=3533 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:186356 (0e8pm26Tv5vPrj6zU55MbT) @ Level 3: thickness=150 mm, span=100827 mm, required>=3601 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:186370 (0e8pm26Tv5vPrj6zU55MQh) @ Level 4: thickness=150 mm, span=97985 mm, required>=3499 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:186384 (0e8pm26Tv5vPrj6zU55MQv) @ Level 5: thickness=150 mm, span=97822 mm, required>=3494 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:186398 (0e8pm26Tv5vPrj6zU55MQt) @ Level 6: thickness=150 mm, span=87561 mm, required>=3127 mm
+  - [slab_thickness_min] Floor:Concrete-150 mm slab on 300mm base:186552 (0e8pm26Tv5vPrj6zU55MOH) @ Level 1: thickness=450 mm, span=98567 mm, required>=3520 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:203304 (3Csn1z$1v5Q8DXdumWYJUE) @ Level 7: thickness=120 mm, span=87598 mm, required>=3129 mm
+  - [slab_thickness_min] Floor:75mm Metal Roof Deck:256916 (25VG$Fj5jDzP7LbWNvGVA4) @ Level 2 TOS: thickness=75 mm, span=27556 mm, required>=984 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:260580 (01QiYp4Bv6gOSNZBUav55O) @ Level 7A: thickness=150 mm, span=32311 mm, required>=1154 mm
+
+
+####################################################################################################
+### NEGATIVE TEST CASES (baseline, no injection -> real pre-existing condition)
+####################################################################################################
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/dental_clinic/str.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Negative/dental_clinic/str.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:64mm Concrete With 38mm Metal Deck:164823 (3yX498NoH6cAogvPd4Mk$Y)",
+          "storey": "Second Floor",
+          "measured": "thickness=102 mm, span=47226 mm, required>=1687 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Slab on Grade:164090 (2XnCNfbvb5mfgxvK1MPFfM)",
+          "storey": "First Floor",
+          "measured": "thickness=150 mm, span=56372 mm, required>=2013 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Exterior Slab on Grade:240432 (1lGrrtZObD3BCuxBCd$E_H)",
+          "storey": "First Floor",
+          "measured": "thickness=150 mm, span=18716 mm, required>=668 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Slab on Grade:221475 (2lH_RQeBDBG8rH6PWO_5fC)",
+          "storey": "First Floor",
+          "measured": "thickness=150 mm, span=7971 mm, required>=285 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:64mm Concrete With 38mm Metal Deck:235649 (0EBxs8wY934BfjQnQnJP9Z)",
+          "storey": "Roof - Main",
+          "measured": "thickness=102 mm, span=10579 mm, required>=378 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:192693 (0VsgkmPnbAuO2d6$Acv6Id)",
+          "storey": "Second Floor",
+          "measured": "thickness=120 mm, span=9070 mm, required>=324 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234334 (1qmIE0AT530u6nHie7uwmF)",
+          "storey": "Roof - Main",
+          "measured": "thickness=120 mm, span=8927 mm, required>=319 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:190761 (22_kIllv127wWuzeSbBoPm)",
+          "storey": "Roof - Main",
+          "measured": "thickness=120 mm, span=47226 mm, required>=1687 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234248 (3R2xqSpSb6wxaYrNqlG$vR)",
+          "storey": "Roof - Main",
+          "measured": "thickness=120 mm, span=8927 mm, required>=319 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234050 (1qPR37XKvCSO5N6BiX3XUG)",
+          "storey": "Roof - Main",
+          "measured": "thickness=120 mm, span=15099 mm, required>=539 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234228 (30p3vwvQ9DnhwTF3lHIih8)",
+          "storey": "Roof - Main",
+          "measured": "thickness=120 mm, span=15099 mm, required>=539 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:192254 (2oJ$jhEMn3nhAqn0NbtYKu)",
+          "storey": "Second Floor",
+          "measured": "thickness=120 mm, span=56366 mm, required>=2013 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 12,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 13,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "12 of 13 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] Floor:64mm Concrete With 38mm Metal Deck:164823 (3yX498NoH6cAogvPd4Mk$Y) @ Second Floor: thickness=102 mm, span=47226 mm, required>=1687 mm
+  - [slab_thickness_min] Floor:150mm Slab on Grade:164090 (2XnCNfbvb5mfgxvK1MPFfM) @ First Floor: thickness=150 mm, span=56372 mm, required>=2013 mm
+  - [slab_thickness_min] Floor:150mm Exterior Slab on Grade:240432 (1lGrrtZObD3BCuxBCd$E_H) @ First Floor: thickness=150 mm, span=18716 mm, required>=668 mm
+  - [slab_thickness_min] Floor:150mm Slab on Grade:221475 (2lH_RQeBDBG8rH6PWO_5fC) @ First Floor: thickness=150 mm, span=7971 mm, required>=285 mm
+  - [slab_thickness_min] Floor:64mm Concrete With 38mm Metal Deck:235649 (0EBxs8wY934BfjQnQnJP9Z) @ Roof - Main: thickness=102 mm, span=10579 mm, required>=378 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:192693 (0VsgkmPnbAuO2d6$Acv6Id) @ Second Floor: thickness=120 mm, span=9070 mm, required>=324 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234334 (1qmIE0AT530u6nHie7uwmF) @ Roof - Main: thickness=120 mm, span=8927 mm, required>=319 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:190761 (22_kIllv127wWuzeSbBoPm) @ Roof - Main: thickness=120 mm, span=47226 mm, required>=1687 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234248 (3R2xqSpSb6wxaYrNqlG$vR) @ Roof - Main: thickness=120 mm, span=8927 mm, required>=319 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234050 (1qPR37XKvCSO5N6BiX3XUG) @ Roof - Main: thickness=120 mm, span=15099 mm, required>=539 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:234228 (30p3vwvQ9DnhwTF3lHIih8) @ Roof - Main: thickness=120 mm, span=15099 mm, required>=539 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:192254 (2oJ$jhEMn3nhAqn0NbtYKu) @ Second Floor: thickness=120 mm, span=56366 mm, required>=2013 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/schependomlaan/str_engineer.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Negative/schependomlaan/str_engineer.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):169028 (0eXPrOxTf4UhQHrOKpb9xJ)",
+          "storey": "1e Verdiepingvloer",
+          "measured": "thickness=380 mm, span=21300 mm, required>=761 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):185994 (1is8Uv8vP1wRSM1vfQv_oB)",
+          "storey": "3e Verdiepingsvloer",
+          "measured": "thickness=380 mm, span=16000 mm, required>=571 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):201310 (2FL1hVU$v8$gTpVEQfqgbz)",
+          "storey": "2e Verdiepingvloer",
+          "measured": "thickness=380 mm, span=16000 mm, required>=571 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_breedplaat_220mm_(C20/25):201819 (2FL1hVU$v8$gTpVEQfqgzu)",
+          "storey": "aanzicht dakvloer",
+          "measured": "thickness=220 mm, span=13240 mm, required>=473 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):303941 (1z4Od8M919Vwu_mHcP9nMW)",
+          "storey": "Bk fundering",
+          "measured": "thickness=250 mm, span=20680 mm, required>=739 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_systeemvloer_200mm:318282 (2HEf$AeUbB2QLvW2lPZjoB)",
+          "storey": "Begane grondvloer",
+          "measured": "thickness=200 mm, span=15800 mm, required>=564 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_systeemvloer_200mm:318282:2 (3PfN4yss12YwcAOmbRIGZ2)",
+          "storey": "Begane grondvloer",
+          "measured": "thickness=200 mm, span=15150 mm, required>=541 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:CL_23_systeemvloer_200mm:318282:3 (1cBVv4GLD6w8DdA5NozQpL)",
+          "storey": "Begane grondvloer",
+          "measured": "thickness=200 mm, span=15066 mm, required>=538 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:CL_27_zinken dak_200mm:476459 (1lZj5Q5zH18h0wiYNISvHT)",
+          "storey": "aanzicht dakvloer",
+          "measured": "thickness=200 mm, span=5984 mm, required>=214 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:CL_27_plat dak_245mm:481119 (07SbRFrHH0MO6TxL71tbgc)",
+          "storey": "aanzicht dakvloer",
+          "measured": "thickness=245 mm, span=13855 mm, required>=495 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):607002 (3sPEflO3n3dBAeeV778MUw)",
+          "storey": "Bk fundering",
+          "measured": "thickness=250 mm, span=15300 mm, required>=546 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):607002:2 (31XgSbjRj5Yvbt8YkDBHT6)",
+          "storey": "Bk fundering",
+          "measured": "thickness=250 mm, span=15436 mm, required>=551 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 12,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 29,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "12 of 29 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):169028 (0eXPrOxTf4UhQHrOKpb9xJ) @ 1e Verdiepingvloer: thickness=380 mm, span=21300 mm, required>=761 mm
+  - [slab_thickness_min] Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):185994 (1is8Uv8vP1wRSM1vfQv_oB) @ 3e Verdiepingsvloer: thickness=380 mm, span=16000 mm, required>=571 mm
+  - [slab_thickness_min] Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):201310 (2FL1hVU$v8$gTpVEQfqgbz) @ 2e Verdiepingvloer: thickness=380 mm, span=16000 mm, required>=571 mm
+  - [slab_thickness_min] Floor:CL_23_breedplaat_220mm_(C20/25):201819 (2FL1hVU$v8$gTpVEQfqgzu) @ aanzicht dakvloer: thickness=220 mm, span=13240 mm, required>=473 mm
+  - [slab_thickness_min] Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):303941 (1z4Od8M919Vwu_mHcP9nMW) @ Bk fundering: thickness=250 mm, span=20680 mm, required>=739 mm
+  - [slab_thickness_min] Floor:CL_23_systeemvloer_200mm:318282 (2HEf$AeUbB2QLvW2lPZjoB) @ Begane grondvloer: thickness=200 mm, span=15800 mm, required>=564 mm
+  - [slab_thickness_min] Floor:CL_23_systeemvloer_200mm:318282:2 (3PfN4yss12YwcAOmbRIGZ2) @ Begane grondvloer: thickness=200 mm, span=15150 mm, required>=541 mm
+  - [slab_thickness_min] Floor:CL_23_systeemvloer_200mm:318282:3 (1cBVv4GLD6w8DdA5NozQpL) @ Begane grondvloer: thickness=200 mm, span=15066 mm, required>=538 mm
+  - [slab_thickness_min] Basic Roof:CL_27_zinken dak_200mm:476459 (1lZj5Q5zH18h0wiYNISvHT) @ aanzicht dakvloer: thickness=200 mm, span=5984 mm, required>=214 mm
+  - [slab_thickness_min] Basic Roof:CL_27_plat dak_245mm:481119 (07SbRFrHH0MO6TxL71tbgc) @ aanzicht dakvloer: thickness=245 mm, span=13855 mm, required>=495 mm
+  - [slab_thickness_min] Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):607002 (3sPEflO3n3dBAeeV778MUw) @ Bk fundering: thickness=250 mm, span=15300 mm, required>=546 mm
+  - [slab_thickness_min] Foundation Slab:CL_16_funderingsplaat_250mm_(C20/25):607002:2 (31XgSbjRj5Yvbt8YkDBHT6) @ Bk fundering: thickness=250 mm, span=15436 mm, required>=551 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/schependomlaan/str_hollowcore_floors.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Negative/schependomlaan/str_hollowcore_floors.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000LY34qCZOnDJKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8182 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Lb34qCZOnDJKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8182 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Le34qCZOnDJKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8182 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Lh34qCZOnDJKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8182 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Lk34qCZOnDJKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8182 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000O634qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000O934qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OC34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OF34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OI34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OL34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OO34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OR34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000OU34qCZOnDJOo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Psp4qCZOnDJOq)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7976 mm, required>=285 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Pvp4qCZOnDJOq)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7976 mm, required>=285 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Svp4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000Syp4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000S$p4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000T2p4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000T5p4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000T8p4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000TBp4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=8166 mm, required>=292 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000TEp4qCZOnDJSn)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7946 mm, required>=284 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UNJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UQJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UTJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UWJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UZJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UcJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UfJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UiJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7346 mm, required>=262 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UnJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7346 mm, required>=262 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UqJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7346 mm, required>=262 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UtJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7346 mm, required>=262 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000UwJ4qCZOnDJSo)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7346 mm, required>=262 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000iHJ4qCZOnDJWq)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=5690 mm, required>=203 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L0K1q000n2Z4qCZOnDJWv)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7976 mm, required>=285 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "KANAALPLAAT (1L4cnC000VuJ4qCZSoDpKt)",
+          "storey": "Undefined",
+          "measured": "thickness=200 mm, span=7566 mm, required>=270 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 39,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 146,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "39 of 146 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000LY34qCZOnDJKt) @ Undefined: thickness=200 mm, span=8182 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Lb34qCZOnDJKt) @ Undefined: thickness=200 mm, span=8182 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Le34qCZOnDJKt) @ Undefined: thickness=200 mm, span=8182 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Lh34qCZOnDJKt) @ Undefined: thickness=200 mm, span=8182 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Lk34qCZOnDJKt) @ Undefined: thickness=200 mm, span=8182 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000O634qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000O934qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OC34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OF34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OI34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OL34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OO34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OR34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000OU34qCZOnDJOo) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Psp4qCZOnDJOq) @ Undefined: thickness=200 mm, span=7976 mm, required>=285 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Pvp4qCZOnDJOq) @ Undefined: thickness=200 mm, span=7976 mm, required>=285 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Svp4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000Syp4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000S$p4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000T2p4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000T5p4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000T8p4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000TBp4qCZOnDJSn) @ Undefined: thickness=200 mm, span=8166 mm, required>=292 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000TEp4qCZOnDJSn) @ Undefined: thickness=200 mm, span=7946 mm, required>=284 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UNJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UQJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UTJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UWJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UZJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UcJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UfJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UiJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7346 mm, required>=262 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UnJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7346 mm, required>=262 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UqJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7346 mm, required>=262 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UtJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7346 mm, required>=262 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000UwJ4qCZOnDJSo) @ Undefined: thickness=200 mm, span=7346 mm, required>=262 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000iHJ4qCZOnDJWq) @ Undefined: thickness=200 mm, span=5690 mm, required>=203 mm
+  - [slab_thickness_min] KANAALPLAAT (1L0K1q000n2Z4qCZOnDJWv) @ Undefined: thickness=200 mm, span=7976 mm, required>=285 mm
+  - [slab_thickness_min] KANAALPLAAT (1L4cnC000VuJ4qCZSoDpKt) @ Undefined: thickness=200 mm, span=7566 mm, required>=270 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/schependomlaan/str_steel.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Negative/schependomlaan/str_steel.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcSlab elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/sixty5/str.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Negative/sixty5/str.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_ge\u00efsoleerde kanaalplaatvloer_200:595438 (12jWe1_Rb2cR0ot5ICgwJd)",
+          "storey": "00 begane grond",
+          "measured": "thickness=340 mm, span=33340 mm, required>=1191 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_ge\u00efsoleerde kanaalplaatvloer_200:595438:2 (2AdmJesrX1hvCLMi34Jlkx)",
+          "storey": "00 begane grond",
+          "measured": "thickness=340 mm, span=21880 mm, required>=781 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C35/45):595508 (12jWe1_Rb2cR0ot5ICgwSz)",
+          "storey": "01 eerste verdieping",
+          "measured": "thickness=260 mm, span=45430 mm, required>=1622 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):604017 (1sQadmabDAXhmoypCqMSh9)",
+          "storey": "02 tweede verdieping",
+          "measured": "thickness=260 mm, span=45380 mm, required>=1621 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):605080 (0Lr_ZNonTAHfu3OvmrUO7P)",
+          "storey": "03 derde verdieping",
+          "measured": "thickness=260 mm, span=45380 mm, required>=1621 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):606154 (0Lr_ZNonTAHfu3OvmrUOMB)",
+          "storey": "04 vierde verdieping",
+          "measured": "thickness=260 mm, span=45380 mm, required>=1621 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):607315 (0Lr_ZNonTAHfu3OvmrUVuI)",
+          "storey": "05 vijfde verdieping",
+          "measured": "thickness=260 mm, span=45380 mm, required>=1621 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):608059 (0Lr_ZNonTAHfu3OvmrUVrw)",
+          "storey": "06 zesde verdieping",
+          "measured": "thickness=260 mm, span=45380 mm, required>=1621 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):608772 (0Lr_ZNonTAHfu3OvmrUV15)",
+          "storey": "07 zevende verdieping",
+          "measured": "thickness=260 mm, span=45249 mm, required>=1616 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):615173 (2q6JbPWZf08Pzpj_4wXbWx)",
+          "storey": "08 achtste verdieping",
+          "measured": "thickness=260 mm, span=41309 mm, required>=1475 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):616667 (1qVDfD5xzBSgJs_2S6zsft)",
+          "storey": "09 negende verdieping",
+          "measured": "thickness=260 mm, span=37561 mm, required>=1341 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):617934 (1UIEr2Og9FQeOC6qXfbpNi)",
+          "storey": "10 tiende verdieping",
+          "measured": "thickness=260 mm, span=33810 mm, required>=1207 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):619170 (1y5LKpzCz0ke0P87__dWQT)",
+          "storey": "11 elfde verdieping",
+          "measured": "thickness=260 mm, span=30065 mm, required>=1074 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):620623 (07ykdjoGLBROeD1VZtZeh9)",
+          "storey": "12 twaalfde verdieping",
+          "measured": "thickness=260 mm, span=26311 mm, required>=940 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):623000 (0H$FJYIhPAIRZLj8NgdkRD)",
+          "storey": "13 dertiende verdieping",
+          "measured": "thickness=260 mm, span=22561 mm, required>=806 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):623730 (0l_G9aYQ13bBQo16w$QfwR)",
+          "storey": "14 veertiende verdieping",
+          "measured": "thickness=260 mm, span=21880 mm, required>=781 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):625547 (0d9wMG5JL8XQfnLuhkcXZD)",
+          "storey": "15 vijftiende verdieping",
+          "measured": "thickness=260 mm, span=21880 mm, required>=781 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):629245 (0$RIVnfCX8oAAtt7kUU_Cs)",
+          "storey": "16 zestiende verdieping",
+          "measured": "thickness=260 mm, span=21880 mm, required>=781 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):630507 (0$RIVnfCX8oAAtt7kUU_GW)",
+          "storey": "17 zeventiende verdieping",
+          "measured": "thickness=260 mm, span=21880 mm, required>=781 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_400 (C35/45):635493 (17Baw4hsj6$gEaZeMrBuRv)",
+          "storey": "01 eerste verdieping",
+          "measured": "thickness=400 mm, span=11490 mm, required>=410 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):651767 (1VfDhI82vB_v96ZFVMCU6u)",
+          "storey": "02 tweede verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):653106 (1Bvmyvx$j84gQmLAyuYHeQ)",
+          "storey": "03 derde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):653859 (0TQmjm8YDFp9iYyf2tNDzK)",
+          "storey": "04 vierde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):654777 (0TQmjm8YDFp9iYyf2tNDZE)",
+          "storey": "05 vijfde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):654808 (0TQmjm8YDFp9iYyf2tNDYl)",
+          "storey": "06 zesde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):655992 (0MqOlrJcvBJQL2Z5VGP_g4)",
+          "storey": "07 zevende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):656912 (0H2HeiUXfAvhHqh9G07Teo)",
+          "storey": "08 achtste verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):657702 (2dx7F5PdT4SPmaNh5ATeen)",
+          "storey": "09 negende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658708 (0wg1$hCMLDKvTPQst2hGty)",
+          "storey": "10 tiende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658736 (0wg1$hCMLDKvTPQst2hGtO)",
+          "storey": "11 elfde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658764 (0wg1$hCMLDKvTPQst2hGsa)",
+          "storey": "12 twaalfde verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661248 (2_gHrixZfCzOg26Kf_5cOO)",
+          "storey": "13 dertiende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661276 (2_gHrixZfCzOg26Kf_5cO4)",
+          "storey": "14 veertiende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661304 (2_gHrixZfCzOg26Kf_5cOW)",
+          "storey": "15 vijftiende verdieping",
+          "measured": "thickness=260 mm, span=11202 mm, required>=400 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 34,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 70,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "34 of 70 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] Floor:23_FL_AT_geïsoleerde kanaalplaatvloer_200:595438 (12jWe1_Rb2cR0ot5ICgwJd) @ 00 begane grond: thickness=340 mm, span=33340 mm, required>=1191 mm
+  - [slab_thickness_min] Floor:23_FL_AT_geïsoleerde kanaalplaatvloer_200:595438:2 (2AdmJesrX1hvCLMi34Jlkx) @ 00 begane grond: thickness=340 mm, span=21880 mm, required>=781 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C35/45):595508 (12jWe1_Rb2cR0ot5ICgwSz) @ 01 eerste verdieping: thickness=260 mm, span=45430 mm, required>=1622 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):604017 (1sQadmabDAXhmoypCqMSh9) @ 02 tweede verdieping: thickness=260 mm, span=45380 mm, required>=1621 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):605080 (0Lr_ZNonTAHfu3OvmrUO7P) @ 03 derde verdieping: thickness=260 mm, span=45380 mm, required>=1621 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):606154 (0Lr_ZNonTAHfu3OvmrUOMB) @ 04 vierde verdieping: thickness=260 mm, span=45380 mm, required>=1621 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):607315 (0Lr_ZNonTAHfu3OvmrUVuI) @ 05 vijfde verdieping: thickness=260 mm, span=45380 mm, required>=1621 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):608059 (0Lr_ZNonTAHfu3OvmrUVrw) @ 06 zesde verdieping: thickness=260 mm, span=45380 mm, required>=1621 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):608772 (0Lr_ZNonTAHfu3OvmrUV15) @ 07 zevende verdieping: thickness=260 mm, span=45249 mm, required>=1616 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):615173 (2q6JbPWZf08Pzpj_4wXbWx) @ 08 achtste verdieping: thickness=260 mm, span=41309 mm, required>=1475 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):616667 (1qVDfD5xzBSgJs_2S6zsft) @ 09 negende verdieping: thickness=260 mm, span=37561 mm, required>=1341 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):617934 (1UIEr2Og9FQeOC6qXfbpNi) @ 10 tiende verdieping: thickness=260 mm, span=33810 mm, required>=1207 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):619170 (1y5LKpzCz0ke0P87__dWQT) @ 11 elfde verdieping: thickness=260 mm, span=30065 mm, required>=1074 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):620623 (07ykdjoGLBROeD1VZtZeh9) @ 12 twaalfde verdieping: thickness=260 mm, span=26311 mm, required>=940 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):623000 (0H$FJYIhPAIRZLj8NgdkRD) @ 13 dertiende verdieping: thickness=260 mm, span=22561 mm, required>=806 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):623730 (0l_G9aYQ13bBQo16w$QfwR) @ 14 veertiende verdieping: thickness=260 mm, span=21880 mm, required>=781 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):625547 (0d9wMG5JL8XQfnLuhkcXZD) @ 15 vijftiende verdieping: thickness=260 mm, span=21880 mm, required>=781 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):629245 (0$RIVnfCX8oAAtt7kUU_Cs) @ 16 zestiende verdieping: thickness=260 mm, span=21880 mm, required>=781 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):630507 (0$RIVnfCX8oAAtt7kUU_GW) @ 17 zeventiende verdieping: thickness=260 mm, span=21880 mm, required>=781 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_400 (C35/45):635493 (17Baw4hsj6$gEaZeMrBuRv) @ 01 eerste verdieping: thickness=400 mm, span=11490 mm, required>=410 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):651767 (1VfDhI82vB_v96ZFVMCU6u) @ 02 tweede verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):653106 (1Bvmyvx$j84gQmLAyuYHeQ) @ 03 derde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):653859 (0TQmjm8YDFp9iYyf2tNDzK) @ 04 vierde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):654777 (0TQmjm8YDFp9iYyf2tNDZE) @ 05 vijfde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):654808 (0TQmjm8YDFp9iYyf2tNDYl) @ 06 zesde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):655992 (0MqOlrJcvBJQL2Z5VGP_g4) @ 07 zevende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):656912 (0H2HeiUXfAvhHqh9G07Teo) @ 08 achtste verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):657702 (2dx7F5PdT4SPmaNh5ATeen) @ 09 negende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658708 (0wg1$hCMLDKvTPQst2hGty) @ 10 tiende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658736 (0wg1$hCMLDKvTPQst2hGtO) @ 11 elfde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):658764 (0wg1$hCMLDKvTPQst2hGsa) @ 12 twaalfde verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661248 (2_gHrixZfCzOg26Kf_5cOO) @ 13 dertiende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661276 (2_gHrixZfCzOg26Kf_5cO4) @ 14 veertiende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+  - [slab_thickness_min] Floor:23_FL_AT_breedplaatvloer_260 (C25/30):661304 (2_gHrixZfCzOg26Kf_5cOW) @ 15 vijftiende verdieping: thickness=260 mm, span=11202 mm, required>=400 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/wbdg_office/str.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Negative/wbdg_office/str.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:64mm Concrete With 38mm Metal Deck:153041 (0OCKWbE5XClAxb7e2zYhgz)",
+          "storey": "Level 2",
+          "measured": "thickness=102 mm, span=49933 mm, required>=1783 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:127mm Slab on Grade:153025 (0OCKWbE5XClAxb7e2zYhgj)",
+          "storey": "Level 1",
+          "measured": "thickness=127 mm, span=49933 mm, required>=1783 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:161063 (2rIeV2mo5CHhZGv9WI3EzJ)",
+          "storey": "Roof",
+          "measured": "thickness=120 mm, span=49933 mm, required>=1783 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:160924 (1jmZpLgL1AP88fZDKuzEWR)",
+          "storey": "Roof",
+          "measured": "thickness=120 mm, span=49933 mm, required>=1783 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 4,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 6,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "4 of 6 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] Floor:64mm Concrete With 38mm Metal Deck:153041 (0OCKWbE5XClAxb7e2zYhgz) @ Level 2: thickness=102 mm, span=49933 mm, required>=1783 mm
+  - [slab_thickness_min] Floor:127mm Slab on Grade:153025 (0OCKWbE5XClAxb7e2zYhgj) @ Level 1: thickness=127 mm, span=49933 mm, required>=1783 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:161063 (2rIeV2mo5CHhZGv9WI3EzJ) @ Roof: thickness=120 mm, span=49933 mm, required>=1783 mm
+  - [slab_thickness_min] Basic Roof:EPDM Membrane on Rigid Insul on Metal Deck:160924 (1jmZpLgL1AP88fZDKuzEWR) @ Roof: thickness=120 mm, span=49933 mm, required>=1783 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/west_riverside_hospital/str.ifc
+COMMAND  : python check_s3_slab_thickness.py test_download_struct/Negative/west_riverside_hospital/str.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:186254 (0e8pm26Tv5vPrj6zU55Mad)",
+          "storey": "Level 2",
+          "measured": "thickness=150 mm, span=98934 mm, required>=3533 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:186356 (0e8pm26Tv5vPrj6zU55MbT)",
+          "storey": "Level 3",
+          "measured": "thickness=150 mm, span=100827 mm, required>=3601 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:186370 (0e8pm26Tv5vPrj6zU55MQh)",
+          "storey": "Level 4",
+          "measured": "thickness=150 mm, span=97985 mm, required>=3499 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:186384 (0e8pm26Tv5vPrj6zU55MQv)",
+          "storey": "Level 5",
+          "measured": "thickness=150 mm, span=97822 mm, required>=3494 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:186398 (0e8pm26Tv5vPrj6zU55MQt)",
+          "storey": "Level 6",
+          "measured": "thickness=150 mm, span=87561 mm, required>=3127 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:Concrete-150 mm slab on 300mm base:186552 (0e8pm26Tv5vPrj6zU55MOH)",
+          "storey": "Level 1",
+          "measured": "thickness=450 mm, span=98567 mm, required>=3520 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:203304 (3Csn1z$1v5Q8DXdumWYJUE)",
+          "storey": "Level 7",
+          "measured": "thickness=150 mm, span=87598 mm, required>=3129 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:75mm Metal Roof Deck:256916 (25VG$Fj5jDzP7LbWNvGVA4)",
+          "storey": "Level 2 TOS",
+          "measured": "thickness=75 mm, span=27556 mm, required>=984 mm"
+        }
+      ]
+    },
+    {
+      "condition": "slab_thickness_min",
+      "description": "Slab thickness is below the minimum required for its span.",
+      "rule_ref": "ACI 318 Table 7.3.1.1 (BNBC 2020 Ch.8 slab-thickness analogue)",
+      "threshold": ">= max(100 mm, span/28)",
+      "locations": [
+        {
+          "element": "Floor:150mm Concrete With 75mm Metal Deck:260580 (01QiYp4Bv6gOSNZBUav55O)",
+          "storey": "Level 7A",
+          "measured": "thickness=150 mm, span=32311 mm, required>=1154 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 9,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "slab_thickness_min": {
+      "elements_checked": 11,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "9 of 11 checked slab(s) are thinner than the required minimum."
+}
+
+Verdict: FAIL
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:186254 (0e8pm26Tv5vPrj6zU55Mad) @ Level 2: thickness=150 mm, span=98934 mm, required>=3533 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:186356 (0e8pm26Tv5vPrj6zU55MbT) @ Level 3: thickness=150 mm, span=100827 mm, required>=3601 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:186370 (0e8pm26Tv5vPrj6zU55MQh) @ Level 4: thickness=150 mm, span=97985 mm, required>=3499 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:186384 (0e8pm26Tv5vPrj6zU55MQv) @ Level 5: thickness=150 mm, span=97822 mm, required>=3494 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:186398 (0e8pm26Tv5vPrj6zU55MQt) @ Level 6: thickness=150 mm, span=87561 mm, required>=3127 mm
+  - [slab_thickness_min] Floor:Concrete-150 mm slab on 300mm base:186552 (0e8pm26Tv5vPrj6zU55MOH) @ Level 1: thickness=450 mm, span=98567 mm, required>=3520 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:203304 (3Csn1z$1v5Q8DXdumWYJUE) @ Level 7: thickness=150 mm, span=87598 mm, required>=3129 mm
+  - [slab_thickness_min] Floor:75mm Metal Roof Deck:256916 (25VG$Fj5jDzP7LbWNvGVA4) @ Level 2 TOS: thickness=75 mm, span=27556 mm, required>=984 mm
+  - [slab_thickness_min] Floor:150mm Concrete With 75mm Metal Deck:260580 (01QiYp4Bv6gOSNZBUav55O) @ Level 7A: thickness=150 mm, span=32311 mm, required>=1154 mm
+
+
+####################################################################################################
+### SUMMARY - Rule S3 (Slab thickness)
+####################################################################################################
+
+CATEGORY   VERDICT    FILE
+POSITIVE   FAIL       test_download_struct/Positive/dental_clinic/dental_clinic_str_S3_slab_thickness.ifc
+POSITIVE   FAIL       test_download_struct/Positive/schependomlaan/schependomlaan_str_engineer_S3_slab_thickness.ifc
+POSITIVE   FAIL       test_download_struct/Positive/schependomlaan/schependomlaan_str_hollowcore_floors_S3_slab_thickness.ifc
+POSITIVE   FAIL       test_download_struct/Positive/sixty5/sixty5_str_S3_slab_thickness.ifc
+POSITIVE   FAIL       test_download_struct/Positive/wbdg_office/wbdg_office_str_S3_slab_thickness.ifc
+POSITIVE   FAIL       test_download_struct/Positive/west_riverside_hospital/west_riverside_hospital_str_S3_slab_thickness.ifc
+NEGATIVE   FAIL       test_download_struct/Negative/dental_clinic/str.ifc
+NEGATIVE   FAIL       test_download_struct/Negative/schependomlaan/str_engineer.ifc
+NEGATIVE   FAIL       test_download_struct/Negative/schependomlaan/str_hollowcore_floors.ifc
+NEGATIVE   NOT_APPLICABLE test_download_struct/Negative/schependomlaan/str_steel.ifc
+NEGATIVE   FAIL       test_download_struct/Negative/sixty5/str.ifc
+NEGATIVE   FAIL       test_download_struct/Negative/wbdg_office/str.ifc
+NEGATIVE   FAIL       test_download_struct/Negative/west_riverside_hospital/str.ifc

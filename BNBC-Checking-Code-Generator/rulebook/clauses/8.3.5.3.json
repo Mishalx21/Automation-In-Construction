@@ -1,0 +1,19 @@
+{
+  "section_id": "8.3.5.3",
+  "title": "Longitudinal reinforcement",
+  "page": 35,
+  "clauses": [
+    {
+      "clause_id": "8.3.5.3(SMF)",
+      "text": "For longitudinal reinforcement in Special Moment Frames (SMF), the reinforcement ratio, ρ_g, shall not be less than 0.01 and shall not exceed 0.06.",
+      "notes": "Longitudinal reinforcement - Steel bars placed along the length of a structural member to resist bending and axial forces.\nρ_g (reinforcement ratio) - (total cross-sectional area of longitudinal reinforcement)/ (gross cross-sectional area of the member).\nSMF - Special Moment Frame, a seismic-force-resisting structural system.\n\nThe minimum permissible limit of long rebar in a column is 1%\nThe maximum permissible limit of long rebar in a column is 6%",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 35
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "rule_id": "8.3.5.1",
+  "title": "Scope and minimum dimensions of special moment frame columns",
+  "source_clauses": [
+    "8.3.5.1(a)"
+  ],
+  "statement": "The requirements of rule 8.3.5.1 shall apply to columns and other frame members serving to resist earthquake forces and having a factored axial force exceeding 0.1 × Ag × f'c. The shortest cross-sectional dimension of a frame member subject to rule 8.3.5.1 shall not be less than 300 mm. The ratio of the shortest cross-sectional dimension to the perpendicular dimension of a frame member subject to rule 8.3.5.1 shall not be less than 0.4.",
+  "scope_note": "Covers clause (a): which columns the section applies to, and their minimum cross-sectional dimensions.",
+  "references": {},
+  "terms": [
+    "factored_axial_force",
+    "ag",
+    "f_c",
+    "columns",
+    "frame_members",
+    "shortest_cross_sectional_dimension",
+    "frame_member",
+    "perpendicular_dimension",
+    "ratio"
+  ]
+}

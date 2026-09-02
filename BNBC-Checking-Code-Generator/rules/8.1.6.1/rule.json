@@ -1,0 +1,14 @@
+{
+  "rule_id": "8.1.6.1",
+  "title": "Minimum clear spacing between parallel bars in a layer",
+  "source_clauses": [
+    "8.1.6.1"
+  ],
+  "statement": "The minimum clear spacing between parallel bars in a layer shall be equal to one bar diameter, but not less than 25 mm, or 1.33 times of maximum nominal size of coarse aggregate, whichever is larger.",
+  "scope_note": "",
+  "references": {},
+  "terms": [
+    "clear_spacing",
+    "maximum_nominal_size_of_coarse_aggregate"
+  ]
+}

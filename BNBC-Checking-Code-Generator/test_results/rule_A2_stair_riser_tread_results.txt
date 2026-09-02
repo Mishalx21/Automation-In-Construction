@@ -1,0 +1,517 @@
+ARCHITECTURAL RULE 2 (A2) - Stair riser and tread
+Checker: rule-2.Stair_riser_tread/check_a2_stair_riser_tread.py
+====================================================================================================
+
+####################################################################################################
+### POSITIVE TEST CASES (injected A2 violation expected -> verdict should be FAIL)
+####################################################################################################
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download/Archi_Test_cases/Positive/dental_clinic/dental_clinic_A2_stair_riser_height.ifc
+COMMAND  : python check_a2_stair_riser_tread.py test_download/Archi_Test_cases/Positive/dental_clinic/dental_clinic_A2_stair_riser_height.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:221039:1 (09Eh99qNP7cx7E8HsVBkZD)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:221039:2 (2WWhBASrbFDewMXv_ETBWF)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:250693:1 (33Cz6csc5FFxencoHrRTRc)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:250693:2 (1Qj_TeRaL3sQOJS_Vp7NV9)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:251180:1 (1KxPBY$LnB1RgPYBOJi93N)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:251180:2 (2FCboZIL5Ayu2zKs7z$f2_)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 6,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "stair_riser_max_height": {
+      "elements_checked": 6,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    },
+    "stair_tread_min_depth": {
+      "elements_checked": 6,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "6 stair-flight condition(s) violate riser/tread limits."
+}
+
+Verdict: FAIL
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:221039:1 (09Eh99qNP7cx7E8HsVBkZD) @ First Floor: riser=576.7 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:221039:2 (2WWhBASrbFDewMXv_ETBWF) @ First Floor: riser=576.7 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:250693:1 (33Cz6csc5FFxencoHrRTRc) @ First Floor: riser=576.7 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:250693:2 (1Qj_TeRaL3sQOJS_Vp7NV9) @ First Floor: riser=576.7 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:251180:1 (1KxPBY$LnB1RgPYBOJi93N) @ First Floor: riser=576.7 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:251180:2 (2FCboZIL5Ayu2zKs7z$f2_) @ First Floor: riser=576.7 mm, required<=178 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download/Archi_Test_cases/Positive/schependomlaan/schependomlaan_A2_stair_riser_height.ifc
+COMMAND  : python check_a2_stair_riser_tread.py test_download/Archi_Test_cases/Positive/schependomlaan/schependomlaan_A2_stair_riser_height.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcStairFlight elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download/Archi_Test_cases/Positive/sixty5/sixty5_A2_stair_riser_height.ifc
+COMMAND  : python check_a2_stair_riser_tread.py test_download/Archi_Test_cases/Positive/sixty5/sixty5_A2_stair_riser_height.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcStairFlight elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download/Archi_Test_cases/Positive/wbdg_office/wbdg_office_A2_stair_riser_height.ifc
+COMMAND  : python check_a2_stair_riser_tread.py test_download/Archi_Test_cases/Positive/wbdg_office/wbdg_office_A2_stair_riser_height.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:235743:2 (2HN9GRW9T98ur1qfbY8lFw)",
+          "storey": "Level 1",
+          "measured": "riser=583.3 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:235743:1 (2bmLj5JAf7Deb02lDSE1Tp)",
+          "storey": "Level 1",
+          "measured": "riser=583.3 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:233637:1 (1e6zSM7avEdvGXGpOMSgq5)",
+          "storey": "Level 1",
+          "measured": "riser=583.3 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:233637:2 (0kbkfXZr1FEw7asXXm6_SC)",
+          "storey": "Level 1",
+          "measured": "riser=583.3 mm, required<=178 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 4,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "stair_riser_max_height": {
+      "elements_checked": 4,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    },
+    "stair_tread_min_depth": {
+      "elements_checked": 4,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "4 stair-flight condition(s) violate riser/tread limits."
+}
+
+Verdict: FAIL
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:235743:2 (2HN9GRW9T98ur1qfbY8lFw) @ Level 1: riser=583.3 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:235743:1 (2bmLj5JAf7Deb02lDSE1Tp) @ Level 1: riser=583.3 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:233637:1 (1e6zSM7avEdvGXGpOMSgq5) @ Level 1: riser=583.3 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:233637:2 (0kbkfXZr1FEw7asXXm6_SC) @ Level 1: riser=583.3 mm, required<=178 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download/Archi_Test_cases/Positive/west_riverside_hospital/west_riverside_hospital_A2_stair_riser_height.ifc
+COMMAND  : python check_a2_stair_riser_tread.py test_download/Archi_Test_cases/Positive/west_riverside_hospital/west_riverside_hospital_A2_stair_riser_height.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcStairFlight elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+
+####################################################################################################
+### NEGATIVE TEST CASES (baseline, no injection -> real pre-existing condition)
+####################################################################################################
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download/Archi_Test_cases/Negative/dental_clinic/arc.ifc
+COMMAND  : python check_a2_stair_riser_tread.py test_download/Archi_Test_cases/Negative/dental_clinic/arc.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:221039:1 (09Eh99qNP7cx7E8HsVBkZD)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:221039:2 (2WWhBASrbFDewMXv_ETBWF)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:250693:1 (33Cz6csc5FFxencoHrRTRc)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:250693:2 (1Qj_TeRaL3sQOJS_Vp7NV9)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:251180:1 (1KxPBY$LnB1RgPYBOJi93N)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:251180:2 (2FCboZIL5Ayu2zKs7z$f2_)",
+          "storey": "First Floor",
+          "measured": "riser=576.7 mm, required<=178 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 6,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "stair_riser_max_height": {
+      "elements_checked": 6,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    },
+    "stair_tread_min_depth": {
+      "elements_checked": 6,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "6 stair-flight condition(s) violate riser/tread limits."
+}
+
+Verdict: FAIL
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:221039:1 (09Eh99qNP7cx7E8HsVBkZD) @ First Floor: riser=576.7 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:221039:2 (2WWhBASrbFDewMXv_ETBWF) @ First Floor: riser=576.7 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:250693:1 (33Cz6csc5FFxencoHrRTRc) @ First Floor: riser=576.7 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:250693:2 (1Qj_TeRaL3sQOJS_Vp7NV9) @ First Floor: riser=576.7 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:251180:1 (1KxPBY$LnB1RgPYBOJi93N) @ First Floor: riser=576.7 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:251180:2 (2FCboZIL5Ayu2zKs7z$f2_) @ First Floor: riser=576.7 mm, required<=178 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download/Archi_Test_cases/Negative/schependomlaan/arc_design.ifc
+COMMAND  : python check_a2_stair_riser_tread.py test_download/Archi_Test_cases/Negative/schependomlaan/arc_design.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcStairFlight elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download/Archi_Test_cases/Negative/sixty5/arc.ifc
+COMMAND  : python check_a2_stair_riser_tread.py test_download/Archi_Test_cases/Negative/sixty5/arc.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcStairFlight elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download/Archi_Test_cases/Negative/wbdg_office/arc.ifc
+COMMAND  : python check_a2_stair_riser_tread.py test_download/Archi_Test_cases/Negative/wbdg_office/arc.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:235743:2 (2HN9GRW9T98ur1qfbY8lFw)",
+          "storey": "Level 1",
+          "measured": "riser=583.3 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:235743:1 (2bmLj5JAf7Deb02lDSE1Tp)",
+          "storey": "Level 1",
+          "measured": "riser=583.3 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:233637:1 (1e6zSM7avEdvGXGpOMSgq5)",
+          "storey": "Level 1",
+          "measured": "riser=583.3 mm, required<=178 mm"
+        }
+      ]
+    },
+    {
+      "condition": "stair_riser_max_height",
+      "description": "Stair riser height exceeds the maximum allowed.",
+      "rule_ref": "IBC 1011.5.2 (BNBC 2020 Ch.8 stair-geometry analogue)",
+      "threshold": "<= 178 mm",
+      "locations": [
+        {
+          "element": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:233637:2 (0kbkfXZr1FEw7asXXm6_SC)",
+          "storey": "Level 1",
+          "measured": "riser=583.3 mm, required<=178 mm"
+        }
+      ]
+    }
+  ],
+  "violation_count": 4,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "stair_riser_max_height": {
+      "elements_checked": 4,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    },
+    "stair_tread_min_depth": {
+      "elements_checked": 4,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "4 stair-flight condition(s) violate riser/tread limits."
+}
+
+Verdict: FAIL
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:235743:2 (2HN9GRW9T98ur1qfbY8lFw) @ Level 1: riser=583.3 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:235743:1 (2bmLj5JAf7Deb02lDSE1Tp) @ Level 1: riser=583.3 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:233637:1 (1e6zSM7avEdvGXGpOMSgq5) @ Level 1: riser=583.3 mm, required<=178 mm
+  - [stair_riser_max_height] Stair:Concrete Pan - 180mm Max Riser 280mm Tread:233637:2 (0kbkfXZr1FEw7asXXm6_SC) @ Level 1: riser=583.3 mm, required<=178 mm
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download/Archi_Test_cases/Negative/west_riverside_hospital/arc.ifc
+COMMAND  : python check_a2_stair_riser_tread.py test_download/Archi_Test_cases/Negative/west_riverside_hospital/arc.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcStairFlight elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+
+####################################################################################################
+### SUMMARY - Rule A2 (Stair riser/tread)
+####################################################################################################
+
+CATEGORY   VERDICT    FILE
+POSITIVE   FAIL       test_download/Archi_Test_cases/Positive/dental_clinic/dental_clinic_A2_stair_riser_height.ifc
+POSITIVE   NOT_APPLICABLE test_download/Archi_Test_cases/Positive/schependomlaan/schependomlaan_A2_stair_riser_height.ifc
+POSITIVE   NOT_APPLICABLE test_download/Archi_Test_cases/Positive/sixty5/sixty5_A2_stair_riser_height.ifc
+POSITIVE   FAIL       test_download/Archi_Test_cases/Positive/wbdg_office/wbdg_office_A2_stair_riser_height.ifc
+POSITIVE   NOT_APPLICABLE test_download/Archi_Test_cases/Positive/west_riverside_hospital/west_riverside_hospital_A2_stair_riser_height.ifc
+NEGATIVE   FAIL       test_download/Archi_Test_cases/Negative/dental_clinic/arc.ifc
+NEGATIVE   NOT_APPLICABLE test_download/Archi_Test_cases/Negative/schependomlaan/arc_design.ifc
+NEGATIVE   NOT_APPLICABLE test_download/Archi_Test_cases/Negative/sixty5/arc.ifc
+NEGATIVE   FAIL       test_download/Archi_Test_cases/Negative/wbdg_office/arc.ifc
+NEGATIVE   NOT_APPLICABLE test_download/Archi_Test_cases/Negative/west_riverside_hospital/arc.ifc

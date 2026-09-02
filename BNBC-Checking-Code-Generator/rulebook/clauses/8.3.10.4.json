@@ -1,0 +1,43 @@
+{
+  "section_id": "8.3.10.4",
+  "title": "Beams",
+  "page": 53,
+  "clauses": [
+    {
+      "clause_id": "8.3.10.4(a)",
+      "text": "(a) For beams in intermediate moment frames, the positive moment strength at the face of the joint shall not be less than one-third the negative moment strength provided at that face. Neither the negative nor positive moment strength at any section along the length of the member shall be less than one-fifth of the maximum moment strength provided at the face of either joint.",
+      "notes": "Positive moment strength - The flexural capacity of the beam cross-section when the bottom fiber is in tension.\nNegative moment strength - The flexural capacity of the beam cross-section when the top fiber is in tension.\nFace of the joint - The interface between the beam end and the supporting member (column or wall).\nMoment strength - The nominal or design flexural resistance at a given cross-section.\nMember length - The full span of the beam between supporting joints.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 53
+    },
+    {
+      "clause_id": "8.3.10.4(b)",
+      "text": "(b) For beams in intermediate moment frames, at both ends of the member, stirrups shall be provided over lengths equal to twice the member depth measured from the face of the supporting member toward midspan. The first stirrup shall be located not more than 50 mm from the face of the supporting member. Maximum stirrup spacing in these zones shall not exceed the least of: (a) d/4, (b) 8 times the diameter of the smallest longitudinal bar enclosed, (c) 24 times the diameter of the stirrup bar, and (d) 300 mm.",
+      "notes": "Stirrups - Transverse reinforcement bars placed perpendicular to the longitudinal axis of the beam\nMember depth - The overall cross-sectional depth of the beam.\nFace of the supporting member - The surface of the column or wall at the beam end where the beam frames in.\nd - The effective depth of the beam",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 53
+    },
+    {
+      "clause_id": "8.3.10.4(c)",
+      "text": "(c) For beams in intermediate moment frames, stirrups shall be placed at not more than d/2 throughout the length of the member.",
+      "notes": "Stirrups - Transverse reinforcement bars placed perpendicular to the longitudinal axis of the beam to resist shear.\nd - The effective depth of the beam, measured from the extreme compression fiber to the centroid of the longitudinal tension reinforcement.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 53
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+Retrieving folder contents
+Retrieving folder contents completed
+Building directory structure
+Building directory structure completed
+Skipping already downloaded file test_download\Archi_Test_cases\Negative\dental_clinic\arc.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Negative\schependomlaan\arc_design.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Negative\sixty5\arc.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Negative\wbdg_office\arc.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Negative\west_riverside_hospital\arc.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\dental_clinic\dental_clinic_A1_egress_door_width.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\dental_clinic\dental_clinic_A2_stair_riser_height.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\dental_clinic\dental_clinic_A3_fire_rating.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\dental_clinic\dental_clinic_A4_door_maneuvering_clearance.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\dental_clinic\dental_clinic_A5_dead_end_corridor.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\schependomlaan\schependomlaan_A1_egress_door_width.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\schependomlaan\schependomlaan_A2_stair_riser_height.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\schependomlaan\schependomlaan_A3_fire_rating.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\schependomlaan\schependomlaan_A4_door_maneuvering_clearance.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\schependomlaan\schependomlaan_A5_dead_end_corridor.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\sixty5\sixty5_A1_egress_door_width.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\sixty5\sixty5_A2_stair_riser_height.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\sixty5\sixty5_A3_fire_rating.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\sixty5\sixty5_A4_door_maneuvering_clearance.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\wbdg_office\wbdg_office_A1_egress_door_width.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\wbdg_office\wbdg_office_A2_stair_riser_height.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\wbdg_office\wbdg_office_A3_fire_rating.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\wbdg_office\wbdg_office_A4_door_maneuvering_clearance.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\wbdg_office\wbdg_office_A5_dead_end_corridor.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\west_riverside_hospital\west_riverside_hospital_A1_egress_door_width.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\west_riverside_hospital\west_riverside_hospital_A2_stair_riser_height.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\west_riverside_hospital\west_riverside_hospital_A3_fire_rating.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive\west_riverside_hospital\west_riverside_hospital_A4_door_maneuvering_clearance.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive_Multi\dental_clinic\dental_clinic_arc_MULTI_A1-A3-A5.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive_Multi\schependomlaan\schependomlaan_arc_design_MULTI_A2-A4-A5.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive_Multi\sixty5\sixty5_arc_MULTI_A1-A2-A4.ifc
+Skipping already downloaded file test_download\Archi_Test_cases\Positive_Multi\wbdg_office\wbdg_office_arc_MULTI_A2-A4.ifc
+Downloading...
+From: https://drive.google.com/uc?id=1OxLRiA_TrJnWwinYOVvFeW6DflzCR79Z
+To: C:\Users\Hp\Downloads\BNBC-Checking-Code-Generator-20260817T154214Z-1-001\BNBC-Checking-Code-Generator\test_download\Archi_Test_cases\Positive_Multi\west_riverside_hospital\west_riverside_hospital_arc_MULTI_A1-A2-A3-A4.ifc
+Retrieving folder 1LuS0U0UWW9GN2uZr367ixYF8I5T7dvt4 Archi_Test_cases
+Retrieving folder 1EoUGfWyKP3GKsMAXZaBJC-YPGdsU5Zeg Negative
+Retrieving folder 14HRinnS7LKxpWcJNRNxofQx-pgi58djF dental_clinic
+Processing file 1pvBjFeklKF8vYFOPA7ktQ8OxlX6mibEz arc.ifc
+Retrieving folder 1nlloIwc4wvhZUTwAIQPDlPQSQ832ur4n schependomlaan
+Processing file 1HmRj9vddbdXsCpKd-rN-Jrc_r1ZDD9YH arc_design.ifc
+Retrieving folder 1VZlbhfFMdGZB2p9LbLzWHSY32evVPtxa sixty5
+Processing file 1NtxKnD2DN3AmPSa4tMJth48ckgIfl5Md arc.ifc
+Retrieving folder 1X8bJExK4_c4A7E5oqBLwOse8pwW8iAxZ wbdg_office
+Processing file 1chdzyCPn48-Rp9dOE67YkXAH3EtwGkBT arc.ifc
+Retrieving folder 1oIijzuw8xwfa0cJ4elcRaZo86vBPNdWC west_riverside_hospital
+Processing file 1yVdKpjdZgU9HuGv0R5fEE7GRZROJQfJy arc.ifc
+Retrieving folder 1qQfcNADh-bzqX_NxKdMiAQQG4oC6tHu8 Positive
+Retrieving folder 1xAV9QLcBUCZK3Fza1Uc0RzSGABCy6ZOm dental_clinic
+Processing file 15ItJK7iNX5ux6JAO3ASXLBjYFz8c4dc0 dental_clinic_A1_egress_door_width.ifc
+Processing file 1qNUoDZ_htxQC-riVIeh_JOIUp9vmYVly dental_clinic_A2_stair_riser_height.ifc
+Processing file 1poJeQvUcNJ8AOPl4DWu6az7u9-6pacLB dental_clinic_A3_fire_rating.ifc
+Processing file 1szY9qWvTCasrZIozG-dHCdpERg9orJaF dental_clinic_A4_door_maneuvering_clearance.ifc
+Processing file 1fim2w_621r1oaO3QL8ZGH8ogdIuKBN20 dental_clinic_A5_dead_end_corridor.ifc
+Retrieving folder 101kjzpEuw3wZZRg6jCa6GdJMcfR9Bbyl schependomlaan
+Processing file 1XPNy-UXPcimNiwU06X77EsXEjKIorPq4 schependomlaan_A1_egress_door_width.ifc
+Processing file 1-cBkYuoynxP-EyDQFM6aDW-QeTvSpohn schependomlaan_A2_stair_riser_height.ifc
+Processing file 1GNnpFNWMij7auT89xPLx2uB-u9mbH53I schependomlaan_A3_fire_rating.ifc
+Processing file 1Ix6xb9N7FUuildZAFnyTWWJpKB4kwrRm schependomlaan_A4_door_maneuvering_clearance.ifc
+Processing file 143ITVYHqdn2wvS1o6hQXkv54jlWBS98d schependomlaan_A5_dead_end_corridor.ifc
+Retrieving folder 1vGSp_eLn1biF_msO-Ts8fTuyogJ7vj7h sixty5
+Processing file 1TVUbZs77Mlos5qmW_tLmri5O1uY1CWcY sixty5_A1_egress_door_width.ifc
+Processing file 1JVZig9wRnlxTldIcy6YXy8yEYbm8-J_b sixty5_A2_stair_riser_height.ifc
+Processing file 1U3HkDgQ_ZCY-jHTumAxrUp7p4_NryEsb sixty5_A3_fire_rating.ifc
+Processing file 1TcMhWRc3aac-80zQfA-i3lA1DimB1OGE sixty5_A4_door_maneuvering_clearance.ifc
+Retrieving folder 14bOdMsid1_z_cW-a8rzxQQAC2AnIxyX4 wbdg_office
+Processing file 1h3-tXFsBovdjFwYhK1qB1yPUbKh4dLWR wbdg_office_A1_egress_door_width.ifc
+Processing file 1XVBRHwxgUg35vNAI0-9i71YZE92BA8vm wbdg_office_A2_stair_riser_height.ifc
+Processing file 1nDiutZdQJheQ5I-NdGQ11c7vXj-CYWiP wbdg_office_A3_fire_rating.ifc
+Processing file 1sjQEl66Sw38tL-U_YL7dine1sfF8sJ4k wbdg_office_A4_door_maneuvering_clearance.ifc
+Processing file 1a04xm9Y9_guWy4DcZjy9rKNWX6kt16sq wbdg_office_A5_dead_end_corridor.ifc
+Retrieving folder 1x9OIUOAiHuB2PCyA_PZjwwQ6gSBkccng west_riverside_hospital
+Processing file 1WUpkeldCEL6JfC5yUZaSVBn2HP7xoN7J west_riverside_hospital_A1_egress_door_width.ifc
+Processing file 1v9z7b4fsuugIsvB6J3elkOUEEAC3E0oz west_riverside_hospital_A2_stair_riser_height.ifc
+Processing file 1Odkatdlm5oWHaUJqwmMjCt_3i6XO5jJF west_riverside_hospital_A3_fire_rating.ifc
+Processing file 1hyHVq1BNPPGPY7oSqsVfhbGZOADg2qtv west_riverside_hospital_A4_door_maneuvering_clearance.ifc
+Retrieving folder 1vw6BEQr8eO2UH6qT1H9vNQwgjnWNCgcl Positive_Multi
+Retrieving folder 1MHZXkpQFAheKNCDMw_LFPkJAsIcdT_vi dental_clinic
+Processing file 1X0T8NMsMHUR1N9KbiEbq3qiVTbb8RHq1 dental_clinic_arc_MULTI_A1-A3-A5.ifc
+Retrieving folder 1LUomrYYj8_tFJWglBtI1rBFHVFEdondD schependomlaan
+Processing file 149sIcOjqcdvekwDjCnqLEmhzM6cZUWXh schependomlaan_arc_design_MULTI_A2-A4-A5.ifc
+Retrieving folder 15AQtprjo7HMpj3z3Bjuq1r1KrYSk00Bk sixty5
+Processing file 1ijXdqUs2F3JZYzSOCjln4qqkaiFzkaMg sixty5_arc_MULTI_A1-A2-A4.ifc
+Retrieving folder 1gHB3ha86lW299x_Neoh6Rwtqs8miLZyg wbdg_office
+Processing file 10YRsXwmh3f_DQUFkkopsHn7T5Cgm-BbG wbdg_office_arc_MULTI_A2-A4.ifc
+Retrieving folder 1besHehsWM0ol0ObZb-iBmqQ8eXHu_5-B west_riverside_hospital
+Processing file 1OxLRiA_TrJnWwinYOVvFeW6DflzCR79Z west_riverside_hospital_arc_MULTI_A1-A2-A3-A4.ifc
+Processing file 1ve0OykgfMp3jJpBMigOUstonnNooATMu manifest.json
+Processing file 1sFJCI5ZuNP_2_UwuOQIUp3ZYFnvhh34i manifest_architectural_multi.json
+Retrieving folder 1u46uAfNS2ZaCLAfbxE3t6PpfO3cjQg4Q Structural_Test_cases
+Retrieving folder 1zg858klZzas-LejRmQkBehdu4ax6FTGj Negative
+Retrieving folder 10YdGQDKZ7F19JNcS2kWqviRtdaST33qv dental_clinic
+Processing file 16M0ERHWwrAq__0bHOUvXSW2o9aSaloH_ str.ifc
+Retrieving folder 122vJuwBHwCR6OEJr6E6-YFSV9470Lm1I schependomlaan
+Processing file 1lL3kKjZ57eO9-1Y7MFJYqmwzKaPW_Jn0 str_engineer.ifc
+Processing file 1iQ28txxSYjdYCm4whcJMLq1NRdS3NpzJ str_hollowcore_floors.ifc
+Processing file 1ex8ztk1z6hDp4pSaHgpBrAkZEQhzhH8E str_steel.ifc
+Retrieving folder 1JCh0XGAXIqxBpIoUvaDnAyfLlwOjzdYk sixty5
+Processing file 1O2-VoY-HTTfH75wRIseudOCDZq3FwxU7 str.ifc
+Retrieving folder 1IB2IFl-Ze1U5s47Y1YY-fxTedke1RKxW wbdg_office
+Processing file 1nQS8w6nAjkjnl97uqPXLfYCnBi6G9BHA str.ifc
+Retrieving folder 1yAJlyYPuqYs_I3TiO7H3vJ9kxdZInnZ8 west_riverside_hospital
+Processing file 1zs7VlWYEGfa9gYpU1wfSt9oeBUMP6r1T str.ifc
+Retrieving folder 1uWN4sqZMBMbog8F6E4CK1trthpZkz1_g Positive
+Retrieving folder 104-tzIeej0C3vWYxlCzinesP9pHCD-1_ dental_clinic
+Processing file 1kHe1IjUfqadH4hJfAGPE24Zx9D_GRS-l dental_clinic_str_S1_beam_span_depth.ifc
+Processing file 1YIs4b7He2mCUNvKbZk0h1-rIy9rK6Qv3 dental_clinic_str_S2_column_dimension.ifc
+Processing file 15_d9OkNNZM2m1u01SWQMGEL6a306cMbH dental_clinic_str_S3_slab_thickness.ifc
+Processing file 11h3An4m5_5QqYME2VFXW3uOVpESJvnAF dental_clinic_str_S4_floating_column.ifc
+Processing file 1PuIhGAorDsFy_0jLLxAVkiQVz-wgMpmB dental_clinic_str_S5_soft_storey.ifc
+Retrieving folder 1L_v5C8v3iPtjkwCLfs9QffZWvUWNZRxL schependomlaan
+Processing file 1gXIGYxj5W2ddV2cicQCAensvIUAMEZVD schependomlaan_str_engineer_S1_beam_span_depth.ifc
+Processing file 1l0RYoBOLTcJYpVXfVbw4HeAPwDvL2aY_ schependomlaan_str_engineer_S2_column_dimension.ifc
+Processing file 17z4kN7d5GyYOM8r5w9DcTBBPrh2xQDaJ schependomlaan_str_engineer_S3_slab_thickness.ifc
+Processing file 1seK7HzY9MwtI8bULeBhUwfyFMAktdx-3 schependomlaan_str_engineer_S4_floating_column.ifc
+Processing file 10_uVewk7m3jzUTRI734aex5bAZqOn6mb schependomlaan_str_engineer_S5_soft_storey.ifc
+Processing file 17mxo9zZjH0KQMH54TNI24cdaccrryXPU schependomlaan_str_hollowcore_floors_S3_slab_thickness.ifc
+Processing file 1Je_8iSFpOTS-tAUCFeeiYk3HAOy0Wgfm schependomlaan_str_steel_S1_beam_span_depth.ifc
+Processing file 1kA4OpMwIhIjYcvk-qQGAbpRAf2jxo0gp schependomlaan_str_steel_S2_column_dimension.ifc
+Retrieving folder 1jjTAq5RGlOWjMOJJDfprVGQbtnT_szk2 sixty5
+Processing file 1ASsBxB7YNY3-bFZkokxmjdSt6_vRSNRa sixty5_str_S1_beam_span_depth.ifc
+Processing file 1S58L9rrYnFhjaI2206-EEd6i4yjVRJOV sixty5_str_S2_column_dimension.ifc
+Processing file 1YC6GLwkYRUeHqvkydi-Fz6RALr3MMuY6 sixty5_str_S3_slab_thickness.ifc
+Processing file 1bIQL0Ca7ZRvKXChTd-9M-u5eVRGvwE1J sixty5_str_S4_floating_column.ifc
+Processing file 1pCAcFq2NlAZ4Z5WGbinEUeDaQIND2jS- sixty5_str_S5_soft_storey.ifc
+Retrieving folder 1M0wOza6qOSdbDnaVCrsHewm3dokADvyt wbdg_office
+Processing file 1TgfL-ETDg1KRYu7K7c4Av8_AUMalTH7Z wbdg_office_str_S1_beam_span_depth.ifc
+Processing file 1KKe6CZAaWYk1Nyvslles2gF1kqpysAM0 wbdg_office_str_S2_column_dimension.ifc
+Processing file 15gilpdtyrYqz4F2n58W46csLfD6TWsoo wbdg_office_str_S3_slab_thickness.ifc
+Processing file 1R6Tk3NdI5znXkG_OFA11woy9QNWb80cP wbdg_office_str_S4_floating_column.ifc
+Processing file 1TTnNxisrv4apXCtct6Gpg6x3GLdQIX99 wbdg_office_str_S5_soft_storey.ifc
+Retrieving folder 1sVT76SB_63H00SG1e7Z3hCPcZXe4C75R west_riverside_hospital
+Processing file 10-4S1PViwclRPnin7cWbaTcuziTruvfU west_riverside_hospital_str_S1_beam_span_depth.ifc
+Processing file 1WXZ-Z8XlRV_U-YqP-_vw_FZy-At8zNo7 west_riverside_hospital_str_S2_column_dimension.ifc
+Processing file 1cPoKSomv5izhfieoc_lczOu7SkRwG0CL west_riverside_hospital_str_S3_slab_thickness.ifc
+Processing file 1JIQPFjCn7oVbBGlubXQl2R3X8nNLJe6N west_riverside_hospital_str_S4_floating_column.ifc
+Processing file 1H3jTYqlsXST5h77JLQB2tZlV3I0SIpzn west_riverside_hospital_str_S5_soft_storey.ifc
+Retrieving folder 1wgFbushj1_ViD9HMxQdaVYsKbjMD8fP- Positive_Multi
+Retrieving folder 13vMMRim-ApbFj1W9VknCMuYGO4-3o1Kx dental_clinic
+Processing file 1c0-7ogC3iAXSpjQLTe88qHtRdUDW7_IB dental_clinic_str_MULTI_S2-S4.ifc
+Retrieving folder 1HiaeAn42SzpK1qLI0prS5DpxO_9pzDyh schependomlaan
+Processing file 1xX__qjq_WKAz9BUZdL7Af6b5bZMRV-PB schependomlaan_str_engineer_MULTI_S1-S2-S5.ifc
+Processing file 1YJGPMSCTPAoNA7uyY5jDbqQe8AsVLegj schependomlaan_str_steel_MULTI_S1-S2.ifc
+Retrieving folder 1xqQD1fNyHeboZ3yZnwrVzGv_ePxcDyDe sixty5
+Processing file 1UmO7VbO9vj4Vf8sZAdOhmkSFsrxT5dk8 sixty5_str_MULTI_S2-S3-S5.ifc
+Retrieving folder 1xsUSLEr6vz4iRCVDFDSUbl-racr5a_nL wbdg_office
+Processing file 1JjVNs5p-NsslYJhUSCk_f-bSCyXmWrWz wbdg_office_str_MULTI_S1-S3-S4.ifc
+Retrieving folder 1wpDP7GBtzR42uQHuuk-gV9KrkqhGMpGL west_riverside_hospital
+Processing file 1mlRhwoBZ6ggoBkZuHuxZCDGKyCfvBKAW west_riverside_hospital_str_MULTI_S1-S2-S4-S5.ifc
+Processing file 1I10bPqn3hq2YFLUbiJ9KrDgHfZiEji39 manifest_structural.json
+Processing file 1Vz3gfwwnuj0sg4QbCKm2Ki4zZglAr9zJ annotation_report.json
+Processing file 1DVy4buea6I9n0Ygg7rxIFAgg6TCktvFt color code.webp
+Processing file 1j7SDCeCA2TKmbTkLN4IhOsUg8P3Z6A3x METHODOLOGY.md
+  0%|          | 0.00/80.4M [00:00<?, ?B/s]  1%|          | 524k/80.4M [00:00<01:24, 947kB/s]  1%|1         | 1.05M/80.4M [00:00<01:07, 1.17MB/s]  2%|1         | 1.57M/80.4M [00:01<01:00, 1.29MB/s]  3%|2         | 2.10M/80.4M [00:01<01:01, 1.28MB/s]  3%|3         | 2.62M/80.4M [00:03<02:13, 582kB/s]   4%|3         | 3.15M/80.4M [00:05<03:05, 416kB/s]  5%|4         | 3.67M/80.4M [00:06<02:55, 438kB/s]  5%|5         | 4.19M/80.4M [00:07<02:22, 534kB/s]  6%|5         | 4.72M/80.4M [00:08<02:22, 530kB/s]  7%|6         | 5.24M/80.4M [00:08<01:59, 626kB/s]  7%|7         | 5.77M/80.4M [00:08<01:32, 807kB/s]  8%|7         | 6.29M/80.4M [00:09<01:24, 877kB/s]  8%|8         | 6.82M/80.4M [00:09<01:17, 946kB/s]  9%|9         | 7.34M/80.4M [00:10<01:11, 1.02MB/s] 10%|9         | 7.86M/80.4M [00:10<01:08, 1.06MB/s] 10%|#         | 8.39M/80.4M [00:10<01:05, 1.11MB/s] 11%|#1        | 8.91M/80.4M [00:11<01:06, 1.07MB/s] 12%|#1        | 9.44M/80.4M [00:11<01:04, 1.10MB/s] 12%|#2        | 9.96M/80.4M [00:12<00:57, 1.22MB/s] 13%|#3        | 10.5M/80.4M [00:12<00:57, 1.21MB/s] 14%|#3        | 11.0M/80.4M [00:13<00:58, 1.20MB/s] 14%|#4        | 11.5M/80.4M [00:14<01:31, 754kB/s]  15%|#5        | 12.1M/80.4M [00:15<01:33, 731kB/s] 16%|#5        | 12.6M/80.4M [00:15<01:30, 749kB/s] 16%|#6        | 13.1M/80.4M [00:16<01:31, 739kB/s] 17%|#6        | 13.6M/80.4M [00:17<01:35, 701kB/s] 18%|#7        | 14.2M/80.4M [00:17<01:17, 858kB/s] 18%|#8        | 14.7M/80.4M [00:18<01:09, 947kB/s] 19%|#8        | 15.2M/80.4M [00:18<01:04, 1.01MB/s] 20%|#9        | 15.7M/80.4M [00:18<00:58, 1.11MB/s] 20%|##        | 16.3M/80.4M [00:19<00:57, 1.11MB/s] 21%|##        | 16.8M/80.4M [00:19<00:56, 1.13MB/s] 22%|##1       | 17.3M/80.4M [00:20<00:58, 1.07MB/s] 22%|##2       | 17.8M/80.4M [00:20<00:55, 1.13MB/s] 23%|##2       | 18.4M/80.4M [00:21<00:51, 1.21MB/s] 23%|##3       | 18.9M/80.4M [00:21<00:50, 1.22MB/s] 24%|##4       | 19.4M/80.4M [00:22<00:50, 1.20MB/s] 25%|##4       | 19.9M/80.4M [00:22<00:49, 1.22MB/s] 25%|##5       | 20.4M/80.4M [00:22<00:52, 1.15MB/s] 26%|##6       | 21.0M/80.4M [00:23<00:48, 1.23MB/s] 27%|##6       | 21.5M/80.4M [00:23<00:48, 1.22MB/s] 27%|##7       | 22.0M/80.4M [00:24<00:48, 1.21MB/s] 28%|##8       | 22.5M/80.4M [00:24<00:47, 1.22MB/s] 29%|##8       | 23.1M/80.4M [00:25<00:51, 1.11MB/s] 29%|##9       | 23.6M/80.4M [00:25<00:48, 1.18MB/s] 30%|###       | 24.1M/80.4M [00:26<00:50, 1.11MB/s] 31%|###       | 24.6M/80.4M [00:26<00:47, 1.18MB/s] 31%|###1      | 25.2M/80.4M [00:26<00:44, 1.25MB/s] 32%|###1      | 25.7M/80.4M [00:27<00:44, 1.23MB/s] 33%|###2      | 26.2M/80.4M [00:27<00:45, 1.18MB/s] 33%|###3      | 26.7M/80.4M [00:28<00:49, 1.08MB/s] 34%|###3      | 27.3M/80.4M [00:28<00:40, 1.30MB/s] 35%|###4      | 27.8M/80.4M [00:29<00:41, 1.27MB/s] 35%|###5      | 28.3M/80.4M [00:29<00:41, 1.24MB/s] 36%|###5      | 28.8M/80.4M [00:29<00:42, 1.20MB/s] 37%|###6      | 29.4M/80.4M [00:30<00:42, 1.21MB/s] 37%|###7      | 29.9M/80.4M [00:31<00:49, 1.01MB/s] 38%|###7      | 30.4M/80.4M [00:31<00:54, 910kB/s]  38%|###8      | 30.9M/80.4M [00:32<00:55, 886kB/s] 39%|###9      | 31.5M/80.4M [00:32<00:53, 912kB/s] 40%|###9      | 32.0M/80.4M [00:33<00:46, 1.05MB/s] 40%|####      | 32.5M/80.4M [00:33<00:43, 1.09MB/s] 41%|####1     | 33.0M/80.4M [00:34<00:39, 1.20MB/s] 42%|####1     | 33.6M/80.4M [00:34<00:41, 1.13MB/s] 42%|####2     | 34.1M/80.4M [00:35<00:45, 1.03MB/s] 43%|####3     | 34.6M/80.4M [00:35<00:49, 928kB/s]  44%|####3     | 35.1M/80.4M [00:36<00:56, 801kB/s] 44%|####4     | 35.7M/80.4M [00:37<00:46, 972kB/s] 45%|####5     | 36.2M/80.4M [00:37<00:43, 1.02MB/s] 46%|####5     | 36.7M/80.4M [00:37<00:39, 1.12MB/s] 46%|####6     | 37.2M/80.4M [00:38<00:37, 1.15MB/s] 47%|####6     | 37.7M/80.4M [00:38<00:39, 1.09MB/s] 48%|####7     | 38.3M/80.4M [00:39<00:35, 1.18MB/s] 48%|####8     | 38.8M/80.4M [00:39<00:34, 1.20MB/s] 49%|####8     | 39.3M/80.4M [00:40<00:34, 1.20MB/s] 50%|####9     | 39.8M/80.4M [00:40<00:33, 1.19MB/s] 50%|#####     | 40.4M/80.4M [00:41<00:37, 1.05MB/s] 51%|#####     | 40.9M/80.4M [00:41<00:35, 1.13MB/s] 52%|#####1    | 41.4M/80.4M [00:42<00:37, 1.05MB/s] 52%|#####2    | 41.9M/80.4M [00:42<00:40, 940kB/s]  53%|#####2    | 42.5M/80.4M [00:43<00:50, 758kB/s] 53%|#####3    | 43.0M/80.4M [00:44<00:55, 676kB/s] 54%|#####4    | 43.5M/80.4M [00:45<00:51, 713kB/s] 55%|#####4    | 44.0M/80.4M [00:45<00:46, 782kB/s] 55%|#####5    | 44.6M/80.4M [00:46<00:36, 979kB/s] 56%|#####6    | 45.1M/80.4M [00:46<00:33, 1.04MB/s] 57%|#####6    | 45.6M/80.4M [00:47<00:32, 1.08MB/s] 57%|#####7    | 46.1M/80.4M [00:47<00:30, 1.13MB/s] 58%|#####8    | 46.7M/80.4M [00:47<00:30, 1.12MB/s] 59%|#####8    | 47.2M/80.4M [00:48<00:29, 1.11MB/s] 59%|#####9    | 47.7M/80.4M [00:48<00:29, 1.13MB/s] 60%|######    | 48.2M/80.4M [00:49<00:27, 1.19MB/s] 61%|######    | 48.8M/80.4M [00:49<00:25, 1.26MB/s] 61%|######1   | 49.3M/80.4M [00:50<00:25, 1.23MB/s] 62%|######1   | 49.8M/80.4M [00:50<00:24, 1.24MB/s] 63%|######2   | 50.3M/80.4M [00:50<00:26, 1.14MB/s] 63%|######3   | 50.9M/80.4M [00:51<00:26, 1.13MB/s] 64%|######3   | 51.4M/80.4M [00:51<00:24, 1.19MB/s] 65%|######4   | 51.9M/80.4M [00:52<00:23, 1.23MB/s] 65%|######5   | 52.4M/80.4M [00:52<00:21, 1.29MB/s] 66%|######5   | 53.0M/80.4M [00:53<00:23, 1.19MB/s] 67%|######6   | 53.5M/80.4M [00:53<00:21, 1.26MB/s] 67%|######7   | 54.0M/80.4M [00:53<00:21, 1.24MB/s] 68%|######7   | 54.5M/80.4M [00:54<00:20, 1.24MB/s] 68%|######8   | 55.1M/80.4M [00:54<00:21, 1.19MB/s] 69%|######9   | 55.6M/80.4M [00:55<00:23, 1.04MB/s] 70%|######9   | 56.1M/80.4M [00:56<00:26, 918kB/s]  70%|#######   | 56.6M/80.4M [00:56<00:22, 1.06MB/s] 71%|#######1  | 57.1M/80.4M [00:56<00:20, 1.12MB/s] 72%|#######1  | 57.7M/80.4M [00:57<00:18, 1.22MB/s] 72%|#######2  | 58.2M/80.4M [00:57<00:18, 1.21MB/s] 73%|#######3  | 58.7M/80.4M [00:58<00:18, 1.20MB/s] 74%|#######3  | 59.2M/80.4M [00:58<00:17, 1.18MB/s] 74%|#######4  | 59.8M/80.4M [00:59<00:18, 1.13MB/s] 75%|#######5  | 60.3M/80.4M [00:59<00:20, 1.00MB/s] 76%|#######5  | 60.8M/80.4M [01:00<00:18, 1.04MB/s] 76%|#######6  | 61.3M/80.4M [01:00<00:17, 1.07MB/s] 77%|#######6  | 61.9M/80.4M [01:00<00:14, 1.29MB/s] 78%|#######7  | 62.4M/80.4M [01:01<00:14, 1.21MB/s] 78%|#######8  | 62.9M/80.4M [01:01<00:14, 1.22MB/s] 79%|#######8  | 63.4M/80.4M [01:02<00:13, 1.28MB/s] 80%|#######9  | 64.0M/80.4M [01:02<00:13, 1.26MB/s] 80%|########  | 64.5M/80.4M [01:03<00:13, 1.20MB/s] 81%|########  | 65.0M/80.4M [01:03<00:12, 1.21MB/s] 82%|########1 | 65.5M/80.4M [01:04<00:17, 826kB/s]  82%|########2 | 66.1M/80.4M [01:05<00:17, 840kB/s] 83%|########2 | 66.6M/80.4M [01:05<00:16, 857kB/s] 83%|########3 | 67.1M/80.4M [01:06<00:13, 964kB/s] 84%|########4 | 67.6M/80.4M [01:06<00:11, 1.08MB/s] 85%|########4 | 68.2M/80.4M [01:07<00:11, 1.04MB/s] 85%|########5 | 68.7M/80.4M [01:07<00:10, 1.16MB/s] 86%|########6 | 69.2M/80.4M [01:07<00:08, 1.25MB/s] 87%|########6 | 69.7M/80.4M [01:08<00:09, 1.09MB/s] 87%|########7 | 70.3M/80.4M [01:08<00:08, 1.23MB/s] 88%|########8 | 70.8M/80.4M [01:09<00:07, 1.29MB/s] 89%|########8 | 71.3M/80.4M [01:09<00:07, 1.18MB/s] 89%|########9 | 71.8M/80.4M [01:10<00:07, 1.08MB/s] 90%|######### | 72.4M/80.4M [01:10<00:06, 1.21MB/s] 91%|######### | 72.9M/80.4M [01:11<00:06, 1.08MB/s] 91%|#########1| 73.4M/80.4M [01:11<00:06, 1.15MB/s] 92%|#########1| 73.9M/80.4M [01:11<00:05, 1.16MB/s] 93%|#########2| 74.4M/80.4M [01:12<00:05, 1.14MB/s] 93%|#########3| 75.0M/80.4M [01:12<00:04, 1.21MB/s] 94%|#########3| 75.5M/80.4M [01:13<00:04, 1.16MB/s] 95%|#########4| 76.0M/80.4M [01:13<00:03, 1.26MB/s] 95%|#########5| 76.5M/80.4M [01:14<00:03, 1.27MB/s] 96%|#########5| 77.1M/80.4M [01:14<00:02, 1.24MB/s] 97%|#########6| 77.6M/80.4M [01:14<00:02, 1.24MB/s] 97%|#########7| 78.1M/80.4M [01:15<00:02, 1.11MB/s] 98%|#########7| 78.6M/80.4M [01:15<00:01, 1.11MB/s] 98%|#########8| 79.2M/80.4M [01:16<00:01, 1.14MB/s] 99%|#########9| 79.7M/80.4M [01:16<00:00, 1.25MB/s]100%|#########9| 80.2M/80.4M [01:17<00:00, 1.25MB/s]100%|##########| 80.4M/80.4M [01:17<00:00, 1.25MB/s]100%|##########| 80.4M/80.4M [01:17<00:00, 1.04MB/s]
+Failed to retrieve file url:
+
+	Cannot retrieve the public link of the file. You may need to change
+	the permission to 'Anyone with the link', or have had many accesses.
+	Check FAQ in https://github.com/wkentaro/gdown?tab=readme-ov-file#faq.
+
+You may still be able to access the file from the browser:
+
+	https://drive.google.com/uc?id=1ve0OykgfMp3jJpBMigOUstonnNooATMu
+
+but Gdown can't. Please check connections and permissions.
+DOWNLOAD_DONE exit=1

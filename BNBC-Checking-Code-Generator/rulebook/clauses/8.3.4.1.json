@@ -1,0 +1,43 @@
+{
+  "section_id": "8.3.4.1",
+  "title": "Beams under SMF",
+  "page": 29,
+  "clauses": [
+    {
+      "clause_id": "8.3.4.1(b)",
+      "text": "For flexural member in SMF, Clear span, l_n, shall not be less than four times its effective depth.",
+      "notes": "Clear span (l_n) - The unobstructed length of the member between faces of supports.\n\nEffective depth - The distance from the extreme compression fiber to the centroid of the tension reinforcement.\n\nSMF (Special Moment Frame) - A reinforced concrete or steel framing system\n\nFlexural Member - A structural element that primarily resists loads by bending. In BNBC seismic provisions, when the code refers to flexural members, it is usually referring to beams or beam-like elements",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 29
+    },
+    {
+      "clause_id": "8.3.4.1(c)",
+      "text": "For flexural member in SMF, the width-to-depth ratio of the member shall be at least 0.3.",
+      "notes": "SMF (Special Moment Frame) - A reinforced concrete or steel framing system\n\nFlexural Member - A structural element that primarily resists loads by bending. In BNBC seismic provisions, when the code refers to flexural members, it is usually referring to beams or beam-like elements",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 29
+    },
+    {
+      "clause_id": "8.3.4.1.(d)",
+      "text": "For flexural member in SMF, the width shall not be (i) less than 250 mm and (ii) more than the width of the supporting member (measured on a plane perpendicular to the longitudinal axis of the flexural member) plus distances on each side of the supporting member neither exceeding three-fourths of the depth of the flexural member c1 nor width of supporting member c2.",
+      "notes": "SMF (Special Moment Frame) - A reinforced concrete or steel framing system\n\nFlexural Member - A structural element that primarily resists loads by bending. In BNBC seismic provisions, when the code refers to flexural members, it is usually referring to beams or beam-like elements\n\nSupporting member width - The width of the column or other support,\n\nc_1 - Depth of the flexural member\n\nc_2 - Width of the supporting member",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 29
+    }
+  ]
+}

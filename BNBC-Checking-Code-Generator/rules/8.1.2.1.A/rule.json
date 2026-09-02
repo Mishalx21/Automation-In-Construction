@@ -1,0 +1,15 @@
+{
+  "rule_id": "8.1.2.1.A",
+  "title": "Standard hook — 180° bend",
+  "source_clauses": [
+    "8.1.2.1(a)"
+  ],
+  "statement": "(a) A standard hook may have a 180° bend plus an extension of at least 4 bar diameters, but not less than 65 mm, at the free end of the bar.",
+  "scope_note": "Covers clause (a) only: the 180° standard hook. The 90° hook is 8.1.2.1.B and stirrup/tie hooks are 8.1.2.1.C.",
+  "references": {},
+  "terms": [
+    "hook",
+    "standard_hook",
+    "extension_length"
+  ]
+}

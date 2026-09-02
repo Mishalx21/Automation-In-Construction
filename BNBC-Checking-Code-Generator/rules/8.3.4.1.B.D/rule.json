@@ -1,0 +1,20 @@
+{
+  "rule_id": "8.3.4.1.B.D",
+  "title": "Geometry of flexural members of special moment frames",
+  "source_clauses": [
+    "8.3.4.1(b)",
+    "8.3.4.1(c)",
+    "8.3.4.1.(d)"
+  ],
+  "statement": "For flexural member in SMF, Clear span , l_n, shall not be less than four times its effective depth. The width-to-depth ratio of the member shall be at least 0.3. The width shall not be (i) less than 250 mm and (ii) more than the width of the supporting member (measured on a  plane perpendicular to the longitudinal  axis of the flexural member) plus distances on each side of the supporting  member neither exceeding three-fourths of the depth of the flexural member c1 nor width of supporting member c2.",
+  "scope_note": "Covers clauses (b), (c) and (d) — the geometric limits. Clause (a) (scope of the section) is not checked.",
+  "references": {},
+  "terms": [
+    "clear_span",
+    "effective_depth",
+    "smf",
+    "flexural_member",
+    "c_1",
+    "c_2"
+  ]
+}

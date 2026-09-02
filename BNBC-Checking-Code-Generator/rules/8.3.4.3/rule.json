@@ -1,0 +1,31 @@
+{
+  "rule_id": "8.3.4.3",
+  "title": "Transverse reinforcement of flexural members of special moment frames",
+  "source_clauses": [
+    "8.3.4.3(a)",
+    "8.3.4.3(b)",
+    "8.3.4.3(c)",
+    "8.3.4.3(d)"
+  ],
+  "statement": "(a) Hoops shall be provided in the following regions of frame members: (i) At both ends of the flexural member, over a length equal to twice the member depth measured from the face of the supporting member toward midspan; and (ii) Over lengths equal to twice the member depth, on both sides of a section where flexural yielding is likely to occur in connection with inelastic lateral displacements of the frame.\n\n(b) For transverse reinforcement in flexural members of special moment frames, the first hoop shall be located not more than 50 mm from the face of the supporting member. Maximum spacing of the hoops shall not exceed the least of: (i) d/4, (ii) eight times the diameter of the smallest longitudinal bars, (iii) 24 times the diameter of the hoop bars, and (iv) 300 mm.\n\n(c) Where hoops are required in flexural members of special moment frames, longitudinal bars on the perimeter shall have lateral support conforming to Section 8.1.9.4(c). Where hoops are not required, stirrups with seismic hooks shall be spaced not more than d/2 throughout the length of the member.\n\n(d) Hoops in flexural members of special moment frames are allowed to be made up of two pieces of reinforcement consisting of a U-stirrup having hooks not less than 135° with an extension of 6 bar diameters but not less than 75 mm, anchored in the confined core, and a cross tie to make a closed hoop. Consecutive cross ties engaging the same longitudinal bar shall have their 90° hooks at opposite sides of the flexural member. If the longitudinal reinforcing bars secured by the cross ties are confined by a slab only on one side of the flexural frame member, the 90° hooks of the cross ties shall all be placed on that side.",
+  "scope_note": "Covers clauses (a)-(d): where hoops are required, their spacing, and where stirrups may replace them.",
+  "references": {
+    "clauses": [
+      "8.1.9.4"
+    ]
+  },
+  "terms": [
+    "hoops",
+    "face_of_the_supporting_member",
+    "flexural_yielding",
+    "inelastic_lateral_displacements",
+    "d",
+    "stirrups_with_seismic_hooks",
+    "seismic_hooks",
+    "u_stirrup",
+    "hook_angle",
+    "confined_core",
+    "cross_tie",
+    "consecutive_cross_ties"
+  ]
+}

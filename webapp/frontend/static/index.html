@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>IFC Compliance Workbench</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d4ed8'/%3E%3Cpath d='M9 23V13l7-5 7 5v10h-4v-6h-6v6z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="7" fill="var(--accent)"/>
+        <path d="M9 23V13l7-5 7 5v10h-4v-6h-6v6z" fill="#fff"/>
+      </svg>
+      <div>
+        <h1>IFC Compliance Workbench</h1>
+        <p class="sub">Two engines, one file: <strong>inject</strong> documented building-code
+        violations into a model, or <strong>check</strong> a model against the accepted
+        BNBC rule checkers.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- shared: pick the file once, use it in either panel -->
+    <section class="card" id="pick-card">
+      <h2><span class="step-num">1</span> Pick an IFC model</h2>
+      <div id="dropzone" class="dropzone" tabindex="0" role="button"
+           aria-label="Upload an IFC file">
+        <svg class="dz-icon" viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M12 6h16l8 8v28H12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M28 6v8h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M18 22h12M18 28h12M18 34h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <p>Drop an <code>.ifc</code> file here</p>
+        <label class="btn primary" for="file-input">Browse files</label>
+        <input type="file" id="file-input" accept=".ifc" hidden>
+        <p id="picked-name" class="picked hidden"></p>
+      </div>
+      <p class="error hidden" id="pick-error"></p>
+    </section>
+
+    <!-- panel A: ifcinject -->
+    <section class="card" id="inject-card">
+      <h2><span class="step-num">2</span> Inject violations <span class="tag">ifcinject</span></h2>
+      <p class="hint">Deterministically perturbs the model into a fixture with a known,
+      documented code violation — then independently re-verifies it.</p>
+      <button id="inject-upload-btn" class="btn primary" disabled>Upload &amp; analyze</button>
+      <p class="error hidden" id="inject-error"></p>
+      <p class="progress hidden" id="inject-progress"></p>
+
+      <div id="inject-rules" class="hidden">
+        <p id="inject-file-meta" class="file-meta"></p>
+        <div class="tables">
+          <div>
+            <h3>Architectural</h3>
+            <table id="inject-table-archi"></table>
+          </div>
+          <div>
+            <h3>Structural</h3>
+            <table id="inject-table-struct"></table>
+          </div>
+        </div>
+        <button id="inject-btn" class="btn primary" disabled>Inject selected</button>
+      </div>
+
+      <div id="inject-results" class="hidden">
+        <div id="inject-mutations"></div>
+        <p class="dl-row">
+          <a id="inject-download" class="btn">Download violating .ifc</a>
+          <a id="inject-report" class="btn" target="_blank">Verification report (JSON)</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- panel B: bnbc checkers -->
+    <section class="card" id="check-card">
+      <h2><span class="step-num">3</span> Check compliance <span class="tag">BNBC checkers</span></h2>
+      <p class="hint">Runs the accepted rule checkers (fixture-verified code generation,
+      no LLM at request time) against the model.</p>
+      <button id="check-upload-btn" class="btn primary" disabled>Upload model</button>
+      <p class="error hidden" id="check-error"></p>
+      <p class="progress hidden" id="check-progress"></p>
+
+      <div id="check-rules" class="hidden">
+        <p id="check-file-meta" class="file-meta"></p>
+        <div class="tables">
+          <div>
+            <h3>Architectural</h3>
+            <table id="check-table-archi"></table>
+          </div>
+          <div>
+            <h3>Structural</h3>
+            <table id="check-table-struct"></table>
+          </div>
+        </div>
+        <button id="check-btn" class="btn primary" disabled>Run selected checkers</button>
+      </div>
+
+      <div id="check-results" class="hidden">
+        <div id="check-summary"></div>
+        <div id="check-results-list"></div>
+        <p class="dl-row">
+          <a id="check-report" class="btn" target="_blank">Full report (JSON)</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>ifcinject: deterministic injection + independent verification ·
+       bnbc-web: accepted checkers, fixture-injected verification (FIV)</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

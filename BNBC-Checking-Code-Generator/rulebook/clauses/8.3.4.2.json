@@ -1,0 +1,33 @@
+{
+  "section_id": "8.3.4.2",
+  "title": "Longitudinal reinforcement",
+  "page": 30,
+  "clauses": [
+    {
+      "clause_id": "8.3.4.2(a)",
+      "text": "(a) For flexural members of special moment frames, at any section and for both top and bottom reinforcement, the amount of reinforcement shall be not less than 0.25(f'c/fy)bwd or 1.4(bwd/fy), whichever is greater and the reinforcement ratio ρ shall not exceed 0.025. At least two bars shall be provided continuously both top and bottom. The positive moment strength at\nthe face of the joint shall be not less than one-half of the negative moment strength provided at that face as shown in Figure 6.8.2. Neither the negative nor the positive moment strength at any section along the member length shall be less than one-fourth the maximum moment strength provided at the face of either joint.",
+      "notes": "f'c - Specified compressive strength of concrete.\nfy - Specified yield strength of reinforcement.\nbw - Web width of the flexural member.\nd - Effective depth of the flexural member (distance from extreme compression fiber to centroid of tension reinforcement).\nFlexural member - A beam-type member primarily resisting bending.\nSpecial moment frame - A moment-resisting frame designed to meet special seismic detailing requirements.\nρ (reinforcement ratio) - The ratio of the area of longitudinal tension reinforcement to the product of bw and d.\n\n\"The positive moment strength at the face of the joint shall be not less than one-half of the negative moment strength provided at that face as shown in Figure 6.8.2. Neither the negative nor the positive moment strength at any section along the member length shall be less than one-fourth the maximum moment strength provided at the face of either joint.\" - This part will be checked later.",
+      "references": {
+        "tables": [],
+        "figures": [
+          "6.8.2"
+        ],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 30
+    },
+    {
+      "clause_id": "8.3.4.2(b)",
+      "text": "(b) For flexural members of special moment frames, Lap splices of flexural reinforcement shall be permitted only if hoop\nor spiral reinforcement is provided over the lap length. Maximum\nspacing of the transverse reinforcement enclosing the lapped bars\nshall not exceed d/4 nor 100 mm. Lap splices shall not be used; (i)\nwithin the joints, (ii) within a distance of twice the member depth\nfrom the face of the joint, and (iii) at locations where analysis\nindicates flexural yielding caused by inelastic lateral displacements of the frame. Not more than 50% of the bars shall be spliced at one location;",
+      "notes": "Special moment frame - A moment-resisting frame designed to meet special seismic detailing requirements.\nLap splice - A connection of two bars by overlapping them a specified length so that force is transferred between them.\nflexural reinforcement - In general, reinforcement of a beam.\nHoop reinforcement - Closed ties or continuously wound ties enclosing the longitudinal reinforcement.\nSpiral reinforcement - Continuously wound reinforcement in a helical form enclosing the longitudinal bars.\nLap length - The length over which two bars overlap to transfer force.\nTransverse reinforcement - Hoops or spirals placed perpendicular to the longitudinal bars to confine the lap splice region.\nd - Effective depth of the flexural member.\nLapped bars - Bars connected by overlapping within a lap splice.\nFlexural yielding - The condition where the reinforcement reaches its yield stress under bending.\nInelastic lateral displacement - Lateral movement of the frame beyond the elastic range, typically under seismic loading.\n\n\"(iii) at locations where analysis\nindicates flexural yielding caused by inelastic lateral displacements of the frame.\" - This part will be done later.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 30
+    }
+  ]
+}

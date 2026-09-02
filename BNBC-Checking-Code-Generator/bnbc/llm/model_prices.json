@@ -1,0 +1,13 @@
+{
+  "_note": "USD per 1M tokens. A model absent here reports no cost and the run is flagged cost_is_partial \u2014 add real published rates rather than guesses.",
+  "prices": {
+    "gemini-2.5-flash": {
+      "input_per_mtok": 0.3,
+      "output_per_mtok": 2.5
+    },
+    "gemini-2.5-pro": {
+      "input_per_mtok": 1.25,
+      "output_per_mtok": 10.0
+    }
+  }
+}

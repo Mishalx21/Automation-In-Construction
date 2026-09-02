@@ -1,0 +1,15 @@
+{
+  "rule_id": "8.1.6.3",
+  "title": "Clear distance between longitudinal bars in compression members",
+  "source_clauses": [
+    "8.1.6.3"
+  ],
+  "statement": "For compression members, the clear distance between longitudinal bars shall be not less than 1.5 bar diameters nor 40 mm nor 1.33 times of maximum nominal size of coarse aggregate.",
+  "scope_note": "",
+  "references": {},
+  "terms": [
+    "clear_distance",
+    "longitudinal_bars",
+    "maximum_nominal_size_of_coarse_aggregate"
+  ]
+}

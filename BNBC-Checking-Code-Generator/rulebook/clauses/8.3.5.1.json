@@ -1,0 +1,19 @@
+{
+  "section_id": "8.3.5.1",
+  "title": "Scope",
+  "page": 34,
+  "clauses": [
+    {
+      "clause_id": "8.3.5.1(a)",
+      "text": "For columns, the shortest cross-sectional dimension shall not be less than 300 mm and the ratio of the shortest cross-sectional dimension to the perpendicular dimension shall not be less than 0.4.",
+      "notes": "Shortest cross-sectional dimension - The smaller of the two principal cross-sectional dimensions of the member.\n\nFor columns and seismic frame members:\n\nThe smallest side of the cross-section must be at least 300 mm.\nThe member cannot be excessively long and narrow.\nThe smaller dimension must be at least 40% of the larger dimension.\n\nCross-sectional area is the area of a member when it is cut by a plane perpendicular to its length.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 34
+    }
+  ]
+}

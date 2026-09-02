@@ -1,0 +1,15 @@
+{
+  "rule_id": "8.1.6.5",
+  "title": "Maximum bar spacing in walls and one-way slabs",
+  "source_clauses": [
+    "8.1.6.5"
+  ],
+  "statement": "In walls and one-way slabs the maximum bar spacing shall not be more than three times the wall or slab thickness h nor 450 mm.",
+  "scope_note": "",
+  "references": {},
+  "terms": [
+    "one_way_slabs",
+    "maximum_bar_spacing",
+    "h"
+  ]
+}

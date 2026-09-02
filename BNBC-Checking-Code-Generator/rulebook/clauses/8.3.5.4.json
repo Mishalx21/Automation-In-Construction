@@ -1,0 +1,84 @@
+{
+  "section_id": "8.3.5.4",
+  "title": "Transverse reinforcement",
+  "page": 36,
+  "clauses": [
+    {
+      "clause_id": "8.3.5.4.a.(i)",
+      "text": "The volumetric ratio of spiral or circular hoop reinforcement, ρ_s shall not be less than that indicated by the following equation: ρs = 0.12f′c / fyt and shall not be less than that required by Eq. (6.6.12): ρs = 0.45 (Ag/Ach -1)*(f′c/fyt)",
+      "notes": "Volumetric ratio (ρs) - (volume of spiral or circular hoop steel)/(volume of the concrete core it encloses)\n\nSpiral reinforcement - a continuously wound helical bar used as transverse confinement in circular columns\n\nCircular hoop - a closed circular tie used as transverse confinement\n\nEq. 6.8.6 - the formula, ρs = 0.12f′c / fyt\n\nf′c - specified compressive strength of concrete\n\nfyt - specified yield strength of the transverse reinforcement\n\nAg - the gross area of the entire cross-section\n\nAch - the core area of a concrete column measured to the outside of the transverse reinforcement. The cross-sectional area of the confined concrete core enclosed by the outer boundary of the spiral, hoops, or ties.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [
+          "6.8.6"
+        ],
+        "clauses": []
+      },
+      "page": 36
+    },
+    {
+      "clause_id": "8.3.5.4.a.(ii)",
+      "text": "The total cross-sectional area of rectangular hoop reinforcement shall not be less than that given by the following equations",
+      "notes": "Rectangular hoop - a closed rectangular tie used to confine the concrete core in non-circular columns\n\nAsh - total cross-sectional area of all legs of rectangular hoop reinforcement in one direction within a given spacing\n\ns - Spacing of transverse reinforcement; The center-to-center distance between consecutive hoops, ties, or spiral turns\n\nhc - the width or depth of the concrete core that is confined by the transverse reinforcement\n\nf′c - specified compressive strength of concrete\n\nfyt - specified yield strength of the transverse reinforcement\n\nAg - the gross area of the entire cross-section\n\nAch - the core area of a concrete column measured to the outside of the transverse reinforcement. The cross-sectional area of the confined concrete core enclosed by the outer boundary of the spiral, hoops, or ties.\n\nEq. 6.8.7 and Eq. 6.8.8 - two formulas that each set a minimum value for Ash; the larger result from the two equations must be used",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [
+          "6.8.7",
+          "6.8.8"
+        ],
+        "clauses": []
+      },
+      "page": 36
+    },
+    {
+      "clause_id": "8.3.5.4.a.(iii)",
+      "text": "Transverse reinforcement shall be provided by either single or overlapping hoops or cross ties of the same bar size and spacing. Each end of the cross ties shall engage a peripheral longitudinal reinforcing bar. Consecutive cross ties shall be alternated end for end along the longitudinal reinforcement.",
+      "notes": "Single hoop - one closed rectangular tie enclosing the column core\n\nOverlapping hoops - two or more closed ties whose perimeters overlap to confine a wider core area\n\nCross ties - straight bars with hooks at each end used to supplement hoops and restrain intermediate longitudinal bars\n\nPeripheral longitudinal bar - an outermost longitudinal bar located on the column perimeter\n\nAlternated end for end - successive cross ties are flipped so their hooks engage opposite sides of the column, distributing confinement evenly",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 36
+    },
+    {
+      "clause_id": "8.3.5.4.(b)",
+      "text": "Spacing of transverse reinforcement along the length l_o of the member shall not exceed the smallest of (i) one-quarter of the minimum dimension (ii) six time the diameter of the smallest longitudinal bar and (iii) s_o = 100 + (350 - h_x)/(3). The value of s_o shall not exceed 150 mm and need not be taken less than 100 mm .",
+      "notes": "lo - the critical confinement length of the member; max of (max dimension of the column, 1/6th clear height of the column, 450mm)\n\nclear height of the column - the height of the column measured between the top of one floor/beam/slab and the bottom of the beam/slab/floor above\n\nhx - the largest centre-to-centre distance between laterally supported longitudinal bars\n\nGoverning spacing - the smallest value from the three limits controls the maximum allowable spacing",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 36
+    },
+    {
+      "clause_id": "8.3.5.4.(c)",
+      "text": "Spacing of cross ties or legs of overlapping hoops shall not be more than 350 mm on centre in the direction perpendicular to the longitudinal axis of the member.",
+      "notes": "Cross ties - straight bars connecting opposite sides of a hoop to provide intermediate lateral support to longitudinal bars\n\nLegs of overlapping hoops - the individual straight segments of adjacent overlapping rectangular ties",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 36
+    },
+    {
+      "clause_id": "8.3.5.4.note",
+      "text": "Note: In beam column joints where members frame into all four sides of the joint and each member width is at least three-fourths the column width, the spacing of transverse reinforcement shall be 150 mm within the overall depth of the shallowest frame member. For all other conditions spacing shall be S_0. Use hoops and cross ties in beam column joint.",
+      "notes": "Beam-column joint - the region where beams and columns intersect, subject to high shear and confinement demands\nFour-sided framing condition - when beams frame into all four faces of a joint and each beam width is at least three-quarters of the column width, the joint is considered well confined\nSpacing of 150 mm - the maximum permitted transverse reinforcement spacing within the joint depth under the four-sided framing condition\nOverall depth of shallowest frame member - the dimension used to define the extent of the joint zone for the 150 mm spacing rule\nSo spacing - for joints that do not meet the four-sided framing condition, the calculated spacing so from clause (b) governs\nHoops and cross ties - the required form of transverse reinforcement within beam-column joints",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 36
+    }
+  ]
+}

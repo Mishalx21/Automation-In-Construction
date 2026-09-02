@@ -1,0 +1,28 @@
+{
+  "rule_id": "8.3.5.4.A.D",
+  "title": "Transverse reinforcement of special moment frame columns",
+  "source_clauses": [
+    "8.3.5.4.a.(i)",
+    "8.3.5.4.a.(ii)",
+    "8.3.5.4.a.(iii)",
+    "8.3.5.4.(b)",
+    "8.3.5.4.(c)",
+    "8.3.5.4.note"
+  ],
+  "statement": "For columns in Special Moment Frames (SMF), the transverse reinforcement spacing and placement must satisfy the following: (1) The confinement length, l_o, measured from the joint face, shall not be less than the maximum of: the largest member cross-sectional dimension, one-sixth of the clear span, and 450 mm. (2) Inside the confinement zone l_o, the hoop spacing, S_o, shall not exceed the smallest of: one-quarter of the minimum member dimension, six times the diameter of the smallest longitudinal bar, and s_o = 100 + (350 - h_x)/3 mm (where s_o is limited to a range of 100 mm to 150 mm, and h_x is the largest spacing between laterally supported longitudinal bars). (3) Outside the confinement zone, the spacing of transverse reinforcement, S, shall not exceed 2 * S_o. (4) The first tie shall be located within 50 mm from the face of the joint. (5) The spacing of cross ties or hoop legs (h_x) shall not exceed 350 mm.",
+  "scope_note": "Covers clauses (a)(i)-(iii), (b), (c) and the section Note: confinement length, hoop spacing inside and outside it, and joint spacing.",
+  "references": {
+    "equations": [
+      "6.8.6",
+      "6.8.7",
+      "6.8.8"
+    ]
+  },
+  "terms": [
+    "confinement_length",
+    "spacing_inside_the_confinement_zone",
+    "calculated_spacing_limit",
+    "spacing_outside_the_confinement_zone",
+    "maximum_bar_spacing"
+  ]
+}

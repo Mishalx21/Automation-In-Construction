@@ -1,0 +1,35 @@
+{
+  "section_id": "8.1.2.2",
+  "title": "Minimum bend diameters",
+  "page": 5,
+  "clauses": [
+    {
+      "clause_id": "8.1.2.2(a)",
+      "text": "(a) The minimum diameter of bend measured on the inside of the bar, for standard hooks other than for stirrups and ties in sizes of 10 mm to 16 mm diameter, shall not be less than the values shown in Table 6.8.1: for bar diameter between 10 mm to 25 mm, the minimum bend diameter shall be 6 times bar diameter; for bar diameter between 25 mm to 40 mm, the minimum bend diameter shall be 8 times bar diameter; for bar diameter between 40 mm to 57 mm, the minimum bend diameter shall be 10 times bar diameter.",
+      "notes": "Minimum diameter of bend - The smallest permitted inside diameter of a bent reinforcing bar, measured on the inside curve of the bend.\nStirrups and ties - Transverse reinforcement used to confine longitudinal bars of beams and columns;\nd_b - Nominal diameter of the reinforcing bar.",
+      "references": {
+        "tables": [
+          "6.8.1"
+        ],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 5
+    },
+    {
+      "clause_id": "8.1.2.2(b)",
+      "text": "(b) For stirrups and tie hooks, the inside diameter of bend shall not be less than 4 bar diameters for bars of 16 mm diameter and smaller. For bars larger than 16 mm diameter, bend diameter shall be in accordance with Table 6.8.1 or 8.1.2.2 (a).",
+      "notes": "Stirrups and tie hooks - Hooks formed on transverse reinforcement (stirrups and ties) used to confine longitudinal reinforcement.\nInside diameter of bend - The diameter measured on the inner curved surface of the bent bar.",
+      "references": {
+        "tables": [
+          "6.8.1"
+        ],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 5
+    }
+  ]
+}

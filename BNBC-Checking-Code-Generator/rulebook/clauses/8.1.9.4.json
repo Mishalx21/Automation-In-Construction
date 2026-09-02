@@ -1,0 +1,79 @@
+{
+  "section_id": "8.1.9.4",
+  "title": "Tie reinforcement for compression members",
+  "page": 12,
+  "clauses": [
+    {
+      "clause_id": "8.1.9.4(a)",
+      "text": "(a) All longitudinal bars in compression members shall be enclosed by lateral ties, at least 10 mm diameter in size for longitudinal bars 32 mm diameter or smaller, and at least 12 mm diameter in size for 36 mm to 57 mm diameter and bundled longitudinal bars.",
+      "notes": "Lateral ties - closed loops of reinforcing bar that enclose and confine all longitudinal bars in a compression member\nBundled longitudinal bars - two or more longitudinal bars grouped together",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 12
+    },
+    {
+      "clause_id": "8.1.9.4(b)",
+      "text": "(b) Vertical spacing of ties shall not exceed 16 longitudinal bar diameters or 48 tie diameters, or the least dimension of the compression members.",
+      "notes": "Vertical spacing of ties - the centre-to-centre distance measured along the height of the column between successive tie sets",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 12
+    },
+    {
+      "clause_id": "8.1.9.4(c)",
+      "text": "(c) Ties shall be arranged such that every corner and alternate longitudinal bar shall have lateral support provided by the corner of a tie with an included angle not more than 135°. No vertical bar shall be farther than 150 mm clear on each side along the tie from such a laterally supported bar. Where longitudinal bars are located around the perimeter of a circle, a complete circular tie is allowed.",
+      "notes": "Lateral support - restraint provided to a longitudinal bar by the corner bend of a tie to prevent it from buckling outward\nCircular tie - a complete closed circular loop of reinforcement allowed when longitudinal bars are arranged around the perimeter of a circle",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 12
+    },
+    {
+      "clause_id": "8.1.9.4(d)",
+      "text": "(d) The lowest tie in any storey shall be placed within one-half the required tie spacing from the top most horizontal reinforcement in the slab or footing below. The uppermost tie in any storey shall be within one-half the required tie spacing from the lowest horizontal reinforcement in the slab or drop panel above.",
+      "notes": "Lowest tie in a storey - the first tie placed above the slab or footing at the base of a column in any given floor level\nUppermost tie in a storey - the last tie placed before the slab or drop panel at the top of a column in any given floor level\nLowest horizontal reinforcement - the bottom layer of reinforcing bars in the slab or drop panel above, which sets the reference point for the uppermost tie placement",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 12
+    },
+    {
+      "clause_id": "8.1.9.4(e)",
+      "text": "(e) Where beams or brackets provide concrete confinement at the top of the column on all (four) sides, top tie shall be within 75 mm of the lowest horizontal reinforcement in the shallowest of such beams or brackets.",
+      "notes": "Concrete confinement at column top - condition where beams or brackets frame into all four sides of the column top, providing restraint\nShallowest beam or bracket - the beam or bracket with the least depth among those framing into the column top, which determines the reference level for tie placement",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 12
+    },
+    {
+      "clause_id": "8.1.9.4(f)",
+      "text": "(f) Where anchor bolts are placed in the top of columns or pedestals, the bolts shall be enclosed by lateral reinforcement that also surrounds at least four vertical bars of the column or pedestal. The lateral reinforcement shall be distributed within 125 mm of the top of the column or pedestal, and shall consist of at least two 12 mm diameter bars or three 10 mm diameter bars.",
+      "notes": "Anchor bolts - bolts embedded at the top of columns or pedestals used to connect structural elements above\nLateral reinforcement enclosing anchor bolts - ties placed around the anchor bolts to confine them and transfer forces into the column",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 12
+    }
+  ]
+}

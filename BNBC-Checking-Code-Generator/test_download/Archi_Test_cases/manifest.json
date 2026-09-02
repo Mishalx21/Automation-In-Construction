@@ -1,0 +1,415 @@
+{
+  "generated_at": "2026-08-18 01:53:50",
+  "models": [
+    {
+      "folder": "dental_clinic",
+      "source_file": "arc.ifc",
+      "positive": [
+        {
+          "rule": "A1",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_A1_egress_door_width.ifc",
+          "meta": {
+            "rule": "A1",
+            "description": "Egress door clear width reduced below IBC 1010.1.1 (815mm)",
+            "element_type": "IfcDoor",
+            "element_id": 882,
+            "global_id": "1byTDaqS91rBnWJlv$nnIo",
+            "name": "M_Single-Flush:0915 x 2134mm:0915 x 2134mm:223704",
+            "attribute": "OverallWidth",
+            "before_mm": 915.0,
+            "after_mm": 750.0
+          }
+        },
+        {
+          "rule": "A2",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_A2_stair_riser_height.ifc",
+          "meta": {
+            "rule": "A2",
+            "description": "Stair riser height increased beyond IBC 1011.5.2 (178mm max)",
+            "element_type": "IfcStairFlight",
+            "element_id": 40319,
+            "global_id": "09Eh99qNP7cx7E8HsVBkZD",
+            "name": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:221039:1",
+            "pset": "Pset_StairFlightCommon",
+            "attribute": "RiserHeight",
+            "before_mm": 175.77,
+            "after_mm": 190.0
+          }
+        },
+        {
+          "rule": "A3",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_A3_fire_rating.ifc",
+          "meta": {
+            "rule": "A3",
+            "description": "Fire rating downgraded below IBC Table 716.1(2) requirement",
+            "element_type": "IfcWallStandardCase",
+            "element_id": 1094,
+            "global_id": "3qpE7fVkr8dRZ2wfCc6tU4",
+            "name": "Basic Wall:Interior - Toilet Partition (25mm):411446",
+            "pset": "Pset_WallCommon",
+            "attribute": "FireRating",
+            "before": "2 HR",
+            "after": "1 HR"
+          }
+        },
+        {
+          "rule": "A4",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_A4_door_maneuvering_clearance.ifc",
+          "meta": {
+            "rule": "A4",
+            "description": "Door swing/opening relocated within ANSI A117.1 required maneuvering clearance of adjacent wall corner",
+            "element_type": "IfcDoor",
+            "element_id": 1896,
+            "global_id": "0mxk1RW8H5mvX1dNnpRqtX",
+            "name": "M_Single-Flush:0915 x 2134mm Exterior:0915 x 2134mm Exterior:252441",
+            "host_wall_global_id": "3LbNSBzHHBSuzhUUvuwB8Q",
+            "attribute": "OpeningElement.ObjectPlacement (offset along host wall)",
+            "before_clearance_mm": 537.0,
+            "after_clearance_mm": 150.0
+          }
+        },
+        {
+          "rule": "A5",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_A5_dead_end_corridor.ifc",
+          "meta": {
+            "rule": "A5",
+            "description": "Corridor connectivity graph edge severed, creating a dead-end exceeding IBC 1020.4 travel-distance allowance",
+            "element_type": "IfcDoor",
+            "element_id": 1363,
+            "global_id": "1byTDaqS91rBnWJlv$nn1R",
+            "name": "M_Single-Flush:0915 x 2134mm:0915 x 2134mm:224561",
+            "severed_space_global_id": "0ztdC3L1HAzhbhMHypqchk",
+            "severed_space_name": "1AC4 / CORRIDOR",
+            "remaining_space_global_id": "0ztdC3L1HAzhbhMHypqchZ",
+            "isolated_branch_space_count": 2,
+            "action": "Removed IfcRelSpaceBoundary linking this door to the branch space"
+          }
+        }
+      ],
+      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\dental_clinic\\arc.ifc",
+      "skipped_rules": []
+    },
+    {
+      "folder": "schependomlaan",
+      "source_file": "arc_design.ifc",
+      "positive": [
+        {
+          "rule": "A1",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_A1_egress_door_width.ifc",
+          "meta": {
+            "rule": "A1",
+            "description": "Egress door clear width reduced below IBC 1010.1.1 (815mm)",
+            "element_type": "IfcDoor",
+            "element_id": 213049,
+            "global_id": "1DMKLKe45CzO6gemze$ha$",
+            "name": "D3L",
+            "attribute": "OverallWidth",
+            "before_mm": 930.0,
+            "after_mm": 750.0
+          }
+        },
+        {
+          "rule": "A2",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_A2_stair_riser_height.ifc",
+          "meta": {
+            "rule": "A2",
+            "description": "Stair riser height explicitly documented beyond IBC 1011.5.2 (178mm max) (no riser/tread data existed anywhere in baseline model)",
+            "element_type": "IfcStair",
+            "element_id": 27351,
+            "global_id": "1VvzV9bwH6dB75qr1$srOX",
+            "name": "trappen",
+            "pset": "Pset_StairFlightCommon",
+            "attribute": "RiserHeight",
+            "before_mm": "(no property present)",
+            "after_mm": 190.0
+          }
+        },
+        {
+          "rule": "A3",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_A3_fire_rating.ifc",
+          "meta": {
+            "rule": "A3",
+            "description": "Fire rating blanked on hosted door (IBC Table 716.1(2))",
+            "element_type": "IfcDoor",
+            "element_id": 73073,
+            "global_id": "1xjGgwmzP23uthLfXurB67",
+            "name": "merk A",
+            "pset": "Pset_DoorCommon",
+            "attribute": "FireRating",
+            "before": "Zelfsluitend",
+            "after": "(blank)"
+          }
+        },
+        {
+          "rule": "A4",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_A4_door_maneuvering_clearance.ifc",
+          "meta": {
+            "rule": "A4",
+            "description": "Door swing/opening relocated within ANSI A117.1 required maneuvering clearance of adjacent wall corner",
+            "element_type": "IfcDoor",
+            "element_id": 264611,
+            "global_id": "012S6Z0qLCRuoYXSZ2tygw",
+            "name": "merk A3",
+            "host_wall_global_id": "1j6lJOCJrBfhwVjXcDrBMU",
+            "attribute": "OpeningElement.ObjectPlacement (offset along host wall)",
+            "before_clearance_mm": 508.0,
+            "after_clearance_mm": 150.0
+          }
+        },
+        {
+          "rule": "A5",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_A5_dead_end_corridor.ifc",
+          "meta": {
+            "rule": "A5",
+            "description": "Corridor connectivity graph edge severed, creating a dead-end exceeding IBC 1020.4 travel-distance allowance",
+            "element_type": "IfcDoor",
+            "element_id": 302771,
+            "global_id": "0NWv8IgP5Ch9a8sHZoyivA",
+            "name": "D1R",
+            "severed_space_global_id": "2rpp3iZFTCVwGEE7x9qiQ8",
+            "severed_space_name": "2.04 / keuken",
+            "remaining_space_global_id": "1GBaX8Qs19WPwcdIjq6ONn",
+            "isolated_branch_space_count": 2,
+            "action": "Removed IfcRelSpaceBoundary linking this door to the branch space"
+          }
+        }
+      ],
+      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\schependomlaan\\arc_design.ifc",
+      "skipped_rules": []
+    },
+    {
+      "folder": "sixty5",
+      "source_file": "arc.ifc",
+      "positive": [
+        {
+          "rule": "A1",
+          "path": "D:\\capstone_Test_cases\\Archi_Test_cases\\Positive\\sixty5\\sixty5_A1_egress_door_width.ifc",
+          "meta": {
+            "rule": "A1",
+            "description": "Egress door clear width reduced below IBC 1010.1.1 (815mm)",
+            "element_type": "IfcDoor",
+            "element_id": 60077,
+            "global_id": "2yxF29mmlq8YkOsRe88$Q6",
+            "name": "merk-bi-st-02sp",
+            "attribute": "OverallWidth",
+            "before_mm": 975.0,
+            "after_mm": 750.0
+          }
+        },
+        {
+          "rule": "A2",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_A2_stair_riser_height.ifc",
+          "meta": {
+            "rule": "A2",
+            "description": "Stair riser height explicitly documented beyond IBC 1011.5.2 (178mm max) (no riser/tread data existed anywhere in baseline model)",
+            "element_type": "IfcStair",
+            "element_id": 29059,
+            "global_id": "0M0A2UdzTBrvkK4AgnOBXI",
+            "name": "24-DD-stalen trap beganegrond",
+            "pset": "Pset_StairFlightCommon",
+            "attribute": "RiserHeight",
+            "before_mm": "(no property present)",
+            "after_mm": 190.0
+          }
+        },
+        {
+          "rule": "A3",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_A3_fire_rating.ifc",
+          "meta": {
+            "rule": "A3",
+            "description": "Fire rating downgraded below IBC Table 716.1(2) requirement",
+            "element_type": "IfcWall",
+            "element_id": 57081,
+            "global_id": "354CAktEc_iRCbcW$KkdQ5",
+            "name": "22_Wall_DD-kalkzandsteen",
+            "pset": "Pset_WallCommon",
+            "attribute": "FireRating",
+            "before": "60",
+            "after": "(blank)"
+          }
+        },
+        {
+          "rule": "A4",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_A4_door_maneuvering_clearance.ifc",
+          "meta": {
+            "rule": "A4",
+            "description": "Door swing/opening relocated within ANSI A117.1 required maneuvering clearance of adjacent wall corner",
+            "element_type": "IfcDoor",
+            "element_id": 156297,
+            "global_id": "26b7s0vJ91YX2hTM$i7nOE",
+            "name": "merk-bI- DALOC S23",
+            "host_wall_global_id": "1n99aZFBkpZnkID2WFafuj",
+            "attribute": "OpeningElement.ObjectPlacement (offset along host wall)",
+            "before_clearance_mm": 502.6,
+            "after_clearance_mm": 150.0
+          }
+        }
+      ],
+      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\sixty5\\arc.ifc",
+      "skipped_rules": [
+        "A5"
+      ]
+    },
+    {
+      "folder": "wbdg_office",
+      "source_file": "arc.ifc",
+      "positive": [
+        {
+          "rule": "A1",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_A1_egress_door_width.ifc",
+          "meta": {
+            "rule": "A1",
+            "description": "Egress door clear width reduced below IBC 1010.1.1 (815mm)",
+            "element_type": "IfcDoor",
+            "element_id": 457,
+            "global_id": "2N3oFtM8X6lO2dN1$77x1u",
+            "name": "M_Single-Flush:0915 x 2134mm:0915 x 2134mm:184606",
+            "attribute": "OverallWidth",
+            "before_mm": 915.0,
+            "after_mm": 750.0
+          }
+        },
+        {
+          "rule": "A2",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_A2_stair_riser_height.ifc",
+          "meta": {
+            "rule": "A2",
+            "description": "Stair riser height increased beyond IBC 1011.5.2 (178mm max)",
+            "element_type": "IfcStairFlight",
+            "element_id": 12571,
+            "global_id": "2HN9GRW9T98ur1qfbY8lFw",
+            "name": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:235743:2",
+            "pset": "Pset_StairFlightCommon",
+            "attribute": "RiserHeight",
+            "before_mm": 177.8,
+            "after_mm": 190.0
+          }
+        },
+        {
+          "rule": "A3",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_A3_fire_rating.ifc",
+          "meta": {
+            "rule": "A3",
+            "description": "Fire rating downgraded below IBC Table 716.1(2) requirement",
+            "element_type": "IfcWallStandardCase",
+            "element_id": 364,
+            "global_id": "1giqnsgvr6uA16isIlsn_B",
+            "name": "Basic Wall:Interior - Toilet Partition (25mm):225456",
+            "pset": "Pset_WallCommon",
+            "attribute": "FireRating",
+            "before": "2 HR",
+            "after": "1 HR"
+          }
+        },
+        {
+          "rule": "A4",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_A4_door_maneuvering_clearance.ifc",
+          "meta": {
+            "rule": "A4",
+            "description": "Door swing/opening relocated within ANSI A117.1 required maneuvering clearance of adjacent wall corner",
+            "element_type": "IfcDoor",
+            "element_id": 503,
+            "global_id": "2N3oFtM8X6lO2dN1$77xF_",
+            "name": "M_Single-Flush:0915 x 2134mm:0915 x 2134mm:184984",
+            "host_wall_global_id": "1Uma8nuu1Frxm4jZQJyUi_",
+            "attribute": "OpeningElement.ObjectPlacement (offset along host wall)",
+            "before_clearance_mm": 509.0,
+            "after_clearance_mm": 150.0
+          }
+        },
+        {
+          "rule": "A5",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_A5_dead_end_corridor.ifc",
+          "meta": {
+            "rule": "A5",
+            "description": "Corridor connectivity graph edge severed, creating a dead-end exceeding IBC 1020.4 travel-distance allowance",
+            "element_type": "IfcDoor",
+            "element_id": 473,
+            "global_id": "2N3oFtM8X6lO2dN1$77xaz",
+            "name": "M_Single-Flush:0915 x 2134mm:0915 x 2134mm:186459",
+            "severed_space_global_id": "04Sq57eS5FffNezn2ilgts",
+            "severed_space_name": "114 / OPEN OFFICE",
+            "remaining_space_global_id": "2p9k3Vk8DEmPDRJ6691rGh",
+            "isolated_branch_space_count": 3,
+            "action": "Removed IfcRelSpaceBoundary linking this door to the branch space"
+          }
+        }
+      ],
+      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\wbdg_office\\arc.ifc",
+      "skipped_rules": []
+    },
+    {
+      "folder": "west_riverside_hospital",
+      "source_file": "arc.ifc",
+      "positive": [
+        {
+          "rule": "A1",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_A1_egress_door_width.ifc",
+          "meta": {
+            "rule": "A1",
+            "description": "Egress door clear width reduced below IBC 1010.1.1 (815mm)",
+            "element_type": "IfcDoor",
+            "element_id": 177163,
+            "global_id": "3JlX9$$_PCKBNpDob64$5M",
+            "name": "M_Single-Flush:0915 x 2032mm_Wood:439207",
+            "attribute": "OverallWidth",
+            "before_mm": 915.0,
+            "after_mm": 750.0
+          }
+        },
+        {
+          "rule": "A2",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_A2_stair_riser_height.ifc",
+          "meta": {
+            "rule": "A2",
+            "description": "Stair riser height increased beyond IBC 1011.5.2 (178mm max)",
+            "element_type": "IfcStair",
+            "element_id": 103003,
+            "global_id": "1wrNt7GW19tOpUaBTGwvsc",
+            "name": "Stair:180mm max riser 280mm going:291848",
+            "pset": "Pset_StairCommon",
+            "attribute": "RiserHeight",
+            "before_mm": 178.57,
+            "after_mm": 190.0
+          }
+        },
+        {
+          "rule": "A3",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_A3_fire_rating.ifc",
+          "meta": {
+            "rule": "A3",
+            "description": "Fire rating explicitly documented as missing on hosted door (no fire-rating data exists anywhere in baseline model)",
+            "element_type": "IfcDoor",
+            "element_id": 177163,
+            "global_id": "3JlX9$$_PCKBNpDob64$5M",
+            "name": "M_Single-Flush:0915 x 2032mm_Wood:439207",
+            "pset": "Pset_DoorCommon",
+            "attribute": "FireRating",
+            "before": "(no property present)",
+            "after": "(blank, explicitly set)"
+          }
+        },
+        {
+          "rule": "A4",
+          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_A4_door_maneuvering_clearance.ifc",
+          "meta": {
+            "rule": "A4",
+            "description": "Door swing/opening relocated within ANSI A117.1 required maneuvering clearance of adjacent wall corner",
+            "element_type": "IfcDoor",
+            "element_id": 1169213,
+            "global_id": "0IbIIu6Lz82Qlw1VJakDVL",
+            "name": "M_Single-Flush:0813 x 2134mm:782687",
+            "host_wall_global_id": "2QRZsMKYn35ff5LwqHZ$5z",
+            "attribute": "OpeningElement.ObjectPlacement (offset along host wall)",
+            "before_clearance_mm": 520.0,
+            "after_clearance_mm": 150.0
+          }
+        }
+      ],
+      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\west_riverside_hospital\\arc.ifc",
+      "skipped_rules": [
+        "A5"
+      ]
+    }
+  ]
+}

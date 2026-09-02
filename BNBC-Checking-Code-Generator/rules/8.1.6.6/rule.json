@@ -1,0 +1,15 @@
+{
+  "rule_id": "8.1.6.6",
+  "title": "Maximum bar spacing in two-way slabs",
+  "source_clauses": [
+    "8.1.6.6"
+  ],
+  "statement": "For two-way slabs, maximum spacing of bars shall not exceed twice the slab thickness h nor 450 mm.",
+  "scope_note": "",
+  "references": {},
+  "terms": [
+    "two_way_slabs",
+    "maximum_spacing_of_bars",
+    "h"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "rule_id": "8.3.10.5.A",
+  "title": "Column tie spacing for intermediate moment frames",
+  "source_clauses": [
+    "8.3.10.5.(a)"
+  ],
+  "statement": "For columns, maximum tie spacing shall not exceed s₀ over a length l₀ measured from the joint face, where s₀ shall not exceed (i) 8 times the diameter of the smallest longitudinal bar enclosed, (ii) 24 times the diameter of the tie bar, (iii) one-half of the smallest cross-sectional dimension of the frame member, and (iv) 300 mm. the length l₀ over which the maximum tie spacing s₀ applies, measured from the joint face, shall not be less than (i) one-sixth of the clear span of the member, (ii) the maximum cross-sectional dimension of the member, and (iii) 450 mm.",
+  "scope_note": "",
+  "references": {},
+  "terms": [
+    "s",
+    "tie_spacing",
+    "tie_bar_diameter",
+    "smallest_cross_sectional_dimension",
+    "l",
+    "clear_span"
+  ]
+}

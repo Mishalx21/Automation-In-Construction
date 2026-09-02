@@ -1,0 +1,49 @@
+{
+  "section_id": "8.3.7.2",
+  "title": "Transverse reinforcement",
+  "page": 48,
+  "clauses": [
+    {
+      "clause_id": "8.3.7.2(a)",
+      "text": "(a) Transverse hoop reinforcement shall be provided within the joint, as specified in Sec 8.3.5.4, unless the joint is confined by structural members as specified in the condition described in sub-rule (b) of this section.",
+      "notes": "Transverse hoop reinforcement - Closed loop reinforcing ties placed within a beam-column joint to provide confinement and shear resistance.\nJoint - The region where beams and columns intersect in a structural frame.\nConfinement by structural members - A condition where framing members surrounding the joint provide adequate lateral restraint, potentially reducing the need for hoop reinforcement.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": [
+          "8.3.5.4"
+        ]
+      },
+      "page": 48
+    },
+    {
+      "clause_id": "8.3.7.2(b)",
+      "text": "(b) Within the depth of the shallowest framing member, where members frame into all four sides of the joint and where each member width is at least three-fourths the column width, transverse reinforcement equal to at least one-half the amount required by Sec 8.3.5.4(a) shall be provided; at these locations, the spacing specified in Sec 8.3.5.4(b) may be increased to 150 mm.",
+      "notes": "Depth of the shallowest framing member - The smallest cross-sectional depth among all beams or members framing into the joint, defining the zone within which the reduced transverse reinforcement applies.\nMember width - The cross-sectional width of a framing beam or member measured perpendicular to the span direction.\nColumn width - The cross-sectional dimension of the column in the direction being considered.\nTransverse reinforcement - Hoop or tie reinforcement placed within the joint region to provide confinement and shear resistance.\nSpacing - The center-to-center distance between successive transverse reinforcement sets within the joint.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": [
+          "8.3.5.4"
+        ]
+      },
+      "page": 48
+    },
+    {
+      "clause_id": "8.3.7.2(c)",
+      "text": "(c) Transverse reinforcement shall be provided through the joint, as required by Sec 8.3.5.4, to provide confinement for longitudinal beam reinforcement outside the column core if such confinement is not provided by a beam framing into the joint.",
+      "notes": "Transverse reinforcement - Hoop or tie reinforcement placed within and through the joint region to laterally confine reinforcing bars.\nLongitudinal beam reinforcement - The primary tension or compression steel bars running along the length of the beam that pass through or terminate at the joint.\nColumn core - The concrete region enclosed by the outermost transverse reinforcement of the column.\nConfinement - Lateral restraint provided to reinforcing bars or concrete",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": [
+          "8.3.5.4"
+        ]
+      },
+      "page": 48
+    }
+  ]
+}

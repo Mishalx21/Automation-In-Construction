@@ -1,0 +1,91 @@
+{
+  "section_id": "8.1.6",
+  "title": "Spacing of Reinforcement",
+  "page": 1,
+  "clauses": [
+    {
+      "clause_id": "8.1.6.1",
+      "text": "The minimum clear spacing between parallel bars in a layer shall be equal to one bar diameter, but not less than 25 mm, or 1.33 times of maximum nominal size of coarse aggregate, whichever is larger.",
+      "notes": "Clear spacing - The unobstructed distance between the surfaces of adjacent parallel bars in the same layer.\n\nMaximum nominal size of coarse aggregate - the largest standard size of coarse aggregate particles that is permitted or intended to be used in a concrete mix.\nCoarse aggregate refers to stone chips or gravel used in concrete.\nNominal size means the designated standard sieve size used to classify the aggregate.\nThe term indicates the approximate largest aggregate size present in the mix.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 1
+    },
+    {
+      "clause_id": "8.1.6.2",
+      "text": "Where parallel reinforcement is placed in two or more layers, bars in the upper layers shall be placed directly above those in the bottom layer with clear distance between layers not less than 25 mm.",
+      "notes": "Parallel reinforcement - Reinforcing bars running in the same direction placed in multiple horizontal layers.\nClear distance between layers - The unobstructed vertical distance between the surfaces of bars in adjacent layers.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 1
+    },
+    {
+      "clause_id": "8.1.6.3",
+      "text": "For compression members, the clear distance between longitudinal bars shall be not less than 1.5 bar diameters nor 40 mm nor 1.33 times of maximum nominal size of coarse aggregate.",
+      "notes": "Compression members - columns\nClear distance - The unobstructed distance between the surfaces of adjacent longitudinal bars.\nLongitudinal bars - Reinforcing bars running along the length of the compression member.\nMaximum nominal size of coarse aggregate - the largest standard size of coarse aggregate particles that is permitted or intended to be used in a concrete mix.\nCoarse aggregate refers to stone chips or gravel used in concrete.\nNominal size means the designated standard sieve size used to classify the aggregate.\nThe term indicates the approximate largest aggregate size present in the mix.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 1
+    },
+    {
+      "clause_id": "8.1.6.4",
+      "text": "Clear distance limitation between bars shall apply also to the clear distance between a contact lap splice and adjacent splices or bars.",
+      "notes": "",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 7
+    },
+    {
+      "clause_id": "8.1.6.5",
+      "text": "In walls and one-way slabs the maximum bar spacing shall not be more than three times the wall or slab thickness h nor 450 mm.",
+      "notes": "One-way slabs - Slabs that span primarily in one direction and are designed to carry loads in that direction.\nMaximum bar spacing - The greatest allowable center-to-center distance between adjacent reinforcing bars.\nh - The total thickness of the wall or slab.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 1
+    },
+    {
+      "clause_id": "8.1.6.6",
+      "text": "For two-way slabs, maximum spacing of bars shall not exceed twice the slab thickness h nor 450 mm.",
+      "notes": "Two-way slabs - Reinforced concrete slabs that carry loads and bend in both directions — along the length and the width of the slab.\nBecause the slab bends in two directions, reinforcement is usually provided in both directions.\nThis typically happens when the slab’s longer side is not much larger than the shorter side.\n\nMaximum spacing of bars - The greatest allowable center-to-center distance between adjacent reinforcing bars.\n\nh - The total thickness of the slab.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 1
+    },
+    {
+      "clause_id": "8.1.6.7",
+      "text": "For temperature steel, maximum spacing shall not exceed 5 times the slab thickness h nor 450 mm.",
+      "notes": "Temperature steel - Reinforcing bars provided to control cracking caused by temperature changes and shrinkage, not for primary structural load resistance.\nh - The total thickness of the slab.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 1
+    }
+  ]
+}

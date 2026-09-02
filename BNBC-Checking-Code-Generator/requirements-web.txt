@@ -1,0 +1,8 @@
+# Web layer dependencies only — deliberately WITHOUT the LLM/orchestration
+# stack (langgraph, google-genai, openai, langsmith). This service only RUNS
+# accepted checkers, so the deployed image carries no LLM SDKs and no API keys.
+# ifcopenshell is pinned to the same version the ifcinject image uses.
+ifcopenshell==0.8.5
+fastapi==0.115.14
+uvicorn==0.35.0
+python-multipart==0.0.20

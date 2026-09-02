@@ -1,0 +1,186 @@
+LIMITATIONS AND FAILURES OF THE CODE-GENERATION PIPELINE
+Derived by manual analysis of every file in test_results/ (rule1-5, A1-A5, both
+Positive_Multi reports), cross-referenced against test_download*/manifest*.json
+injection metadata and the actual checker source in rule-*_v1/.
+
+Aggregate counts across all 143 verdict rows in test_results/:
+    FAIL            103
+    PASS             18
+    NOT_APPLICABLE   22
+
+============================================================================
+LIMITATION 1 — No acceptance gate was ever run on these checkers at all
+============================================================================
+Root finding: there is no artifacts/ directory anywhere in this repo, and
+none of rules/*/rule.json define A1-A5/S1-S5. The bnbc/ FIV pipeline
+(ingest -> spec_card -> fixture_plan -> agentic_draft -> execute -> gate)
+has never touched the checkers under rule-*_v1/. They were hand-written
+directly (by a Claude Code session) and saved with zero automated
+verification against the fixtures in test_download/ and
+test_download_struct/.
+
+Consequence: every other limitation below is a direct symptom of this one.
+A gate that requires "100% fixture kill rate with correct element GUIDs"
+(as bnbc/fixtures/gate.py defines it) would have caught every failure
+in this report automatically, before the code ever reached disk.
+
+============================================================================
+LIMITATION 2 — Checker scope narrower than the real IFC authoring variance
+(entity-type coverage gap)
+============================================================================
+Evidence: rule_A2_stair_riser_tread_results.txt
+    POSITIVE  NOT_APPLICABLE  schependomlaan_A2_stair_riser_height.ifc
+    POSITIVE  NOT_APPLICABLE  sixty5_A2_stair_riser_height.ifc
+    POSITIVE  NOT_APPLICABLE  west_riverside_hospital_A2_stair_riser_height.ifc
+    (2 of 5 positive fixtures correctly detected; 3 of 5 missed)
+
+check_a2_stair_riser_tread.py inspects ONLY IfcStairFlight
+(model.by_type("IfcStairFlight")). manifest.json's own injection metadata
+for these three buildings states the violation was written onto IfcStair
+directly ("element_type": "IfcStair", pset "Pset_StairCommon" /
+"Pset_StairFlightCommon"), explicitly because "no riser/tread data existed
+anywhere in baseline model" -- i.e. these buildings never modelled
+IfcStairFlight at all, only bare IfcStair. This is a legitimate, common
+real-world authoring pattern (confirmed: the Negative baseline for these
+same 3 buildings also has zero IfcStairFlight instances), not a fabricated
+edge case.
+
+Failure class: GENERATED-CODE / ALGORITHMIC FAULT (incomplete implementation).
+The rule's label is correct (a real 190mm riser exists); the checker simply
+never looks at the entity type that carries it in ~60% of the corpus.
+
+============================================================================
+LIMITATION 3 — Checker's detection method and the rule's real-world signature
+are two different definitions of "connectivity" (100% miss rate)
+============================================================================
+Evidence: rule_A5_dead_end_corridor_results.txt
+    POSITIVE  PASS  dental_clinic_A5_dead_end_corridor.ifc
+    POSITIVE  PASS  schependomlaan_A5_dead_end_corridor.ifc
+    POSITIVE  PASS  wbdg_office_A5_dead_end_corridor.ifc
+    (0 of 3 positive fixtures detected -- also 0 of 2 in
+     positive_multi_architectural_results.txt where A5 was injectable)
+
+check_a5_dead_end_corridor.py's own docstring states its design choice:
+"IFC data rarely carries an explicit space-to-space connectivity graph, so
+this checker builds a proxy graph from door<->space GEOMETRIC adjacency."
+manifest.json's injection method for A5 is: "Removed IfcRelSpaceBoundary
+linking this door to the branch space" -- a pure relationship/metadata
+edit. The door's physical position never moves, so the checker's geometric
+bounding-box proxy sees no change at all.
+
+Failure class: ALGORITHMIC FAULT. Both sides made a reasoned, documented
+choice (the checker avoids relationship data because it's often absent in
+real exports; the fixture generator used relationship deletion because
+that is the literal IFC representation of "severing a connectivity edge").
+Neither choice is unreasonable in isolation, but they were never
+cross-validated against each other -- the result is a checker that is
+structurally incapable of detecting this entire class of injected
+violation, independent of which specific building is tested.
+
+============================================================================
+LIMITATION 4 — Obstruction-class list omits the rule's most common
+real-world obstruction, masked by coincidental unrelated violations
+============================================================================
+Evidence: rule_A4_door_maneuvering_clearance_results.txt
+    POSITIVE  PASS  wbdg_office_A4_door_maneuvering_clearance.ifc
+    (plus positive_multi_architectural_results.txt: wbdg_office A4 -> PASS)
+
+check_a4_door_maneuvering_clearance.py only treats
+IfcFurnishingElement / IfcColumn / IfcRailing as obstructions, and
+explicitly excludes the door's own host wall. manifest.json shows the SAME
+injection method used for all 5 buildings: moving a door's opening closer
+to an "adjacent wall corner" (clearance 500mm -> 150mm) -- i.e. the
+obstruction in every single case is a WALL, a class the checker never
+inspects.
+
+Deeper finding (manual GUID cross-check, not visible from verdicts alone):
+of the 4 buildings that returned FAIL, only sixty5's injected door GUID
+(26b7s0vJ91YX2hTM$i7nOE) actually appears in that file's violation list.
+dental_clinic, schependomlaan and west_riverside_hospital returned FAIL
+only because their baseline models already contain unrelated furniture/
+railing clutter that happens to intersect some OTHER door's clearance
+zone -- confirmed by checking the same violations exist in the NEGATIVE
+(un-injected) baseline for those buildings. wbdg_office's baseline is the
+only one clean enough (Negative verdict = PASS) to expose the gap.
+
+Failure class: ALGORITHMIC FAULT (wall omitted from obstruction classes),
+COMPOUNDED BY A TESTING-METHODOLOGY BLIND SPOT: a checker that reports
+"fail" if ANY violation exists ANYWHERE in the model (rather than
+requiring the specific injected element to be named) can pass a test by
+coincidence. True single-rule detection rate for A4 is 1/5, not the 4/5 a
+verdict-only read of the summary table would suggest.
+
+============================================================================
+LIMITATION 5 — Fixture over-deletion (test-data fault, not a checker fault)
+============================================================================
+Evidence: rule5_S5_soft_storey_results.txt
+    POSITIVE  NOT_APPLICABLE  dental_clinic_str_S5_soft_storey.ifc
+    POSITIVE  NOT_APPLICABLE  wbdg_office_str_S5_soft_storey.ifc
+    POSITIVE  NOT_APPLICABLE  west_riverside_hospital_str_S5_soft_storey.ifc
+    (plus positive_multi_results.txt: west_riverside_hospital S5 -> NOT_APPLICABLE)
+
+manifest_structural.json states the intended injection for dental_clinic
+was "target_storey": "TOF Footing", "deleted_wall_count": 26 -- but the
+Negative (un-injected) baseline for dental_clinic has exactly 26 IfcWall
+in the ENTIRE model. The fixture generator deleted every wall in the
+building, not just the target storey's walls, leaving the checker with
+zero IfcWall to reason about at all.
+
+Failure class: TEST-CASE / FIXTURE-GENERATION FAULT, not algorithmic.
+Proof: the identical checker code correctly detects the intended
+violation on schependomlaan_engineer and sixty5, where the fixture was
+built correctly (walls remain on all storeys except the targeted one).
+
+============================================================================
+LIMITATION 6 — No noise control: pre-existing real violations in baseline
+models make "Positive returns FAIL" weak evidence of correctness
+============================================================================
+Evidence: across rule1-4 (S1-S4) and A1/A3, the NEGATIVE (baseline, no
+injection) files themselves return FAIL in the large majority of cases:
+    NEGATIVE verdicts overall: FAIL=40, NOT_APPLICABLE=9, PASS=11
+This is expected and correctly attributable to the real buildings' own
+pre-existing deficiencies (confirmed against "10 common errors.docx",
+which explicitly describes several baselines as already sitting at or
+above the relevant limit). But it also means that, for these rules, a
+"FAIL" verdict on a Positive fixture is NOT by itself proof that the
+checker detected the specific injected change -- as demonstrated
+concretely in Limitation 4. Only a manual, per-element GUID cross-check
+against manifest.json (done here for S1/S2/S3/S4/A1/A3, all confirmed
+genuine exact matches -- e.g. S2's column least_dimension=250mm and
+slenderness=19.5 match the manifest's after_dim_mm/after_slenderness
+values exactly) can distinguish a true detection from a coincidental one.
+The pipeline has no automated equivalent of this check.
+
+============================================================================
+LIMITATION 7 — Measurement convention can silently diverge from the
+fixture's actual injected attribute
+============================================================================
+Evidence: rule1_S1_beam_span_depth_results.txt, dental_clinic positive file,
+element 0NwXg6Ayr9z88KpqSjw_fn: manifest_structural.json records
+after_depth_mm = 400.0, but the checker's own measured output for this
+exact element reads "depth=153 mm" (span=11075mm, L/d=72.4). The verdict
+is still correctly FAIL in this instance (153mm is even further from
+compliant than 400mm would have been), so it caused no misclassification
+here -- but it shows the checker's documented convention ("depth = the
+element's vertical bounding-box extent, not the IFC profile parameter")
+can diverge substantially from the attribute the fixture generator
+actually edited, with no automated cross-check between the two. A less
+extreme perturbation could flip a verdict silently.
+
+============================================================================
+SUMMARY TABLE
+============================================================================
+Rule   True single-rule detection   Failure class
+S1     6/6                          none found
+S2     6/6                          none found (Limitation 7 noted, no misclassification)
+S3     6/6                          none found
+S4     5/5                          none found
+S5     2/5                          Limitation 5 (fixture fault)
+A1     5/5                          none found
+A2     2/5                          Limitation 2 (algorithmic/code gap)
+A3     3/3 testable                 none found (2/5 rule not applicable to those buildings)
+A4     1/5 (not 4/5)                Limitation 4 (algorithmic gap + false-confirmation)
+A5     0/3                          Limitation 3 (algorithmic definition mismatch)
+
+Root cause underlying all of the above: Limitation 1 -- no automated,
+fixture-anchored acceptance gate was ever applied to these checkers.

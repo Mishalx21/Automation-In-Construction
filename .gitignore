@@ -1,0 +1,4 @@
+# IFC source models and generated fixtures are large binary data assets.
+# Keep them outside normal Git history; distribute them via object storage
+# or Git LFS only when a repository has sufficient LFS quota.
+*.ifc

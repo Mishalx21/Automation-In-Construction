@@ -1,0 +1,14 @@
+{
+  "rule_id": "8.1.6.2",
+  "title": "Clear distance between layers of parallel reinforcement",
+  "source_clauses": [
+    "8.1.6.2"
+  ],
+  "statement": "Where parallel reinforcement is placed in two or more layers, bars in the upper layers shall be placed directly above those in the bottom layer with clear distance between layers not less than 25 mm.",
+  "scope_note": "",
+  "references": {},
+  "terms": [
+    "parallel_reinforcement",
+    "clear_distance_between_layers"
+  ]
+}

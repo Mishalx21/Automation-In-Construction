@@ -1,0 +1,19 @@
+{
+  "section_id": "8.3.10.5",
+  "title": "Columns",
+  "page": 54,
+  "clauses": [
+    {
+      "clause_id": "8.3.10.5.(a)",
+      "text": "For columns, maximum tie spacing shall not exceed s₀ over a length l₀ measured from the joint face, where s₀ shall not exceed (i) 8 times the diameter of the smallest longitudinal bar enclosed, (ii) 24 times the diameter of the tie bar, (iii) one-half of the smallest cross-sectional dimension of the frame member, and (iv) 300 mm. the length l₀ over which the maximum tie spacing s₀ applies, measured from the joint face, shall not be less than (i) one-sixth of the clear span of the member, (ii) the maximum cross-sectional dimension of the member, and (iii) 450 mm.",
+      "notes": "s₀ - The maximum allowable tie spacing within the length l₀\n\nTie spacing - The center-to-center distance between successive transverse tie bars along the column length.\n\nTie bar diameter - The nominal diameter of the transverse tie reinforcing bar.\n\nSmallest cross-sectional dimension - The lesser of the two cross-sectional dimensions (width or depth) of the column frame member.\n\nl₀ - The minimum length measured from the joint face over which the tighter tie spacing s₀ must be maintained;\n\nClear span - The unobstructed length of the column between the faces of the supporting members.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 54
+    }
+  ]
+}

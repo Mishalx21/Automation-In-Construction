@@ -1,0 +1,443 @@
+STRUCTURAL RULE 5 (S5) - Soft storey
+Checker: rule-10.Soft_storey/check_s5_soft_storey.py
+====================================================================================================
+
+####################################################################################################
+### POSITIVE TEST CASES (injected S5 violation expected -> verdict should be FAIL)
+####################################################################################################
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/dental_clinic/dental_clinic_str_S5_soft_storey.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Positive/dental_clinic/dental_clinic_str_S5_soft_storey.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcWall/IfcBuildingStorey elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/schependomlaan/schependomlaan_str_engineer_S5_soft_storey.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Positive/schependomlaan/schependomlaan_str_engineer_S5_soft_storey.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 3.3 walls (30% of median 11.0)",
+      "locations": [
+        {
+          "element": "Storey 'Bk Putvloer'",
+          "storey": "Bk Putvloer",
+          "measured": "load_bearing_walls=0, building_median=11.0"
+        }
+      ]
+    },
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 3.3 walls (30% of median 11.0)",
+      "locations": [
+        {
+          "element": "Storey 'Dakvloer'",
+          "storey": "Dakvloer",
+          "measured": "load_bearing_walls=0, building_median=11.0"
+        }
+      ]
+    },
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 3.3 walls (30% of median 11.0)",
+      "locations": [
+        {
+          "element": "Storey 'aanzicht dakvloer'",
+          "storey": "aanzicht dakvloer",
+          "measured": "load_bearing_walls=0, building_median=11.0"
+        }
+      ]
+    },
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 3.3 walls (30% of median 11.0)",
+      "locations": [
+        {
+          "element": "Storey 'Dak lift'",
+          "storey": "Dak lift",
+          "measured": "load_bearing_walls=0, building_median=11.0"
+        }
+      ]
+    }
+  ],
+  "violation_count": 4,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "storey_lateral_wall_deficit": {
+      "elements_checked": 9,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "4 storey(s) show a soft-storey wall deficit."
+}
+
+Verdict: FAIL
+  - [storey_lateral_wall_deficit] Storey 'Bk Putvloer' @ Bk Putvloer: load_bearing_walls=0, building_median=11.0
+  - [storey_lateral_wall_deficit] Storey 'Dakvloer' @ Dakvloer: load_bearing_walls=0, building_median=11.0
+  - [storey_lateral_wall_deficit] Storey 'aanzicht dakvloer' @ aanzicht dakvloer: load_bearing_walls=0, building_median=11.0
+  - [storey_lateral_wall_deficit] Storey 'Dak lift' @ Dak lift: load_bearing_walls=0, building_median=11.0
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/sixty5/sixty5_str_S5_soft_storey.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Positive/sixty5/sixty5_str_S5_soft_storey.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 5.1 walls (30% of median 17.0)",
+      "locations": [
+        {
+          "element": "Storey '01 eerste verdieping'",
+          "storey": "01 eerste verdieping",
+          "measured": "load_bearing_walls=0, building_median=17.0"
+        }
+      ]
+    },
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 5.1 walls (30% of median 17.0)",
+      "locations": [
+        {
+          "element": "Storey '17 zeventiende verdieping'",
+          "storey": "17 zeventiende verdieping",
+          "measured": "load_bearing_walls=0, building_median=17.0"
+        }
+      ]
+    },
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 5.1 walls (30% of median 17.0)",
+      "locations": [
+        {
+          "element": "Storey '18 achttiende verdieping'",
+          "storey": "18 achttiende verdieping",
+          "measured": "load_bearing_walls=0, building_median=17.0"
+        }
+      ]
+    }
+  ],
+  "violation_count": 3,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "storey_lateral_wall_deficit": {
+      "elements_checked": 19,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "3 storey(s) show a soft-storey wall deficit."
+}
+
+Verdict: FAIL
+  - [storey_lateral_wall_deficit] Storey '01 eerste verdieping' @ 01 eerste verdieping: load_bearing_walls=0, building_median=17.0
+  - [storey_lateral_wall_deficit] Storey '17 zeventiende verdieping' @ 17 zeventiende verdieping: load_bearing_walls=0, building_median=17.0
+  - [storey_lateral_wall_deficit] Storey '18 achttiende verdieping' @ 18 achttiende verdieping: load_bearing_walls=0, building_median=17.0
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/wbdg_office/wbdg_office_str_S5_soft_storey.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Positive/wbdg_office/wbdg_office_str_S5_soft_storey.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcWall/IfcBuildingStorey elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download_struct/Positive/west_riverside_hospital/west_riverside_hospital_str_S5_soft_storey.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Positive/west_riverside_hospital/west_riverside_hospital_str_S5_soft_storey.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcWall/IfcBuildingStorey elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+
+####################################################################################################
+### NEGATIVE TEST CASES (baseline, no injection -> real pre-existing condition)
+####################################################################################################
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/dental_clinic/str.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Negative/dental_clinic/str.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "storey_lateral_wall_deficit": {
+      "elements_checked": 4,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "All 4 storey(s) have a comparable load-bearing wall count (median=0.0)."
+}
+
+Verdict: PASS
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/schependomlaan/str_engineer.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Negative/schependomlaan/str_engineer.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 3.3 walls (30% of median 11.0)",
+      "locations": [
+        {
+          "element": "Storey 'Dakvloer'",
+          "storey": "Dakvloer",
+          "measured": "load_bearing_walls=0, building_median=11.0"
+        }
+      ]
+    },
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 3.3 walls (30% of median 11.0)",
+      "locations": [
+        {
+          "element": "Storey 'aanzicht dakvloer'",
+          "storey": "aanzicht dakvloer",
+          "measured": "load_bearing_walls=0, building_median=11.0"
+        }
+      ]
+    },
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 3.3 walls (30% of median 11.0)",
+      "locations": [
+        {
+          "element": "Storey 'Dak lift'",
+          "storey": "Dak lift",
+          "measured": "load_bearing_walls=0, building_median=11.0"
+        }
+      ]
+    }
+  ],
+  "violation_count": 3,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "storey_lateral_wall_deficit": {
+      "elements_checked": 9,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "3 storey(s) show a soft-storey wall deficit."
+}
+
+Verdict: FAIL
+  - [storey_lateral_wall_deficit] Storey 'Dakvloer' @ Dakvloer: load_bearing_walls=0, building_median=11.0
+  - [storey_lateral_wall_deficit] Storey 'aanzicht dakvloer' @ aanzicht dakvloer: load_bearing_walls=0, building_median=11.0
+  - [storey_lateral_wall_deficit] Storey 'Dak lift' @ Dak lift: load_bearing_walls=0, building_median=11.0
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/schependomlaan/str_hollowcore_floors.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Negative/schependomlaan/str_hollowcore_floors.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "storey_lateral_wall_deficit": {
+      "elements_checked": 1,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "All 1 storey(s) have a comparable load-bearing wall count (median=1.0)."
+}
+
+Verdict: PASS
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/schependomlaan/str_steel.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Negative/schependomlaan/str_steel.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "not_applicable",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {},
+  "summary": "No IfcWall/IfcBuildingStorey elements found in the model."
+}
+
+Verdict: NOT_APPLICABLE
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/sixty5/str.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Negative/sixty5/str.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "fail",
+  "violations": [
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 5.1 walls (30% of median 17.0)",
+      "locations": [
+        {
+          "element": "Storey '17 zeventiende verdieping'",
+          "storey": "17 zeventiende verdieping",
+          "measured": "load_bearing_walls=0, building_median=17.0"
+        }
+      ]
+    },
+    {
+      "condition": "storey_lateral_wall_deficit",
+      "description": "Storey has far fewer load-bearing walls than the building median \u2014 a soft-storey signature.",
+      "rule_ref": "ASCE 7 / EC8 4.2.3.3 (BNBC 2020 Ch.8 lateral-stiffness-irregularity analogue)",
+      "threshold": ">= 5.1 walls (30% of median 17.0)",
+      "locations": [
+        {
+          "element": "Storey '18 achttiende verdieping'",
+          "storey": "18 achttiende verdieping",
+          "measured": "load_bearing_walls=0, building_median=17.0"
+        }
+      ]
+    }
+  ],
+  "violation_count": 2,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "storey_lateral_wall_deficit": {
+      "elements_checked": 19,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "2 storey(s) show a soft-storey wall deficit."
+}
+
+Verdict: FAIL
+  - [storey_lateral_wall_deficit] Storey '17 zeventiende verdieping' @ 17 zeventiende verdieping: load_bearing_walls=0, building_median=17.0
+  - [storey_lateral_wall_deficit] Storey '18 achttiende verdieping' @ 18 achttiende verdieping: load_bearing_walls=0, building_median=17.0
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/wbdg_office/str.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Negative/wbdg_office/str.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "storey_lateral_wall_deficit": {
+      "elements_checked": 4,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "All 4 storey(s) have a comparable load-bearing wall count (median=0.0)."
+}
+
+Verdict: PASS
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download_struct/Negative/west_riverside_hospital/str.ifc
+COMMAND  : python check_s5_soft_storey.py test_download_struct/Negative/west_riverside_hospital/str.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "storey_lateral_wall_deficit": {
+      "elements_checked": 15,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "All 15 storey(s) have a comparable load-bearing wall count (median=0.0)."
+}
+
+Verdict: PASS
+
+
+####################################################################################################
+### SUMMARY - Rule S5 (Soft storey)
+####################################################################################################
+
+CATEGORY   VERDICT    FILE
+POSITIVE   NOT_APPLICABLE test_download_struct/Positive/dental_clinic/dental_clinic_str_S5_soft_storey.ifc
+POSITIVE   FAIL       test_download_struct/Positive/schependomlaan/schependomlaan_str_engineer_S5_soft_storey.ifc
+POSITIVE   FAIL       test_download_struct/Positive/sixty5/sixty5_str_S5_soft_storey.ifc
+POSITIVE   NOT_APPLICABLE test_download_struct/Positive/wbdg_office/wbdg_office_str_S5_soft_storey.ifc
+POSITIVE   NOT_APPLICABLE test_download_struct/Positive/west_riverside_hospital/west_riverside_hospital_str_S5_soft_storey.ifc
+NEGATIVE   PASS       test_download_struct/Negative/dental_clinic/str.ifc
+NEGATIVE   FAIL       test_download_struct/Negative/schependomlaan/str_engineer.ifc
+NEGATIVE   PASS       test_download_struct/Negative/schependomlaan/str_hollowcore_floors.ifc
+NEGATIVE   NOT_APPLICABLE test_download_struct/Negative/schependomlaan/str_steel.ifc
+NEGATIVE   FAIL       test_download_struct/Negative/sixty5/str.ifc
+NEGATIVE   PASS       test_download_struct/Negative/wbdg_office/str.ifc
+NEGATIVE   PASS       test_download_struct/Negative/west_riverside_hospital/str.ifc

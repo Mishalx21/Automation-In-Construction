@@ -1,0 +1,14 @@
+{
+  "rule_id": "8.3.5.3.A",
+  "title": "Longitudinal reinforcement ratio of special moment frame columns",
+  "source_clauses": [
+    "8.3.5.3(SMF)"
+  ],
+  "statement": "For longitudinal reinforcement in Special Moment Frames (SMF), the reinforcement ratio, ρ_g, shall not be less than 0.01 and shall not exceed 0.06.",
+  "scope_note": "Covers the longitudinal reinforcement ratio limits for SMF columns only.",
+  "references": {},
+  "terms": [
+    "longitudinal_reinforcement",
+    "smf"
+  ]
+}

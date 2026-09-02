@@ -1,0 +1,48 @@
+# ---------------------------------------------------------------------------
+# Unified capstone webapp: one frontend, two engine services.
+#
+#   frontend   nginx — serves the SPA and reverse-proxies the two APIs
+#   ifcweb     ifcinject engine (violation injection)      — existing code
+#   bnbc-web   accepted BNBC rule checkers (compliance)    — new code
+#
+# Local run:    docker compose up --build          -> http://localhost:8080
+# Deploy (VPS): same file; swap bind concerns:
+#     - put TLS in front (caddy/nginx) or add certs here
+#     - named volumes below already persist uploads across restarts
+#
+# The two engines are deliberately separate services (different dependency
+# sets, different failure modes — one parses 342 MB IFC files, the other
+# must never carry LLM SDKs) but each is internally a modular monolith.
+# ---------------------------------------------------------------------------
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"                     # the only port exposed to the host
+    depends_on:
+      - ifcweb
+      - bnbc-web
+    restart: unless-stopped
+
+  ifcweb:
+    build:
+      context: "../IFC-Test-Case-Generator/IFC Test Case Generator"
+    volumes:
+      - ifcweb_data:/app/out          # uploads + generated violating files
+    expose:
+      - "8000"                        # reachable only inside the compose network
+    restart: unless-stopped
+
+  bnbc-web:
+    build:
+      context: "../BNBC-Checking-Code-Generator"
+    volumes:
+      - bnbcweb_data:/app/out         # uploads + reports
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+volumes:
+  ifcweb_data:
+  bnbcweb_data:

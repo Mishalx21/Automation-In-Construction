@@ -1,0 +1,21 @@
+# Whitelist: the web image needs ONLY the helper library, the accepted
+# checkers, and the web package. Everything else — the IFC corpus (models/,
+# neg/, test_download*/), rulebook/, rules/, artifacts, logs — stays out of
+# the build context so `docker build` doesn't ship gigabytes to the daemon.
+
+# exclude everything ...
+*
+
+# ... then let back exactly what the Dockerfile COPYs
+!Dockerfile
+!requirements-web.txt
+!ifc_helpers/
+!ifc_helpers/**
+!bnbcweb/
+!bnbcweb/**
+!rule-*/
+!rule-*/**
+# ... minus the fixture IFCs and bytecode that live in the checker dirs
+rule-*/*.ifc
+**/__pycache__/
+*.pyc

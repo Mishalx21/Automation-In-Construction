@@ -1,0 +1,267 @@
+ARCHITECTURAL RULE 5 (A5) - Dead-end corridor / exit separation
+Checker: rule-5.Dead_end_corridor/check_a5_dead_end_corridor.py
+====================================================================================================
+
+####################################################################################################
+### POSITIVE TEST CASES (injected A5 violation expected -> verdict should be FAIL)
+### NOTE: sixty5 and west_riverside_hospital have NO A5 fixture (skipped in manifest --
+### hospital has zero IfcSpace, so there's no graph to break for this rule).
+####################################################################################################
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download/Archi_Test_cases/Positive/dental_clinic/dental_clinic_A5_dead_end_corridor.ifc
+COMMAND  : python check_a5_dead_end_corridor.py test_download/Archi_Test_cases/Positive/dental_clinic/dental_clinic_A5_dead_end_corridor.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "corridor_dead_end_length": {
+      "elements_checked": 40,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    },
+    "exit_separation_min": {
+      "elements_checked": 18,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "No dead-end corridor or exit-separation violation detected (proxy check)."
+}
+
+Verdict: PASS
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download/Archi_Test_cases/Positive/schependomlaan/schependomlaan_A5_dead_end_corridor.ifc
+COMMAND  : python check_a5_dead_end_corridor.py test_download/Archi_Test_cases/Positive/schependomlaan/schependomlaan_A5_dead_end_corridor.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [
+    {
+      "condition": "corridor_dead_end_length",
+      "missing": "unparseable geometry on IfcSpace (corridor)",
+      "affected_elements": 2
+    }
+  ],
+  "checked_summary": {
+    "corridor_dead_end_length": {
+      "elements_checked": 0,
+      "elements_skipped": 2,
+      "skip_reasons": {
+        "no_geometry": 2
+      }
+    },
+    "exit_separation_min": {
+      "elements_checked": 85,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "No dead-end corridor or exit-separation violation detected (proxy check)."
+}
+
+Verdict: PASS
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : POSITIVE
+FILE     : test_download/Archi_Test_cases/Positive/wbdg_office/wbdg_office_A5_dead_end_corridor.ifc
+COMMAND  : python check_a5_dead_end_corridor.py test_download/Archi_Test_cases/Positive/wbdg_office/wbdg_office_A5_dead_end_corridor.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "corridor_dead_end_length": {
+      "elements_checked": 6,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    },
+    "exit_separation_min": {
+      "elements_checked": 6,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "No dead-end corridor or exit-separation violation detected (proxy check)."
+}
+
+Verdict: PASS
+
+
+####################################################################################################
+### NEGATIVE TEST CASES (baseline, no injection -> real pre-existing condition)
+####################################################################################################
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download/Archi_Test_cases/Negative/dental_clinic/arc.ifc
+COMMAND  : python check_a5_dead_end_corridor.py test_download/Archi_Test_cases/Negative/dental_clinic/arc.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "corridor_dead_end_length": {
+      "elements_checked": 40,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    },
+    "exit_separation_min": {
+      "elements_checked": 18,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "No dead-end corridor or exit-separation violation detected (proxy check)."
+}
+
+Verdict: PASS
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download/Archi_Test_cases/Negative/schependomlaan/arc_design.ifc
+COMMAND  : python check_a5_dead_end_corridor.py test_download/Archi_Test_cases/Negative/schependomlaan/arc_design.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [
+    {
+      "condition": "corridor_dead_end_length",
+      "missing": "unparseable geometry on IfcSpace (corridor)",
+      "affected_elements": 2
+    }
+  ],
+  "checked_summary": {
+    "corridor_dead_end_length": {
+      "elements_checked": 0,
+      "elements_skipped": 2,
+      "skip_reasons": {
+        "no_geometry": 2
+      }
+    },
+    "exit_separation_min": {
+      "elements_checked": 85,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "No dead-end corridor or exit-separation violation detected (proxy check)."
+}
+
+Verdict: PASS
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download/Archi_Test_cases/Negative/sixty5/arc.ifc
+COMMAND  : python check_a5_dead_end_corridor.py test_download/Archi_Test_cases/Negative/sixty5/arc.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "corridor_dead_end_length": {
+      "elements_checked": 0,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    },
+    "exit_separation_min": {
+      "elements_checked": 90,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "No dead-end corridor or exit-separation violation detected (proxy check)."
+}
+
+Verdict: PASS
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download/Archi_Test_cases/Negative/wbdg_office/arc.ifc
+COMMAND  : python check_a5_dead_end_corridor.py test_download/Archi_Test_cases/Negative/wbdg_office/arc.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [],
+  "checked_summary": {
+    "corridor_dead_end_length": {
+      "elements_checked": 6,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    },
+    "exit_separation_min": {
+      "elements_checked": 6,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "No dead-end corridor or exit-separation violation detected (proxy check)."
+}
+
+Verdict: PASS
+
+----------------------------------------------------------------------------------------------------
+CATEGORY : NEGATIVE
+FILE     : test_download/Archi_Test_cases/Negative/west_riverside_hospital/arc.ifc
+COMMAND  : python check_a5_dead_end_corridor.py test_download/Archi_Test_cases/Negative/west_riverside_hospital/arc.ifc
+----------------------------------------------------------------------------------------------------
+{
+  "verdict": "pass",
+  "violations": [],
+  "violation_count": 0,
+  "unknown_reasons": [
+    {
+      "condition": "exit_separation_min",
+      "missing": "no IfcSpace geometry to derive plan diagonal",
+      "affected_elements": 0
+    }
+  ],
+  "checked_summary": {
+    "corridor_dead_end_length": {
+      "elements_checked": 0,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    },
+    "exit_separation_min": {
+      "elements_checked": 22,
+      "elements_skipped": 0,
+      "skip_reasons": {}
+    }
+  },
+  "summary": "No dead-end corridor or exit-separation violation detected (proxy check)."
+}
+
+Verdict: PASS
+
+
+####################################################################################################
+### SUMMARY - Rule A5 (Dead-end corridor)
+####################################################################################################
+
+CATEGORY   VERDICT    FILE
+POSITIVE   PASS       test_download/Archi_Test_cases/Positive/dental_clinic/dental_clinic_A5_dead_end_corridor.ifc
+POSITIVE   PASS       test_download/Archi_Test_cases/Positive/schependomlaan/schependomlaan_A5_dead_end_corridor.ifc
+POSITIVE   PASS       test_download/Archi_Test_cases/Positive/wbdg_office/wbdg_office_A5_dead_end_corridor.ifc
+NEGATIVE   PASS       test_download/Archi_Test_cases/Negative/dental_clinic/arc.ifc
+NEGATIVE   PASS       test_download/Archi_Test_cases/Negative/schependomlaan/arc_design.ifc
+NEGATIVE   PASS       test_download/Archi_Test_cases/Negative/sixty5/arc.ifc
+NEGATIVE   PASS       test_download/Archi_Test_cases/Negative/wbdg_office/arc.ifc
+NEGATIVE   PASS       test_download/Archi_Test_cases/Negative/west_riverside_hospital/arc.ifc

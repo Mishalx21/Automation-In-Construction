@@ -1,0 +1,21 @@
+{
+  "rule_id": "8.1.2.1.C",
+  "title": "Standard hooks for stirrup and tie anchorage",
+  "source_clauses": [
+    "8.1.2.1(c)(i)",
+    "8.1.2.1(c)(ii)",
+    "8.1.2.1(c)(iii)",
+    "8.1.2.1(c)(iv)"
+  ],
+  "statement": "Standard hooks in case of stirrup and tie anchorage: (c)(i) if the diameter of stirrup or tie bar is 16 mm or smaller, the hooks shall have a $90^{\\circ}$ bend plus an extension of at least 6 bar diameters at the free end of the bar\nStandard hooks in case of stirrup and tie anchorage: (c)(ii) if the diameter of stirrup or tie bar is between 19 mm to 25 mm, the hooks shall have a $90^{\\circ}$ bend plus an extension of at least 12 bar diameters at the free end of the bar\nStandard hooks in case of stirrup and tie anchorage: (c)(iii) if the diameter of stirrup or tie bar is 25 mm or larger, the hooks shall have a $135^{\\circ}$ bend plus an extension of at least 6 bar diameters at the free end of the bar\nStandard hooks in case of stirrup and tie anchorage: (c)(iv) For closed ties and continuously wound ties, the hooks shall have a $135^{\\circ}$ bend plus an extension of at least 6 bar diameters, but not less than 75 mm.",
+  "scope_note": "Covers clause (c)(i)-(iv): hooks used for stirrup and tie anchorage, which have their own extension rules. Clause (d) (seismic hooks) is out of scope.",
+  "references": {},
+  "terms": [
+    "stirrups_and_ties",
+    "anchorage",
+    "bend_angle",
+    "extension_length",
+    "closed_ties",
+    "continuously_wound_ties"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "rule_id": "8.1.6.4",
+  "title": "Clear distance at contact lap splices",
+  "source_clauses": [
+    "8.1.6.4"
+  ],
+  "statement": "Clear distance limitation between bars shall apply also to the clear distance between a contact lap splice and adjacent splices or bars.",
+  "scope_note": "Applies the clear-distance limits of 8.1.6.1-8.1.6.3 to contact lap splices; it defines no new numeric threshold of its own.",
+  "references": {},
+  "terms": [
+    "lap_splice",
+    "contact_lap_splice",
+    "clear_distance",
+    "adjacent_bars_splices"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "rule_id": "8.3.10.4",
+  "title": "Beam requirements for intermediate moment frames",
+  "source_clauses": [
+    "8.3.10.4(a)",
+    "8.3.10.4(b)",
+    "8.3.10.4(c)"
+  ],
+  "statement": "(a) For beams in intermediate moment frames, the positive moment strength at the face of the joint shall not be less than one-third the negative moment strength provided at that face. Neither the negative nor positive moment strength at any section along the length of the member shall be less than one-fifth of the maximum moment strength provided at the face of either joint.\n(b) For beams in intermediate moment frames, at both ends of the member, stirrups shall be provided over lengths equal to twice the member depth measured from the face of the supporting member toward midspan. The first stirrup shall be located not more than 50 mm from the face of the supporting member. Maximum stirrup spacing in these zones shall not exceed the least of: (a) d/4, (b) 8 times the diameter of the smallest longitudinal bar enclosed, (c) 24 times the diameter of the stirrup bar, and (d) 300 mm. \n(c) For beams in intermediate moment frames, stirrups shall be placed at not more than d/2 throughout the length of the member.",
+  "scope_note": "",
+  "references": {},
+  "terms": [
+    "positive_moment_strength",
+    "negative_moment_strength",
+    "face_of_the_joint",
+    "moment_strength",
+    "member_length",
+    "stirrups",
+    "member_depth",
+    "face_of_the_supporting_member",
+    "d",
+    "diameter_of_the_smallest_longitudinal_bar_enclosed",
+    "diameter_of_the_stirrup_bar",
+    "spacing",
+    "length_of_the_member"
+  ]
+}

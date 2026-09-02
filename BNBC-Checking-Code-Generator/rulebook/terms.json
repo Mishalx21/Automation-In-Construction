@@ -1,0 +1,562 @@
+{
+  "terms": [
+    {
+      "term_id": "adjacent_bars_splices",
+      "term": "Adjacent bars/splices",
+      "symbol": "",
+      "definition": "Any bar or splice located next to the splice in question."
+    },
+    {
+      "term_id": "ag",
+      "term": "Ag",
+      "symbol": "",
+      "definition": "Gross cross-sectional area of the concrete member."
+    },
+    {
+      "term_id": "anchorage",
+      "term": "Anchorage",
+      "symbol": "",
+      "definition": "how the ends of stirrups and ties are bent, hooked, or extended."
+    },
+    {
+      "term_id": "bend_angle",
+      "term": "Bend angle",
+      "symbol": "",
+      "definition": "the angle through which a reinforcing bar, stirrup, tie, or hook is bent from its original straight direction."
+    },
+    {
+      "term_id": "bw",
+      "term": "bw",
+      "symbol": "",
+      "definition": "Web width of the flexural member."
+    },
+    {
+      "term_id": "c_1",
+      "term": "c_1",
+      "symbol": "",
+      "definition": "Depth of the flexural member"
+    },
+    {
+      "term_id": "c_2",
+      "term": "c_2",
+      "symbol": "",
+      "definition": "Width of the supporting member."
+    },
+    {
+      "term_id": "calculated_spacing_limit",
+      "term": "Calculated spacing limit",
+      "symbol": "s_o",
+      "definition": "Determined by the formula s_o = 100 + (350 - h_x)/3 mm, where s_o is capped between 100 mm and 150 mm."
+    },
+    {
+      "term_id": "clear_distance",
+      "term": "Clear distance",
+      "symbol": "",
+      "definition": "The surface-to-surface gap between two bars or between a splice and an adjacent bar."
+    },
+    {
+      "term_id": "clear_distance_between_layers",
+      "term": "Clear distance between layers",
+      "symbol": "",
+      "definition": "The unobstructed vertical distance between the surfaces of bars in adjacent layers."
+    },
+    {
+      "term_id": "clear_spacing",
+      "term": "Clear spacing",
+      "symbol": "",
+      "definition": "The unobstructed distance between the surfaces of adjacent parallel bars in the same layer."
+    },
+    {
+      "term_id": "clear_span",
+      "term": "Clear span",
+      "symbol": "l_n",
+      "definition": "The unobstructed length of the column between the faces of the supporting members."
+    },
+    {
+      "term_id": "closed_ties",
+      "term": "Closed ties",
+      "symbol": "",
+      "definition": "Ties that form a completely closed loop around the main reinforcement bars in a column. Their ends are anchored with proper hooks so the tie fully encloses the bars."
+    },
+    {
+      "term_id": "column_core",
+      "term": "Column core",
+      "symbol": "",
+      "definition": "The concrete region enclosed by the outermost transverse reinforcement of the column."
+    },
+    {
+      "term_id": "column_width",
+      "term": "Column width",
+      "symbol": "",
+      "definition": "The cross-sectional dimension of the column in the direction being considered."
+    },
+    {
+      "term_id": "columns",
+      "term": "Columns",
+      "symbol": "",
+      "definition": "Vertical structural members primarily carrying axial load and moment."
+    },
+    {
+      "term_id": "confined_core",
+      "term": "Confined core",
+      "symbol": "",
+      "definition": "the concrete enclosed within the hoops, into which the U-stirrup hooks must be anchored."
+    },
+    {
+      "term_id": "confinement",
+      "term": "Confinement",
+      "symbol": "",
+      "definition": "Lateral restraint provided to reinforcing bars or concrete to improve ductility and prevent buckling or splitting."
+    },
+    {
+      "term_id": "confinement_by_structural_members",
+      "term": "Confinement by structural members",
+      "symbol": "",
+      "definition": "A condition where framing members surrounding the joint provide adequate lateral restraint, potentially reducing the need for hoop reinforcement."
+    },
+    {
+      "term_id": "confinement_length",
+      "term": "Confinement length",
+      "symbol": "l_o",
+      "definition": "The critical region at the column ends where hoops must be closely spaced. It must be at least the maximum of: the largest column cross-sectional dimension, 1/6 of the column clear height, or 450 mm."
+    },
+    {
+      "term_id": "consecutive_cross_ties",
+      "term": "Consecutive cross ties",
+      "symbol": "",
+      "definition": "cross ties placed one after another along the member length engaging the same longitudinal bar."
+    },
+    {
+      "term_id": "contact_lap_splice",
+      "term": "Contact lap splice",
+      "symbol": "",
+      "definition": "A lap splice where the two overlapping bars are touching each other."
+    },
+    {
+      "term_id": "continuously_wound_ties",
+      "term": "Continuously wound ties",
+      "symbol": "",
+      "definition": "Spiral-type reinforcement made from a continuous bar or wire wrapped repeatedly around the longitudinal reinforcement in a helical or spiral form. Instead of separate individual ties, the reinforcement is continuous along the height or length of the member."
+    },
+    {
+      "term_id": "cross_tie",
+      "term": "Cross tie",
+      "symbol": "",
+      "definition": "a straight bar with hooks at each end used to close the U-stirrup and complete the hoop."
+    },
+    {
+      "term_id": "d",
+      "term": "d",
+      "symbol": "",
+      "definition": "The effective depth of the beam, measured from the extreme compression fiber to the centroid of the longitudinal tension reinforcement."
+    },
+    {
+      "term_id": "d_b",
+      "term": "d_b",
+      "symbol": "",
+      "definition": "Nominal diameter of the reinforcing bar."
+    },
+    {
+      "term_id": "depth_of_the_shallowest_framing_member",
+      "term": "Depth of the shallowest framing member",
+      "symbol": "",
+      "definition": "The smallest cross-sectional depth among all beams or members framing into the joint, defining the zone within which the reduced transverse reinforcement applies."
+    },
+    {
+      "term_id": "diameter_of_the_smallest_longitudinal_bar_enclosed",
+      "term": "Diameter of the smallest longitudinal bar enclosed",
+      "symbol": "",
+      "definition": "The nominal diameter of the smallest longitudinal reinforcing bar surrounded by the stirrup."
+    },
+    {
+      "term_id": "diameter_of_the_stirrup_bar",
+      "term": "Diameter of the stirrup bar",
+      "symbol": "",
+      "definition": "The nominal diameter of the transverse reinforcing bar forming the stirrup."
+    },
+    {
+      "term_id": "effective_depth",
+      "term": "Effective depth",
+      "symbol": "",
+      "definition": "The distance from the extreme compression fiber to the centroid of the tension reinforcement."
+    },
+    {
+      "term_id": "extension_length",
+      "term": "Extension length",
+      "symbol": "",
+      "definition": "length of the bar beyond the bend point at the free end of the bar"
+    },
+    {
+      "term_id": "f_c",
+      "term": "f'c",
+      "symbol": "",
+      "definition": "Specified compressive strength of concrete."
+    },
+    {
+      "term_id": "face_of_the_joint",
+      "term": "Face of the joint",
+      "symbol": "",
+      "definition": "The interface between the beam end and the supporting member (column or wall)."
+    },
+    {
+      "term_id": "face_of_the_supporting_member",
+      "term": "Face of the supporting member",
+      "symbol": "",
+      "definition": "The surface of the column or wall at the beam end where the beam frames in."
+    },
+    {
+      "term_id": "factored_axial_force",
+      "term": "Factored axial force",
+      "symbol": "",
+      "definition": "The design axial load on a member after applying load factors."
+    },
+    {
+      "term_id": "flexural_member",
+      "term": "Flexural Member",
+      "symbol": "",
+      "definition": "A structural element that primarily resists loads by bending. In BNBC seismic provisions, when the code refers to flexural members, it is usually referring to beams or beam-like elements. Supporting member width - The width of the column or other support,"
+    },
+    {
+      "term_id": "flexural_reinforcement",
+      "term": "flexural reinforcement",
+      "symbol": "",
+      "definition": "In general, reinforcement of a beam."
+    },
+    {
+      "term_id": "flexural_yielding",
+      "term": "Flexural yielding",
+      "symbol": "",
+      "definition": "the condition where the section reaches its bending capacity, associated with inelastic response under lateral loads."
+    },
+    {
+      "term_id": "frame_member",
+      "term": "Frame member",
+      "symbol": "",
+      "definition": "A column or other member in a special moment frame resisting earthquake forces."
+    },
+    {
+      "term_id": "frame_members",
+      "term": "Frame members",
+      "symbol": "",
+      "definition": "Structural members forming part of a lateral force-resisting frame."
+    },
+    {
+      "term_id": "fy",
+      "term": "fy",
+      "symbol": "",
+      "definition": "Specified yield strength of reinforcement."
+    },
+    {
+      "term_id": "h",
+      "term": "h",
+      "symbol": "",
+      "definition": "The total thickness of the wall or slab."
+    },
+    {
+      "term_id": "hook",
+      "term": "Hook",
+      "symbol": "",
+      "definition": "A curved or bent portion at the end of a rebar."
+    },
+    {
+      "term_id": "hook_angle",
+      "term": "Hook angle",
+      "symbol": "",
+      "definition": "the bend angle at the end of the U-stirrup, required to be not less than 135° for seismic detailing."
+    },
+    {
+      "term_id": "hoop_reinforcement",
+      "term": "Hoop reinforcement",
+      "symbol": "",
+      "definition": "Closed ties or continuously wound ties enclosing the longitudinal reinforcement."
+    },
+    {
+      "term_id": "hoops",
+      "term": "Hoops",
+      "symbol": "",
+      "definition": "closed transverse reinforcement loops provided to confine concrete and restrain longitudinal bars in a frame member."
+    },
+    {
+      "term_id": "inelastic_lateral_displacement",
+      "term": "Inelastic lateral displacement",
+      "symbol": "",
+      "definition": "Lateral movement of the frame beyond the elastic range, typically under seismic loading."
+    },
+    {
+      "term_id": "inelastic_lateral_displacements",
+      "term": "Inelastic lateral displacements",
+      "symbol": "",
+      "definition": "lateral movements of the frame beyond the elastic range, occurring during seismic events."
+    },
+    {
+      "term_id": "inside_diameter_of_bend",
+      "term": "Inside diameter of bend",
+      "symbol": "",
+      "definition": "The diameter measured on the inner curved surface of the bent bar."
+    },
+    {
+      "term_id": "joint",
+      "term": "Joint",
+      "symbol": "",
+      "definition": "The region where beams and columns intersect in a structural frame."
+    },
+    {
+      "term_id": "l",
+      "term": "l₀",
+      "symbol": "",
+      "definition": "The minimum length measured from the joint face over which the tighter tie spacing s₀ must be maintained;"
+    },
+    {
+      "term_id": "lap_length",
+      "term": "Lap length",
+      "symbol": "",
+      "definition": "The length over which two bars overlap to transfer force."
+    },
+    {
+      "term_id": "lap_splice",
+      "term": "Lap splice",
+      "symbol": "",
+      "definition": "A connection of two bars by overlapping them a specified length so that force is transferred between them."
+    },
+    {
+      "term_id": "lapped_bars",
+      "term": "Lapped bars",
+      "symbol": "",
+      "definition": "Bars connected by overlapping within a lap splice."
+    },
+    {
+      "term_id": "length_of_the_member",
+      "term": "Length of the member",
+      "symbol": "",
+      "definition": "The full span of the beam between the faces of the supporting members."
+    },
+    {
+      "term_id": "longitudinal_bars",
+      "term": "Longitudinal bars",
+      "symbol": "",
+      "definition": "Reinforcing bars running along the length of the compression member."
+    },
+    {
+      "term_id": "longitudinal_beam_reinforcement",
+      "term": "Longitudinal beam reinforcement",
+      "symbol": "",
+      "definition": "The primary tension or compression steel bars running along the length of the beam that pass through or terminate at the joint."
+    },
+    {
+      "term_id": "longitudinal_reinforcement",
+      "term": "Longitudinal reinforcement",
+      "symbol": "",
+      "definition": "Steel bars placed along the length of a structural member to resist bending and axial forces."
+    },
+    {
+      "term_id": "maximum_bar_spacing",
+      "term": "Maximum bar spacing",
+      "symbol": "h_x",
+      "definition": "The largest centre-to-centre distance between laterally supported longitudinal bars, which must not exceed 350 mm."
+    },
+    {
+      "term_id": "maximum_nominal_size_of_coarse_aggregate",
+      "term": "Maximum nominal size of coarse aggregate",
+      "symbol": "",
+      "definition": "the largest standard size of coarse aggregate particles that is permitted or intended to be used in a concrete mix."
+    },
+    {
+      "term_id": "maximum_spacing_of_bars",
+      "term": "Maximum spacing of bars",
+      "symbol": "",
+      "definition": "The greatest allowable center-to-center distance between adjacent reinforcing bars."
+    },
+    {
+      "term_id": "member_depth",
+      "term": "Member depth",
+      "symbol": "",
+      "definition": "The overall cross-sectional depth of the beam."
+    },
+    {
+      "term_id": "member_length",
+      "term": "Member length",
+      "symbol": "",
+      "definition": "The full span of the beam between supporting joints."
+    },
+    {
+      "term_id": "member_width",
+      "term": "Member width",
+      "symbol": "",
+      "definition": "The cross-sectional width of a framing beam or member measured perpendicular to the span direction."
+    },
+    {
+      "term_id": "minimum_diameter_of_bend",
+      "term": "Minimum diameter of bend",
+      "symbol": "",
+      "definition": "The smallest permitted inside diameter of a bent reinforcing bar, measured on the inside curve of the bend."
+    },
+    {
+      "term_id": "moment_strength",
+      "term": "Moment strength",
+      "symbol": "",
+      "definition": "The nominal or design flexural resistance at a given cross-section."
+    },
+    {
+      "term_id": "negative_moment_strength",
+      "term": "Negative moment strength",
+      "symbol": "",
+      "definition": "The flexural capacity of the beam cross-section when the top fiber is in tension (hogging condition)."
+    },
+    {
+      "term_id": "one_way_slabs",
+      "term": "One-way slabs",
+      "symbol": "",
+      "definition": "Slabs that span primarily in one direction and are designed to carry loads in that direction."
+    },
+    {
+      "term_id": "parallel_reinforcement",
+      "term": "Parallel reinforcement",
+      "symbol": "",
+      "definition": "Reinforcing bars running in the same direction placed in multiple horizontal layers."
+    },
+    {
+      "term_id": "perpendicular_dimension",
+      "term": "Perpendicular dimension",
+      "symbol": "",
+      "definition": "The cross-sectional dimension measured perpendicular to the shortest dimension."
+    },
+    {
+      "term_id": "positive_moment_strength",
+      "term": "Positive moment strength",
+      "symbol": "",
+      "definition": "The flexural capacity of the beam cross-section when the bottom fiber is in tension (sagging condition)."
+    },
+    {
+      "term_id": "ratio",
+      "term": "Ratio",
+      "symbol": "",
+      "definition": "The quotient of the shortest dimension divided by the perpendicular dimension."
+    },
+    {
+      "term_id": "s",
+      "term": "s₀",
+      "symbol": "",
+      "definition": "The maximum allowable tie spacing within the length l₀"
+    },
+    {
+      "term_id": "seismic_hooks",
+      "term": "Seismic hooks",
+      "symbol": "",
+      "definition": "hooks with geometry meeting seismic detailing requirements."
+    },
+    {
+      "term_id": "shortest_cross_sectional_dimension",
+      "term": "Shortest cross-sectional dimension",
+      "symbol": "",
+      "definition": "The smaller of the two principal cross-sectional dimensions of the member."
+    },
+    {
+      "term_id": "smallest_cross_sectional_dimension",
+      "term": "Smallest cross-sectional dimension",
+      "symbol": "",
+      "definition": "The lesser of the two cross-sectional dimensions (width or depth) of the column frame member."
+    },
+    {
+      "term_id": "smf",
+      "term": "SMF",
+      "symbol": "Special Moment Frame",
+      "definition": "Special Moment Frame, a seismic-force-resisting structural system."
+    },
+    {
+      "term_id": "spacing",
+      "term": "Spacing",
+      "symbol": "",
+      "definition": "The center-to-center distance between successive transverse reinforcement sets within the joint."
+    },
+    {
+      "term_id": "spacing_inside_the_confinement_zone",
+      "term": "Spacing inside the confinement zone",
+      "symbol": "S_o",
+      "definition": "The maximum allowable spacing of transverse reinforcement within length l_o, which is the smallest of: 1/4 of the minimum column dimension, 6 times the smallest longitudinal bar diameter, or s_o."
+    },
+    {
+      "term_id": "spacing_outside_the_confinement_zone",
+      "term": "Spacing outside the confinement zone",
+      "symbol": "S",
+      "definition": "The spacing in the middle region of the column, which must not exceed twice the spacing inside the confinement zone (2 * S_o)."
+    },
+    {
+      "term_id": "special_moment_frame",
+      "term": "Special moment frame",
+      "symbol": "",
+      "definition": "A moment-resisting frame designed to meet special seismic detailing requirements."
+    },
+    {
+      "term_id": "spiral_reinforcement",
+      "term": "Spiral reinforcement",
+      "symbol": "",
+      "definition": "Continuously wound reinforcement in a helical form enclosing the longitudinal bars."
+    },
+    {
+      "term_id": "standard_hook",
+      "term": "Standard hook",
+      "symbol": "",
+      "definition": "A reinforcing bar's end that is bent in a specified shape and length according to code requirements."
+    },
+    {
+      "term_id": "stirrups",
+      "term": "Stirrups",
+      "symbol": "",
+      "definition": "Transverse reinforcement bars placed perpendicular to the longitudinal axis of the beam to resist shear and confine the core concrete."
+    },
+    {
+      "term_id": "stirrups_and_tie_hooks",
+      "term": "Stirrups and tie hooks",
+      "symbol": "",
+      "definition": "Hooks formed on transverse reinforcement (stirrups and ties) used to confine longitudinal reinforcement."
+    },
+    {
+      "term_id": "stirrups_and_ties",
+      "term": "Stirrups and ties",
+      "symbol": "",
+      "definition": "small reinforcing bars used to confine and support the main steel bars in beams and columns."
+    },
+    {
+      "term_id": "stirrups_with_seismic_hooks",
+      "term": "Stirrups with seismic hooks",
+      "symbol": "",
+      "definition": "open or closed transverse reinforcement with hooks meeting seismic detailing requirements, used where hoops are not required."
+    },
+    {
+      "term_id": "tie_bar_diameter",
+      "term": "Tie bar diameter",
+      "symbol": "",
+      "definition": "The nominal diameter of the transverse tie reinforcing bar."
+    },
+    {
+      "term_id": "tie_spacing",
+      "term": "Tie spacing",
+      "symbol": "",
+      "definition": "The center-to-center distance between successive transverse tie bars along the column length."
+    },
+    {
+      "term_id": "transverse_hoop_reinforcement",
+      "term": "Transverse hoop reinforcement",
+      "symbol": "",
+      "definition": "Closed loop reinforcing ties placed within a beam-column joint to provide confinement and shear resistance."
+    },
+    {
+      "term_id": "transverse_reinforcement",
+      "term": "Transverse reinforcement",
+      "symbol": "",
+      "definition": "Hoop or tie reinforcement placed within and through the joint region to laterally confine reinforcing bars."
+    },
+    {
+      "term_id": "two_way_slabs",
+      "term": "Two-way slabs",
+      "symbol": "",
+      "definition": "Reinforced concrete slabs that carry loads and bend in both directions — along the length and the width of the slab."
+    },
+    {
+      "term_id": "u_stirrup",
+      "term": "U-stirrup",
+      "symbol": "",
+      "definition": "a stirrup bent into a U-shape forming one piece of a two-piece hoop assembly."
+    }
+  ]
+}
