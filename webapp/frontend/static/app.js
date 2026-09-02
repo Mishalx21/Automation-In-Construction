@@ -44,6 +44,7 @@ function pickFile(file) {
   show("picked-name");
   $("inject-upload-btn").disabled = false;
   $("check-upload-btn").disabled = false;
+  window.loadIfcPreview?.(file);
 }
 
 function showError(id, msg) { const el = $(id); el.textContent = msg; show(el, true); }

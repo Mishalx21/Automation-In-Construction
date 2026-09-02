@@ -52,6 +52,7 @@ Nginx is the only public service. The internal FastAPI services and PostgreSQL c
 | Frontend | HTML5, CSS3, vanilla JavaScript |
 | API services | Python 3.12, FastAPI, Uvicorn |
 | IFC processing | IfcOpenShell |
+| Personal-use 3D preview | xeokit SDK (AGPLv3) + web-ifc |
 | Authentication | Email/password accounts, scrypt password hashes, HttpOnly sessions |
 | Database | PostgreSQL 16 |
 | Gateway | Nginx |
@@ -132,3 +133,8 @@ See [webapp/PRODUCTION-PLAN.md](webapp/PRODUCTION-PLAN.md) for the proposed prod
 
 Large `.ifc` source models and fixtures are intentionally excluded from normal Git history. Keep them in approved external storage or use Git LFS only where sufficient storage quota is available.
 
+## Viewer license
+
+The in-browser IFC preview uses the xeokit SDK under AGPLv3 for personal use.
+Before distributing a closed-source or commercial version, review the xeokit
+license and obtain a commercial license if necessary.

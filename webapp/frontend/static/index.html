@@ -75,6 +75,19 @@
       <p class="error hidden" id="pick-error"></p>
     </section>
 
+    <section class="card preview-card hidden" id="preview-card">
+      <div class="section-head">
+        <div><span class="eyebrow">Model preview</span><h2>Explore the IFC model</h2></div>
+        <span id="preview-status" class="history-hint">Preparing viewer…</span>
+      </div>
+      <p class="hint">Orbit: left-drag · Pan: right-drag · Zoom: scroll · Select: click an element.</p>
+      <div class="viewer-shell">
+        <canvas id="ifc-viewer" aria-label="Interactive IFC model preview"></canvas>
+        <div id="viewer-loading" class="viewer-loading">Loading IFC geometry…</div>
+      </div>
+      <p id="viewer-selection" class="viewer-selection">Select an element to inspect its IFC identifier.</p>
+    </section>
+
     <section class="workflow-switch" aria-label="Choose workflow">
       <button class="workflow-choice active" type="button" data-workflow="check-card">
         <span class="choice-icon">✓</span><span><b>Check compliance</b><small>Find BNBC issues in a model</small></span>
@@ -163,5 +176,6 @@
 
   <script src="auth.js"></script>
   <script src="app.js"></script>
+  <script type="module" src="ifc-viewer.js"></script>
 </body>
 </html>
