@@ -432,3 +432,176 @@ table.v-locations th { font-size: .7rem; }
 .v-unknown ul { margin: .4rem 0 0; padding-left: 1.2rem; font-size: .85rem; }
 
 .show-more { margin-top: .3rem; }
+
+/* --- workspace refinement ------------------------------------------------------- */
+:root {
+  --canvas: #edf2f7;
+  --surface-raised: rgba(255, 255, 255, .86);
+  --shadow-lg: 0 18px 45px rgba(25, 42, 70, .09), 0 3px 10px rgba(25, 42, 70, .05);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #101720;
+    --surface-raised: rgba(29, 35, 44, .88);
+    --shadow-lg: 0 18px 45px rgba(0, 0, 0, .25), 0 3px 10px rgba(0, 0, 0, .16);
+  }
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 5% 6%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 28rem),
+    radial-gradient(circle at 96% 24%, color-mix(in srgb, #14b8a6 9%, transparent), transparent 26rem),
+    var(--canvas);
+}
+
+header, main, footer { max-width: 70rem; }
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  max-width: none;
+  padding: 0 max(1rem, calc((100vw - 68rem) / 2));
+  background: color-mix(in srgb, var(--canvas) 82%, transparent);
+  backdrop-filter: blur(14px);
+}
+header .brand { max-width: 68rem; margin: 0 auto; }
+main { padding-bottom: 1.75rem; }
+
+.workspace-intro {
+  align-items: center;
+  margin: 1.25rem 0 1.5rem;
+  padding: clamp(1.55rem, 4vw, 2.5rem);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--line));
+  border-radius: 18px;
+  background:
+    linear-gradient(125deg, color-mix(in srgb, var(--card) 93%, var(--accent)), var(--surface-raised)),
+    var(--card);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.workspace-intro::after {
+  content: "";
+  position: absolute;
+  width: 18rem;
+  height: 18rem;
+  right: -7rem;
+  bottom: -12rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2rem color-mix(in srgb, var(--accent) 5%, transparent), 0 0 0 4rem color-mix(in srgb, var(--accent) 4%, transparent);
+  pointer-events: none;
+}
+.workspace-intro > * { position: relative; z-index: 1; }
+.workspace-intro h2 { max-width: 35rem; }
+.security-note {
+  min-width: 14.5rem;
+  padding: .85rem 1rem;
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--accent) 11%, transparent);
+}
+
+.card {
+  border-radius: 15px;
+  border-color: color-mix(in srgb, var(--line) 82%, var(--accent));
+  box-shadow: 0 8px 25px rgba(25, 42, 70, .045);
+  padding: clamp(1.1rem, 2.5vw, 1.55rem);
+}
+.section-head { padding-bottom: .85rem; border-bottom: 1px solid var(--line); }
+.section-head h2 { font-size: 1.22rem; letter-spacing: -.018em; }
+.history-list { margin-top: 1rem; }
+.history-item {
+  align-items: center;
+  padding: .7rem .8rem;
+  background: color-mix(in srgb, var(--chip) 42%, var(--card));
+  transition: border-color .16s ease, transform .16s ease, background .16s ease;
+}
+.history-item:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); transform: translateY(-1px); background: var(--card); }
+
+.dropzone {
+  display: grid;
+  justify-items: center;
+  gap: .15rem;
+  min-height: 14rem;
+  place-content: center;
+  border-radius: 13px;
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 5%, var(--card)), var(--card));
+}
+.dropzone:hover, .dropzone:focus-visible, .dropzone.drag {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--accent) 9%, transparent);
+}
+.dz-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: .58rem;
+  border-radius: 12px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  opacity: 1;
+}
+.picked { margin-top: .55rem !important; padding: .25rem .65rem; border-radius: 999px; background: color-mix(in srgb, var(--ok) 9%, transparent); }
+
+.btn { border-radius: 9px; }
+.btn.primary {
+  border: 0;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 82%, #5b82ed), var(--accent));
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+.btn.primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 10px 18px color-mix(in srgb, var(--accent) 31%, transparent); }
+
+.workflow-switch { gap: .9rem; margin: 1.5rem 0 .9rem; }
+.workflow-choice { min-height: 5.1rem; border-radius: 13px; padding: .9rem 1.05rem; }
+.workflow-choice:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.workflow-choice.active { border-width: 1px; }
+.choice-icon { width: 2.35rem; height: 2.35rem; border-radius: 9px; }
+.workflow-card { border-top: 0; padding-top: 1.7rem; }
+.workflow-card::before { height: 5px; }
+.workflow-card .hint { max-width: 48rem; }
+.workflow-card .btn.primary { margin-top: .2rem; }
+.workflow-card > .workflow-icon {
+  position: absolute;
+  top: 1.35rem;
+  right: 1.35rem;
+  width: 2.65rem;
+  height: 2.65rem;
+  margin: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.inject-workflow > .workflow-icon { border-color: color-mix(in srgb, var(--warn) 25%, transparent); }
+.workflow-card-head { padding: .1rem 4rem 1rem 0; border-bottom: 1px solid var(--line); }
+.workflow-meta { display: flex; align-items: center; gap: .45rem; margin-bottom: .35rem; }
+.workflow-step {
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.workflow-card-head h2 { margin: 0; font-size: clamp(1.35rem, 2.5vw, 1.7rem); letter-spacing: -.03em; }
+.workflow-purpose { margin: .3rem 0 0; color: var(--muted); font-size: .91rem; }
+.workflow-card-head + .hint { margin-top: 1rem; }
+
+.preview-card { box-shadow: var(--shadow-lg); }
+.viewer-shell { border-radius: 12px; border-color: color-mix(in srgb, var(--accent) 25%, var(--line)); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04); }
+.viewer-loading { gap: .7rem; background: rgba(16, 25, 38, .82); backdrop-filter: blur(4px); }
+.viewer-loading::before {
+  content: "";
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 2px solid rgba(255, 255, 255, .28);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+.viewer-selection { padding: .52rem .68rem; border-radius: 8px; background: var(--chip); }
+
+@media (max-width: 48rem) {
+  header { position: relative; padding: 0 1rem; }
+  .workspace-intro { margin-top: .8rem; }
+  .workspace-intro::after { display: none; }
+  .history-item { align-items: flex-start; }
+  .preview-head-actions { justify-content: flex-start; }
+  .workflow-card > .workflow-icon { top: 1.1rem; right: 1.1rem; }
+}

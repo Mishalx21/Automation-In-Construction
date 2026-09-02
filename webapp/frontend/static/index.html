@@ -107,8 +107,13 @@
     <!-- panel A: ifcinject -->
     <section class="card workflow-card inject-workflow" id="inject-card">
       <span class="workflow-icon" aria-hidden="true">↯</span>
-      <span class="eyebrow">Create test cases</span>
-      <h2><span class="step-num">2A</span> Inject violations <span class="tag">ifcinject</span></h2>
+      <div class="workflow-card-head">
+        <div class="workflow-card-title">
+          <div class="workflow-meta"><span class="workflow-step">Step 2B</span><span class="tag">ifcinject</span></div>
+          <h2>Inject violations</h2>
+          <p class="workflow-purpose">Generate a controlled test model with verified rule violations.</p>
+        </div>
+      </div>
       <p class="hint">Deterministically perturbs the model into a fixture with a known,
       documented code violation — then independently re-verifies it.</p>
       <button id="inject-upload-btn" class="btn primary" disabled>Upload &amp; analyze</button>
@@ -142,8 +147,13 @@
     <!-- panel B: bnbc checkers -->
     <section class="card workflow-card check-workflow" id="check-card">
       <span class="workflow-icon" aria-hidden="true">✓</span>
-      <span class="eyebrow">Review a model</span>
-      <h2><span class="step-num">2B</span> Check compliance <span class="tag">BNBC checkers</span></h2>
+      <div class="workflow-card-head">
+        <div class="workflow-card-title">
+          <div class="workflow-meta"><span class="workflow-step">Step 2A</span><span class="tag">BNBC checkers</span></div>
+          <h2>Check compliance</h2>
+          <p class="workflow-purpose">Review your model against selected BNBC compliance rules.</p>
+        </div>
+      </div>
       <p class="hint">Runs the accepted rule checkers (fixture-verified code generation,
       no LLM at request time) against the model.</p>
       <button id="check-upload-btn" class="btn primary" disabled>Upload model</button>
