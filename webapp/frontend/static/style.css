@@ -231,6 +231,10 @@ details pre {
   background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
   padding: .6rem; font-size: .78rem; overflow-x: auto; white-space: pre-wrap;
 }
+.source-rule { margin-top: .35rem; }
+.source-rule summary { font-size: .75rem; font-weight: 600; }
+.source-rule pre { margin: .35rem 0 0; max-height: 13rem; line-height: 1.45; }
+.result-source-rule { margin: .65rem 0; }
 
 /* --- injection result cards ------------------------------------------------------ */
 .mut-card {

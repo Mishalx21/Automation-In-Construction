@@ -144,7 +144,8 @@ function buildRuleTable(table, rules, withApplicability, cbClass) {
     <tr class="${r.applicable === false ? "na" : ""}">
       <td>${r.applicable === false ? "" : `<input type="checkbox" class="${cbClass}" value="${r.rule_id}" checked aria-label="${escapeHtml(r.rule_id)}">`}</td>
       <td class="rule-id">${r.rule_id}</td>
-      <td>${escapeHtml(r.description || r.title)}<span class="clause">${escapeHtml(r.clause || r.reference)}</span></td>
+      <td>${escapeHtml(r.description || r.title)}<span class="clause">${escapeHtml(r.clause || r.reference)}</span>
+        ${!withApplicability && r.rule_preview ? `<details class="source-rule"><summary>View source rule</summary><pre>${escapeHtml(r.rule_preview)}</pre></details>` : ""}</td>
       <td class="num">${r.candidate_count != null ? r.candidate_count : ""}</td>
       <td>${r.applicable === false
         ? `<span class="badge na" title="${escapeHtml(r.reason || "")}">not applicable</span>`
@@ -645,6 +646,7 @@ function renderCheckResults(job) {
         ${violations.length ? `<span class="rr-count">${violations.length} violation${violations.length !== 1 ? "s" : ""}</span>` : ""}
         ${r.duration_s != null ? `<span class="rr-time">${r.duration_s}s</span>` : ""}
       </div>
+      ${catalogueById[r.rule_id]?.rule_preview ? `<details class="source-rule result-source-rule"><summary>View source rule and checking scope</summary><pre>${escapeHtml(catalogueById[r.rule_id].rule_preview)}</pre></details>` : ""}
       ${r.error ? `<p class="error">${escapeHtml(r.error)}</p>` : ""}
       ${r.summary ? `<p class="rr-summary">${escapeHtml(r.summary)}</p>` : ""}
       ${shown.map((v, i) => violationCard(v, i)).join("")}

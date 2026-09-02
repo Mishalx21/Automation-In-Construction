@@ -8,6 +8,7 @@ only inside the worker, when a check actually runs.
 """
 from __future__ import annotations
 
+import ast
 import re
 from pathlib import Path
 
@@ -32,6 +33,7 @@ class CheckerInfo(BaseModel):
     title: str
     domain: str          # architectural | structural
     reference: str       # the clause/standard the checker encodes
+    rule_preview: str    # checker-defined requirement and measurement scope
     checker_path: str    # repo-relative, for provenance in the report
 
 
@@ -67,6 +69,13 @@ def discover_checkers(repo_root: Path = REPO_ROOT) -> list[CheckerInfo]:
     out: list[CheckerInfo] = []
     for checker_path in sorted(repo_root.glob(f"{RULE_DIR_GLOB}/{CHECKER_GLOB}")):
         source = checker_path.read_text(encoding="utf-8", errors="replace")
+        try:
+            rule_preview = ast.get_docstring(ast.parse(source)) or ""
+            # Checker docstrings contain developer CLI instructions after
+            # "Usage:". They are not part of the user-facing rule preview.
+            rule_preview = rule_preview.split("\nUsage:", 1)[0].rstrip()
+        except SyntaxError:
+            rule_preview = ""
 
         m = _RULE_ID_RE.search(source)
         if m:
@@ -85,6 +94,7 @@ def discover_checkers(repo_root: Path = REPO_ROOT) -> list[CheckerInfo]:
 
         out.append(CheckerInfo(
             rule_id=rule_id, title=title, domain=domain, reference=reference,
+            rule_preview=rule_preview.strip(),
             checker_path=str(checker_path.relative_to(repo_root)).replace("\\", "/"),
         ))
     return out
