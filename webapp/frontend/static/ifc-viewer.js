@@ -9,6 +9,10 @@ const selection = document.getElementById("viewer-selection");
 const originalTab = document.getElementById("preview-original");
 const violatingTab = document.getElementById("preview-violating");
 
+// IFC geometry is decoded on Chrome's UI thread by WebIFC. This threshold is
+// intentionally lower than the upload limit so a large model cannot freeze a tab.
+const MAX_BROWSER_PREVIEW_BYTES = 15 * 1024 * 1024;
+
 const viewer = new Viewer({
   canvasId: "ifc-viewer",
   transparent: false,
@@ -47,6 +51,19 @@ viewer.scene.input.on("mouseclicked", (canvasPos) => {
 let activeModel = null;
 let originalIfc = null;
 let violatingIfc = null;
+let pendingViolatingUrl = null;
+
+window.resetIfcPreview = () => {
+  if (activeModel) {
+    activeModel.destroy();
+    activeModel = null;
+  }
+  originalIfc = null;
+  violatingIfc = null;
+  pendingViolatingUrl = null;
+  violatingTab.disabled = true;
+  setPreviewTab("original");
+};
 
 function setPreviewTab(kind) {
   originalTab.classList.toggle("active", kind === "original");
@@ -54,12 +71,17 @@ function setPreviewTab(kind) {
 }
 
 async function loadPreviewData(data, readyLabel) {
+  if (data.byteLength > MAX_BROWSER_PREVIEW_BYTES) {
+    throw new Error("3D preview is disabled for large IFC files to keep Chrome responsive");
+  }
   previewCard.classList.remove("hidden");
   loading.classList.remove("hidden");
   status.textContent = "Loading preview…";
   selection.textContent = "Reading IFC geometry in your browser…";
 
   try {
+    // Paint the loading overlay before WebIFC starts synchronous geometry work.
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     if (activeModel) {
       activeModel.destroy();
       activeModel = null;
@@ -92,8 +114,12 @@ async function loadPreviewData(data, readyLabel) {
 
 window.loadIfcPreview = async (file) => {
   try {
+    if (file.size > MAX_BROWSER_PREVIEW_BYTES) {
+      throw new Error("3D preview is disabled for large IFC files to keep Chrome responsive");
+    }
     originalIfc = await file.arrayBuffer();
     violatingIfc = null;
+    pendingViolatingUrl = null;
     violatingTab.disabled = true;
     setPreviewTab("original");
     await loadPreviewData(originalIfc, "Original IFC preview ready");
@@ -125,6 +151,25 @@ window.loadIfcPreviewUrl = async (url) => {
   }
 };
 
+// Called after injection completes. Do not download or parse the coloured IFC
+// until the user explicitly opens its tab, and never offer a browser preview
+// for a large result.
+window.prepareViolatingIfcPreview = (url, sizeBytes) => {
+  violatingIfc = null;
+  pendingViolatingUrl = null;
+  if (!url) return;
+  if (sizeBytes && sizeBytes > MAX_BROWSER_PREVIEW_BYTES) {
+    violatingTab.disabled = true;
+    status.textContent = "Violating preview disabled for a large model";
+    selection.textContent = "The coloured IFC is ready to download, but its 3D preview is disabled to keep Chrome responsive.";
+    return;
+  }
+  pendingViolatingUrl = url;
+  violatingTab.disabled = false;
+  status.textContent = "Violating IFC ready to preview";
+  selection.textContent = "Select the Violating IFC tab to load the generated model.";
+};
+
 originalTab.addEventListener("click", () => {
   if (originalIfc) {
     setPreviewTab("original");
@@ -136,5 +181,10 @@ violatingTab.addEventListener("click", () => {
   if (violatingIfc) {
     setPreviewTab("violating");
     loadPreviewData(violatingIfc, "Violating IFC preview ready");
+  } else if (pendingViolatingUrl) {
+    const url = pendingViolatingUrl;
+    pendingViolatingUrl = null;
+    setPreviewTab("violating");
+    window.loadIfcPreviewUrl(url);
   }
 });

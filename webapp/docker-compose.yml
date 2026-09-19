@@ -1,9 +1,10 @@
 # ---------------------------------------------------------------------------
-# Unified capstone webapp: one frontend, two engine services.
+# Unified capstone webapp: one frontend, three engine services.
 #
 #   frontend   nginx — serves the SPA and reverse-proxies the two APIs
 #   ifcweb     ifcinject engine (violation injection)      — existing code
-#   bnbc-web   accepted BNBC rule checkers (compliance)    — new code
+#   bnbc-web   accepted BNBC rule checkers (compliance)    — no LLM at request time
+#   bnbc-generator-web  offline agentic checker generator — LLM-backed, one job at a time
 #
 # Local run:    docker compose up --build          -> http://localhost:8080
 # Deploy (VPS): same file; swap bind concerns:
@@ -24,6 +25,7 @@ services:
       - auth-api
       - ifcweb
       - bnbc-web
+      - bnbc-generator-web
     restart: unless-stopped
 
   auth-api:
@@ -78,8 +80,25 @@ services:
       - "8000"
     restart: unless-stopped
 
+  # This service is intentionally separate from bnbc-web. It carries LLM
+  # dependencies, the rulebook and the IFC corpus, and must never be exposed
+  # directly to the internet.
+  bnbc-generator-web:
+    build:
+      context: "../BNBC-Checking-Code-Generator"
+      dockerfile: Dockerfile.generator
+    env_file:
+      - path: ../BNBC-Checking-Code-Generator/.env
+        required: false
+    volumes:
+      - bnbcgen_artifacts:/app/artifacts
+    expose:
+      - "8000"
+    restart: unless-stopped
+
 volumes:
   ifcweb_data:
   bnbcweb_data:
   postgres_data:
   ifcfault_llm_cache:
+  bnbcgen_artifacts:

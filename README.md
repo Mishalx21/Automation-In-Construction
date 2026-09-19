@@ -62,7 +62,7 @@ Nginx is the only public service. The internal FastAPI services and PostgreSQL c
 
 ```text
 BNBC-Checking-Code-Generator/  Fixture-Injected Verification pipeline and BNBC checker service
-IFC-Test-Case-Generator/       IFC violation-injection engine and service
+ifc-fault-injector/            IFC violation-injection engine and service
 webapp/                         Unified frontend, Nginx gateway, auth service, Compose stack
   auth/                         FastAPI password authentication and history service
   frontend/                     Static SPA and Nginx configuration

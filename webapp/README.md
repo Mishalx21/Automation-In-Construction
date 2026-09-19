@@ -85,3 +85,27 @@ plus that repo's `Dockerfile`, `requirements-web.txt`, `.dockerignore`.
   for that service. If that ever happens in practice, isolate checkers in
   subprocesses with a wall-clock limit.
 - **CORS: none.** Everything is same-origin through the nginx proxy.
+## Enable checker generation
+
+The **Generate a checker** workflow uses the separate, LLM-backed
+`bnbc-generator-web` service. Create its local-only credential file before
+starting a generation:
+
+```powershell
+cd ..\BNBC-Checking-Code-Generator
+Copy-Item .env.example .env
+```
+
+Set either `LLM_PROVIDER=openrouter` with a newly created
+`OPENROUTER_API_KEY`, or `LLM_PROVIDER=gemini` with `GEMINI_API_KEYS`. Then
+restart the two affected services:
+
+```powershell
+cd ..\webapp
+docker compose up -d --build bnbc-generator-web frontend
+```
+
+The service queues one generation at a time, fixture-validates each draft, and
+persists accepted code and acceptance evidence in the `bnbcgen_artifacts`
+Docker volume. Review and promote accepted code separately before making it
+available in the normal compliance-checker catalogue.

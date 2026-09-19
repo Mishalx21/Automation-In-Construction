@@ -19,7 +19,9 @@ const escapeHtml = (s) => String(s ?? "").replace(/[&<>"']/g,
 let pickedFile = null;
 // WebIFC decodes geometry on the browser's main thread. Large models are
 // opt-in so normal uploads and checks never freeze the page.
-const AUTO_PREVIEW_LIMIT_BYTES = 40 * 1024 * 1024;
+// IFC parsing is currently performed by WebIFC on Chrome's main thread. Keep
+// the browser well below the point where geometry decoding can freeze a tab.
+const AUTO_PREVIEW_LIMIT_BYTES = 15 * 1024 * 1024;
 
 // --- shared file picker --------------------------------------------------------
 const dropzone = $("dropzone");
@@ -43,6 +45,7 @@ function pickFile(file) {
   }
   hideError("pick-error");
   pickedFile = file;
+  window.resetIfcPreview?.();
   $("picked-name").textContent = `${file.name} — ${(file.size / 1048576).toFixed(1)} MB`;
   show("picked-name");
   $("inject-upload-btn").disabled = false;
@@ -52,10 +55,10 @@ function pickFile(file) {
   if (file.size > AUTO_PREVIEW_LIMIT_BYTES) {
     show("preview-card");
     show("viewer-loading", false);
-    show(loadPreviewButton, true);
-    $("preview-status").textContent = "Preview paused for a large model";
+    show(loadPreviewButton, false);
+    $("preview-status").textContent = "3D preview disabled for this large model";
     $("viewer-selection").textContent =
-      `This ${(file.size / 1048576).toFixed(0)} MB IFC is ready to upload. Use Load 3D preview only if your computer has sufficient memory; checking does not require a preview.`;
+      `This ${(file.size / 1048576).toFixed(0)} MB IFC is ready to upload and analyze. To keep Chrome responsive, the browser does not decode large IFC geometry locally.`;
     window.pendingIfcPreviewFile = null;
     return;
   }
@@ -320,7 +323,13 @@ function renderInjectResults(job) {
   $("inject-colored-download").href = `/ifc/api/jobs/${ifcJobId}/download/colored`;
   $("inject-script").href = `/ifc/api/jobs/${ifcJobId}/download/script`;
   $("inject-report").href = `/ifc/api/jobs/${ifcJobId}/download/report`;
-  window.loadIfcPreviewUrl?.(`/ifc/api/jobs/${ifcJobId}/download/colored`);
+  // Never parse a generated IFC automatically. Coloured output can be hundreds
+  // of MB, and WebIFC geometry decoding on Chrome's main thread can freeze a
+  // tab. The viewer enables a manual violating-model tab only when it is safe.
+  window.prepareViolatingIfcPreview?.(
+    `/ifc/api/jobs/${ifcJobId}/download/colored`,
+    job.coloured_output_size_bytes,
+  );
   show("inject-results", true);
 }
 
@@ -724,6 +733,70 @@ function renderCheckResults(job) {
   });
   $("check-report").href = `/bnbc/api/jobs/${bnbcJobId}/download/report`;
   show("check-results", true);
+}
+
+// =============================================================================
+// Panel C — offline BNBC checker generation
+// =============================================================================
+// This intentionally does not use the uploaded IFC model. The generator uses
+// its controlled corpus and fixture engine, then returns code for review.
+$("generate-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  hideError("generate-error");
+  show("generate-results", false);
+  const submit = $("generate-submit");
+  submit.disabled = true;
+  const clauses = $("generate-clauses").value.split(",").map((x) => x.trim()).filter(Boolean);
+  const request = {
+    rule_id: $("generate-rule-id").value.trim(),
+    title: $("generate-title").value.trim(),
+    statement: $("generate-statement").value.trim(),
+    scope_note: $("generate-scope").value.trim(),
+    source_clauses: clauses,
+  };
+  setProgress("generate-progress", "Submitting rule to the generation queue…");
+  try {
+    const started = await api("/generator/api/jobs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(request),
+    });
+    const job = await pollUntil(
+      `/generator/api/jobs/${started.job_id}`,
+      (j) => j.state === "done" || j.state === "rejected",
+      (j) => setProgress("generate-progress", j.state === "queued"
+        ? "Waiting for the single generation worker…"
+        : "Interpreting the rule, building fixtures, drafting code and running the acceptance gate…"),
+      2500,
+    );
+    stopProgress("generate-progress");
+    renderGeneratedChecker(job);
+    window.recordHistory?.("bnbc_generator", job);
+  } catch (error) {
+    stopProgress("generate-progress");
+    showError("generate-error", `Generation failed: ${error.message}`);
+  } finally {
+    submit.disabled = false;
+  }
+});
+
+function renderGeneratedChecker(job) {
+  const d = job.downloads || {};
+  const usage = job.token_usage?.total ? `${Number(job.token_usage.total).toLocaleString()} tokens` : "Token usage unavailable";
+  if (job.accepted) {
+    $("generate-results").innerHTML = `
+      <div class="banner ok"><span class="b-icon" aria-hidden="true">✓</span>
+        <div><strong>Checker accepted by the fixture gate.</strong> Review it before promoting it to the live compliance catalogue.</div></div>
+      <div class="tiles">${statTile("Rule", escapeHtml(job.rule_id), "ok")}${statTile("Generation", "accepted", "ok")}${statTile("Usage", escapeHtml(usage), "na")}</div>
+      <p class="dl-row"><a class="btn primary" href="/generator${d.checker}">Download Python checker</a>
+      <a class="btn" href="/generator${d.acceptance}" target="_blank">Acceptance evidence (JSON)</a></p>`;
+  } else {
+    $("generate-results").innerHTML = `
+      <div class="banner bad"><span class="b-icon" aria-hidden="true">×</span>
+        <div><strong>Checker was not accepted.</strong> ${escapeHtml(job.error || "Review the gate evidence and refine the rule statement.")}</div></div>
+      ${d.rejection ? `<p class="dl-row"><a class="btn" href="/generator${d.rejection}" target="_blank">Download rejection evidence (JSON)</a></p>` : ""}`;
+  }
+  show("generate-results", true);
 }
 
 // --- boot -------------------------------------------------------------------------

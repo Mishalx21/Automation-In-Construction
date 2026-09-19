@@ -1,0 +1,24 @@
+# bnbc-generator-web — authenticated gateway-facing API for the offline
+# agentic checker generator. This deliberately differs from bnbc-web: it
+# includes the LLM client, rulebook and IFC corpus, and must remain private.
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements-generator.txt requirements.txt ./
+RUN pip install --no-cache-dir -r requirements-generator.txt
+
+COPY bnbc/ ./bnbc/
+COPY ifc_helpers/ ./ifc_helpers/
+COPY rulebook/ ./rulebook/
+COPY rules/ ./rules/
+COPY models/ ./models/
+COPY generatorweb/ ./generatorweb/
+
+VOLUME /app/artifacts
+
+ENV PYTHONUNBUFFERED=1 \
+    BNBC_GENERATOR_ARTIFACTS=/app/artifacts
+
+EXPOSE 8000
+CMD ["uvicorn", "generatorweb.app:app", "--host", "0.0.0.0", "--port", "8000"]

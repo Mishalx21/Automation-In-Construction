@@ -46,8 +46,10 @@ async function setSignedIn(user) {
 window.recordHistory = async (engine, job) => {
   try {
     await authApi("/api/history", { method: "POST", headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({engine, job_id: job.job_id, filename: job.filename, state: job.state,
-        summary: engine === "bnbc" ? `${(job.results || []).length} rule result(s)` : `${(job.mutations || []).length} mutation(s)`})});
+      body: JSON.stringify({engine, job_id: job.job_id, filename: job.filename || job.title || job.rule_id,
+        state: job.state, summary: engine === "bnbc" ? `${(job.results || []).length} rule result(s)`
+          : engine === "bnbc_generator" ? `${job.rule_id} ${job.accepted ? "accepted" : "not accepted"}`
+          : `${(job.mutations || []).length} mutation(s)`})});
     await refreshHistory();
   } catch (_) {}
 };

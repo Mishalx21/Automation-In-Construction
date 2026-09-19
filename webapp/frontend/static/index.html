@@ -97,6 +97,9 @@
     </section>
 
     <section class="workflow-switch" aria-label="Choose workflow">
+      <button class="workflow-choice" type="button" data-workflow="generate-card">
+        <span class="choice-icon generate">&lt;/&gt;</span><span><b>Generate a checker</b><small>Draft and fixture-validate a new BNBC rule</small></span>
+      </button>
       <button class="workflow-choice active" type="button" data-workflow="check-card">
         <span class="choice-icon">✓</span><span><b>Check compliance</b><small>Find BNBC issues in a model</small></span>
       </button>
@@ -185,6 +188,41 @@
           <a id="check-report" class="btn" target="_blank">Full report (JSON)</a>
         </p>
       </div>
+    </section>
+
+    <section class="card workflow-card generate-workflow" id="generate-card">
+      <span class="workflow-icon" aria-hidden="true">&lt;/&gt;</span>
+      <div class="workflow-card-head">
+        <div class="workflow-card-title">
+          <div class="workflow-meta"><span class="workflow-step">Rule studio</span><span class="tag">LLM assisted</span></div>
+          <h2>Build a checker from a BNBC rule</h2>
+          <p class="workflow-purpose">Paste the requirement. The agent drafts, tests, and returns code for your review.</p>
+        </div>
+      </div>
+      <div class="generator-process" aria-label="Generation process">
+        <div><span>1</span><b>Describe</b><small>Paste the exact rule</small></div>
+        <div><span>2</span><b>Generate</b><small>Draft and test code</small></div>
+        <div><span>3</span><b>Review</b><small>Download accepted code</small></div>
+      </div>
+      <form id="generate-form" class="generator-form">
+        <div class="generator-section-head"><span>Rule definition</span><small>Required</small></div>
+        <div class="form-row generator-meta-row">
+          <label><span>Rule ID</span><input id="generate-rule-id" required maxlength="80" pattern="[A-Za-z0-9._-]+" placeholder="8.3.5.1"></label>
+          <label><span>Rule title</span><input id="generate-title" required maxlength="180" placeholder="Minimum reinforcement spacing"></label>
+        </div>
+        <label class="generator-rule-text"><span>BNBC requirement</span><textarea id="generate-statement" required minlength="20" maxlength="20000" rows="7" placeholder="Paste the exact rule text, including numbers, units, conditions and exceptions."></textarea><small>Use the original BNBC wording wherever possible.</small></label>
+        <details class="generator-options">
+          <summary>Add IFC scope or source clauses <span>Optional</span></summary>
+          <div class="generator-options-body">
+            <label><span>Scope / IFC interpretation notes</span><textarea id="generate-scope" maxlength="4000" rows="3" placeholder="Which IFC elements should be inspected? State any model assumptions."></textarea></label>
+            <label><span>Source clause IDs</span><input id="generate-clauses" maxlength="500" placeholder="8.3.5.1, 8.3.5.2"></label>
+          </div>
+        </details>
+        <div class="generator-submit-row"><button id="generate-submit" class="btn primary" type="submit">Generate &amp; validate</button><span>Usually takes several minutes and uses API tokens.</span></div>
+      </form>
+      <p class="error hidden" id="generate-error"></p>
+      <p class="progress hidden" id="generate-progress"></p>
+      <div id="generate-results" class="hidden"></div>
     </section>
     </div>
   </main>

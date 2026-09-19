@@ -8,11 +8,24 @@
 
 # ... then let back exactly what the Dockerfile COPYs
 !Dockerfile
+!Dockerfile.generator
+!requirements.txt
 !requirements-web.txt
+!requirements-generator.txt
 !ifc_helpers/
 !ifc_helpers/**
 !bnbcweb/
 !bnbcweb/**
+!generatorweb/
+!generatorweb/**
+!bnbc/
+!bnbc/**
+!rulebook/
+!rulebook/**
+!rules/
+!rules/**
+!models/
+!models/**
 !rule-*/
 !rule-*/**
 # ... minus the fixture IFCs and bytecode that live in the checker dirs

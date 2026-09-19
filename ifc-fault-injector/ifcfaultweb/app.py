@@ -246,7 +246,10 @@ def job_status(job_id: str) -> dict[str, Any]:
     return {"job_id": job.job_id, "state": job.state, "filename": job.filename,
             "created_at": job.created_at, "error": job.error, "analysis": job.analysis,
             "mutations": job.mutations, "verification": job.verification,
-            "output_size_bytes": job.plain_path.stat().st_size if job.plain_path and job.plain_path.exists() else None}
+            "output_size_bytes": job.plain_path.stat().st_size if job.plain_path and job.plain_path.exists() else None,
+            "coloured_output_size_bytes": (
+                job.coloured_path.stat().st_size if job.coloured_path and job.coloured_path.exists() else None
+            )}
 
 
 @app.post("/api/jobs/{job_id}/inject")

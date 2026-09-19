@@ -5,7 +5,7 @@ gives you back **a standalone Python script** that you run yourself to
 produce the faulty model.
 
 ```
-python -m ifcfault emit --source "D:\Real World BIMs\models\dental_clinic\arc.ifc" --rule A1
+python -m ifcfault emit --source "D:\BUET_Pdf\4-1\Capstone\V_1\arc.ifc" --rule A1
     -> generated/dental_clinic_arc_A1_inject.py
 
 python generated/dental_clinic_arc_A1_inject.py --outdir out

@@ -1,7 +1,7 @@
 """Job store + single background worker for the bnbc-web layer.
 
-Same deliberate design as ifcweb's jobs.py: ifcopenshell holds whole
-files in memory (sources run to 342 MB), so HTTP handlers never open a
+Same deliberate design as the fault-injection service: ifcopenshell holds
+whole files in memory (sources run to 342 MB), so HTTP handlers never open a
 model — they enqueue and the browser polls. One worker thread, strictly
 sequential, so the server can never blow up memory by opening several
 large models at once.

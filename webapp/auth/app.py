@@ -55,7 +55,7 @@ class Credentials(BaseModel):
     display_name: str | None = Field(default=None, max_length=120)
 
 class HistoryCreate(BaseModel):
-    engine: Literal["ifcfault", "ifcinject", "bnbc"]
+    engine: Literal["ifcfault", "ifcinject", "bnbc", "bnbc_generator"]
     job_id: str = Field(min_length=1, max_length=80)
     filename: str = Field(min_length=1, max_length=255)
     state: str = Field(min_length=1, max_length=40)
