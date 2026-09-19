@@ -298,6 +298,13 @@ details pre {
   background: var(--card);
   box-shadow: var(--shadow);
 }
+.mut-card.mutation-location { cursor: pointer; }
+.mut-card.mutation-location:hover,
+.mut-card.mutation-location:focus-visible {
+  border-color: var(--bad);
+  background: color-mix(in srgb, var(--bad) 6%, white);
+  outline: none;
+}
 .mut-head { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
 .mut-type {
   font-family: ui-monospace, Consolas, monospace;

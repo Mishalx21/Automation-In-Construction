@@ -160,8 +160,10 @@ let activeModel = null;
 let originalIfc = null;
 let violatingIfc = null;
 let pendingViolatingUrl = null;
+let violatingXktUrl = null;
 let originalXktUrl = null;
 let propertiesJobId = null;
+let injectedViolationFocusIds = [];
 
 window.resetIfcPreview = () => {
   if (activeModel) {
@@ -171,7 +173,9 @@ window.resetIfcPreview = () => {
   originalIfc = null;
   violatingIfc = null;
   pendingViolatingUrl = null;
+  violatingXktUrl = null;
   originalXktUrl = null;
+  injectedViolationFocusIds = [];
   propertiesJobId = null;
   propertiesPanel.classList.add("hidden");
   violatingTab.disabled = true;
@@ -205,6 +209,9 @@ async function loadXktPreview(url, readyLabel) {
       loading.classList.add("hidden");
       status.textContent = readyLabel;
       selection.textContent = "Select an element to inspect its IFC identifier.";
+      if (injectedViolationFocusIds.length && violatingTab.classList.contains("active")) {
+        window.highlightViolationIds(injectedViolationFocusIds);
+      }
     });
     activeModel.on("error", (message) => {
       loading.classList.add("hidden");
@@ -223,6 +230,7 @@ window.loadXktPreviewUrl = async (url, readyLabel = "Original model preview read
   originalIfc = null;
   violatingIfc = null;
   pendingViolatingUrl = null;
+  violatingXktUrl = null;
   violatingTab.disabled = true;
   setPreviewTab("original");
   await loadXktPreview(url, readyLabel);
@@ -315,6 +323,7 @@ window.loadIfcPreviewUrl = async (url) => {
 window.prepareViolatingXktPreview = (url) => {
   violatingIfc = null;
   pendingViolatingUrl = null;
+  violatingXktUrl = url;
   if (!url) {
     violatingTab.disabled = true;
     status.textContent = "Violating preview unavailable";
@@ -325,6 +334,19 @@ window.prepareViolatingXktPreview = (url) => {
   violatingTab.disabled = false;
   status.textContent = "Violating IFC ready to preview";
   selection.textContent = "Select the Violating IFC tab to load the generated model.";
+};
+
+// Open the coloured injection model and persist its focus across tab switches.
+// The affected objects remain red while the surrounding building is transparent.
+window.focusInjectedViolation = (globalIds) => {
+  injectedViolationFocusIds = (globalIds || []).filter(Boolean);
+  if (!injectedViolationFocusIds.length) return;
+  if (violatingTab.disabled || !violatingXktUrl) {
+    selection.textContent = "The coloured violating-model preview is unavailable for this injected fault.";
+    return;
+  }
+  setPreviewTab("violating");
+  loadXktPreview(violatingXktUrl, "Violating model preview — injected locations shown in red");
 };
 
 originalTab.addEventListener("click", () => {
@@ -341,10 +363,9 @@ violatingTab.addEventListener("click", () => {
   if (violatingIfc) {
     setPreviewTab("violating");
     loadPreviewData(violatingIfc, "Violating IFC preview ready");
-  } else if (pendingViolatingUrl) {
-    const url = pendingViolatingUrl;
-    pendingViolatingUrl = null;
+  } else if (violatingXktUrl) {
+    // Keep the URL so users can switch back and forth between both models.
     setPreviewTab("violating");
-    loadXktPreview(url, "Violating model preview ready");
+    loadXktPreview(violatingXktUrl, "Violating model preview ready");
   }
 });

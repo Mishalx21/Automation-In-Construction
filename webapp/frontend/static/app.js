@@ -293,11 +293,12 @@ function fmtVal(v) {
 
 function mutationCard(m, idx) {
   const deleted = m.attribute === "(entity deleted)";
+  const targetGuid = m.target_global_id || "";
   const change = deleted
     ? `<span class="chg chg-del">entity deleted</span>`
     : `<span class="chg"><s>${escapeHtml(fmtVal(m.before))}</s><span class="chg-arrow" aria-hidden="true">→</span><b>${escapeHtml(fmtVal(m.after))}</b></span>`;
   return `
-  <div class="mut-card">
+  <div class="mut-card${targetGuid && !deleted ? " mutation-location" : ""}"${targetGuid && !deleted ? ` data-guid="${escapeHtml(targetGuid)}" tabindex="0" role="button" title="Show this injected violation in the model preview"` : ""}>
     <div class="mut-head">
       <span class="v-num">${idx + 1}</span>
       <span class="badge bad">${escapeHtml(m.rule_id || "")}</span>
@@ -366,6 +367,24 @@ function renderInjectResults(job) {
   window.prepareViolatingXktPreview?.(
     job.coloured_preview?.state === "ready" ? `/ifc/api/jobs/${ifcJobId}/preview/violating` : null,
   );
+  const injectedIds = muts
+    .filter((mutation) => mutation.attribute !== "(entity deleted)")
+    .map((mutation) => mutation.target_global_id)
+    .filter(Boolean);
+  window.focusInjectedViolation?.(injectedIds);
+  $("inject-mutations").querySelectorAll(".mutation-location").forEach((card) => {
+    const focus = () => {
+      window.focusInjectedViolation?.([card.dataset.guid]);
+      $("preview-card").scrollIntoView({behavior: "smooth", block: "center"});
+    };
+    card.addEventListener("click", focus);
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        focus();
+      }
+    });
+  });
   show("inject-results", true);
 }
 
