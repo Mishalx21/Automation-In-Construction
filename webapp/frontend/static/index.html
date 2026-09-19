@@ -88,6 +88,7 @@
         </div>
       </div>
       <p class="hint">Orbit: left-drag · Pan: right-drag · Zoom: scroll · Select: click an element.</p>
+      <p><button id="preview-load-button" class="btn small hidden" type="button">Load 3D preview</button></p>
       <div class="viewer-shell">
         <canvas id="ifc-viewer" aria-label="Interactive IFC model preview"></canvas>
         <div id="viewer-loading" class="viewer-loading">Loading IFC geometry…</div>
@@ -104,12 +105,12 @@
       </button>
     </section>
     <div class="workflow-grid">
-    <!-- panel A: ifcinject -->
+    <!-- panel A: ifcfault -->
     <section class="card workflow-card inject-workflow" id="inject-card">
       <span class="workflow-icon" aria-hidden="true">↯</span>
       <div class="workflow-card-head">
         <div class="workflow-card-title">
-          <div class="workflow-meta"><span class="workflow-step">Step 2B</span><span class="tag">ifcinject</span></div>
+          <div class="workflow-meta"><span class="workflow-step">Step 2B</span><span class="tag">ifcfault</span></div>
           <h2>Inject violations</h2>
           <p class="workflow-purpose">Generate a controlled test model with verified rule violations.</p>
         </div>
@@ -139,6 +140,8 @@
         <div id="inject-mutations"></div>
         <p class="dl-row">
           <a id="inject-download" class="btn">Download violating .ifc</a>
+          <a id="inject-colored-download" class="btn">Download coloured review .ifc</a>
+          <a id="inject-script" class="btn">Download injection script</a>
           <a id="inject-report" class="btn" target="_blank">Verification report (JSON)</a>
         </p>
       </div>

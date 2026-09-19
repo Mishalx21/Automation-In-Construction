@@ -40,6 +40,7 @@ async function setSignedIn(user) {
   auth$("user-bar").classList.remove("hidden");
   auth$("user-name").textContent = user.display_name || user.email;
   await refreshHistory();
+  window.dispatchEvent(new Event("auth:ready"));
 }
 
 window.recordHistory = async (engine, job) => {
@@ -55,7 +56,10 @@ window.authReady = (async () => {
   try {
     const {user} = await authApi("/api/auth/me");
     await setSignedIn(user);
-  } catch (_) {}
+    return user;
+  } catch (_) {
+    return null;
+  }
 })();
 
 auth$("auth-mode").addEventListener("click", () => {

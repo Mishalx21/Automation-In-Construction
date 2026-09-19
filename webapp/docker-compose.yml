@@ -57,9 +57,14 @@ services:
 
   ifcweb:
     build:
-      context: "../IFC-Test-Case-Generator/IFC Test Case Generator"
+      context: "../ifc-fault-injector"
+    # The OpenRouter credential stays with the injector project and is never
+    # copied into the image or exposed to the browser.
+    env_file:
+      - ../ifc-fault-injector/.env
     volumes:
-      - ifcweb_data:/app/out          # uploads + generated violating files
+      - ifcweb_data:/app/out          # uploads, scripts and generated IFC files
+      - ifcfault_llm_cache:/app/ifcfault/.llm_cache
     expose:
       - "8000"                        # reachable only inside the compose network
     restart: unless-stopped
@@ -77,3 +82,4 @@ volumes:
   ifcweb_data:
   bnbcweb_data:
   postgres_data:
+  ifcfault_llm_cache:

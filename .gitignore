@@ -2,3 +2,6 @@
 # Keep them outside normal Git history; distribute them via object storage
 # or Git LFS only when a repository has sufficient LFS quota.
 *.ifc
+
+# Per-job fault-injection outputs are generated at runtime and can be large.
+ifc-fault-injector/out/

@@ -55,7 +55,7 @@ class Credentials(BaseModel):
     display_name: str | None = Field(default=None, max_length=120)
 
 class HistoryCreate(BaseModel):
-    engine: Literal["ifcinject", "bnbc"]
+    engine: Literal["ifcfault", "ifcinject", "bnbc"]
     job_id: str = Field(min_length=1, max_length=80)
     filename: str = Field(min_length=1, max_length=255)
     state: str = Field(min_length=1, max_length=40)
@@ -147,4 +147,3 @@ def add_history(data: HistoryCreate, request: Request):
         conn.execute("INSERT INTO history(user_id,engine,job_id,filename,state,summary) VALUES (%s,%s,%s,%s,%s,%s) ON CONFLICT(user_id,engine,job_id) DO UPDATE SET state=EXCLUDED.state,summary=EXCLUDED.summary",
                      (user["id"],data.engine,data.job_id,data.filename,data.state,data.summary))
     return {"ok": True}
-

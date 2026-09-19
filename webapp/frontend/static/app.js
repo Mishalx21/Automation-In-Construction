@@ -1,7 +1,7 @@
 /* IFC Compliance Workbench — single-page UI. Vanilla JS, no build step.
  *
  * Two engines behind one nginx origin:
- *   /ifc/api/...   ifcinject   (upload -> analysis matrix -> inject -> verify)
+ *   /ifc/api/...   ifcfault    (upload -> survey -> emit script -> verify)
  *   /bnbc/api/...  bnbc-web    (upload -> select checkers -> run -> report)
  *
  * The UI is English throughout. Technical values (rule ids, mm measurements,
@@ -17,6 +17,9 @@ const escapeHtml = (s) => String(s ?? "").replace(/[&<>"']/g,
   (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 let pickedFile = null;
+// WebIFC decodes geometry on the browser's main thread. Large models are
+// opt-in so normal uploads and checks never freeze the page.
+const AUTO_PREVIEW_LIMIT_BYTES = 40 * 1024 * 1024;
 
 // --- shared file picker --------------------------------------------------------
 const dropzone = $("dropzone");
@@ -45,6 +48,19 @@ function pickFile(file) {
   $("inject-upload-btn").disabled = false;
   $("check-upload-btn").disabled = false;
 
+  const loadPreviewButton = $("preview-load-button");
+  if (file.size > AUTO_PREVIEW_LIMIT_BYTES) {
+    show("preview-card");
+    show("viewer-loading", false);
+    show(loadPreviewButton, true);
+    $("preview-status").textContent = "Preview paused for a large model";
+    $("viewer-selection").textContent =
+      `This ${(file.size / 1048576).toFixed(0)} MB IFC is ready to upload. Use Load 3D preview only if your computer has sufficient memory; checking does not require a preview.`;
+    window.pendingIfcPreviewFile = null;
+    return;
+  }
+  show(loadPreviewButton, false);
+
   // Give immediate feedback even when xeokit/WebIFC is still downloading or
   // initialising. The viewer module will replace this state as it starts
   // reading the model.
@@ -62,6 +78,21 @@ function pickFile(file) {
     window.pendingIfcPreviewFile = file;
   }
 }
+
+$("preview-load-button").addEventListener("click", () => {
+  if (!pickedFile) return;
+  show("preview-load-button", false);
+  show("preview-card");
+  show("viewer-loading");
+  $("preview-status").textContent = "Preparing IFC preview...";
+  $("viewer-selection").textContent = "Starting the IFC viewer in your browser...";
+  if (window.loadIfcPreview) {
+    window.pendingIfcPreviewFile = null;
+    window.loadIfcPreview(pickedFile);
+  } else {
+    window.pendingIfcPreviewFile = pickedFile;
+  }
+});
 
 function showError(id, msg) { const el = $(id); el.textContent = msg; show(el, true); }
 function hideError(id) { show($(id), false); }
@@ -179,7 +210,7 @@ $("inject-btn").addEventListener("click", async () => {
   hideError("inject-error");
   const rules = [...document.querySelectorAll(".inject-cb:checked")].map((cb) => ({ rule: cb.value }));
   $("inject-btn").disabled = true;
-  setProgress("inject-progress", "Injecting violation(s)…");
+  setProgress("inject-progress", "Generating validated injection script…");
   try {
     await api(`/ifc/api/jobs/${ifcJobId}/inject`, {
       method: "POST",
@@ -191,13 +222,14 @@ $("inject-btn").addEventListener("click", async () => {
       (j) => j.state === "done",
       (j) => setProgress("inject-progress", {
         queued_inject: "Queued for injection…",
-        injecting: "Injecting violation(s)…",
-        verifying: "Independently re-verifying the written file…",
+        emitting: "Generating and validating the injection script…",
+        writing_outputs: "Producing plain and coloured IFC outputs…",
+        verifying: "Finalizing independently verified artifacts…",
       }[j.state] || `${j.state}…`));
     stopProgress("inject-progress");
     lastInjectResultsJob = job;
     renderInjectResults(job);
-    window.recordHistory?.("ifcinject", job);
+    window.recordHistory?.("ifcfault", job);
   } catch (e) {
     stopProgress("inject-progress");
     showError("inject-error", e.message);
@@ -207,7 +239,7 @@ $("inject-btn").addEventListener("click", async () => {
 });
 
 // --- injection results rendering ------------------------------------------------
-// Mutation dicts (from ifcinject's Mutation record):
+// Mutation dicts (from ifcfault's output record):
 //   { rule_id, element_type, target_global_id, attribute, before, after,
 //     clause, description, extra }
 // Verification dict (verify/report.py):
@@ -285,8 +317,10 @@ function renderInjectResults(job) {
     ${verificationPanel(ver)}`;
 
   $("inject-download").href = `/ifc/api/jobs/${ifcJobId}/download`;
+  $("inject-colored-download").href = `/ifc/api/jobs/${ifcJobId}/download/colored`;
+  $("inject-script").href = `/ifc/api/jobs/${ifcJobId}/download/script`;
   $("inject-report").href = `/ifc/api/jobs/${ifcJobId}/download/report`;
-  window.loadIfcPreviewUrl?.(`/ifc/api/jobs/${ifcJobId}/download`);
+  window.loadIfcPreviewUrl?.(`/ifc/api/jobs/${ifcJobId}/download/colored`);
   show("inject-results", true);
 }
 
@@ -702,4 +736,5 @@ function selectWorkflow(id) {
 document.querySelectorAll(".workflow-choice").forEach((button) =>
   button.addEventListener("click", () => selectWorkflow(button.dataset.workflow)));
 selectWorkflow("check-card");
-window.authReady.then(renderCheckerCatalogue);
+window.addEventListener("auth:ready", renderCheckerCatalogue);
+window.authReady.then((user) => { if (user) renderCheckerCatalogue(); });
