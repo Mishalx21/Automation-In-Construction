@@ -129,6 +129,7 @@ async function prepareServerPreview(file) {
       },
     );
     if (job.source_preview?.state === "ready") {
+      window.setPreviewPropertiesJob?.(job_id);
       await window.loadXktPreviewUrl?.(`/ifc/api/jobs/${job_id}/preview/source`, "Original model preview ready");
     } else {
       show("viewer-loading", false);
@@ -215,6 +216,7 @@ function renderInjectMatrix(job) {
   show("inject-rules", true);
   refreshRunButton("inject-btn", ".inject-cb");
   if (job.source_preview?.state === "ready") {
+    window.setPreviewPropertiesJob?.(ifcJobId);
     window.loadXktPreviewUrl?.(`/ifc/api/jobs/${ifcJobId}/preview/source`, "Original model preview ready");
   } else {
     $("preview-status").textContent = "Server preview unavailable";

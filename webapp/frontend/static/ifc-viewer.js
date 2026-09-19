@@ -6,6 +6,7 @@ const previewCard = document.getElementById("preview-card");
 const status = document.getElementById("preview-status");
 const loading = document.getElementById("viewer-loading");
 const selection = document.getElementById("viewer-selection");
+const propertiesPanel = document.getElementById("viewer-properties");
 const originalTab = document.getElementById("preview-original");
 const violatingTab = document.getElementById("preview-violating");
 const resetViewButton = document.getElementById("preview-reset-view");
@@ -102,7 +103,25 @@ viewer.scene.input.on("mouseclicked", (canvasPos) => {
   viewer.scene.setObjectsSelected(viewer.scene.selectedObjectIds, false);
   viewer.scene.setObjectsSelected([hit.entity.id], true);
   selection.textContent = "Selected IFC object: " + hit.entity.id;
+  loadSelectedProperties(hit.entity.id);
 });
+
+async function loadSelectedProperties(objectId) {
+  if (!propertiesJobId) return;
+  const globalId = String(objectId).split("#").pop();
+  try {
+    const response = await fetch(`/ifc/api/jobs/${propertiesJobId}/elements/${encodeURIComponent(globalId)}`, {credentials: "same-origin"});
+    if (!response.ok) throw new Error();
+    const data = await response.json();
+    const details = Object.entries(data.properties || {}).map(([key, value]) => `${key}: ${value}`);
+    propertiesPanel.textContent = `${data.type}${details.length ? " — " + details.join(" · ") : ""}`;
+    propertiesPanel.classList.remove("hidden");
+  } catch (_) {
+    propertiesPanel.classList.add("hidden");
+  }
+}
+
+window.setPreviewPropertiesJob = (jobId) => { propertiesJobId = jobId; };
 
 resetViewButton.addEventListener("click", resetCamera);
 isolateButton.addEventListener("click", isolateSelected);
@@ -114,6 +133,7 @@ let originalIfc = null;
 let violatingIfc = null;
 let pendingViolatingUrl = null;
 let originalXktUrl = null;
+let propertiesJobId = null;
 
 window.resetIfcPreview = () => {
   if (activeModel) {
@@ -124,6 +144,8 @@ window.resetIfcPreview = () => {
   violatingIfc = null;
   pendingViolatingUrl = null;
   originalXktUrl = null;
+  propertiesJobId = null;
+  propertiesPanel.classList.add("hidden");
   violatingTab.disabled = true;
   setPreviewTab("original");
 };

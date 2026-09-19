@@ -367,3 +367,31 @@ def download_preview(job_id: str, kind: str):
     if not path or not path.exists():
         raise HTTPException(409, "server preview is not ready")
     return FileResponse(path, media_type="application/octet-stream", filename=f"{kind}.xkt")
+
+
+@app.get("/api/jobs/{job_id}/elements/{global_id}")
+def element_properties(job_id: str, global_id: str) -> dict[str, Any]:
+    """Return a small, JSON-safe engineering summary for a selected IFC item."""
+    job = store.get(job_id)
+    if not job:
+        raise HTTPException(404, f"no such job '{job_id}'")
+    try:
+        model = ifcopenshell.open(str(job.source_path))
+        item = model.by_guid(global_id)
+    except Exception as exc:
+        raise HTTPException(404, f"could not find IFC element: {exc}") from exc
+    if not item:
+        raise HTTPException(404, "IFC element not found")
+    fields = ("GlobalId", "Name", "Description", "ObjectType", "PredefinedType",
+              "Tag", "OverallHeight", "OverallWidth")
+    values = {name: getattr(item, name, None) for name in fields}
+    values = {name: value for name, value in values.items() if value not in (None, "")}
+    storey = None
+    for relation in getattr(item, "ContainedInStructure", ()) or ():
+        structure = getattr(relation, "RelatingStructure", None)
+        if structure and structure.is_a("IfcBuildingStorey"):
+            storey = getattr(structure, "Name", None) or getattr(structure, "GlobalId", None)
+            break
+    if storey:
+        values["Storey"] = storey
+    return {"type": item.is_a(), "properties": values}
