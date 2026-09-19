@@ -75,6 +75,13 @@ h1 { margin: 0 0 .2rem; font-size: 1.45rem; letter-spacing: -.01em; }
 .preview-tab:disabled { cursor: not-allowed; opacity: .45; }
 .viewer-shell { position: relative; height: min(62vw, 34rem); min-height: 20rem; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #202833; }
 #ifc-viewer { display: block; width: 100%; height: 100%; }
+.preview-toolbar { position: absolute; z-index: 3; top: .8rem; left: .8rem; display: grid; gap: .35rem; padding: .4rem; border: 1px solid rgba(255,255,255,.22); border-radius: 9px; background: rgba(20,29,42,.82); backdrop-filter: blur(5px); box-shadow: 0 .4rem 1rem rgba(0,0,0,.22); }
+.preview-tool { width: 2.15rem; height: 2.15rem; border: 0; border-radius: 6px; background: transparent; color: #fff; font: 700 1.05rem/1 system-ui, sans-serif; cursor: pointer; }
+.preview-tool:hover, .preview-tool:focus-visible, .preview-tool.active { background: var(--accent); color: #fff; outline: none; }
+.preview-tool:disabled { opacity: .4; cursor: not-allowed; }
+.preview-tool-divider { height: 1px; margin: .05rem .15rem; background: rgba(255,255,255,.27); }
+.violation-location[data-guid] { cursor: pointer; }
+.violation-location[data-guid]:hover td { background: color-mix(in srgb, var(--bad) 8%, transparent); }
 .viewer-loading { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; background: rgba(32,40,51,.72); font-weight: 600; }
 .viewer-selection { margin: .65rem 0 0; color: var(--muted); font-family: ui-monospace, Consolas, monospace; font-size: .8rem; }
 

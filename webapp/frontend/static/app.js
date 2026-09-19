@@ -617,7 +617,7 @@ function violationCard(v, idx) {
   const locations = (v.locations || []).map((loc) => {
     const { name, guid } = splitElement(loc.element);
     return `
-      <tr>
+      <tr${guid ? ` class="violation-location" data-guid="${escapeHtml(guid)}" title="Show this violated component in the model preview"` : ""}>
         <td class="v-el">${escapeHtml(name)}
             ${guid ? `<span class="v-guid" title="GlobalId">${escapeHtml(guid)}</span>` : ""}</td>
         <td class="v-storey">${escapeHtml(loc.storey || "")}</td>
@@ -757,6 +757,18 @@ function renderCheckResults(job) {
   }).join("");
 
   $("check-results-list").innerHTML = cards;
+  const violationIds = (job.results || []).flatMap((result) =>
+    (result.report?.violations || []).flatMap((violation) =>
+      (violation.locations || []).map((location) => splitElement(location.element).guid).filter(Boolean)));
+  window.highlightViolationIds?.(violationIds);
+  $("check-results-list").querySelectorAll(".violation-location").forEach((row) => {
+    row.addEventListener("click", () => {
+      const guid = row.dataset.guid;
+      if (!guid) return;
+      window.highlightViolationIds?.([guid]);
+      $("preview-card").scrollIntoView({behavior: "smooth", block: "center"});
+    });
+  });
   $("check-results-list").querySelectorAll(".show-more").forEach((btn) => {
     btn.addEventListener("click", () => {
       const rest = btn.nextElementSibling;

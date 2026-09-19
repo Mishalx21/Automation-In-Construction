@@ -71,8 +71,36 @@ function xraySelected() {
 function showAllObjects() {
   viewer.scene.setObjectsVisible(viewer.scene.objectIds, true);
   viewer.scene.setObjectsXRayed(viewer.scene.xrayedObjectIds, false);
+  clearViolationHighlights();
   selection.textContent = "All model components are visible.";
 }
+
+let highlightedViolationIds = [];
+
+function clearViolationHighlights() {
+  for (const id of highlightedViolationIds) {
+    const object = viewer.scene.objects[id];
+    if (object) object.colorize = [1, 1, 1];
+  }
+  highlightedViolationIds = [];
+}
+
+window.highlightViolationIds = (globalIds) => {
+  clearViolationHighlights();
+  const wanted = new Set((globalIds || []).filter(Boolean));
+  // Reveal internal violations by making the rest of the model translucent.
+  viewer.scene.setObjectsXRayed(viewer.scene.objectIds, true);
+  for (const [id, object] of Object.entries(viewer.scene.objects)) {
+    if (wanted.has(id.split("#").pop())) {
+      object.colorize = [1, 0.08, 0.08];
+      highlightedViolationIds.push(id);
+    }
+  }
+  viewer.scene.setObjectsXRayed(highlightedViolationIds, false);
+  if (highlightedViolationIds.length) {
+    selection.textContent = `${highlightedViolationIds.length} violated component(s) shown in red; the surrounding model is transparent.`;
+  }
+};
 
 const ifcAPI = new WebIFC.IfcAPI();
 ifcAPI.SetWasmPath("https://cdn.jsdelivr.net/npm/web-ifc@0.0.51/");

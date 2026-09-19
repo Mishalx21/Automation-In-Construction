@@ -80,14 +80,6 @@
       <div class="section-head">
         <div><span class="eyebrow">Model preview</span><h2>Explore the IFC model</h2></div>
         <div class="preview-head-actions">
-          <div class="preview-tabs" role="group" aria-label="Choose IFC preview">
-            <button id="preview-original" class="preview-tab active" type="button">Original IFC</button>
-            <button id="preview-violating" class="preview-tab" type="button" disabled>Violating IFC</button>
-          </div>
-          <button id="preview-reset-view" class="btn small" type="button" title="Return camera to its initial model view">Reset view</button>
-          <button id="preview-isolate" class="btn small" type="button" title="Show only the selected component">Isolate</button>
-          <button id="preview-xray" class="btn small" type="button" title="Make the selected component transparent">X-ray</button>
-          <button id="preview-show-all" class="btn small" type="button" title="Show every model component">Show all</button>
           <span id="preview-status" class="history-hint">Preparing viewer…</span>
         </div>
       </div>
@@ -95,6 +87,15 @@
       <p><button id="preview-load-button" class="btn small hidden" type="button">Load 3D preview</button></p>
       <div class="viewer-shell">
         <canvas id="ifc-viewer" aria-label="Interactive IFC model preview"></canvas>
+        <div class="preview-toolbar" role="toolbar" aria-label="Model preview controls">
+          <button id="preview-original" class="preview-tool active" type="button" aria-label="Show original IFC" title="Original IFC">◉</button>
+          <button id="preview-violating" class="preview-tool" type="button" aria-label="Show violating IFC" title="Violating IFC" disabled>!</button>
+          <span class="preview-tool-divider" aria-hidden="true"></span>
+          <button id="preview-reset-view" class="preview-tool" type="button" aria-label="Reset model view" title="Reset view">↺</button>
+          <button id="preview-isolate" class="preview-tool" type="button" aria-label="Isolate selected component" title="Isolate selected">⊙</button>
+          <button id="preview-xray" class="preview-tool" type="button" aria-label="X-ray selected component" title="X-ray selected">◐</button>
+          <button id="preview-show-all" class="preview-tool" type="button" aria-label="Show all components" title="Show all">☷</button>
+        </div>
         <div id="viewer-loading" class="viewer-loading">Loading IFC geometry…</div>
       </div>
       <p id="viewer-selection" class="viewer-selection">Select an element to inspect its IFC identifier.</p>
