@@ -8,6 +8,17 @@ const loading = document.getElementById("viewer-loading");
 const selection = document.getElementById("viewer-selection");
 const originalTab = document.getElementById("preview-original");
 const violatingTab = document.getElementById("preview-violating");
+const resetViewButton = document.getElementById("preview-reset-view");
+const isolateButton = document.getElementById("preview-isolate");
+const xrayButton = document.getElementById("preview-xray");
+const showAllButton = document.getElementById("preview-show-all");
+
+// Keep the mouse wheel inside the model viewport. Without this, the browser
+// scrolls the page at the same time as xeokit zooms the camera.
+canvas.addEventListener("wheel", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+}, {passive: false});
 
 // IFC geometry is decoded on Chrome's UI thread by WebIFC. This threshold is
 // intentionally lower than the upload limit so a large model cannot freeze a tab.
@@ -25,6 +36,42 @@ viewer.camera.look = [0, 0, 0];
 viewer.camera.up = [0, 1, 0];
 viewer.cameraControl.navMode = "orbit";
 viewer.cameraControl.panRightClick = true;
+
+function resetCamera() {
+  if (!activeModel) return;
+  viewer.cameraFlight.jumpTo(viewer.scene);
+  selection.textContent = "View reset to fit the full model.";
+}
+
+function selectedObjectIds() {
+  const ids = viewer.scene.selectedObjectIds;
+  if (!ids || ids.length === 0) {
+    selection.textContent = "Select a model component first.";
+    return null;
+  }
+  return ids;
+}
+
+function isolateSelected() {
+  const ids = selectedObjectIds();
+  if (!ids) return;
+  viewer.scene.setObjectsVisible(viewer.scene.objectIds, false);
+  viewer.scene.setObjectsVisible(ids, true);
+  selection.textContent = "Showing only the selected component. Choose Show all to restore the model.";
+}
+
+function xraySelected() {
+  const ids = selectedObjectIds();
+  if (!ids) return;
+  viewer.scene.setObjectsXRayed(ids, true);
+  selection.textContent = "Selected component is shown in X-ray mode. Choose Show all to restore it.";
+}
+
+function showAllObjects() {
+  viewer.scene.setObjectsVisible(viewer.scene.objectIds, true);
+  viewer.scene.setObjectsXRayed(viewer.scene.xrayedObjectIds, false);
+  selection.textContent = "All model components are visible.";
+}
 
 const ifcAPI = new WebIFC.IfcAPI();
 ifcAPI.SetWasmPath("https://cdn.jsdelivr.net/npm/web-ifc@0.0.51/");
@@ -56,6 +103,11 @@ viewer.scene.input.on("mouseclicked", (canvasPos) => {
   viewer.scene.setObjectsSelected([hit.entity.id], true);
   selection.textContent = "Selected IFC object: " + hit.entity.id;
 });
+
+resetViewButton.addEventListener("click", resetCamera);
+isolateButton.addEventListener("click", isolateSelected);
+xrayButton.addEventListener("click", xraySelected);
+showAllButton.addEventListener("click", showAllObjects);
 
 let activeModel = null;
 let originalIfc = null;
