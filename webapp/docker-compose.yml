@@ -25,7 +25,6 @@ services:
       - auth-api
       - ifcweb
       - bnbc-web
-      - bnbc-generator-web
     restart: unless-stopped
 
   auth-api:
@@ -83,22 +82,8 @@ services:
   # This service is intentionally separate from bnbc-web. It carries LLM
   # dependencies, the rulebook and the IFC corpus, and must never be exposed
   # directly to the internet.
-  bnbc-generator-web:
-    build:
-      context: "../BNBC-Checking-Code-Generator"
-      dockerfile: Dockerfile.generator
-    env_file:
-      - path: ../BNBC-Checking-Code-Generator/.env
-        required: false
-    volumes:
-      - bnbcgen_artifacts:/app/artifacts
-    expose:
-      - "8000"
-    restart: unless-stopped
-
 volumes:
   ifcweb_data:
   bnbcweb_data:
   postgres_data:
   ifcfault_llm_cache:
-  bnbcgen_artifacts:

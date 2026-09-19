@@ -32,9 +32,15 @@ from ifcfault.library import registry
 MAX_UPLOAD_MB = float(os.environ.get("IFCFAULTWEB_MAX_UPLOAD_MB", "400"))
 DATA_ROOT = Path(os.environ.get("IFCFAULTWEB_DATA_ROOT", "/app/out"))
 TIMEOUT_SECONDS = int(os.environ.get("IFCFAULTWEB_TIMEOUT_SECONDS", "1800"))
+XKT_CONVERTER = Path(os.environ.get(
+    "IFCFAULTWEB_XKT_CONVERTER",
+    "/opt/xeokit/node_modules/@xeokit/xeokit-convert/convert2xkt.js",
+))
 _SANITISE = re.compile(r"[^A-Za-z0-9._-]+")
 
-QUEUED_ANALYSIS, ANALYZING, READY = "queued_analysis", "analyzing", "ready"
+QUEUED_ANALYSIS, ANALYZING, CONVERTING_PREVIEW, READY = (
+    "queued_analysis", "analyzing", "converting_preview", "ready"
+)
 QUEUED_INJECT, EMITTING, WRITING, VERIFYING, DONE, FAILED = (
     "queued_inject", "emitting", "writing_outputs", "verifying", "done", "failed"
 )
@@ -64,6 +70,10 @@ class Job:
     plain_path: Path | None = None
     coloured_path: Path | None = None
     record_path: Path | None = None
+    source_preview_path: Path | None = None
+    source_preview_error: str | None = None
+    coloured_preview_path: Path | None = None
+    coloured_preview_error: str | None = None
 
     @property
     def source_path(self) -> Path:
@@ -152,13 +162,40 @@ class JobStore:
                                     "candidate_count": 0})
             inventory = model_inventory(model, job.source_path)
             del model
-            self.set(job_id, state=READY, analysis={
+            self.set(job_id, analysis={
                 "schema_name": inventory.get("schema"),
                 "file_size_bytes": job.source_path.stat().st_size,
                 "rules": entries,
             })
+            # XKT is preprocessed here, never in Chrome. A failed conversion
+            # must not prevent a user from using the actual checking/injection
+            # workflow, so it is exposed as an unavailable preview instead.
+            self.set(job_id, state=CONVERTING_PREVIEW)
+            try:
+                preview = self._convert_xkt(job.source_path, job.root / "preview" / "source.xkt")
+                self.set(job_id, source_preview_path=preview)
+            except Exception as exc:
+                self.set(job_id, source_preview_error=str(exc)[-1000:])
+            self.set(job_id, state=READY)
         except Exception as exc:
             self.set(job_id, state=FAILED, error=f"could not analyze file: {exc}")
+
+    @staticmethod
+    def _convert_xkt(source: Path, output: Path) -> Path:
+        """Convert outside the web process so a bad WASM conversion is isolated."""
+        if not XKT_CONVERTER.exists():
+            raise RuntimeError("server-side XKT converter is not installed")
+        output.parent.mkdir(parents=True, exist_ok=True)
+        completed = subprocess.run(
+            ["node", "--no-experimental-fetch", str(XKT_CONVERTER), "-s", str(source), "-o", str(output)],
+            capture_output=True,
+            text=True,
+            timeout=TIMEOUT_SECONDS,
+        )
+        if completed.returncode != 0 or not output.exists() or output.stat().st_size == 0:
+            detail = completed.stderr or completed.stdout or "converter did not create an XKT file"
+            raise RuntimeError(f"XKT conversion failed: {detail[-1000:]}")
+        return output
 
     def _run_script(self, script: Path, source: Path, outdir: Path, coloured: bool) -> None:
         outdir.mkdir(parents=True, exist_ok=True)
@@ -201,6 +238,12 @@ class JobStore:
                             "fault": result.validation.fault if result.validation else "none"}
             self.set(job_id, state=VERIFYING, mutations=mutations, verification=verification,
                      plain_path=plain, coloured_path=coloured, record_path=record)
+            self.set(job_id, state=CONVERTING_PREVIEW)
+            try:
+                preview = self._convert_xkt(coloured, job.root / "preview" / "violating.xkt")
+                self.set(job_id, coloured_preview_path=preview)
+            except Exception as exc:
+                self.set(job_id, coloured_preview_error=str(exc)[-1000:])
             self.set(job_id, state=DONE)
         except Exception as exc:
             self.set(job_id, state=FAILED, error=str(exc))
@@ -249,7 +292,15 @@ def job_status(job_id: str) -> dict[str, Any]:
             "output_size_bytes": job.plain_path.stat().st_size if job.plain_path and job.plain_path.exists() else None,
             "coloured_output_size_bytes": (
                 job.coloured_path.stat().st_size if job.coloured_path and job.coloured_path.exists() else None
-            )}
+            ),
+            "source_preview": {
+                "state": "ready" if job.source_preview_path else ("unavailable" if job.source_preview_error else "pending"),
+                "size_bytes": job.source_preview_path.stat().st_size if job.source_preview_path and job.source_preview_path.exists() else None,
+            },
+            "coloured_preview": {
+                "state": "ready" if job.coloured_preview_path else ("unavailable" if job.coloured_preview_error else "pending"),
+                "size_bytes": job.coloured_preview_path.stat().st_size if job.coloured_preview_path and job.coloured_preview_path.exists() else None,
+            }}
 
 
 @app.post("/api/jobs/{job_id}/inject")
@@ -303,3 +354,16 @@ def download_report(job_id: str):
     if job.state != DONE or not job.verification:
         raise HTTPException(409, "report is not ready")
     return JSONResponse(job.verification, headers={"Content-Disposition": f'attachment; filename="{job_id}_validation.json"'})
+
+
+@app.get("/api/jobs/{job_id}/preview/{kind}")
+def download_preview(job_id: str, kind: str):
+    if kind not in {"source", "violating"}:
+        raise HTTPException(404, "unknown preview")
+    job = store.get(job_id)
+    if not job:
+        raise HTTPException(404, f"no such job '{job_id}'")
+    path = job.source_preview_path if kind == "source" else job.coloured_preview_path
+    if not path or not path.exists():
+        raise HTTPException(409, "server preview is not ready")
+    return FileResponse(path, media_type="application/octet-stream", filename=f"{kind}.xkt")

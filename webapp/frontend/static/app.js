@@ -17,12 +17,8 @@ const escapeHtml = (s) => String(s ?? "").replace(/[&<>"']/g,
   (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 let pickedFile = null;
-// WebIFC decodes geometry on the browser's main thread. Large models are
-// opt-in so normal uploads and checks never freeze the page.
-// IFC parsing is currently performed by WebIFC on Chrome's main thread. Keep
-// the browser well below the point where geometry decoding can freeze a tab.
-const AUTO_PREVIEW_LIMIT_BYTES = 15 * 1024 * 1024;
-
+let previewJobId = null;
+let previewJobPromise = null;
 // --- shared file picker --------------------------------------------------------
 const dropzone = $("dropzone");
 const fileInput = $("file-input");
@@ -52,14 +48,18 @@ function pickFile(file) {
   $("check-upload-btn").disabled = false;
 
   const loadPreviewButton = $("preview-load-button");
-  if (file.size > AUTO_PREVIEW_LIMIT_BYTES) {
+  // Source IFC is never decoded in Chrome. The ifcfault worker converts it to
+  // XKT after Upload & analyze, which is safe for full project models.
+  if (true) {
     show("preview-card");
     show("viewer-loading", false);
     show(loadPreviewButton, false);
-    $("preview-status").textContent = "3D preview disabled for this large model";
+    $("preview-status").textContent = "Preparing server preview...";
     $("viewer-selection").textContent =
-      `This ${(file.size / 1048576).toFixed(0)} MB IFC is ready to upload and analyze. To keep Chrome responsive, the browser does not decode large IFC geometry locally.`;
+      `This ${(file.size / 1048576).toFixed(0)} MB IFC is ready to upload and analyze. Select Create test cases, then Upload & analyze to generate its server-side XKT preview.`;
     window.pendingIfcPreviewFile = null;
+    previewJobId = null;
+    previewJobPromise = prepareServerPreview(file);
     return;
   }
   show(loadPreviewButton, false);
@@ -83,18 +83,8 @@ function pickFile(file) {
 }
 
 $("preview-load-button").addEventListener("click", () => {
-  if (!pickedFile) return;
-  show("preview-load-button", false);
-  show("preview-card");
-  show("viewer-loading");
-  $("preview-status").textContent = "Preparing IFC preview...";
-  $("viewer-selection").textContent = "Starting the IFC viewer in your browser...";
-  if (window.loadIfcPreview) {
-    window.pendingIfcPreviewFile = null;
-    window.loadIfcPreview(pickedFile);
-  } else {
-    window.pendingIfcPreviewFile = pickedFile;
-  }
+  $("preview-status").textContent = "Use the server-prepared preview";
+  $("viewer-selection").textContent = "Upload and analyze the model in Create test cases to prepare an optimized XKT preview.";
 });
 
 function showError(id, msg) { const el = $(id); el.textContent = msg; show(el, true); }
@@ -124,6 +114,34 @@ async function uploadTo(prefix, file) {
   const body = new FormData();
   body.append("file", file);
   return api(`${prefix}/api/jobs`, { method: "POST", body });
+}
+
+async function prepareServerPreview(file) {
+  try {
+    const {job_id} = await uploadTo("/ifc", file);
+    previewJobId = job_id;
+    const job = await pollUntil(
+      `/ifc/api/jobs/${job_id}`,
+      (j) => j.state === "ready",
+      (j) => {
+        $("preview-status").textContent = j.state === "converting_preview"
+          ? "Converting server preview..." : "Analyzing model for preview...";
+      },
+    );
+    if (job.source_preview?.state === "ready") {
+      await window.loadXktPreviewUrl?.(`/ifc/api/jobs/${job_id}/preview/source`, "Original model preview ready");
+    } else {
+      show("viewer-loading", false);
+      $("preview-status").textContent = "Server preview unavailable";
+      $("viewer-selection").textContent = "The IFC uploaded successfully, but its optimized preview could not be created.";
+    }
+    return job;
+  } catch (error) {
+    show("viewer-loading", false);
+    $("preview-status").textContent = "Preview upload failed";
+    $("viewer-selection").textContent = "Could not prepare server preview: " + (error.message || error);
+    throw error;
+  }
 }
 
 function pollUntil(jobPath, isTerminal, onTick, intervalMs = 1500) {
@@ -161,8 +179,19 @@ $("inject-upload-btn").addEventListener("click", async () => {
   $("inject-upload-btn").disabled = true;
   setProgress("inject-progress", "Uploading…");
   try {
-    const { job_id } = await uploadTo("/ifc", pickedFile);
-    ifcJobId = job_id;
+    if (previewJobPromise) {
+      try {
+        await previewJobPromise;
+      } catch (_) {
+        // A preview is optional. Fall back to a normal analysis upload.
+        previewJobId = null;
+      }
+    }
+    if (!previewJobId) {
+      const { job_id } = await uploadTo("/ifc", pickedFile);
+      previewJobId = job_id;
+    }
+    ifcJobId = previewJobId;
     const job = await pollUntil(
       `/ifc/api/jobs/${ifcJobId}`,
       (j) => j.state === "ready",
@@ -185,6 +214,12 @@ function renderInjectMatrix(job) {
   buildRuleTable($("inject-table-struct"), a.rules.filter((r) => r.domain === "structural"), true, "inject-cb");
   show("inject-rules", true);
   refreshRunButton("inject-btn", ".inject-cb");
+  if (job.source_preview?.state === "ready") {
+    window.loadXktPreviewUrl?.(`/ifc/api/jobs/${ifcJobId}/preview/source`, "Original model preview ready");
+  } else {
+    $("preview-status").textContent = "Server preview unavailable";
+    $("viewer-selection").textContent = "The model is ready for analysis and injection; only its optional 3D conversion was unavailable.";
+  }
 }
 
 function buildRuleTable(table, rules, withApplicability, cbClass) {
@@ -326,9 +361,8 @@ function renderInjectResults(job) {
   // Never parse a generated IFC automatically. Coloured output can be hundreds
   // of MB, and WebIFC geometry decoding on Chrome's main thread can freeze a
   // tab. The viewer enables a manual violating-model tab only when it is safe.
-  window.prepareViolatingIfcPreview?.(
-    `/ifc/api/jobs/${ifcJobId}/download/colored`,
-    job.coloured_output_size_bytes,
+  window.prepareViolatingXktPreview?.(
+    job.coloured_preview?.state === "ready" ? `/ifc/api/jobs/${ifcJobId}/preview/violating` : null,
   );
   show("inject-results", true);
 }
@@ -740,7 +774,7 @@ function renderCheckResults(job) {
 // =============================================================================
 // This intentionally does not use the uploaded IFC model. The generator uses
 // its controlled corpus and fixture engine, then returns code for review.
-$("generate-form").addEventListener("submit", async (event) => {
+$("generate-form")?.addEventListener("submit", async (event) => {
   event.preventDefault();
   hideError("generate-error");
   show("generate-results", false);

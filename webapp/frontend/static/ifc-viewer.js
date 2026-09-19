@@ -1,4 +1,4 @@
-import {Viewer, WebIFCLoaderPlugin} from "https://cdn.jsdelivr.net/npm/@xeokit/xeokit-sdk@2.6.84/dist/xeokit-sdk.es.min.js";
+import {Viewer, WebIFCLoaderPlugin, XKTLoaderPlugin} from "https://cdn.jsdelivr.net/npm/@xeokit/xeokit-sdk@2.6.84/dist/xeokit-sdk.es.min.js";
 import * as WebIFC from "https://cdn.jsdelivr.net/npm/web-ifc@0.0.51/web-ifc-api.js";
 
 const canvas = document.getElementById("ifc-viewer");
@@ -11,7 +11,9 @@ const violatingTab = document.getElementById("preview-violating");
 
 // IFC geometry is decoded on Chrome's UI thread by WebIFC. This threshold is
 // intentionally lower than the upload limit so a large model cannot freeze a tab.
-const MAX_BROWSER_PREVIEW_BYTES = 15 * 1024 * 1024;
+// WebIFC currently parses geometry on the page's main thread. Do not allow
+// full-size BIM models to trigger Chrome's unresponsive-page warning.
+const MAX_BROWSER_PREVIEW_BYTES = 1 * 1024 * 1024;
 
 const viewer = new Viewer({
   canvasId: "ifc-viewer",
@@ -37,6 +39,13 @@ const loader = new WebIFCLoaderPlugin(viewer, {
   },
 });
 
+const xktLoader = new XKTLoaderPlugin(viewer, {
+  objectDefaults: {
+    IfcSpace: { visible: false },
+    IfcOpeningElement: { visible: false },
+  },
+});
+
 viewer.scene.input.on("mouseclicked", (canvasPos) => {
   const hit = viewer.scene.pick({canvasPos});
   if (!hit || !hit.entity) {
@@ -52,6 +61,7 @@ let activeModel = null;
 let originalIfc = null;
 let violatingIfc = null;
 let pendingViolatingUrl = null;
+let originalXktUrl = null;
 
 window.resetIfcPreview = () => {
   if (activeModel) {
@@ -61,6 +71,7 @@ window.resetIfcPreview = () => {
   originalIfc = null;
   violatingIfc = null;
   pendingViolatingUrl = null;
+  originalXktUrl = null;
   violatingTab.disabled = true;
   setPreviewTab("original");
 };
@@ -69,6 +80,51 @@ function setPreviewTab(kind) {
   originalTab.classList.toggle("active", kind === "original");
   violatingTab.classList.toggle("active", kind === "violating");
 }
+
+async function loadXktPreview(url, readyLabel) {
+  previewCard.classList.remove("hidden");
+  loading.classList.remove("hidden");
+  status.textContent = "Loading server-prepared preview...";
+  selection.textContent = "Loading optimized model geometry...";
+  try {
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    if (activeModel) {
+      activeModel.destroy();
+      activeModel = null;
+    }
+    activeModel = xktLoader.load({
+      id: "preview-model",
+      src: url,
+      edges: true,
+      excludeTypes: ["IfcSpace", "IfcOpeningElement"],
+    });
+    activeModel.on("loaded", () => {
+      viewer.cameraFlight.jumpTo(viewer.scene);
+      loading.classList.add("hidden");
+      status.textContent = readyLabel;
+      selection.textContent = "Select an element to inspect its IFC identifier.";
+    });
+    activeModel.on("error", (message) => {
+      loading.classList.add("hidden");
+      status.textContent = "Preview unavailable";
+      selection.textContent = "Could not load the server-prepared preview: " + (message || "XKT loading failed");
+    });
+  } catch (error) {
+    loading.classList.add("hidden");
+    status.textContent = "Preview unavailable";
+    selection.textContent = "Could not load the server-prepared preview: " + (error.message || error);
+  }
+}
+
+window.loadXktPreviewUrl = async (url, readyLabel = "Original model preview ready") => {
+  originalXktUrl = url;
+  originalIfc = null;
+  violatingIfc = null;
+  pendingViolatingUrl = null;
+  violatingTab.disabled = true;
+  setPreviewTab("original");
+  await loadXktPreview(url, readyLabel);
+};
 
 async function loadPreviewData(data, readyLabel) {
   if (data.byteLength > MAX_BROWSER_PREVIEW_BYTES) {
@@ -154,14 +210,13 @@ window.loadIfcPreviewUrl = async (url) => {
 // Called after injection completes. Do not download or parse the coloured IFC
 // until the user explicitly opens its tab, and never offer a browser preview
 // for a large result.
-window.prepareViolatingIfcPreview = (url, sizeBytes) => {
+window.prepareViolatingXktPreview = (url) => {
   violatingIfc = null;
   pendingViolatingUrl = null;
-  if (!url) return;
-  if (sizeBytes && sizeBytes > MAX_BROWSER_PREVIEW_BYTES) {
+  if (!url) {
     violatingTab.disabled = true;
-    status.textContent = "Violating preview disabled for a large model";
-    selection.textContent = "The coloured IFC is ready to download, but its 3D preview is disabled to keep Chrome responsive.";
+    status.textContent = "Violating preview unavailable";
+    selection.textContent = "The coloured IFC is ready to download, but its optional server conversion was unavailable.";
     return;
   }
   pendingViolatingUrl = url;
@@ -171,7 +226,10 @@ window.prepareViolatingIfcPreview = (url, sizeBytes) => {
 };
 
 originalTab.addEventListener("click", () => {
-  if (originalIfc) {
+  if (originalXktUrl) {
+    setPreviewTab("original");
+    loadXktPreview(originalXktUrl, "Original model preview ready");
+  } else if (originalIfc) {
     setPreviewTab("original");
     loadPreviewData(originalIfc, "Original IFC preview ready");
   }
@@ -185,6 +243,6 @@ violatingTab.addEventListener("click", () => {
     const url = pendingViolatingUrl;
     pendingViolatingUrl = null;
     setPreviewTab("violating");
-    window.loadIfcPreviewUrl(url);
+    loadXktPreview(url, "Violating model preview ready");
   }
 });
