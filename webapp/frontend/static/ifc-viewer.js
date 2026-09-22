@@ -125,6 +125,8 @@ const xktLoader = new XKTLoaderPlugin(viewer, {
 viewer.scene.input.on("mouseclicked", (canvasPos) => {
   const hit = viewer.scene.pick({canvasPos});
   if (!hit || !hit.entity) {
+    viewer.scene.setObjectsSelected(viewer.scene.selectedObjectIds, false);
+    propertiesPanel.classList.add("hidden");
     selection.textContent = "No IFC element selected.";
     return;
   }
@@ -132,6 +134,14 @@ viewer.scene.input.on("mouseclicked", (canvasPos) => {
   viewer.scene.setObjectsSelected([hit.entity.id], true);
   selection.textContent = "Selected IFC object: " + hit.entity.id;
   loadSelectedProperties(hit.entity.id);
+});
+
+// Standard CAD-style deselection: press Escape or click empty model space.
+window.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape" || viewer.scene.selectedObjectIds.length === 0) return;
+  viewer.scene.setObjectsSelected(viewer.scene.selectedObjectIds, false);
+  propertiesPanel.classList.add("hidden");
+  selection.textContent = "No IFC element selected.";
 });
 
 async function loadSelectedProperties(objectId) {

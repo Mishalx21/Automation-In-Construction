@@ -636,11 +636,12 @@ function violationCard(v, idx) {
   const locations = (v.locations || []).map((loc) => {
     const { name, guid } = splitElement(loc.element);
     return `
-      <tr${guid ? ` class="violation-location" data-guid="${escapeHtml(guid)}" title="Show this violated component in the model preview"` : ""}>
+      <tr>
         <td class="v-el">${escapeHtml(name)}
             ${guid ? `<span class="v-guid" title="GlobalId">${escapeHtml(guid)}</span>` : ""}</td>
         <td class="v-storey">${escapeHtml(loc.storey || "")}</td>
         <td class="v-measured">${kvChips(loc.measured)}</td>
+        <td class="v-action">${guid ? `<button class="show-in-model" type="button" data-guid="${escapeHtml(guid)}">Show in model</button>` : ""}</td>
       </tr>`;
   }).join("");
 
@@ -655,7 +656,7 @@ function violationCard(v, idx) {
     ${v.threshold ? `<div class="v-meta"><span class="chip limit">Limit: ${escapeHtml(v.threshold)}</span></div>` : ""}
     ${locations ? `
       <table class="v-locations">
-        <tr><th>Element</th><th>Storey</th><th>Measured</th></tr>
+        <tr><th>Element</th><th>Storey</th><th>Measured</th><th>Preview</th></tr>
         ${locations}
       </table>` : ""}
     ${v.rule_ref ? `<div class="v-ref">${escapeHtml(v.rule_ref)}</div>` : ""}
@@ -780,9 +781,10 @@ function renderCheckResults(job) {
     (result.report?.violations || []).flatMap((violation) =>
       (violation.locations || []).map((location) => splitElement(location.element).guid).filter(Boolean)));
   window.highlightViolationIds?.(violationIds);
-  $("check-results-list").querySelectorAll(".violation-location").forEach((row) => {
-    row.addEventListener("click", () => {
-      const guid = row.dataset.guid;
+  $("check-results-list").querySelectorAll(".show-in-model").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const guid = button.dataset.guid;
       if (!guid) return;
       window.highlightViolationIds?.([guid]);
       $("preview-card").scrollIntoView({behavior: "smooth", block: "center"});
