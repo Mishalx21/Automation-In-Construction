@@ -497,9 +497,11 @@ table.v-locations th:nth-child(4), table.v-locations td:nth-child(4) { width: 22
 }
 .show-in-model:hover, .show-in-model:focus-visible { background: var(--accent); color: #fff; outline: none; }
 .v-measured .kv {
-  display: inline-block; font-size: .74rem; background: var(--chip);
+  display: inline-block; max-width: 100%; box-sizing: border-box;
+  font-size: .74rem; background: var(--chip);
   border-radius: var(--radius-sm); padding: .06rem .45rem; margin: 0 .22rem .22rem 0;
   font-variant-numeric: tabular-nums;
+  white-space: normal; overflow-wrap: anywhere; word-break: break-word;
 }
 .v-measured .kv b { font-weight: 700; }
 
