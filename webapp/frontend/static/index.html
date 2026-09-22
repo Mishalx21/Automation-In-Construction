@@ -9,23 +9,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <div class="brand-identity">
-        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-          <rect width="32" height="32" rx="7" fill="var(--accent)"/>
-          <path d="M9 23V13l7-5 7 5v10h-4v-6h-6v6z" fill="#fff"/>
-        </svg>
-        <div>
-          <span class="product-kicker">Construction intelligence</span>
-          <h1>IFC Compliance Workbench</h1>
-          <p class="sub">Review models, create verified test cases, and explain BNBC compliance findings.</p>
-        </div>
-      </div>
+  <header id="topbar">
+    <div class="brand-mini">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="6" fill="var(--accent)"/>
+        <path d="M9 23V13l7-5 7 5v10h-4v-6h-6v6z" fill="#fff"/>
+      </svg>
+      <span class="brand-title">IFC Compliance Workbench</span>
+    </div>
+    <nav class="workflow-switch hidden" id="workflow-switch" aria-label="Choose workflow">
+      <button class="workflow-choice active" type="button" data-workflow="check-card">
+        <span class="choice-icon">✓</span>Check compliance
+      </button>
+      <button class="workflow-choice" type="button" data-workflow="inject-card">
+        <span class="choice-icon warn">↯</span>Create test cases
+      </button>
+    </nav>
+    <div class="topbar-actions">
+      <button id="history-toggle" class="btn small ghost hidden" type="button" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 20 20" width="15" height="15" aria-hidden="true"><path d="M10 4v6l4 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="10" r="7.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        Recent activity
+      </button>
       <div id="user-bar" class="user-bar hidden">
         <span class="user-avatar" aria-hidden="true">U</span>
         <span id="user-name"></span>
-        <button id="logout-btn" class="btn small" type="button">Sign out</button>
+        <button id="logout-btn" class="btn small ghost" type="button">Sign out</button>
       </div>
     </div>
   </header>
@@ -45,22 +53,25 @@
     </section>
   </main>
 
-  <main id="workspace" class="hidden">
-    <section class="workspace-intro">
-      <div>
-        <span class="eyebrow">Engineering workspace</span>
-        <h2>Review IFC models with confidence.</h2>
-        <p>Use one model file to create verified test cases or run fixture-validated BNBC checks.</p>
-      </div>
-      <div class="security-note"><strong>Private workspace</strong><span>Your models and history are linked to your account.</span></div>
-    </section>
-    <section class="card" id="history-card">
-      <div class="section-head"><div><span class="eyebrow">Activity</span><h2>Your recent work</h2></div><span class="history-hint">Completed jobs appear here</span></div>
+  <!-- off-canvas: recent activity -->
+  <div id="history-backdrop" class="drawer-backdrop hidden"></div>
+  <aside id="history-drawer" class="drawer">
+    <div class="drawer-head">
+      <h2>Recent activity</h2>
+      <button id="history-close" class="btn small ghost icon-btn" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="drawer-body">
       <div id="history-list" class="history-list">No completed jobs yet.</div>
-    </section>
+    </div>
+  </aside>
+
+  <main id="workspace" class="hidden">
     <!-- shared: pick the file once, use it in either panel -->
     <section class="card" id="pick-card">
-      <div class="section-head"><div><span class="eyebrow">Start here</span><h2><span class="step-num">1</span> Pick an IFC model</h2></div><span class="format-chip">IFC • up to 400 MB</span></div>
+      <div class="section-head">
+        <div><span class="eyebrow">Start here</span><h2><span class="step-num">1</span> Pick an IFC model</h2></div>
+        <span class="format-chip">IFC · up to 400 MB</span>
+      </div>
       <div id="dropzone" class="dropzone" tabindex="0" role="button"
            aria-label="Upload an IFC file">
         <svg class="dz-icon" viewBox="0 0 48 48" aria-hidden="true">
@@ -73,126 +84,132 @@
         <input type="file" id="file-input" accept=".ifc" hidden>
         <p id="picked-name" class="picked hidden"></p>
       </div>
+      <button id="change-file-btn" class="btn small ghost picked-change hidden" type="button">Change file</button>
       <p class="error hidden" id="pick-error"></p>
     </section>
 
-    <section class="card preview-card hidden" id="preview-card">
-      <div class="section-head">
-        <div><span class="eyebrow">Model preview</span><h2>Explore the IFC model</h2></div>
-        <div class="preview-head-actions">
+    <div id="workspace-split">
+      <div id="preview-pane">
+      <section class="card preview-card hidden" id="preview-card">
+        <div class="section-head">
+          <div><span class="eyebrow">Model preview</span><h2>Explore the IFC model</h2></div>
           <span id="preview-status" class="history-hint">Preparing viewer…</span>
         </div>
-      </div>
-      <p class="hint">Orbit: left-drag · Pan: right-drag · Zoom: scroll · Select: click an element.</p>
-      <p><button id="preview-load-button" class="btn small hidden" type="button">Load 3D preview</button></p>
-      <div class="viewer-shell">
-        <canvas id="ifc-viewer" aria-label="Interactive IFC model preview"></canvas>
-        <div class="preview-toolbar" role="toolbar" aria-label="Model preview controls">
-          <button id="preview-original" class="preview-tool active" type="button">Original IFC</button>
-          <button id="preview-violating" class="preview-tool" type="button" disabled>Violating IFC</button>
-          <span class="preview-tool-divider" aria-hidden="true"></span>
-          <button id="preview-reset-view" class="preview-tool" type="button">Reset view</button>
-          <button id="preview-isolate" class="preview-tool" type="button">Isolate selected</button>
-          <button id="preview-xray" class="preview-tool" type="button">X-ray selected</button>
-          <button id="preview-show-all" class="preview-tool" type="button">Show all</button>
-        </div>
-        <div id="viewer-loading" class="viewer-loading">Loading IFC geometry…</div>
-      </div>
-      <p id="viewer-selection" class="viewer-selection">Select an element to inspect its IFC identifier.</p>
-      <div id="viewer-properties" class="viewer-selection hidden" aria-live="polite"></div>
-    </section>
-
-    <section class="workflow-switch" aria-label="Choose workflow">
-      <button class="workflow-choice active" type="button" data-workflow="check-card">
-        <span class="choice-icon">✓</span><span><b>Check compliance</b><small>Find BNBC issues in a model</small></span>
-      </button>
-      <button class="workflow-choice" type="button" data-workflow="inject-card">
-        <span class="choice-icon warn">↯</span><span><b>Create test cases</b><small>Inject and verify known violations</small></span>
-      </button>
-    </section>
-    <div class="workflow-grid">
-    <!-- panel A: ifcfault -->
-    <section class="card workflow-card inject-workflow" id="inject-card">
-      <span class="workflow-icon" aria-hidden="true">↯</span>
-      <div class="workflow-card-head">
-        <div class="workflow-card-title">
-          <div class="workflow-meta"><span class="workflow-step">Step 2B</span><span class="tag">ifcfault</span></div>
-          <h2>Inject violations</h2>
-          <p class="workflow-purpose">Generate a controlled test model with verified rule violations.</p>
-        </div>
-      </div>
-      <p class="hint">Deterministically perturbs the model into a fixture with a known,
-      documented code violation — then independently re-verifies it.</p>
-      <button id="inject-upload-btn" class="btn primary" disabled>Upload &amp; analyze</button>
-      <p class="error hidden" id="inject-error"></p>
-      <p class="progress hidden" id="inject-progress"></p>
-
-      <div id="inject-rules" class="hidden">
-        <p id="inject-file-meta" class="file-meta"></p>
-        <div class="tables">
-          <div>
-            <h3>Architectural</h3>
-            <table id="inject-table-archi"></table>
+        <p class="hint">Orbit: left-drag · Pan: right-drag · Zoom: scroll · Select: click an element.</p>
+        <p><button id="preview-load-button" class="btn small hidden" type="button">Load 3D preview</button></p>
+        <div class="viewer-shell">
+          <canvas id="ifc-viewer" aria-label="Interactive IFC model preview"></canvas>
+          <div class="preview-toolbar" role="toolbar" aria-label="Model preview controls">
+            <button id="preview-original" class="preview-tool active" type="button">Original IFC</button>
+            <button id="preview-violating" class="preview-tool" type="button" disabled>Violating IFC</button>
+            <span class="preview-tool-divider" aria-hidden="true"></span>
+            <button id="preview-reset-view" class="preview-tool" type="button">Reset view</button>
+            <button id="preview-isolate" class="preview-tool" type="button">Isolate selected</button>
+            <button id="preview-xray" class="preview-tool" type="button">X-ray selected</button>
+            <button id="preview-show-all" class="preview-tool" type="button">Show all</button>
           </div>
-          <div>
-            <h3>Structural</h3>
-            <table id="inject-table-struct"></table>
-          </div>
+          <div id="viewer-loading" class="viewer-loading">Loading IFC geometry…</div>
         </div>
-        <button id="inject-btn" class="btn primary" disabled>Inject selected</button>
+        <p id="viewer-selection" class="viewer-selection">Select an element to inspect its IFC identifier.</p>
+        <div id="viewer-properties" class="viewer-selection hidden" aria-live="polite"></div>
+      </section>
+      <div class="preview-placeholder" id="preview-placeholder">
+        <p>Pick an IFC model above, then upload it in either workflow to prepare its preview.</p>
+      </div>
       </div>
 
-      <div id="inject-results" class="hidden">
-        <div id="inject-mutations"></div>
-        <p class="dl-row">
-          <a id="inject-download" class="btn">Download violating .ifc</a>
-          <a id="inject-colored-download" class="btn">Download coloured review .ifc</a>
-          <a id="inject-script" class="btn">Download injection script</a>
-          <a id="inject-report" class="btn" target="_blank">Verification report (JSON)</a>
-        </p>
+      <div id="pane-resizer" role="separator" aria-orientation="vertical" aria-label="Resize model and panel">
+        <button class="pane-collapse-btn" id="collapse-left" type="button" title="Collapse model preview" aria-label="Collapse model preview">‹</button>
+        <span class="pane-grip" aria-hidden="true"></span>
+        <button class="pane-collapse-btn" id="collapse-right" type="button" title="Collapse panel" aria-label="Collapse panel">›</button>
       </div>
-    </section>
 
-    <!-- panel B: bnbc checkers -->
-    <section class="card workflow-card check-workflow" id="check-card">
-      <span class="workflow-icon" aria-hidden="true">✓</span>
-      <div class="workflow-card-head">
-        <div class="workflow-card-title">
-          <div class="workflow-meta"><span class="workflow-step">Step 2A</span><span class="tag">BNBC checkers</span></div>
-          <h2>Check compliance</h2>
-          <p class="workflow-purpose">Review your model against selected BNBC compliance rules.</p>
-        </div>
-      </div>
-      <p class="hint">Runs the accepted rule checkers (fixture-verified code generation,
-      no LLM at request time) against the model.</p>
-      <button id="check-upload-btn" class="btn primary" disabled>Upload model</button>
-      <p class="error hidden" id="check-error"></p>
-      <p class="progress hidden" id="check-progress"></p>
+      <div id="panel-pane">
+        <button id="expand-left" class="pane-expand-chip hidden" type="button">Show model ›</button>
+        <button id="expand-right" class="pane-expand-chip hidden" type="button">‹ Show panel</button>
 
-      <div id="check-rules" class="hidden">
-        <p id="check-file-meta" class="file-meta"></p>
-        <div class="tables">
-          <div>
-            <h3>Architectural</h3>
-            <table id="check-table-archi"></table>
+        <!-- panel A: ifcfault -->
+        <section class="card workflow-card inject-workflow" id="inject-card">
+          <span class="workflow-icon" aria-hidden="true">↯</span>
+          <div class="workflow-card-head">
+            <div class="workflow-card-title">
+              <div class="workflow-meta"><span class="workflow-step">Step 2B</span><span class="tag">ifcfault</span></div>
+              <h2>Inject violations</h2>
+              <p class="workflow-purpose">Generate a controlled test model with verified rule violations.</p>
+            </div>
           </div>
-          <div>
-            <h3>Structural</h3>
-            <table id="check-table-struct"></table>
+          <p class="hint">Deterministically perturbs the model into a fixture with a known,
+          documented code violation — then independently re-verifies it.</p>
+          <button id="inject-upload-btn" class="btn primary" disabled>Upload &amp; analyze</button>
+          <p class="error hidden" id="inject-error"></p>
+          <p class="progress hidden" id="inject-progress"></p>
+
+          <div id="inject-rules" class="hidden">
+            <p id="inject-file-meta" class="file-meta"></p>
+            <div class="tables">
+              <div>
+                <h3>Architectural</h3>
+                <table id="inject-table-archi"></table>
+              </div>
+              <div>
+                <h3>Structural</h3>
+                <table id="inject-table-struct"></table>
+              </div>
+            </div>
+            <button id="inject-btn" class="btn primary" disabled>Inject selected</button>
           </div>
-        </div>
-        <button id="check-btn" class="btn primary" disabled>Run selected checkers</button>
-      </div>
 
-      <div id="check-results" class="hidden">
-        <div id="check-summary"></div>
-        <div id="check-results-list"></div>
-        <p class="dl-row">
-          <a id="check-report" class="btn" target="_blank">Full report (JSON)</a>
-        </p>
-      </div>
-    </section>
+          <div id="inject-results" class="hidden">
+            <div id="inject-mutations"></div>
+            <p class="dl-row">
+              <a id="inject-download" class="btn">Download violating .ifc</a>
+              <a id="inject-colored-download" class="btn">Download coloured review .ifc</a>
+              <a id="inject-script" class="btn">Download injection script</a>
+              <a id="inject-report" class="btn" target="_blank">Verification report (JSON)</a>
+            </p>
+          </div>
+        </section>
 
+        <!-- panel B: bnbc checkers -->
+        <section class="card workflow-card check-workflow active" id="check-card">
+          <span class="workflow-icon" aria-hidden="true">✓</span>
+          <div class="workflow-card-head">
+            <div class="workflow-card-title">
+              <div class="workflow-meta"><span class="workflow-step">Step 2A</span><span class="tag">BNBC checkers</span></div>
+              <h2>Check compliance</h2>
+              <p class="workflow-purpose">Review your model against selected BNBC compliance rules.</p>
+            </div>
+          </div>
+          <p class="hint">Runs the accepted rule checkers (fixture-verified code generation,
+          no LLM at request time) against the model.</p>
+          <button id="check-upload-btn" class="btn primary" disabled>Upload model</button>
+          <p class="error hidden" id="check-error"></p>
+          <p class="progress hidden" id="check-progress"></p>
+
+          <div id="check-rules" class="hidden">
+            <p id="check-file-meta" class="file-meta"></p>
+            <div class="tables">
+              <div>
+                <h3>Architectural</h3>
+                <table id="check-table-archi"></table>
+              </div>
+              <div>
+                <h3>Structural</h3>
+                <table id="check-table-struct"></table>
+              </div>
+            </div>
+            <button id="check-btn" class="btn primary" disabled>Run selected checkers</button>
+          </div>
+
+          <div id="check-results" class="hidden">
+            <div id="check-summary"></div>
+            <div id="check-results-list"></div>
+            <p class="dl-row">
+              <a id="check-report" class="btn" target="_blank">Full report (JSON)</a>
+            </p>
+          </div>
+        </section>
+      </div>
     </div>
   </main>
 
@@ -204,5 +221,6 @@
   <script src="auth.js"></script>
   <script src="app.js"></script>
   <script type="module" src="ifc-viewer.js"></script>
+  <script src="layout.js"></script>
 </body>
 </html>
