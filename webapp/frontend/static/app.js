@@ -52,7 +52,8 @@ function pickFile(file) {
   // XKT after Upload & analyze, which is safe for full project models.
   if (true) {
     show("preview-card");
-    show("viewer-loading", false);
+    show("viewer-loading", true);
+    $("viewer-loading-text").textContent = "Uploading model…";
     show(loadPreviewButton, false);
     $("preview-status").textContent = "Preparing server preview...";
     $("viewer-selection").textContent =
@@ -124,8 +125,10 @@ async function prepareServerPreview(file) {
       `/ifc/api/jobs/${job_id}`,
       (j) => j.state === "ready",
       (j) => {
-        $("preview-status").textContent = j.state === "converting_preview"
+        const text = j.state === "converting_preview"
           ? "Converting server preview..." : "Analyzing model for preview...";
+        $("preview-status").textContent = text;
+        $("viewer-loading-text").textContent = text;
       },
     );
     if (job.source_preview?.state === "ready") {

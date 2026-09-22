@@ -5,6 +5,7 @@ const canvas = document.getElementById("ifc-viewer");
 const previewCard = document.getElementById("preview-card");
 const status = document.getElementById("preview-status");
 const loading = document.getElementById("viewer-loading");
+const loadingText = document.getElementById("viewer-loading-text");
 const selection = document.getElementById("viewer-selection");
 const propertiesPanel = document.getElementById("viewer-properties");
 const originalTab = document.getElementById("preview-original");
@@ -200,6 +201,7 @@ function setPreviewTab(kind) {
 async function loadXktPreview(url, readyLabel) {
   previewCard.classList.remove("hidden");
   loading.classList.remove("hidden");
+  loadingText.textContent = "Loading optimized model geometry…";
   status.textContent = "Loading server-prepared preview...";
   selection.textContent = "Loading optimized model geometry...";
   try {
@@ -252,6 +254,7 @@ async function loadPreviewData(data, readyLabel) {
   }
   previewCard.classList.remove("hidden");
   loading.classList.remove("hidden");
+  loadingText.textContent = "Reading IFC geometry…";
   status.textContent = "Loading preview…";
   selection.textContent = "Reading IFC geometry in your browser…";
 
