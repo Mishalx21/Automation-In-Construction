@@ -1,111 +1,100 @@
-# Capstone Web App — one frontend, two engine services
+# IFC Compliance Workbench web application
 
-A browser UI over both capstone engines:
+The web application is an authenticated browser interface for two IFC
+workflows:
 
-- **ifcinject** (`IFC-Test-Case-Generator`) — inject documented building-code
-  violations into an uploaded IFC model, then independently re-verify the
-  written file. Deterministic, no LLM.
-- **bnbc-web** (`BNBC-Checking-Code-Generator/bnbcweb`) — run the **accepted**
-  BNBC rule checkers (`rule-*/check_*.py`, produced offline by the FIV agentic
-  pipeline) against an uploaded IFC model. No LLM at request time; the image
-  carries no LLM SDKs and needs no API keys.
+- **Check compliance** runs accepted BNBC checkers against an uploaded IFC
+  model and presents pass, fail, unknown, or not-applicable results.
+- **Create test cases** uses `ifcfault` to inject selected, known violations,
+  independently verify the generated model, and provide the resulting files.
 
-Architecture: **two engine services + one nginx frontend**, wired with
-docker-compose. Each engine is internally a modular monolith with a single
-sequential worker (ifcopenshell holds whole 342 MB files in memory — the
-deliberate design both engines already use). They are separate services
-because their failure modes and dependency sets differ: one parses huge IFC
-files, the other must never depend on the LLM stack.
+Users select a model once and choose the workflow they need. Completed work is
+recorded in their account history.
 
-```
-browser → :8080 nginx ─┬─ / → static SPA
-                       ├─ /ifc/...  → ifcweb:8000     (existing Dockerfile)
-                       └─ /bnbc/... → bnbc-web:8000   (new Dockerfile)
-```
+## Run locally
 
-## Run it
+Requirements: Docker Desktop with the Linux engine and Docker Compose.
 
-Requires Docker Desktop (WSL2 backend on Windows). From this directory:
+The injector service reads its OpenRouter configuration from
+`../ifc-fault-injector/.env`. Create it once before starting the stack:
 
-```bash
+```powershell
+Copy-Item ..\ifc-fault-injector\.env.example ..\ifc-fault-injector\.env
+# Add OPENROUTER_API_KEY to the new .env file.
 docker compose up --build
-# → http://localhost:8080
 ```
 
-First build is slow (ifcopenshell images are ~1 GB each). Subsequent
-builds are cached.
+Open [http://localhost:8080](http://localhost:8080), create an account, and
+sign in. The first build downloads the IFC-processing dependencies and can take
+several minutes. Later builds use Docker's cache.
 
-## Deploying later (VPS)
-
-The same compose file runs in production:
-
-```bash
-git pull && docker compose up -d --build
-```
-
-Put TLS in front (Caddy/nginx/certbot) — the frontend listens on :8080.
-The two engine services are `expose`-only, never published to the host.
-No authentication anywhere: treat it as a demo tool, not a public service.
-
-## Moving to a multi-user application
-
-The current stack is intentionally an anonymous demonstration. The production
-architecture for login, organization/project access control, durable user job
-history, shared IFC storage, and background workers is documented in
-[PRODUCTION-PLAN.md](PRODUCTION-PLAN.md). It keeps the two existing engines
-but moves identity, job ownership, and persistence into shared platform
-services.
-
-## File layout
-
-```
-webapp/
-  docker-compose.yml       the three services + volumes
-  frontend/
-    Dockerfile             nginx:alpine + static + proxy config
-    nginx.conf             /ifc/ and /bnbc/ reverse proxies, 400 MB body limit
-    static/                the SPA (vanilla JS, no build step)
-```
-
-The bnbc-web service itself lives with its engine, next to the code it runs:
-`../BNBC-Checking-Code-Generator/bnbcweb/` (app.py, jobs.py, schemas.py)
-plus that repo's `Dockerfile`, `requirements-web.txt`, `.dockerignore`.
-
-## Design notes / known limitations
-
-- **The file is uploaded twice** if you use both panels on the same model —
-  each engine has its own upload store and in-memory job registry. Sharing
-  one upload across services is the natural next step (a shared volume or
-  object store both work); deliberately not done yet to keep each service
-  standalone.
-- **Job state is in-memory.** Restarting a service drops its job registry
-  (uploads survive in the volume). Fine for a demo; add Redis/Postgres only
-  when it actually hurts.
-- **No per-checker timeout.** A hung checker blocks the single worker queue
-  for that service. If that ever happens in practice, isolate checkers in
-  subprocesses with a wall-clock limit.
-- **CORS: none.** Everything is same-origin through the nginx proxy.
-## Enable checker generation
-
-The **Generate a checker** workflow uses the separate, LLM-backed
-`bnbc-generator-web` service. Create its local-only credential file before
-starting a generation:
+To stop the stack:
 
 ```powershell
-cd ..\BNBC-Checking-Code-Generator
-Copy-Item .env.example .env
+docker compose down
 ```
 
-Set either `LLM_PROVIDER=openrouter` with a newly created
-`OPENROUTER_API_KEY`, or `LLM_PROVIDER=gemini` with `GEMINI_API_KEYS`. Then
-restart the two affected services:
+## Test-case creation workflow
 
-```powershell
-cd ..\webapp
-docker compose up -d --build bnbc-generator-web frontend
+1. Pick an IFC model (maximum 400 MB).
+2. Choose **Create test cases**.
+3. Select applicable architectural and/or structural rules.
+4. Select **Inject selected**. The button stays in a loading state while the
+   server emits the standalone script, creates the files, and validates them.
+5. Review each mutation and download the outputs:
+   - plain violating IFC for the compliance checker under test;
+   - coloured IFC for human review only;
+   - emitted standalone Python injection script;
+   - machine-readable verification report.
+
+The operation is all-or-nothing: if a requested violation cannot be applied
+and verified, no partial test case is delivered.
+
+## IFC preview
+
+The server preprocesses the original and coloured generated IFC files into XKT
+for the browser. This avoids parsing large IFC files in the browser.
+
+- **Original IFC** displays the uploaded model.
+- **Violating IFC** displays the generated review model.
+- After injection, the Violating IFC opens with the model transparent and the
+  injected element highlighted red. The focus persists if the user switches to
+  Original IFC and back.
+- **Show in model** appears on an injected mutation and on eligible compliance
+  findings; it focuses that affected element in the preview.
+- The text toolbar offers Reset view, Isolate selected, X-ray selected, and
+  Show all. Click an empty part of the canvas or press Escape to deselect.
+
+Selecting an element exposes its IFC identifier and available properties.
+
+## Services
+
+```text
+Browser
+  |
+  v
+Nginx frontend (:8080)
+  |- static SPA
+  |- auth-api       account, session, and history API
+  |- ifcweb         IFC analysis, injection, verification, XKT conversion
+  `- bnbc-web       accepted BNBC compliance checkers
+       |
+       `- PostgreSQL  users, sessions, completed-job history
 ```
 
-The service queues one generation at a time, fixture-validates each draft, and
-persists accepted code and acceptance evidence in the `bnbcgen_artifacts`
-Docker volume. Review and promote accepted code separately before making it
-available in the normal compliance-checker catalogue.
+Only Nginx publishes a host port. The internal APIs and PostgreSQL are reached
+only over Docker's private network. Session cookies are `HttpOnly`; set
+`COOKIE_SECURE=true` when deploying behind HTTPS.
+
+## Storage and limitations
+
+Docker volumes retain uploads, generated files, the LLM cache, and PostgreSQL
+data across container restarts. The engine job queues are in memory and process
+one job at a time to control IFC memory use. A service restart clears active
+job state, so this is suitable for a capstone prototype rather than a
+high-throughput production deployment.
+
+Large production deployments should add object storage, durable queues,
+background workers, HTTPS, backups, monitoring, and organization/project-level
+authorization. See [PRODUCTION-PLAN.md](PRODUCTION-PLAN.md) for the proposed
+evolution.

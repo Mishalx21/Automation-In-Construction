@@ -28,6 +28,24 @@ Upload an IFC file, let the system determine which rules can be applied, choose 
 - an independent verification report;
 - mutation details such as target GUID, before/after values, and source clause.
 
+### Model review and navigation
+
+The browser preview is prepared server-side as XKT, so the browser does not
+need to parse a large IFC file. It has two modes:
+
+- **Original IFC** shows the uploaded model.
+- **Violating IFC** shows the generated review model after an injection.
+
+After injection, the preview opens in the Violating IFC mode with the model
+transparent and the injected element highlighted in red. This focus is kept
+when switching between Original IFC and Violating IFC. Each mutation in the
+injection results and each eligible compliance finding has a **Show in model**
+button that returns to the affected element.
+
+The preview controls provide Reset view, Isolate selected, X-ray selected, and
+Show all. Select an element to inspect its IFC data; click blank space or press
+Escape to clear the selection.
+
 ## Architecture
 
 ```text
@@ -85,7 +103,10 @@ docker compose up --build
 
 Open [http://localhost:8080](http://localhost:8080).
 
-The first startup downloads/builds the required images. Create an account from the sign-in screen, then upload an IFC model and choose a workflow.
+The first startup downloads/builds the required images. Before first use,
+create `ifc-fault-injector/.env` from `.env.example` and configure the
+OpenRouter key required by the injection engine. Create an account from the
+sign-in screen, then upload an IFC model and choose a workflow.
 
 To stop the local stack:
 
