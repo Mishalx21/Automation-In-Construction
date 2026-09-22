@@ -1,8 +1,48 @@
 # ifcfault
 
 Give it one real IFC building model and one or more building-code rules. It
-gives you back **a standalone Python script** that you run yourself to
-produce the faulty model.
+creates a controlled, independently verified faulty model for testing an
+automated compliance checker. The core deliverable is still a **standalone
+Python script** that you can run yourself.
+
+## Current web workflow
+
+`ifcfault` is also the test-case engine behind the **IFC Compliance
+Workbench**. The web application lets a reviewer create and inspect a test
+case without using the command line.
+
+From the repository's `webapp` directory, start the local stack:
+
+```powershell
+Copy-Item ..\ifc-fault-injector\.env.example ..\ifc-fault-injector\.env
+# Add your OpenRouter API key to ..\ifc-fault-injector\.env, then:
+docker compose up --build
+```
+
+Then open [http://localhost:8080](http://localhost:8080), sign in, and:
+
+1. Pick one `.ifc` model (up to 400 MB).
+2. Choose **Create test cases** and select the applicable rule(s).
+3. Select **Inject selected**. The button shows an in-progress state while
+   the server emits the script, writes the files, and independently verifies
+   the result.
+4. Review each injected mutation. **Show in model** opens the Violating IFC
+   preview and focuses that element.
+5. Download the plain violating IFC for a checker, the coloured IFC for human
+   review, the emitted Python script, or the verification report.
+
+The preview is converted to XKT on the server so the browser does not parse a
+large IFC file. It provides **Original IFC** and **Violating IFC** views. When
+an injected target is shown, the rest of the model is transparent and the
+target is red; that focused state remains when switching between the two
+views. The toolbar also provides Reset view, Isolate selected, X-ray selected,
+and Show all. Click blank space or press Escape to clear a selected element.
+
+The plain file is the test fixture for automated checking. The coloured file
+is a review aid only; it visibly identifies the known defects and must not be
+given to the checker being evaluated.
+
+## Command-line workflow
 
 ```
 python -m ifcfault emit --source "D:\BUET_Pdf\4-1\Capstone\V_1\arc.ifc" --rule A1
