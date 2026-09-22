@@ -82,7 +82,7 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 .brand-mini { display: flex; align-items: center; gap: .55rem; flex: none; }
 .brand-mark { width: 26px; height: 26px; border-radius: 6px; flex: none; }
 .brand-title { font-size: .92rem; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
-.topbar-actions { margin-left: auto; display: flex; align-items: center; gap: .6rem; flex: none; }
+.topbar-actions { margin-left: auto; display: flex; align-items: center; gap: .85rem; flex: none; }
 
 /* --- buttons ----------------------------------------------------------------- */
 .btn {
@@ -118,23 +118,33 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 .link-btn { border: 0; padding: 0; background: none; color: var(--accent); font: inherit; cursor: pointer; text-decoration: underline; }
 
 /* --- user chip ---------------------------------------------------------------- */
-.user-bar { display: flex; align-items: center; gap: .5rem; font-size: .8rem; padding-left: .4rem; border-left: 1px solid var(--line); }
+.user-bar { display: flex; align-items: center; gap: .55rem; font-size: .8rem; padding-left: .85rem; border-left: 1px solid var(--line-strong); }
 .user-avatar { display: inline-flex; width: 1.55rem; height: 1.55rem; align-items: center; justify-content: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 800; font-size: .75rem; }
+#user-name { font-weight: 600; }
 
 /* --- workflow switch (topbar segmented control) ------------------------------- */
-.workflow-switch { display: inline-flex; gap: .2rem; padding: .2rem; border: 1px solid var(--line); border-radius: 999px; background: var(--chip); }
+.workflow-switch { display: inline-flex; gap: .15rem; padding: .2rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg); }
 .workflow-choice {
-  display: inline-flex; align-items: center; gap: .45rem;
-  border: 0; border-radius: 999px; background: transparent; color: var(--muted);
-  padding: .34rem .85rem .34rem .55rem; font: inherit; font-size: .8rem; font-weight: 700; cursor: pointer; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: .5rem;
+  border: 0; border-radius: calc(var(--radius-sm) - 1px); background: transparent; color: var(--muted);
+  padding: .4rem .9rem .4rem .6rem; font: inherit; font-size: .8rem; font-weight: 600; cursor: pointer; white-space: nowrap;
+  transition: background-color .12s, color .12s;
 }
 .workflow-choice:hover { color: var(--ink); }
-.workflow-choice.active { background: var(--card); color: var(--ink); box-shadow: var(--shadow); }
+.workflow-choice.active { background: var(--card); color: var(--ink); font-weight: 700; box-shadow: var(--shadow); }
 .choice-icon {
-  display: inline-flex; width: 1.35rem; height: 1.35rem; align-items: center; justify-content: center;
-  border-radius: 50%; color: var(--accent); background: var(--accent-soft); font-weight: 900; font-size: .72rem; flex: none;
+  display: inline-flex; width: 1.25rem; height: 1.25rem; align-items: center; justify-content: center;
+  border-radius: 4px; border: 1px solid var(--line-strong);
+  color: var(--muted); background: var(--card); font-weight: 900; font-size: .66rem; flex: none;
 }
-.choice-icon.warn { color: var(--warn); background: color-mix(in srgb, var(--warn) 14%, transparent); }
+.workflow-choice.active .choice-icon {
+  color: var(--accent); background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line-strong));
+}
+.workflow-choice.active .choice-icon.warn {
+  color: var(--warn); background: color-mix(in srgb, var(--warn) 14%, transparent);
+  border-color: color-mix(in srgb, var(--warn) 45%, var(--line-strong));
+}
 
 /* --- cards -------------------------------------------------------------------- */
 .card {
