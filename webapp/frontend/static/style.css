@@ -12,6 +12,8 @@
   --line: #dfe2e8;
   --line-strong: #b7bec9;
   --accent: #2454eb;
+  --accent-light: #4f7dff;
+  --accent-dark: #1638a8;
   --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
   --ok: #157f3c;
   --bad: #c01c1c;
@@ -22,7 +24,7 @@
   --shadow-md: 0 3px 10px rgba(16, 24, 40, .1);
   --radius: 7px;
   --radius-sm: 5px;
-  --topbar-h: 52px;
+  --topbar-h: 58px;
   --content-max: 92rem;
   --gutter: max(1.5rem, calc((100vw - var(--content-max)) / 2));
 }
@@ -37,6 +39,8 @@
     --line: #2b3138;
     --line-strong: #3a414b;
     --accent: #7ea2f7;
+    --accent-light: #9db8ff;
+    --accent-dark: #3b5fce;
     --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
     --ok: #4ade80;
     --bad: #f87171;
@@ -78,10 +82,16 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
   padding: 0 var(--gutter);
   background: var(--card);
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 var(--line), 0 2px 6px rgba(16, 24, 40, .04);
 }
-.brand-mini { display: flex; align-items: center; gap: .55rem; flex: none; }
-.brand-mark { width: 26px; height: 26px; border-radius: 6px; flex: none; }
-.brand-title { font-size: .92rem; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+.brand-mini { display: flex; align-items: center; gap: .65rem; flex: none; }
+.brand-mark {
+  width: 32px; height: 32px; border-radius: 8px; flex: none;
+  box-shadow: 0 1px 1px rgba(16, 24, 40, .06), 0 4px 10px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.brand-text { display: flex; flex-direction: column; gap: 0; line-height: 1.15; }
+.brand-title { font-size: .92rem; font-weight: 800; letter-spacing: -.015em; white-space: nowrap; color: var(--ink); }
+.brand-subtitle { font-size: .68rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
 .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: .85rem; flex: none; }
 
 /* --- buttons ----------------------------------------------------------------- */
@@ -642,6 +652,7 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
   #preview-card .viewer-shell { flex: none; }
   #preview-pane { margin-bottom: .9rem; }
   #topbar { flex-wrap: wrap; height: auto; padding: .5rem .75rem; gap: .5rem; }
+  .brand-subtitle { display: none; }
   .workflow-switch { order: 3; width: 100%; justify-content: stretch; }
   .workflow-choice { flex: 1; justify-content: center; }
   .drawer { width: 100%; }
