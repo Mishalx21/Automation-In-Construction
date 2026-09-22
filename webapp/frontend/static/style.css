@@ -598,6 +598,11 @@ main { padding-bottom: 1.75rem; }
   box-shadow: 0 6px 14px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 .btn.primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 10px 18px color-mix(in srgb, var(--accent) 31%, transparent); }
+.btn.is-loading { display: inline-flex; align-items: center; gap: .45rem; cursor: wait; }
+.button-spinner {
+  width: .85rem; height: .85rem; border: 2px solid rgba(255,255,255,.38);
+  border-top-color: #fff; border-radius: 50%; animation: spin .75s linear infinite;
+}
 
 .workflow-switch { gap: .9rem; margin: 1.5rem 0 .9rem; }
 .workflow-choice { min-height: 5.1rem; border-radius: 13px; padding: .9rem 1.05rem; }

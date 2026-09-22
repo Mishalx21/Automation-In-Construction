@@ -249,7 +249,11 @@ function refreshRunButton(btnId, cbClass) {
 $("inject-btn").addEventListener("click", async () => {
   hideError("inject-error");
   const rules = [...document.querySelectorAll(".inject-cb:checked")].map((cb) => ({ rule: cb.value }));
-  $("inject-btn").disabled = true;
+  const injectButton = $("inject-btn");
+  injectButton.disabled = true;
+  injectButton.classList.add("is-loading");
+  injectButton.setAttribute("aria-busy", "true");
+  injectButton.innerHTML = '<span class="button-spinner" aria-hidden="true"></span>Injecting selected…';
   setProgress("inject-progress", "Generating validated injection script…");
   try {
     await api(`/ifc/api/jobs/${ifcJobId}/inject`, {
@@ -274,7 +278,10 @@ $("inject-btn").addEventListener("click", async () => {
     stopProgress("inject-progress");
     showError("inject-error", e.message);
   } finally {
-    $("inject-btn").disabled = false;
+    injectButton.classList.remove("is-loading");
+    injectButton.removeAttribute("aria-busy");
+    injectButton.textContent = "Inject selected";
+    refreshRunButton("inject-btn", ".inject-cb");
   }
 });
 
@@ -298,7 +305,7 @@ function mutationCard(m, idx) {
     ? `<span class="chg chg-del">entity deleted</span>`
     : `<span class="chg"><s>${escapeHtml(fmtVal(m.before))}</s><span class="chg-arrow" aria-hidden="true">→</span><b>${escapeHtml(fmtVal(m.after))}</b></span>`;
   return `
-  <div class="mut-card${targetGuid && !deleted ? " mutation-location" : ""}"${targetGuid && !deleted ? ` data-guid="${escapeHtml(targetGuid)}" tabindex="0" role="button" title="Show this injected violation in the model preview"` : ""}>
+  <div class="mut-card">
     <div class="mut-head">
       <span class="v-num">${idx + 1}</span>
       <span class="badge bad">${escapeHtml(m.rule_id || "")}</span>
@@ -310,6 +317,7 @@ function mutationCard(m, idx) {
     <div class="mut-meta">
       ${m.target_global_id ? `<span class="chip mono" title="Target GlobalId">${escapeHtml(m.target_global_id)}</span>` : ""}
       ${m.clause ? `<span class="chip">Clause ${escapeHtml(m.clause)}</span>` : ""}
+      ${targetGuid && !deleted ? `<button class="show-in-model show-in-injected-model" type="button" data-guid="${escapeHtml(targetGuid)}">Show in model</button>` : ""}
     </div>
   </div>`;
 }
@@ -372,18 +380,12 @@ function renderInjectResults(job) {
     .map((mutation) => mutation.target_global_id)
     .filter(Boolean);
   window.focusInjectedViolation?.(injectedIds);
-  $("inject-mutations").querySelectorAll(".mutation-location").forEach((card) => {
+  $("inject-mutations").querySelectorAll(".show-in-injected-model").forEach((button) => {
     const focus = () => {
-      window.focusInjectedViolation?.([card.dataset.guid]);
+      window.focusInjectedViolation?.([button.dataset.guid]);
       $("preview-card").scrollIntoView({behavior: "smooth", block: "center"});
     };
-    card.addEventListener("click", focus);
-    card.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        focus();
-      }
-    });
+    button.addEventListener("click", focus);
   });
   show("inject-results", true);
 }
