@@ -274,7 +274,8 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 .tables { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 @media (max-width: 60rem) { .tables { grid-template-columns: 1fr; } }
 
-table { border-collapse: collapse; width: 100%; font-size: .8rem; table-layout: fixed; }
+table { border-collapse: collapse; width: 100%; font-size: .8rem; }
+.tables table { table-layout: fixed; }
 th, td { text-align: left; padding: .4rem; border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: break-word; }
 th { color: var(--muted); font-weight: 600; font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; }
 .tables table th:nth-child(1), .tables table td:nth-child(1) { width: 1.7rem; padding-right: 0; }
@@ -474,19 +475,25 @@ details pre {
 }
 .chip.limit { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, var(--line)); }
 
-table.v-locations { margin-top: .45rem; font-size: .8rem; }
+table.v-locations { margin-top: .45rem; font-size: .8rem; table-layout: fixed; }
 table.v-locations th { font-size: .66rem; }
-.v-el { font-weight: 600; }
+table.v-locations th:nth-child(1), table.v-locations td:nth-child(1) { width: 28%; }
+table.v-locations th:nth-child(2), table.v-locations td:nth-child(2) { width: 14%; }
+table.v-locations th:nth-child(3), table.v-locations td:nth-child(3) { width: 36%; }
+table.v-locations th:nth-child(4), table.v-locations td:nth-child(4) { width: 22%; }
+.v-el { font-weight: 600; overflow-wrap: break-word; }
 .v-guid {
   display: block; font-family: ui-monospace, Consolas, monospace;
-  font-size: .68rem; color: var(--muted);
+  font-size: .68rem; color: var(--muted); overflow-wrap: break-word;
 }
-.v-storey { white-space: nowrap; color: var(--muted); }
-.v-action { white-space: nowrap; }
+.v-storey { color: var(--muted); overflow-wrap: break-word; }
+.v-measured { overflow-wrap: break-word; }
+.v-action { text-align: right; }
 .show-in-model {
   border: 1px solid color-mix(in srgb, var(--accent) 55%, var(--line));
   border-radius: var(--radius-sm); padding: .28rem .48rem; background: var(--accent-soft);
-  color: var(--accent); font: 700 .7rem/1 system-ui, sans-serif; cursor: pointer;
+  color: var(--accent); font: 700 .7rem/1.15 system-ui, sans-serif; cursor: pointer;
+  white-space: normal; max-width: 100%;
 }
 .show-in-model:hover, .show-in-model:focus-visible { background: var(--accent); color: #fff; outline: none; }
 .v-measured .kv {
