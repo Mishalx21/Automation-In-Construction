@@ -642,6 +642,14 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
 .preview-tool:hover, .preview-tool:focus-visible, .preview-tool.active { background: var(--accent); color: #fff; outline: none; }
 .preview-tool:disabled { opacity: .4; cursor: not-allowed; }
 .preview-tool-divider { width: 1px; height: 1.4rem; margin: 0 .1rem; background: rgba(255,255,255,.22); }
+.preview-tool.flagged { display: inline-flex; align-items: center; gap: .35rem; color: #ffb4b0; }
+.preview-tool.flagged:hover:not(:disabled), .preview-tool.flagged:focus-visible:not(:disabled) { background: var(--bad); color: #fff; }
+.preview-tool.flagged:disabled { color: #dfe4ea; }
+.preview-tool-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.1rem; height: 1.1rem; padding: 0 .3rem; border-radius: 999px;
+  background: var(--bad); color: #fff; font-size: .66rem; font-weight: 800;
+}
 .viewer-loading { position: absolute; inset: 0; display: grid; place-items: center; gap: .6rem; color: #fff; background: rgba(20,26,34,.78); font-weight: 600; font-size: .84rem; }
 .viewer-loading::before {
   content: ""; width: 1.3rem; height: 1.3rem;

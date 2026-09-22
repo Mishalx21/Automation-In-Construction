@@ -14,6 +14,8 @@ const resetViewButton = document.getElementById("preview-reset-view");
 const isolateButton = document.getElementById("preview-isolate");
 const xrayButton = document.getElementById("preview-xray");
 const showAllButton = document.getElementById("preview-show-all");
+const showViolationsButton = document.getElementById("preview-show-violations");
+const violationCountBadge = document.getElementById("preview-violation-count");
 
 // Keep the mouse wheel inside the model viewport. Without this, the browser
 // scrolls the page at the same time as xeokit zooms the camera.
@@ -77,6 +79,11 @@ function showAllObjects() {
 }
 
 let highlightedViolationIds = [];
+// The full set of flagged GlobalIds from the most recent compliance check or
+// injection, kept even after the user clears the highlight (e.g. via "Show
+// all" or by selecting something else), so "Show violations" can bring every
+// flagged object back into view without re-running the check.
+let lastViolationIds = [];
 
 function clearViolationHighlights() {
   for (const id of highlightedViolationIds) {
@@ -86,9 +93,18 @@ function clearViolationHighlights() {
   highlightedViolationIds = [];
 }
 
+function updateViolationButton() {
+  showViolationsButton.disabled = lastViolationIds.length === 0;
+  violationCountBadge.textContent = lastViolationIds.length ? String(lastViolationIds.length) : "";
+  violationCountBadge.classList.toggle("hidden", lastViolationIds.length === 0);
+}
+
 window.highlightViolationIds = (globalIds) => {
   clearViolationHighlights();
-  const wanted = new Set((globalIds || []).filter(Boolean));
+  const ids = (globalIds || []).filter(Boolean);
+  lastViolationIds = ids;
+  updateViolationButton();
+  const wanted = new Set(ids);
   // Reveal internal violations by making the rest of the model translucent.
   viewer.scene.setObjectsXRayed(viewer.scene.objectIds, true);
   for (const [id, object] of Object.entries(viewer.scene.objects)) {
@@ -102,6 +118,10 @@ window.highlightViolationIds = (globalIds) => {
     selection.textContent = `${highlightedViolationIds.length} violated component(s) shown in red; the surrounding model is transparent.`;
   }
 };
+
+showViolationsButton.addEventListener("click", () => {
+  if (lastViolationIds.length) window.highlightViolationIds(lastViolationIds);
+});
 
 const ifcAPI = new WebIFC.IfcAPI();
 ifcAPI.SetWasmPath("https://cdn.jsdelivr.net/npm/web-ifc@0.0.51/");
@@ -190,6 +210,9 @@ window.resetIfcPreview = () => {
   propertiesJobId = null;
   propertiesPanel.classList.add("hidden");
   violatingTab.disabled = true;
+  lastViolationIds = [];
+  highlightedViolationIds = [];
+  updateViolationButton();
   setPreviewTab("original");
 };
 
