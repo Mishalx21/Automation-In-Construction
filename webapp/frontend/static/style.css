@@ -4,25 +4,27 @@
 * { box-sizing: border-box; }
 
 :root {
-  --bg: #eef0f3;
-  --canvas: #e4e7ec;
+  --bg: #e9ebef;
+  --canvas: #dfe2e8;
   --card: #ffffff;
-  --ink: #1a2028;
-  --muted: #5c6673;
-  --line: #d7dbe1;
-  --line-strong: #c2c8d1;
-  --accent: #1d4ed8;
-  --accent-soft: color-mix(in srgb, var(--accent) 9%, transparent);
-  --ok: #15803d;
-  --bad: #b91c1c;
-  --warn: #b45309;
+  --ink: #10141c;
+  --muted: #555f6e;
+  --line: #dfe2e8;
+  --line-strong: #b7bec9;
+  --accent: #2454eb;
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
+  --ok: #157f3c;
+  --bad: #c01c1c;
+  --warn: #ab5b06;
   --na: #64748b;
   --chip: #eef1f6;
-  --shadow: 0 1px 2px rgba(16, 24, 40, .06);
-  --shadow-md: 0 2px 8px rgba(16, 24, 40, .08);
+  --shadow: 0 1px 2px rgba(16, 24, 40, .07);
+  --shadow-md: 0 3px 10px rgba(16, 24, 40, .1);
   --radius: 7px;
   --radius-sm: 5px;
   --topbar-h: 52px;
+  --content-max: 92rem;
+  --gutter: max(1.5rem, calc((100vw - var(--content-max)) / 2));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,7 +58,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-main, footer { max-width: none; padding: 0 1rem; }
+main, footer { max-width: none; padding: 0 var(--gutter); }
 
 h2 { font-size: 1rem; margin: 0 0 .4rem; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
@@ -73,7 +75,7 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  padding: 0 1rem;
+  padding: 0 var(--gutter);
   background: var(--card);
   border-bottom: 1px solid var(--line);
 }
@@ -137,7 +139,7 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 /* --- cards -------------------------------------------------------------------- */
 .card {
   background: var(--card);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 1rem 1.1rem;
@@ -645,7 +647,8 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
   justify-content: space-between;
   gap: 1rem;
   margin-top: 1.25rem;
-  padding: .6rem 1rem;
+  padding-top: .6rem;
+  padding-bottom: .6rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: .74rem;
