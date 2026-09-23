@@ -133,17 +133,21 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 #user-name { font-weight: 600; }
 
 /* --- workflow switch (topbar segmented control) ------------------------------- */
+/* .mode-choice (the per-panel manual/batch switch) shares this same visual
+   language but is a distinct class so it never matches app.js's global
+   .workflow-choice click handler, which is wired to the top-level
+   check/inject switch only. */
 .workflow-switch { display: inline-flex; gap: .15rem; padding: .2rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--bg); }
-.workflow-choice {
+.workflow-choice, .mode-choice {
   display: inline-flex; align-items: center; gap: .5rem;
   border: 0; border-radius: calc(var(--radius-sm) - 1px); background: transparent; color: var(--muted);
   padding: .4rem .9rem .4rem .6rem; font: inherit; font-size: .8rem; font-weight: 600; cursor: pointer; white-space: nowrap;
   transition: background-color .12s, color .12s;
 }
-.workflow-choice:hover { color: var(--ink); }
-.workflow-choice:disabled { opacity: .45; cursor: not-allowed; }
-.workflow-choice:disabled:hover { color: var(--muted); }
-.workflow-choice.active { background: var(--card); color: var(--ink); font-weight: 700; box-shadow: var(--shadow); }
+.workflow-choice:hover, .mode-choice:hover { color: var(--ink); }
+.workflow-choice:disabled, .mode-choice:disabled { opacity: .45; cursor: not-allowed; }
+.workflow-choice:disabled:hover, .mode-choice:disabled:hover { color: var(--muted); }
+.workflow-choice.active, .mode-choice.active { background: var(--card); color: var(--ink); font-weight: 700; box-shadow: var(--shadow); }
 .choice-icon {
   display: inline-flex; width: 1.25rem; height: 1.25rem; align-items: center; justify-content: center;
   border-radius: 4px; border: 1px solid var(--line-strong);
