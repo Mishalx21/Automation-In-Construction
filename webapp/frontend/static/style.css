@@ -280,15 +280,21 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 /* --- rule tables ------------------------------------------------------------------- */
 .tables { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 @media (max-width: 60rem) { .tables { grid-template-columns: 1fr; } }
+/* The resizable split pane can make #panel-pane much narrower than the
+   viewport, independent of window width, so the two-column layout also
+   needs to respond to the pane's own width, not just the viewport's. */
+#panel-pane { container-type: inline-size; }
+@container (max-width: 34rem) { .tables { grid-template-columns: 1fr; } }
 
 table { border-collapse: collapse; width: 100%; font-size: .8rem; }
 .tables table { table-layout: fixed; }
 th, td { text-align: left; padding: .4rem; border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: break-word; }
 th { color: var(--muted); font-weight: 600; font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; }
-.tables table th:nth-child(1), .tables table td:nth-child(1) { width: 1.7rem; padding-right: 0; }
-.tables table th:nth-child(2), .tables table td:nth-child(2) { width: 2.6rem; }
-.tables table th:nth-child(4), .tables table td:nth-child(4) { width: 2.4rem; }
-.tables table th:nth-child(5), .tables table td:nth-child(5) { width: 6.5rem; }
+.tables table th:nth-child(1), .tables table td:nth-child(1) { width: 1.6rem; padding-right: 0; }
+.tables table th:nth-child(2), .tables table td:nth-child(2) { width: 2.4rem; }
+.tables table th:nth-child(4), .tables table td:nth-child(4) { width: 1.9rem; }
+.tables table th:nth-child(5), .tables table td:nth-child(5) { width: 4.4rem; }
+.tables table td:nth-child(5) .badge { white-space: normal; text-align: center; }
 td.num { text-align: right; font-variant-numeric: tabular-nums; }
 td.rule-id { font-weight: 700; white-space: nowrap; }
 .clause { display: block; color: var(--muted); font-size: .73rem; }
