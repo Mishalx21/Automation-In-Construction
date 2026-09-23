@@ -591,6 +591,7 @@ table.v-locations th:nth-child(4), table.v-locations td:nth-child(4) { width: 22
 #preview-card .viewer-shell { flex: 1; min-height: 16rem; }
 #panel-pane {
   min-width: 0;
+  align-self: start;
   max-height: calc(100vh - var(--topbar-h) - 1.8rem);
   overflow-y: auto;
   padding-right: .1rem;
