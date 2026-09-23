@@ -175,11 +175,13 @@ function pollUntil(jobPath, isTerminal, onTick, intervalMs = 1500) {
 // =============================================================================
 let ifcJobId = null;
 let lastInjectResultsJob = null;
+let lastAnalysisRules = [];
 
 $("inject-upload-btn").addEventListener("click", async () => {
   hideError("inject-error");
   show("inject-rules", false);
   show("inject-results", false);
+  resetBatchState();
   $("inject-upload-btn").disabled = true;
   setProgress("inject-progress", "Uploading…");
   try {
@@ -218,6 +220,15 @@ function renderInjectMatrix(job) {
   buildRuleTable($("inject-table-struct"), a.rules.filter((r) => r.domain === "structural"), true, "inject-cb");
   show("inject-rules", true);
   refreshRunButton("inject-btn", ".inject-cb");
+  lastAnalysisRules = a.rules || [];
+  const applicableCount = lastAnalysisRules.filter((r) => r.applicable !== false).length;
+  $("batch-pool-hint").textContent = applicableCount
+    ? `Each case injects a random 1–${applicableCount} of the ${applicableCount} rule(s) applicable to this model.`
+    : "No rules are applicable to this model, so batch generation is unavailable.";
+  $("inject-mode-batch").disabled = applicableCount === 0;
+  $("batch-generate-btn").disabled = applicableCount === 0;
+  resetBatchState();
+  setInjectMode("manual");
   if (job.source_preview?.state === "ready") {
     window.setPreviewPropertiesJob?.(ifcJobId);
     window.loadXktPreviewUrl?.(`/ifc/api/jobs/${ifcJobId}/preview/source`, "Original model preview ready");
@@ -248,6 +259,134 @@ function buildRuleTable(table, rules, withApplicability, cbClass) {
 function refreshRunButton(btnId, cbClass) {
   $(btnId).disabled = document.querySelectorAll(`${cbClass}:checked`).length === 0;
 }
+
+// --- batch test-case generation --------------------------------------------------
+function setInjectMode(mode) {
+  $("inject-mode-manual").classList.toggle("active", mode === "manual");
+  $("inject-mode-batch").classList.toggle("active", mode === "batch");
+  show("inject-manual-mode", mode === "manual");
+  show("inject-batch-mode", mode === "batch");
+}
+$("inject-mode-manual").addEventListener("click", () => setInjectMode("manual"));
+$("inject-mode-batch").addEventListener("click", () => setInjectMode("batch"));
+
+function resetBatchState() {
+  $("batch-case-list").innerHTML = "";
+  show("batch-progress", false);
+  $("batch-count").disabled = false;
+  $("batch-generate-btn").disabled = false;
+  $("batch-generate-btn").textContent = "Generate batch";
+}
+
+/** Fisher–Yates shuffle; does not mutate the input array. */
+function shuffle(array) {
+  const a = array.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/** A random, non-empty subset (1..pool.length items) of the given pool. */
+function randomRuleSubset(pool) {
+  const n = 1 + Math.floor(Math.random() * pool.length);
+  return shuffle(pool).slice(0, n);
+}
+
+function clampInt(value, min, max, fallback) {
+  const n = parseInt(value, 10);
+  if (Number.isNaN(n)) return fallback;
+  return Math.min(max, Math.max(min, n));
+}
+
+function batchCaseRow(idx) {
+  return `
+  <div class="batch-case" id="batch-case-${idx}">
+    <div class="batch-case-head">
+      <span class="v-num">${idx + 1}</span>
+      <span class="badge wait" id="batch-case-badge-${idx}">queued</span>
+      <span class="batch-case-msg" id="batch-case-msg-${idx}"></span>
+    </div>
+    <div class="batch-case-body hidden" id="batch-case-body-${idx}"></div>
+  </div>`;
+}
+
+function setBatchCaseStatus(idx, status, msg) {
+  const row = $(`batch-case-${idx}`);
+  row.classList.remove("running", "done", "failed");
+  if (status !== "queued") row.classList.add(status);
+  const badge = $(`batch-case-badge-${idx}`);
+  badge.className = `badge ${{queued: "wait", running: "warn", done: "ok", failed: "bad"}[status] || "wait"}`;
+  badge.textContent = status;
+  $(`batch-case-msg-${idx}`).textContent = msg || "";
+}
+
+function renderBatchCaseResult(idx, jobId, rules, job) {
+  setBatchCaseStatus(idx, "done");
+  const body = $(`batch-case-body-${idx}`);
+  body.classList.remove("hidden");
+  const injectedIds = (job.mutations || [])
+    .filter((m) => m.attribute !== "(entity deleted)")
+    .map((m) => m.target_global_id)
+    .filter(Boolean);
+  body.innerHTML = `
+    <div class="mut-meta">${rules.map((r) => `<span class="badge bad">${escapeHtml(r)}</span>`).join("")}</div>
+    <p class="dl-row">
+      <a class="btn small" href="/ifc/api/jobs/${jobId}/download">Violating .ifc</a>
+      <a class="btn small" href="/ifc/api/jobs/${jobId}/download/colored">Coloured .ifc</a>
+      <a class="btn small" href="/ifc/api/jobs/${jobId}/download/script">Script</a>
+      <a class="btn small" href="/ifc/api/jobs/${jobId}/download/report" target="_blank">Report (JSON)</a>
+      ${job.coloured_preview?.state === "ready" && injectedIds.length
+        ? `<button class="btn small preview-batch-case" type="button">Preview in model</button>` : ""}
+    </p>`;
+  body.querySelector(".preview-batch-case")?.addEventListener("click", () => {
+    window.prepareViolatingXktPreview?.(`/ifc/api/jobs/${jobId}/preview/violating`);
+    window.focusInjectedViolation?.(injectedIds);
+    $("preview-card").scrollIntoView({behavior: "smooth", block: "center"});
+  });
+}
+
+function updateBatchSummary(done, total) {
+  $("batch-progress-summary").textContent = `${done}/${total} test case(s) complete`;
+}
+
+$("batch-generate-btn").addEventListener("click", async () => {
+  const applicable = lastAnalysisRules.filter((r) => r.applicable !== false).map((r) => r.rule_id);
+  if (!applicable.length) return;
+  const count = clampInt($("batch-count").value, 1, 20, 5);
+  hideError("inject-error");
+  $("batch-generate-btn").disabled = true;
+  $("batch-count").disabled = true;
+  $("batch-case-list").innerHTML = Array.from({length: count}, (_, i) => batchCaseRow(i)).join("");
+  show("batch-progress", true);
+  updateBatchSummary(0, count);
+
+  for (let i = 0; i < count; i++) {
+    try {
+      setBatchCaseStatus(i, "running", "Cloning model…");
+      const {job_id} = await api(`/ifc/api/jobs/${ifcJobId}/clone`, {method: "POST"});
+      const rules = randomRuleSubset(applicable);
+      setBatchCaseStatus(i, "running", `Injecting ${rules.join(", ")}…`);
+      await api(`/ifc/api/jobs/${job_id}/inject`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({rules: rules.map((rule) => ({rule}))}),
+      });
+      const job = await pollUntil(
+        `/ifc/api/jobs/${job_id}`,
+        (j) => j.state === "done",
+        (j) => setBatchCaseStatus(i, "running", `${j.state}…`));
+      renderBatchCaseResult(i, job_id, rules, job);
+      window.recordHistory?.("ifcfault", job);
+    } catch (e) {
+      setBatchCaseStatus(i, "failed", e.message || "generation failed");
+    }
+    updateBatchSummary(i + 1, count);
+  }
+  $("batch-generate-btn").disabled = false;
+  $("batch-count").disabled = false;
+});
 
 $("inject-btn").addEventListener("click", async () => {
   hideError("inject-error");

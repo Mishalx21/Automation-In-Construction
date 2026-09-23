@@ -108,6 +108,23 @@ class JobStore:
         with self.lock:
             return self.jobs.get(job_id)
 
+    def clone(self, job_id: str) -> Job | None:
+        """Reuse an already-analyzed job's source for a new job, skipping
+        re-upload and re-analysis. Used by batch test-case generation so a
+        400 MB model only needs to be uploaded and analyzed once."""
+        source = self.get(job_id)
+        if not source or source.state != READY or not source.analysis:
+            return None
+        new_job = self.create(source.filename)
+        try:
+            os.link(source.source_path, new_job.source_path)
+        except OSError:
+            shutil.copyfile(source.source_path, new_job.source_path)
+        self.set(new_job.job_id, analysis=source.analysis, state=READY,
+                 source_preview_path=source.source_preview_path,
+                 source_preview_error=source.source_preview_error)
+        return self.get(new_job.job_id)
+
     def set(self, job_id: str, **changes: Any) -> None:
         with self.lock:
             job = self.jobs.get(job_id)
@@ -279,6 +296,17 @@ async def create_job(file: UploadFile = File(...)) -> dict[str, str]:
         raise HTTPException(422, "uploaded file is empty")
     store.enqueue_analysis(job.job_id)
     return {"job_id": job.job_id}
+
+
+@app.post("/api/jobs/{job_id}/clone")
+def clone_job(job_id: str) -> dict[str, str]:
+    """Clone an analyzed job's source into a fresh job, for batch test-case
+    generation: upload/analyze once, then inject a different rule subset
+    into each clone without re-uploading or re-analyzing the model."""
+    cloned = store.clone(job_id)
+    if not cloned:
+        raise HTTPException(409, "job is not ready to clone")
+    return {"job_id": cloned.job_id}
 
 
 @app.get("/api/jobs/{job_id}")

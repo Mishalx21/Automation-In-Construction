@@ -172,17 +172,39 @@
 
           <div id="inject-rules" class="hidden">
             <p id="inject-file-meta" class="file-meta"></p>
-            <div class="tables">
-              <div>
-                <h3>Architectural</h3>
-                <table id="inject-table-archi"></table>
+
+            <div class="workflow-switch mode-switch" role="tablist" aria-label="Test case generation mode">
+              <button class="workflow-choice active" type="button" id="inject-mode-manual" data-mode="manual">Manual selection</button>
+              <button class="workflow-choice" type="button" id="inject-mode-batch" data-mode="batch">Batch generation</button>
+            </div>
+
+            <div id="inject-manual-mode">
+              <div class="tables">
+                <div>
+                  <h3>Architectural</h3>
+                  <table id="inject-table-archi"></table>
+                </div>
+                <div>
+                  <h3>Structural</h3>
+                  <table id="inject-table-struct"></table>
+                </div>
               </div>
-              <div>
-                <h3>Structural</h3>
-                <table id="inject-table-struct"></table>
+              <button id="inject-btn" class="btn primary" disabled>Inject selected</button>
+            </div>
+
+            <div id="inject-batch-mode" class="hidden">
+              <div class="batch-config">
+                <label>Number of test cases
+                  <input type="number" id="batch-count" min="1" max="20" value="5">
+                </label>
+                <p class="hint" id="batch-pool-hint">Each case injects a random number of violations, chosen from the rules applicable to this model.</p>
+                <button id="batch-generate-btn" class="btn primary" type="button">Generate batch</button>
+              </div>
+              <div id="batch-progress" class="hidden">
+                <p class="progress" id="batch-progress-summary"></p>
+                <div id="batch-case-list"></div>
               </div>
             </div>
-            <button id="inject-btn" class="btn primary" disabled>Inject selected</button>
           </div>
 
           <div id="inject-results" class="hidden">
