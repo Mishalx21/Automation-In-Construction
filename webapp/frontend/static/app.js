@@ -225,9 +225,9 @@ function renderInjectMatrix(job) {
   $("batch-pool-hint").textContent = applicableCount
     ? `Each case injects a random 1–${applicableCount} of the ${applicableCount} rule(s) applicable to this model.`
     : "No rules are applicable to this model, so batch generation is unavailable.";
+  resetBatchState();
   $("inject-mode-batch").disabled = applicableCount === 0;
   $("batch-generate-btn").disabled = applicableCount === 0;
-  resetBatchState();
   setInjectMode("manual");
   if (job.source_preview?.state === "ready") {
     window.setPreviewPropertiesJob?.(ifcJobId);
