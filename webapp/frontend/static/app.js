@@ -239,18 +239,24 @@ function renderInjectMatrix(job) {
 }
 
 function buildRuleTable(table, rules, withApplicability, cbClass) {
+  // Candidate count and the "not applicable" badge only ever have content
+  // for the per-model injection analysis; the check-compliance catalogue
+  // has neither, so those columns are dropped there instead of sitting
+  // empty and stealing width from the description column.
+  table.classList.toggle("with-applicability", withApplicability);
   table.innerHTML = `
-    <tr><th></th><th>Rule</th><th>${withApplicability ? "What it injects" : "What it checks"}</th><th></th><th></th></tr>` +
+    <tr><th></th><th>Rule</th><th>${withApplicability ? "What it injects" : "What it checks"}</th>${withApplicability ? "<th></th><th></th>" : ""}</tr>` +
     rules.map((r) => `
     <tr class="${r.applicable === false ? "na" : ""}">
       <td>${r.applicable === false ? "" : `<input type="checkbox" class="${cbClass}" value="${r.rule_id}" checked aria-label="${escapeHtml(r.rule_id)}">`}</td>
       <td class="rule-id">${r.rule_id}</td>
       <td>${escapeHtml(r.description || r.title)}<span class="clause">${escapeHtml(r.clause || r.reference)}</span>
         ${!withApplicability && r.rule_preview ? `<details class="source-rule"><summary>View source rule</summary><pre>${escapeHtml(r.rule_preview)}</pre></details>` : ""}</td>
+      ${withApplicability ? `
       <td class="num">${r.candidate_count != null ? r.candidate_count : ""}</td>
       <td>${r.applicable === false
         ? `<span class="badge na" title="${escapeHtml(r.reason || "")}">not applicable</span>`
-        : ""}</td>
+        : ""}</td>` : ""}
     </tr>`).join("");
   table.querySelectorAll(`.${cbClass}`).forEach((cb) =>
     cb.addEventListener("change", () => refreshRunButton(cbClass === "inject-cb" ? "inject-btn" : "check-btn", `.${cbClass}`)));
