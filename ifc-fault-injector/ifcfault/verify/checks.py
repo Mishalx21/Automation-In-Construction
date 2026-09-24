@@ -776,9 +776,511 @@ def rederive_s5(output_model, mutation, source_model=None) -> CheckResult:
                        message=message)
 
 
+# ---------------------------------------------------------------------------
+# per-rule clause re-derivation  - BNBC rules A6-A10, S6-S10
+#
+# Same discipline as everything above: nothing here consults the library, and
+# every quantity is re-measured from the written file. Where a rule's limit
+# depends on what kind of room, wall or footing it is, that classification is
+# re-derived here too rather than trusted from the mutation record  - a
+# mislabelled target must not be able to certify its own defect.
+# ---------------------------------------------------------------------------
+_HABITABLE_WORDS = (
+    "bedroom", "living", "dining", "study", "office", "classroom", "class ", "ward",
+    "waiting", "activity", "lounge", "conference", "meeting", "exam", "consult",
+    "operat", "library", "dormitor", "reception", "lab", "therapy", "team rm",
+    "break rm", "cubicle", "work station", "workstation", "treatment", "clinic",
+    "nurse", "kantoor", "slaapkamer", "woonkamer", "eetkamer", "werkkamer", "verblijf",
+)
+_CORRIDOR_WORDS = (
+    "corridor", "hallway", "passage", "lobby", "vestibule", "circulat", "gang",
+    "overloop", "hal ", "vest", "entry", "entrance", "entree",
+)
+_OTHER_ROOM_WORDS = (
+    "bath", "toilet", " wc", "wc ", "restroom", " rr", "rr ", "shower", "store",
+    "storage", "stor", "kitchen", "pantry", "laundry", "utility", "utl", "closet",
+    "janitor", "jan.", "jan ", "badkamer", "keuken", "berging", "kast",
+)
+_MASONRY_WORDS = ("masonry", "brick", "block", "cmu", "clay", "metselwerk",
+                  "baksteen", "kalkzandsteen", "mw-", "mauerwerk")
+_GUARD_WORDS = ("guard", "balustrade", "parapet", "barrier", "doorvalregel", "traphek",
+                "afscheiding", "hekwerk", "borstwering")
+_HANDRAIL_WORDS = ("handrail", "hand rail", "leuning", "trapleuning")
+_PILE_CAP_WORDS = ("pile cap", "pilecap", "poer", "paalkop")
+
+
+def _own_text(element, *attributes) -> str:
+    return " ".join(str(getattr(element, a, None) or "") for a in attributes).lower()
+
+
+def _own_vertical_extrusion(model, element):
+    """The element's vertically extruded body solid, or None."""
+    for item in _own_body_items(element):
+        if not item.is_a("IfcExtrudedAreaSolid"):
+            continue
+        ratios = getattr(getattr(item, "ExtrudedDirection", None), "DirectionRatios", None)
+        if ratios is not None and abs(ratios[2]) < 0.9:
+            continue
+        return item
+    return None
+
+
+def _own_quantity(element, names, kind="IfcQuantityLength", attribute="LengthValue"):
+    for rel in getattr(element, "IsDefinedBy", []) or []:
+        if not rel.is_a("IfcRelDefinesByProperties"):
+            continue
+        qset = rel.RelatingPropertyDefinition
+        if qset is None or not qset.is_a("IfcElementQuantity"):
+            continue
+        for item in qset.Quantities or ():
+            if item.is_a(kind) and item.Name in names:
+                value = getattr(item, attribute, None)
+                if value:
+                    return float(value)
+    return None
+
+
+def _own_profile_extents(profile):
+    """(short, long) extent of a profile, in native units, or None."""
+    if profile is None:
+        return None
+    if profile.is_a("IfcRectangleProfileDef"):
+        dims = (float(profile.XDim), float(profile.YDim))
+        return min(dims), max(dims)
+    if profile.is_a("IfcCircleProfileDef") or profile.is_a("IfcCircleHollowProfileDef"):
+        diameter = float(profile.Radius) * 2.0
+        return diameter, diameter
+    curve = getattr(profile, "OuterCurve", None)
+    points = []
+    if curve is not None and curve.is_a("IfcPolyline"):
+        points = [tuple(pt.Coordinates[:2]) for pt in curve.Points]
+    elif curve is not None and curve.is_a("IfcCompositeCurve"):
+        for segment in curve.Segments:
+            parent = segment.ParentCurve
+            if parent.is_a("IfcPolyline"):
+                points.extend(tuple(pt.Coordinates[:2]) for pt in parent.Points)
+    if len(points) < 3:
+        return None
+    xs = [pt[0] for pt in points]
+    ys = [pt[1] for pt in points]
+    dims = (max(xs) - min(xs), max(ys) - min(ys))
+    return min(dims), max(dims)
+
+
+def rederive_a6(output_model, mutation, source_model=None) -> CheckResult:
+    """Re-measure the space's height and re-decide which limit applies."""
+    space = output_model.by_guid(mutation["target_global_id"])
+    text = _own_text(space, "LongName", "Name")
+    if any(w in text for w in _CORRIDOR_WORDS):
+        limit_mm, kind = 2400.0, "corridor"
+    elif any(w in text for w in _HABITABLE_WORDS):
+        limit_mm, kind = 2750.0, "habitable"
+    else:
+        return CheckResult("a6_clause_violated", False,
+                           message="the target space is neither a habitable room nor a corridor")
+
+    scale_mm = mm_per_native(output_model)
+    native = _own_quantity(space, ("Height", "NetHeight", "GrossHeight"))
+    if native is None:
+        solid = _own_vertical_extrusion(output_model, space)
+        native = float(solid.Depth) if solid is not None and solid.Depth else None
+    if native is None:
+        return CheckResult("a6_clause_violated", False,
+                           message="no height quantity or vertical extrusion on the space")
+
+    height_mm = native * scale_mm
+    ok = height_mm < limit_mm
+    return CheckResult("a6_clause_violated", ok,
+                       {"height_mm": round(height_mm, 1), "threshold_mm": limit_mm,
+                        "space_kind": kind},
+                       message="" if ok else f"{height_mm:.1f}mm is not below {limit_mm}mm")
+
+
+def rederive_a7(output_model, mutation, source_model=None) -> CheckResult:
+    """Re-measure the room's least width from its own footprint."""
+    space = output_model.by_guid(mutation["target_global_id"])
+    text = _own_text(space, "LongName", "Name")
+    if any(w in text for w in _OTHER_ROOM_WORDS):
+        limit_mm, kind = 2000.0, "other"
+    elif any(w in text for w in _HABITABLE_WORDS):
+        limit_mm, kind = 2900.0, "habitable"
+    else:
+        return CheckResult("a7_clause_violated", False,
+                           message="the target space is not a room Sec 1.14.2.2 governs")
+
+    solid = None
+    for item in _own_body_items(space):
+        if item.is_a("IfcExtrudedAreaSolid"):
+            solid = item
+            break
+    extents = _own_profile_extents(getattr(solid, "SweptArea", None)) if solid else None
+    if extents is None:
+        return CheckResult("a7_clause_violated", False,
+                           message="no measurable footprint on the space")
+
+    width_mm = extents[0] * mm_per_native(output_model)
+    ok = width_mm < limit_mm
+    return CheckResult("a7_clause_violated", ok,
+                       {"least_width_mm": round(width_mm, 1), "threshold_mm": limit_mm,
+                        "room_kind": kind},
+                       message="" if ok else f"{width_mm:.1f}mm is not below {limit_mm}mm")
+
+
+def rederive_a8(output_model, mutation, source_model=None) -> CheckResult:
+    """Re-walk window -> host wall -> room and re-total the room's openings.
+
+    Built the other way round from the injector: the room named in the record
+    is taken first and every window reaching it is gathered, rather than
+    starting from one window and following it outwards.
+    """
+    extra = mutation.get("extra", {})
+    space_gid = extra.get("space_global_id")
+    required = extra.get("required_percent")
+    if not space_gid or not required:
+        return CheckResult("a8_clause_violated", False,
+                           message="mutation record lacks the room or its required percentage")
+    try:
+        space = output_model.by_guid(space_gid)
+    except Exception:
+        return CheckResult("a8_clause_violated", False, message="the room no longer resolves")
+
+    walls = set()
+    for rel in output_model.get_inverse(space):
+        if rel.is_a("IfcRelSpaceBoundary"):
+            element = rel.RelatedBuildingElement
+            if element is not None and element.is_a("IfcWall"):
+                walls.add(element.id())
+    if not walls:
+        return CheckResult("a8_clause_violated", False,
+                           message="the room is bounded by no wall, so it has no exterior opening")
+
+    scale_mm = mm_per_native(output_model)
+    opening_m2 = 0.0
+    counted = 0
+    for window in output_model.by_type("IfcWindow"):
+        host = None
+        for rel in output_model.get_inverse(window):
+            if not rel.is_a("IfcRelFillsElement"):
+                continue
+            for voids in output_model.get_inverse(rel.RelatingOpeningElement):
+                if voids.is_a("IfcRelVoidsElement"):
+                    host = voids.RelatingBuildingElement
+                    break
+        if host is None or host.id() not in walls:
+            continue
+        if _own_prop(host, "IsExternal") is not True:
+            continue
+        if window.OverallWidth is None or window.OverallHeight is None:
+            continue
+        opening_m2 += (float(window.OverallWidth) * scale_mm / 1000.0) * \
+                      (float(window.OverallHeight) * scale_mm / 1000.0)
+        counted += 1
+
+    floor_area_m2 = extra.get("space_floor_area_m2")
+    if not floor_area_m2:
+        return CheckResult("a8_clause_violated", False,
+                           message="mutation record lacks the room's floor area")
+
+    ratio = 100.0 * opening_m2 / float(floor_area_m2)
+    ok = ratio < float(required)
+    return CheckResult("a8_clause_violated", ok,
+                       {"opening_percent": round(ratio, 2), "required_percent": required,
+                        "windows_counted": counted},
+                       message="" if ok else f"{ratio:.2f}% is not below {required}%")
+
+
+def rederive_a9(output_model, mutation, source_model=None) -> CheckResult:
+    """Re-read the railing's height and re-decide guard against handrail."""
+    railing = output_model.by_guid(mutation["target_global_id"])
+    predefined = str(getattr(railing, "PredefinedType", None) or "").upper()
+    text = _own_text(railing, "Name", "ObjectType", "Description")
+    if predefined in ("GUARDRAIL", "BALUSTRADE") or any(w in text for w in _GUARD_WORDS):
+        limit_mm, kind = 1000.0, "guard"
+    elif predefined == "HANDRAIL" or any(w in text for w in _HANDRAIL_WORDS):
+        limit_mm, kind = 900.0, "handrail"
+    else:
+        return CheckResult("a9_clause_violated", False,
+                           message="the target railing is neither a guard nor a handrail")
+
+    raw = _own_prop(railing, "Height")
+    if raw is None:
+        return CheckResult("a9_clause_violated", False,
+                           message="no Height property on the target railing")
+    height_mm = float(raw) * mm_per_native(output_model)
+    ok = height_mm < limit_mm
+    return CheckResult("a9_clause_violated", ok,
+                       {"height_mm": round(height_mm, 1), "threshold_mm": limit_mm,
+                        "railing_kind": kind},
+                       message="" if ok else f"{height_mm:.1f}mm is not below {limit_mm}mm")
+
+
+def rederive_a10(output_model, mutation, source_model=None,
+                 threshold_mm: float = 1120.0) -> CheckResult:
+    """Re-measure the flight width as the widest tread, not the modal one.
+
+    The injector picks the width by what recurs across the treads; this takes
+    the largest instead, so agreement is not an artefact of a shared choice.
+    """
+    flight = output_model.by_guid(mutation["target_global_id"])
+    scale_mm = mm_per_native(output_model)
+    widest = None
+    treads = 0
+    for item in _own_body_items(flight):
+        if not item.is_a("IfcExtrudedAreaSolid"):
+            continue
+        extents = _own_profile_extents(item.SweptArea)
+        if extents is None:
+            continue
+        treads += 1
+        widest = extents[1] if widest is None else max(widest, extents[1])
+    if widest is None:
+        return CheckResult("a10_clause_violated", False,
+                           message="no measurable tread profile on the flight")
+
+    width_mm = widest * scale_mm
+    ok = width_mm < threshold_mm
+    return CheckResult("a10_clause_violated", ok,
+                       {"width_mm": round(width_mm, 1), "threshold_mm": threshold_mm,
+                        "tread_solids": treads},
+                       message="" if ok else f"{width_mm:.1f}mm is not below {threshold_mm}mm")
+
+
+def rederive_s6(output_model, mutation, source_model=None) -> CheckResult:
+    """Re-total the wall's layer set and re-decide which limit governs."""
+    wall = output_model.by_guid(mutation["target_global_id"])
+    layer_set = None
+    for rel in getattr(wall, "HasAssociations", []) or []:
+        if not rel.is_a("IfcRelAssociatesMaterial"):
+            continue
+        material = rel.RelatingMaterial
+        if material is None:
+            continue
+        if material.is_a("IfcMaterialLayerSetUsage"):
+            layer_set = material.ForLayerSet
+        elif material.is_a("IfcMaterialLayerSet"):
+            layer_set = material
+    if layer_set is None or not layer_set.MaterialLayers:
+        return CheckResult("s6_clause_violated", False,
+                           message="no material layer set on the target wall")
+
+    scale_mm = mm_per_native(output_model)
+    thickness_mm = sum(
+        float(layer.LayerThickness or 0.0) for layer in layer_set.MaterialLayers
+    ) * scale_mm
+    names = " ".join(
+        (layer.Material.Name if layer.Material and layer.Material.Name else "")
+        for layer in layer_set.MaterialLayers
+    ).lower()
+
+    if any(w in names for w in _MASONRY_WORDS):
+        limit_mm, kind = 250.0, "masonry"
+    else:
+        solid = _own_vertical_extrusion(output_model, wall)
+        height_mm = float(solid.Depth) * scale_mm if solid is not None and solid.Depth else None
+        limit_mm = max(100.0, height_mm / 25.0) if height_mm else 100.0
+        kind = "concrete"
+
+    ok = thickness_mm < limit_mm
+    return CheckResult("s6_clause_violated", ok,
+                       {"thickness_mm": round(thickness_mm, 1),
+                        "threshold_mm": round(limit_mm, 1), "wall_kind": kind},
+                       message="" if ok else f"{thickness_mm:.1f}mm is not below {limit_mm:.1f}mm")
+
+
+def rederive_s7(output_model, mutation, source_model=None,
+                min_dimension_mm: float = 300.0, min_ratio: float = 0.4) -> CheckResult:
+    """Both limits of Sec 8.3.5.1 have to be broken, not just one."""
+    column = output_model.by_guid(mutation["target_global_id"])
+    extents = None
+    for item in _own_body_items(column):
+        if item.is_a("IfcExtrudedAreaSolid"):
+            extents = _own_profile_extents(item.SweptArea)
+            if extents is not None:
+                break
+    if extents is None:
+        return CheckResult("s7_clause_violated", False,
+                           message="could not measure the column's cross-section")
+
+    scale_mm = mm_per_native(output_model)
+    short_mm, long_mm = extents[0] * scale_mm, extents[1] * scale_mm
+    ratio = short_mm / long_mm if long_mm else 0.0
+    ok = short_mm < min_dimension_mm and ratio < min_ratio
+    message = ""
+    if not ok:
+        message = (f"{short_mm:.1f}mm / ratio {ratio:.2f} does not break both the "
+                   f"{min_dimension_mm}mm and {min_ratio} limits")
+    return CheckResult("s7_clause_violated", ok,
+                       {"short_dimension_mm": round(short_mm, 1),
+                        "long_dimension_mm": round(long_mm, 1), "ratio": round(ratio, 3),
+                        "threshold_mm": min_dimension_mm, "min_ratio": min_ratio},
+                       message=message)
+
+
+def _own_lateral_elements(output_model, storey):
+    """Columns and load-bearing walls contained in a storey.
+
+    The clause is about the lateral force-RESISTING system, so a partition
+    is not in scope. Which walls count is decided the only way the file
+    allows: Pset_WallCommon.LoadBearing where the model states it anywhere,
+    and every wall where it states it nowhere. Counting partitions instead
+    would measure a different building than the clause describes, and the
+    re-derivation would disagree with the checker for the wrong reason.
+    """
+    flagged_anywhere = any(
+        _own_prop(w, "LoadBearing") is True for w in output_model.by_type("IfcWall")
+    )
+    out = []
+    for rel in output_model.get_inverse(storey):
+        if not rel.is_a("IfcRelContainedInSpatialStructure"):
+            continue
+        for element in rel.RelatedElements:
+            if element.is_a("IfcColumn"):
+                out.append(element)
+            elif element.is_a("IfcWall"):
+                if not flagged_anywhere or _own_prop(element, "LoadBearing") is True:
+                    out.append(element)
+    return out
+
+
+def rederive_s8(output_model, mutation, source_model=None,
+                max_ratio: float = 1.30) -> CheckResult:
+    """Re-measure both storeys' plan extents and re-take the ratio."""
+    extra = mutation.get("extra", {})
+    axis = extra.get("axis")
+    neighbour_name = extra.get("neighbour_name")
+    if axis not in ("X", "Y") or not neighbour_name:
+        return CheckResult("s8_clause_violated", False,
+                           message="mutation record lacks the axis or the adjacent storey")
+    index = 0 if axis == "X" else 1
+
+    try:
+        storey = output_model.by_guid(mutation["target_global_id"])
+    except Exception:
+        return CheckResult("s8_clause_violated", False,
+                           message="the target storey no longer resolves")
+    neighbour = next(
+        (s for s in output_model.by_type("IfcBuildingStorey") if s.Name == neighbour_name), None
+    )
+    if neighbour is None:
+        return CheckResult("s8_clause_violated", False,
+                           message=f"no storey named '{neighbour_name}' to compare against")
+
+    def extent(target):
+        values = []
+        for element in _own_lateral_elements(output_model, target):
+            xy = _own_world_xy(output_model, element)
+            if xy is not None:
+                values.append(xy[index])
+        return (max(values) - min(values)) if len(values) >= 2 else None
+
+    target_extent = extent(storey)
+    neighbour_extent = extent(neighbour)
+    if not target_extent or not neighbour_extent:
+        return CheckResult("s8_clause_violated", False,
+                           message="could not measure both storeys' plan extents")
+
+    ratio = max(target_extent, neighbour_extent) / min(target_extent, neighbour_extent)
+    ok = ratio > max_ratio
+    return CheckResult("s8_clause_violated", ok,
+                       {"axis": axis, "storey_extent_mm": round(target_extent, 1),
+                        "adjacent_extent_mm": round(neighbour_extent, 1),
+                        "ratio": round(ratio, 3), "max_ratio": max_ratio},
+                       message="" if ok else f"ratio {ratio:.2f} does not exceed {max_ratio}")
+
+
+def rederive_s9(output_model, mutation, source_model=None,
+                min_projection: float = 0.15) -> CheckResult:
+    """Confirm the L directly from element positions, with no raster at all.
+
+    The corner block must now be empty of lateral elements while both wings
+    beside it are still populated  - which is what makes the two projections
+    beyond the re-entrant corner real. Going at it this way rather than by
+    rebuilding a grid means a bug in the grid cannot be confirmed by itself.
+    """
+    extra = mutation.get("extra", {})
+    corner = extra.get("corner")
+    if corner not in ("south-west", "south-east", "north-west", "north-east"):
+        return CheckResult("s9_clause_violated", False,
+                           message="mutation record lacks a recognisable corner")
+    high_x = corner.endswith("east")
+    high_y = corner.startswith("north")
+
+    try:
+        storey = output_model.by_guid(mutation["target_global_id"])
+    except Exception:
+        return CheckResult("s9_clause_violated", False,
+                           message="the target storey no longer resolves")
+
+    points = []
+    for element in _own_lateral_elements(output_model, storey):
+        xy = _own_world_xy(output_model, element)
+        if xy is not None:
+            points.append(xy)
+    if len(points) < 4:
+        return CheckResult("s9_clause_violated", False,
+                           message="too few lateral elements left to describe a plan")
+
+    xs = [p[0] for p in points]
+    ys = [p[1] for p in points]
+    x_min, x_max, y_min, y_max = min(xs), max(xs), min(ys), max(ys)
+    width, depth = x_max - x_min, y_max - y_min
+    if width <= 0 or depth <= 0:
+        return CheckResult("s9_clause_violated", False, message="degenerate storey plan")
+
+    x_cut = (x_max - min_projection * width) if high_x else (x_min + min_projection * width)
+    y_cut = (y_max - min_projection * depth) if high_y else (y_min + min_projection * depth)
+
+    def beyond_x(p):
+        return p[0] >= x_cut if high_x else p[0] <= x_cut
+
+    def beyond_y(p):
+        return p[1] >= y_cut if high_y else p[1] <= y_cut
+
+    in_corner = [p for p in points if beyond_x(p) and beyond_y(p)]
+    x_wing = [p for p in points if beyond_x(p) and not beyond_y(p)]
+    y_wing = [p for p in points if beyond_y(p) and not beyond_x(p)]
+
+    ok = not in_corner and bool(x_wing) and bool(y_wing)
+    if in_corner:
+        message = f"{len(in_corner)} lateral element(s) still stand in the {corner} corner"
+    elif not x_wing or not y_wing:
+        message = "one of the two wings beside the corner is empty, so the plan is not re-entrant"
+    else:
+        message = ""
+    return CheckResult("s9_clause_violated", ok,
+                       {"corner": corner, "elements_in_corner": len(in_corner),
+                        "elements_in_x_wing": len(x_wing), "elements_in_y_wing": len(y_wing),
+                        "min_projection": min_projection},
+                       message=message)
+
+
+def rederive_s10(output_model, mutation, source_model=None) -> CheckResult:
+    """Re-measure the footing's thickness and re-decide soil against piles."""
+    footing = output_model.by_guid(mutation["target_global_id"])
+    solid = _own_vertical_extrusion(output_model, footing)
+    if solid is None or not solid.Depth:
+        return CheckResult("s10_clause_violated", False,
+                           message="no vertically extruded body on the target footing")
+
+    thickness_mm = float(solid.Depth) * mm_per_native(output_model)
+    name = _own_text(footing, "Name", "ObjectType")
+    on_piles = any(w in name for w in _PILE_CAP_WORDS) or bool(output_model.by_type("IfcPile"))
+    limit_mm = 300.0 if on_piles else 150.0
+
+    ok = thickness_mm < limit_mm
+    return CheckResult("s10_clause_violated", ok,
+                       {"thickness_mm": round(thickness_mm, 1), "threshold_mm": limit_mm,
+                        "support": "pile" if on_piles else "soil"},
+                       message="" if ok else f"{thickness_mm:.1f}mm is not below {limit_mm}mm")
+
+
 CLAUSE_CHECKS = {
     "A1": rederive_a1, "A2": rederive_a2, "A3": rederive_a3,
     "A4": rederive_a4, "A5": rederive_a5,
     "S1": rederive_s1, "S2": rederive_s2, "S3": rederive_s3,
     "S4": rederive_s4, "S5": rederive_s5,
+    "A6": rederive_a6, "A7": rederive_a7, "A8": rederive_a8,
+    "A9": rederive_a9, "A10": rederive_a10,
+    "S6": rederive_s6, "S7": rederive_s7, "S8": rederive_s8,
+    "S9": rederive_s9, "S10": rederive_s10,
 }

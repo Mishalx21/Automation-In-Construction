@@ -1,0 +1,16 @@
+{
+  "rule_id": "A6",
+  "title": "Ceiling height of habitable rooms and egress corridors",
+  "source_clauses": [
+    "P3.1.14.2.1(a)",
+    "P3.1.14.2.1(b)",
+    "P3.1.14.2.1(c)",
+    "P4.3.7.3"
+  ],
+  "statement": "A habitable room in a non-air-conditioned residential, business or mercantile building shall have a ceiling height of not less than 2.75 m, measured from the finished floor surface to the underside of the finished ceiling or false ceiling. A corridor or passageway used as a means of egress shall have a ceiling height of not less than 2.4 m. Kitchens, store rooms, utility rooms, box rooms and garages are excluded from the habitable-room limit.",
+  "scope_note": "Covers the 2.75 m habitable-room minimum of Part 3 Sec 1.14.2.1(a) and the 2.4 m egress-corridor minimum of Part 4 Sec 3.7.3. Three parts of the cited text are deliberately NOT checked, because an IFC model does not carry what they turn on: (i) the 2.44 m concession for air-conditioned rooms and for up to one third of a habitable room's floor area, since no model states whether a room is air-conditioned; (ii) the raised minima of Table 3.1.9 for educational, institutional, health care, assembly, industrial, storage and hazardous occupancies, since IFC carries no BNBC occupancy classification; (iii) clause (b)'s clear head room under a duct or beam soffit, which needs the lowest projecting element rather than the room's own height. A checker limited to (i)-(iii) is permissive, never falsely strict, and must say so rather than guess an occupancy.",
+  "references": {
+    "tables": ["3.1.9"]
+  },
+  "terms": []
+}

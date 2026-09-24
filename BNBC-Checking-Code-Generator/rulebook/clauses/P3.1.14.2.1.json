@@ -1,0 +1,43 @@
+{
+  "section_id": "P3.1.14.2.1",
+  "title": "Ceiling heights",
+  "page": 2648,
+  "clauses": [
+    {
+      "clause_id": "P3.1.14.2.1(a)",
+      "text": "(a) All habitable rooms in non-air-conditioned residential, business and mercantile buildings, apart from kitchen, store room, utility room, box room and garage, shall have a ceiling height not less than 2.75 m measured from the finished surface of the floor to the underside of the finished ceiling, or false ceiling. A maximum of one-third of the floor area of such habitable rooms may, however, have a minimum ceiling height of 2.44 m. For air-conditioned rooms in such buildings, the minimum ceiling height shall be 2.44 m. In the case of pitched roof without a horizontal ceiling the lowest point of the finished ceiling shall be at least 2 m above the finished surface of the floor and the average height of the ceiling shall not be less than 2.44 m.",
+      "notes": "Habitable room - a room used for living, sleeping, eating or working, as distinct from a kitchen, store, utility, box room or garage, which this clause excludes.\n\nCeiling height - measured from the finished floor surface to the underside of the finished ceiling (or false ceiling where one exists), not to the soffit of the slab above.\n\nThe 2.44 m concession applies to at most one third of a habitable room's floor area, and separately to the whole of an air-conditioned room.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 2648
+    },
+    {
+      "clause_id": "P3.1.14.2.1(b)",
+      "text": "(b) The minimum clear head room under the ceiling, folded plate, shell etc. and under the false ceiling or duct in an air-conditioned room shall not be less than 2.44 m. The minimum clear distance between the floor below and the soffit of a beam shall not be less than 2.15 m.",
+      "notes": "Clear head room - the unobstructed vertical distance to the lowest projecting element, which may be a duct, a folded plate or a down-stand beam rather than the ceiling plane itself.\n\nSoffit of a beam - the underside of a beam projecting below the ceiling.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 2648
+    },
+    {
+      "clause_id": "P3.1.14.2.1(c)",
+      "text": "(c) The requirements of ceiling height for buildings of occupancy other than residential and business and mercantile shall be as given in Table 3.1.9.",
+      "notes": "Occupancy classification decides which minimum applies. Table 3.1.9 raises the minimum for educational, institutional, health care and assembly buildings, and raises it further for industrial, storage and hazardous ones.",
+      "references": {
+        "tables": ["3.1.9"],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 2648
+    }
+  ]
+}

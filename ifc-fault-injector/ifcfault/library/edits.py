@@ -264,7 +264,11 @@ def _swap_body(model, element, old_rep, new_solid):
     rep = element.Representation
     new_reps = []
     for r in rep.Representations:
-        if r is old_rep:
+        # Compare by STEP id, not by object identity: ifcopenshell hands out a
+        # fresh entity_instance wrapper on every attribute access, so `is` is
+        # never true here and the swap would silently keep the old body -
+        # the mutation record would claim a resize the file never received.
+        if r.id() == old_rep.id():
             new_reps.append(model.create_entity(
                 "IfcShapeRepresentation", ContextOfItems=r.ContextOfItems,
                 RepresentationIdentifier="Body", RepresentationType="SweptSolid",

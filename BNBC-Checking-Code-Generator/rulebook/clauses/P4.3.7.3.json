@@ -1,0 +1,19 @@
+{
+  "section_id": "P4.3.7.3",
+  "title": "Ceiling height of corridors and passageways used as a means of egress",
+  "page": 2888,
+  "clauses": [
+    {
+      "clause_id": "P4.3.7.3",
+      "text": "3.7.3 The minimum ceiling height of the corridors and passageways used as a means of egress shall not be less than 2.4 m.",
+      "notes": "Means of egress - the continuous and unobstructed path of travel from any point in a building to a public way, of which a corridor or passageway forms the exit-access part.\n\nThe limit is lower than the 2.75 m a habitable room owes under Part 3 Sec 1.14.2.1(a), because a corridor is circulated through rather than occupied; smoke banking down from the ceiling is what the height protects against.",
+      "references": {
+        "tables": [],
+        "figures": [],
+        "equations": [],
+        "clauses": []
+      },
+      "page": 2888
+    }
+  ]
+}

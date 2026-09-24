@@ -117,12 +117,13 @@ redundant, because no single handle survives every viewer:
 styles, so the element may not come in coloured. Search the name tag or look
 for the marker box. The report says this too.
 
-A rule that *deletes* elements (S4, S5) has nothing left to colour, so the
-marker box is the only handle - which is why it is always added.
+A rule that *deletes* elements (S4, S5, S8, S9) has nothing left to colour, so
+the marker box is the only handle - which is why it is always added.
 
 Colours are fixed per rule: A1 red, A2 orange, A3 yellow, A4 green, A5 blue,
-S1 purple, S2 cyan, S3 magenta, S4 brown, S5 maroon. Every report ends with
-the full legend.
+A6 lime, A7 teal, A8 pink, A9 olive, A10 coral, S1 purple, S2 cyan,
+S3 magenta, S4 brown, S5 maroon, S6 navy, S7 mint, S8 lavender, S9 mustard,
+S10 slate. Every report ends with the full legend.
 
 ## The rules
 
@@ -143,6 +144,22 @@ python -m ifcfault survey --source model.ifc      # which of them fit THIS model
 | S3 | ACI 318 Table 7.3.1.1, slab thickness | private extrusion depth change |
 | S4 | ASCE 7 Table 12.3-2, floating column | delete the supporting column(s) |
 | S5 | ASCE 7 / EC8 4.2.3.3, soft storey | delete every wall on one storey |
+
+The rules below are written against BNBC 2020 itself rather than an
+international analogue, so each cites the clause it breaks by number:
+
+| Rule | Clause | Mechanism |
+|---|---|---|
+| A6 | Part 3 Sec 1.14.2.1(a) / Part 4 Sec 3.7.3, ceiling height | lower the space's height quantity, or its extrusion |
+| A7 | Part 3 Sec 1.14.2.2, room least width | re-proportion the footprint, keeping its area |
+| A8 | Part 3 Sec 1.19.6 Table 3.1.12, opening area | shrink one window until its room falls under |
+| A9 | Part 3 Sec 1.14.14 / 1.14.5.6, guard and handrail height | overwrite `Pset_RailingCommon.Height` |
+| A10 | Part 3 Sec 1.14.5.1 / Part 4 Table 4.3.6, stairway width | narrow every tread of one flight |
+| S6 | Part 6 Sec 7.4.9.1 / 6.6.5.3.1, bearing wall thickness | private material layer set, scaled down |
+| S7 | Part 6 Sec 8.3.5.1, SMF column section | private cross-section resize to an oblong |
+| S8 | Part 6 Table 6.1.4 Type III, vertical geometric irregularity | delete the lateral elements past a plan cut |
+| S9 | Part 6 Table 6.1.5 Type II, re-entrant corner | delete the lateral elements in one plan corner |
+| S10 | Part 6 Sec 6.8.7, footing thickness | private extrusion depth change |
 
 Two properties every rule holds to, because they are what make a test case
 worth having:

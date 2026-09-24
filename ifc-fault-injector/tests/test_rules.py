@@ -17,8 +17,8 @@ from ifcfault.library.contract import best_target
 from ifcfault.library.edits import find_dangling_references
 from ifcfault.verify import checks as C
 
-ARCHITECTURAL = ("A1", "A2", "A3", "A4", "A5")
-STRUCTURAL = ("S1", "S2", "S3", "S4", "S5")
+ARCHITECTURAL = ("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10")
+STRUCTURAL = ("S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10")
 
 
 def _applicable_rules(model, rule_ids):

@@ -19,7 +19,8 @@ from ifcfault.plan import (
 )
 from ifcfault.safety import check_source
 
-ALL_RULES = ("A1", "A2", "A3", "A4", "A5", "S1", "S2", "S3", "S4", "S5")
+ALL_RULES = ("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10",
+             "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10")
 
 #: Stands in for what the model returns, so assembly can be exercised
 #: without an API key. Deliberately minimal: the point is the wiring around

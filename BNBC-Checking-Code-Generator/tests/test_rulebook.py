@@ -166,13 +166,13 @@ class TestRendering:
 
 
 class TestRuleDefinitions:
-    """The 19 rule definitions are inputs; these are their invariants."""
+    """The 20 rule definitions are inputs; these are their invariants."""
 
     def test_every_rule_is_well_formed_and_label_free(self, rulebook):
         expected = {"rule_id", "title", "source_clauses", "statement",
                     "scope_note", "references", "terms"}
         rules = sorted(cfg.RULES_DIR.glob("*/rule.json"))
-        assert len(rules) == 19
+        assert len(rules) == 20
         for path in rules:
             rule = json.loads(path.read_text(encoding="utf-8"))
             assert set(rule) == expected, f"{path.parent.name}: {set(rule) ^ expected}"

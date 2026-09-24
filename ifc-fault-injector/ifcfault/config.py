@@ -58,6 +58,16 @@ COLOURS: dict[str, Colour] = {
     "S3": Colour("MAGENTA", "#F032E6"),
     "S4": Colour("BROWN", "#AA6E28"),
     "S5": Colour("MAROON", "#800000"),
+    "A6": Colour("LIME", "#D2F53C"),
+    "A7": Colour("TEAL", "#008080"),
+    "A8": Colour("PINK", "#FABEBE"),
+    "A9": Colour("OLIVE", "#808000"),
+    "A10": Colour("CORAL", "#FF7F50"),
+    "S6": Colour("NAVY", "#000080"),
+    "S7": Colour("MINT", "#AAFFC3"),
+    "S8": Colour("LAVENDER", "#E6BEFF"),
+    "S9": Colour("MUSTARD", "#FFD8B1"),
+    "S10": Colour("SLATE", "#4B6A88"),
 }
 
 # Any rule id outside the table above (i.e. a newly synthesized one) cycles

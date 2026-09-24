@@ -18,7 +18,11 @@ from types import ModuleType
 
 from . import (
     a1_door_width, a2_riser_tread, a3_fire_rating, a4_door_clearance, a5_dead_end,
+    a6_ceiling_height, a7_room_size, a8_opening_area, a9_guard_handrail_height,
+    a10_stairway_width,
     s1_span_depth, s2_column_dimension, s3_slab_thickness, s4_floating_column, s5_soft_storey,
+    s6_bearing_wall_thickness, s7_smf_column_geometry,
+    s8_vertical_geometric_irregularity, s9_reentrant_corner, s10_footing_thickness,
 )
 
 #: Hand-written, reviewed rules.
@@ -26,7 +30,11 @@ BUILTIN: dict[str, ModuleType] = {
     m.RULE_ID: m
     for m in (
         a1_door_width, a2_riser_tread, a3_fire_rating, a4_door_clearance, a5_dead_end,
+        a6_ceiling_height, a7_room_size, a8_opening_area, a9_guard_handrail_height,
+        a10_stairway_width,
         s1_span_depth, s2_column_dimension, s3_slab_thickness, s4_floating_column, s5_soft_storey,
+        s6_bearing_wall_thickness, s7_smf_column_geometry,
+        s8_vertical_geometric_irregularity, s9_reentrant_corner, s10_footing_thickness,
     )
 }
 
