@@ -26,6 +26,16 @@ COPY rule-7.Column_dimension_slenderness_v1/ ./rule-7.Column_dimension_slenderne
 COPY rule-8.Slab_thickness_v1/ ./rule-8.Slab_thickness_v1/
 COPY rule-9.Floating_column_v1/ ./rule-9.Floating_column_v1/
 COPY rule-10.Soft_storey_v1/ ./rule-10.Soft_storey_v1/
+COPY rule-11.Ceiling_height_v1/ ./rule-11.Ceiling_height_v1/
+COPY rule-12.Room_size_v1/ ./rule-12.Room_size_v1/
+COPY rule-13.Opening_area_v1/ ./rule-13.Opening_area_v1/
+COPY rule-14.Guard_handrail_height_v1/ ./rule-14.Guard_handrail_height_v1/
+COPY rule-15.Stairway_width_v1/ ./rule-15.Stairway_width_v1/
+COPY rule-16.Bearing_wall_thickness_v1/ ./rule-16.Bearing_wall_thickness_v1/
+COPY rule-17.SMF_column_geometry_v1/ ./rule-17.SMF_column_geometry_v1/
+COPY rule-18.Vertical_geometric_irregularity_v1/ ./rule-18.Vertical_geometric_irregularity_v1/
+COPY rule-19.Re-entrant_corner_v1/ ./rule-19.Re-entrant_corner_v1/
+COPY rule-20.Footing_thickness_v1/ ./rule-20.Footing_thickness_v1/
 COPY bnbcweb/ ./bnbcweb/
 
 # Uploads live here; mount a volume to persist them.

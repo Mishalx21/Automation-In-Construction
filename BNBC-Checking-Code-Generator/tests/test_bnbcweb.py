@@ -61,14 +61,16 @@ def _wait_done(client: TestClient, job_id: str, timeout: float = 120.0) -> dict:
                 f"{job and job['state']}, error: {job and job['error']}")
 
 
-def test_checker_catalogue_lists_all_ten(client):
+def test_checker_catalogue_lists_every_accepted_rule(client):
     res = client.get("/api/checkers")
     assert res.status_code == 200
     checkers = res.json()
     assert {c["rule_id"] for c in checkers} == \
-           {f"A{i}" for i in range(1, 6)} | {f"S{i}" for i in range(1, 6)}
+           {f"A{i}" for i in range(1, 11)} | {f"S{i}" for i in range(1, 11)}
     assert all(c["domain"] in ("architectural", "structural") for c in checkers)
     assert all(c["title"] and c["checker_path"] for c in checkers)
+    # Every rule must say which clause it encodes; the report cites it.
+    assert all(c["reference"] for c in checkers)
 
 
 def test_upload_rejects_non_ifc(client):
@@ -105,7 +107,7 @@ def test_full_flow_single_checker(client, tmp_path):
     assert report["results"][0]["rule_id"] == "A1"
 
 
-def test_all_ten_checkers_run_on_bare_model(client, tmp_path):
+def test_every_checker_runs_on_bare_model(client, tmp_path):
     """Every accepted checker must load and answer SOMETHING sane on a bare
     model — no crashes, no invented violations."""
     job_id = _upload(client, _write_bare_ifc(tmp_path / "bare.ifc"))
