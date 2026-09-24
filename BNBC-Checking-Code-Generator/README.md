@@ -100,6 +100,29 @@ The rulebook is checked in, so a fresh clone runs as-is.
 Tests: `pytest tests/ -q` (`-m "not slow"` skips the subprocess-heavy gate
 tests; CI runs the fast tier).
 
+## Grading a checker against fixtures
+
+`agentic_pipeline_v4/run_pipeline.py` does not write checkers — it *judges*
+one that already exists, against injected fixtures, and sharpens the diagnosis
+when a case fails:
+
+```bash
+python agentic_pipeline_v4/run_pipeline.py S6 rule-16.Bearing_wall_thickness_v1/check_s6_bearing_wall_thickness.py
+```
+
+It needs the fixture corpus, which is ~6 GB and therefore generated locally
+rather than checked in:
+
+```bash
+python scripts/build_fixture_corpus.py --corpus both
+```
+
+That builds a Negative baseline, a Positive fixture per applicable rule, and a
+combined Positive_Multi for every model, using the rule library in
+`../ifc-fault-injector` — and self-verifies each fixture before listing it.
+See [docs/FIXTURE-CORPUS.md](docs/FIXTURE-CORPUS.md) for the layout, the
+metadata contract and what "self-verified" means here.
+
 ## LLM providers
 
 `bnbc/llm/` is a provider-agnostic layer: nodes speak only `Message` /

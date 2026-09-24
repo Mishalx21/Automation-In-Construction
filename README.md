@@ -18,7 +18,26 @@ Upload an IFC file, select BNBC checks, and receive a structured report with one
 - **unknown** — the IFC lacks the data required for a reliable result.
 - **not applicable** — the rule does not apply to the model.
 
-The accepted checkers cover architectural and structural rules, including door width, stair geometry, fire ratings, accessible door clearance, dead-end corridors, beam proportions, column dimensions, slab thickness, floating columns, and soft storeys.
+Twenty checkers are accepted, ten architectural and ten structural.
+
+The first ten encode widely used international provisions (IBC, ANSI A117.1, ACI 318, EC2/EC8, ASCE 7) as analogues of the corresponding BNBC requirements: egress door width, stair riser and tread, fire ratings, accessible door clearance, dead-end corridors, beam span-to-depth, column dimension and slenderness, slab thickness, floating columns and soft storeys.
+
+The remaining ten are written against **BNBC 2020 itself** and cite the clause they check by number:
+
+| Rule | Checks | BNBC 2020 clause |
+|---|---|---|
+| A6 | Ceiling height of rooms and egress corridors | Part 3 Sec 1.14.2.1(a); Part 4 Sec 3.7.3 |
+| A7 | Minimum room floor area and least width | Part 3 Sec 1.14.2.2 |
+| A8 | Opening area for light and ventilation | Part 3 Sec 1.19.6, Table 3.1.12 |
+| A9 | Guard and handrail height | Part 3 Sec 1.14.14; Sec 1.14.5.6 |
+| A10 | Minimum stairway width | Part 3 Sec 1.14.5.1; Part 4 Table 4.3.6 |
+| S6 | Load-bearing wall minimum thickness | Part 6 Sec 7.4.9.1; Sec 6.6.5.3.1 |
+| S7 | Special moment frame column section | Part 6 Sec 8.3.5.1(a), (b) |
+| S8 | Vertical geometric irregularity (setback) | Part 6 Table 6.1.4 Type III |
+| S9 | Re-entrant corner plan irregularity | Part 6 Table 6.1.5 Type II |
+| S10 | Minimum footing thickness | Part 6 Sec 6.8.7; Sec 3.8.3 |
+
+Each checker's docstring states the conventions it adopts and where IFC cannot answer the clause exactly — for example, no IFC model carries a BNBC occupancy classification, so A6 and A10 apply the general minimum rather than the higher figure a hospital or a school would owe. Those checkers report a permissive result and say so, rather than inventing a classification.
 
 ### Test-case generation
 

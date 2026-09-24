@@ -1,415 +1,1309 @@
 {
-  "generated_at": "2026-08-18 01:53:50",
-  "models": [
+ "generated_at": "2026-09-20T22:07:58",
+ "generated_by": "scripts/build_fixture_corpus.py",
+ "source_root": "/Users/azmainapro/Documents/Real World BIMs/models",
+ "note": "Every positive fixture was re-opened from disk, swept for dangling references, and had its clause independently re-derived by ifcfault.verify.checks before being listed here. Fixture metadata is derived from the mutation record only, never from a checker's output.",
+ "models": [
+  {
+   "folder": "dental_clinic",
+   "source_file": "arc.ifc",
+   "positive": [
     {
-      "folder": "dental_clinic",
-      "source_file": "arc.ifc",
-      "positive": [
-        {
-          "rule": "A1",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_A1_egress_door_width.ifc",
-          "meta": {
-            "rule": "A1",
-            "description": "Egress door clear width reduced below IBC 1010.1.1 (815mm)",
-            "element_type": "IfcDoor",
-            "element_id": 882,
-            "global_id": "1byTDaqS91rBnWJlv$nnIo",
-            "name": "M_Single-Flush:0915 x 2134mm:0915 x 2134mm:223704",
-            "attribute": "OverallWidth",
-            "before_mm": 915.0,
-            "after_mm": 750.0
-          }
-        },
-        {
-          "rule": "A2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_A2_stair_riser_height.ifc",
-          "meta": {
-            "rule": "A2",
-            "description": "Stair riser height increased beyond IBC 1011.5.2 (178mm max)",
-            "element_type": "IfcStairFlight",
-            "element_id": 40319,
-            "global_id": "09Eh99qNP7cx7E8HsVBkZD",
-            "name": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:221039:1",
-            "pset": "Pset_StairFlightCommon",
-            "attribute": "RiserHeight",
-            "before_mm": 175.77,
-            "after_mm": 190.0
-          }
-        },
-        {
-          "rule": "A3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_A3_fire_rating.ifc",
-          "meta": {
-            "rule": "A3",
-            "description": "Fire rating downgraded below IBC Table 716.1(2) requirement",
-            "element_type": "IfcWallStandardCase",
-            "element_id": 1094,
-            "global_id": "3qpE7fVkr8dRZ2wfCc6tU4",
-            "name": "Basic Wall:Interior - Toilet Partition (25mm):411446",
-            "pset": "Pset_WallCommon",
-            "attribute": "FireRating",
-            "before": "2 HR",
-            "after": "1 HR"
-          }
-        },
-        {
-          "rule": "A4",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_A4_door_maneuvering_clearance.ifc",
-          "meta": {
-            "rule": "A4",
-            "description": "Door swing/opening relocated within ANSI A117.1 required maneuvering clearance of adjacent wall corner",
-            "element_type": "IfcDoor",
-            "element_id": 1896,
-            "global_id": "0mxk1RW8H5mvX1dNnpRqtX",
-            "name": "M_Single-Flush:0915 x 2134mm Exterior:0915 x 2134mm Exterior:252441",
-            "host_wall_global_id": "3LbNSBzHHBSuzhUUvuwB8Q",
-            "attribute": "OpeningElement.ObjectPlacement (offset along host wall)",
-            "before_clearance_mm": 537.0,
-            "after_clearance_mm": 150.0
-          }
-        },
-        {
-          "rule": "A5",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_A5_dead_end_corridor.ifc",
-          "meta": {
-            "rule": "A5",
-            "description": "Corridor connectivity graph edge severed, creating a dead-end exceeding IBC 1020.4 travel-distance allowance",
-            "element_type": "IfcDoor",
-            "element_id": 1363,
-            "global_id": "1byTDaqS91rBnWJlv$nn1R",
-            "name": "M_Single-Flush:0915 x 2134mm:0915 x 2134mm:224561",
-            "severed_space_global_id": "0ztdC3L1HAzhbhMHypqchk",
-            "severed_space_name": "1AC4 / CORRIDOR",
-            "remaining_space_global_id": "0ztdC3L1HAzhbhMHypqchZ",
-            "isolated_branch_space_count": 2,
-            "action": "Removed IfcRelSpaceBoundary linking this door to the branch space"
-          }
-        }
-      ],
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\dental_clinic\\arc.ifc",
-      "skipped_rules": []
+     "rule": "A1",
+     "path": "dental_clinic_A1_ifcdoor_overallwidth.ifc",
+     "meta": {
+      "rule": "A1",
+      "description": "Egress door clear width reduced from 915.0mm to 750.0mm, below the 815mm minimum",
+      "element_type": "IfcDoor",
+      "attribute": "IfcDoor.OverallWidth",
+      "before": 915.0000000000005,
+      "after": 750.0,
+      "clause": "IBC 1010.1.1  - egress door clear width shall be not less than 815 mm",
+      "mutated_global_id": "0mxk1RW8H5mvX1dNnpRqso",
+      "global_id": "0mxk1RW8H5mvX1dNnpRqso"
+     },
+     "self_verified": true
     },
     {
-      "folder": "schependomlaan",
-      "source_file": "arc_design.ifc",
-      "positive": [
-        {
-          "rule": "A1",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_A1_egress_door_width.ifc",
-          "meta": {
-            "rule": "A1",
-            "description": "Egress door clear width reduced below IBC 1010.1.1 (815mm)",
-            "element_type": "IfcDoor",
-            "element_id": 213049,
-            "global_id": "1DMKLKe45CzO6gemze$ha$",
-            "name": "D3L",
-            "attribute": "OverallWidth",
-            "before_mm": 930.0,
-            "after_mm": 750.0
-          }
-        },
-        {
-          "rule": "A2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_A2_stair_riser_height.ifc",
-          "meta": {
-            "rule": "A2",
-            "description": "Stair riser height explicitly documented beyond IBC 1011.5.2 (178mm max) (no riser/tread data existed anywhere in baseline model)",
-            "element_type": "IfcStair",
-            "element_id": 27351,
-            "global_id": "1VvzV9bwH6dB75qr1$srOX",
-            "name": "trappen",
-            "pset": "Pset_StairFlightCommon",
-            "attribute": "RiserHeight",
-            "before_mm": "(no property present)",
-            "after_mm": 190.0
-          }
-        },
-        {
-          "rule": "A3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_A3_fire_rating.ifc",
-          "meta": {
-            "rule": "A3",
-            "description": "Fire rating blanked on hosted door (IBC Table 716.1(2))",
-            "element_type": "IfcDoor",
-            "element_id": 73073,
-            "global_id": "1xjGgwmzP23uthLfXurB67",
-            "name": "merk A",
-            "pset": "Pset_DoorCommon",
-            "attribute": "FireRating",
-            "before": "Zelfsluitend",
-            "after": "(blank)"
-          }
-        },
-        {
-          "rule": "A4",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_A4_door_maneuvering_clearance.ifc",
-          "meta": {
-            "rule": "A4",
-            "description": "Door swing/opening relocated within ANSI A117.1 required maneuvering clearance of adjacent wall corner",
-            "element_type": "IfcDoor",
-            "element_id": 264611,
-            "global_id": "012S6Z0qLCRuoYXSZ2tygw",
-            "name": "merk A3",
-            "host_wall_global_id": "1j6lJOCJrBfhwVjXcDrBMU",
-            "attribute": "OpeningElement.ObjectPlacement (offset along host wall)",
-            "before_clearance_mm": 508.0,
-            "after_clearance_mm": 150.0
-          }
-        },
-        {
-          "rule": "A5",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_A5_dead_end_corridor.ifc",
-          "meta": {
-            "rule": "A5",
-            "description": "Corridor connectivity graph edge severed, creating a dead-end exceeding IBC 1020.4 travel-distance allowance",
-            "element_type": "IfcDoor",
-            "element_id": 302771,
-            "global_id": "0NWv8IgP5Ch9a8sHZoyivA",
-            "name": "D1R",
-            "severed_space_global_id": "2rpp3iZFTCVwGEE7x9qiQ8",
-            "severed_space_name": "2.04 / keuken",
-            "remaining_space_global_id": "1GBaX8Qs19WPwcdIjq6ONn",
-            "isolated_branch_space_count": 2,
-            "action": "Removed IfcRelSpaceBoundary linking this door to the branch space"
-          }
-        }
-      ],
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\schependomlaan\\arc_design.ifc",
-      "skipped_rules": []
+     "rule": "A2",
+     "path": "dental_clinic_A2_pset_stairflightcommon_riserheight.ifc",
+     "meta": {
+      "rule": "A2",
+      "description": "Stair riser height increased from 175.8mm to 190.0mm, above the 178mm maximum",
+      "element_type": "IfcStairFlight",
+      "attribute": "Pset_StairFlightCommon.RiserHeight",
+      "before": 175.7692307694019,
+      "after": 190.0,
+      "clause": "IBC 1011.5.2  - stair riser height shall be not more than 178 mm",
+      "mutated_global_id": "09Eh99qNP7cx7E8HsVBkZD",
+      "global_id": "09Eh99qNP7cx7E8HsVBkZD",
+      "pset": "Pset_StairFlightCommon"
+     },
+     "self_verified": true
     },
     {
-      "folder": "sixty5",
-      "source_file": "arc.ifc",
-      "positive": [
-        {
-          "rule": "A1",
-          "path": "D:\\capstone_Test_cases\\Archi_Test_cases\\Positive\\sixty5\\sixty5_A1_egress_door_width.ifc",
-          "meta": {
-            "rule": "A1",
-            "description": "Egress door clear width reduced below IBC 1010.1.1 (815mm)",
-            "element_type": "IfcDoor",
-            "element_id": 60077,
-            "global_id": "2yxF29mmlq8YkOsRe88$Q6",
-            "name": "merk-bi-st-02sp",
-            "attribute": "OverallWidth",
-            "before_mm": 975.0,
-            "after_mm": 750.0
-          }
-        },
-        {
-          "rule": "A2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_A2_stair_riser_height.ifc",
-          "meta": {
-            "rule": "A2",
-            "description": "Stair riser height explicitly documented beyond IBC 1011.5.2 (178mm max) (no riser/tread data existed anywhere in baseline model)",
-            "element_type": "IfcStair",
-            "element_id": 29059,
-            "global_id": "0M0A2UdzTBrvkK4AgnOBXI",
-            "name": "24-DD-stalen trap beganegrond",
-            "pset": "Pset_StairFlightCommon",
-            "attribute": "RiserHeight",
-            "before_mm": "(no property present)",
-            "after_mm": 190.0
-          }
-        },
-        {
-          "rule": "A3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_A3_fire_rating.ifc",
-          "meta": {
-            "rule": "A3",
-            "description": "Fire rating downgraded below IBC Table 716.1(2) requirement",
-            "element_type": "IfcWall",
-            "element_id": 57081,
-            "global_id": "354CAktEc_iRCbcW$KkdQ5",
-            "name": "22_Wall_DD-kalkzandsteen",
-            "pset": "Pset_WallCommon",
-            "attribute": "FireRating",
-            "before": "60",
-            "after": "(blank)"
-          }
-        },
-        {
-          "rule": "A4",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_A4_door_maneuvering_clearance.ifc",
-          "meta": {
-            "rule": "A4",
-            "description": "Door swing/opening relocated within ANSI A117.1 required maneuvering clearance of adjacent wall corner",
-            "element_type": "IfcDoor",
-            "element_id": 156297,
-            "global_id": "26b7s0vJ91YX2hTM$i7nOE",
-            "name": "merk-bI- DALOC S23",
-            "host_wall_global_id": "1n99aZFBkpZnkID2WFafuj",
-            "attribute": "OpeningElement.ObjectPlacement (offset along host wall)",
-            "before_clearance_mm": 502.6,
-            "after_clearance_mm": 150.0
-          }
-        }
-      ],
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\sixty5\\arc.ifc",
-      "skipped_rules": [
-        "A5"
-      ]
+     "rule": "A3",
+     "path": "dental_clinic_A3_pset_wallcommon_firerating.ifc",
+     "meta": {
+      "rule": "A3",
+      "description": "Fire rating on this IfcWallStandardCase downgraded from '2 HR' to '1 HR'",
+      "element_type": "IfcWallStandardCase",
+      "attribute": "Pset_WallCommon.FireRating",
+      "before": "2 HR",
+      "after": "1 HR",
+      "clause": "IBC Chapter 7 / Table 716.1(2)  - opening protectives and fire-barrier ratings",
+      "mutated_global_id": "0ClPCUC7jCQRnj1dhupHgw",
+      "global_id": "0ClPCUC7jCQRnj1dhupHgw",
+      "pset": "Pset_WallCommon"
+     },
+     "self_verified": true
     },
     {
-      "folder": "wbdg_office",
-      "source_file": "arc.ifc",
-      "positive": [
-        {
-          "rule": "A1",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_A1_egress_door_width.ifc",
-          "meta": {
-            "rule": "A1",
-            "description": "Egress door clear width reduced below IBC 1010.1.1 (815mm)",
-            "element_type": "IfcDoor",
-            "element_id": 457,
-            "global_id": "2N3oFtM8X6lO2dN1$77x1u",
-            "name": "M_Single-Flush:0915 x 2134mm:0915 x 2134mm:184606",
-            "attribute": "OverallWidth",
-            "before_mm": 915.0,
-            "after_mm": 750.0
-          }
-        },
-        {
-          "rule": "A2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_A2_stair_riser_height.ifc",
-          "meta": {
-            "rule": "A2",
-            "description": "Stair riser height increased beyond IBC 1011.5.2 (178mm max)",
-            "element_type": "IfcStairFlight",
-            "element_id": 12571,
-            "global_id": "2HN9GRW9T98ur1qfbY8lFw",
-            "name": "Stair:Concrete Pan - 180mm Max Riser 280mm Tread:235743:2",
-            "pset": "Pset_StairFlightCommon",
-            "attribute": "RiserHeight",
-            "before_mm": 177.8,
-            "after_mm": 190.0
-          }
-        },
-        {
-          "rule": "A3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_A3_fire_rating.ifc",
-          "meta": {
-            "rule": "A3",
-            "description": "Fire rating downgraded below IBC Table 716.1(2) requirement",
-            "element_type": "IfcWallStandardCase",
-            "element_id": 364,
-            "global_id": "1giqnsgvr6uA16isIlsn_B",
-            "name": "Basic Wall:Interior - Toilet Partition (25mm):225456",
-            "pset": "Pset_WallCommon",
-            "attribute": "FireRating",
-            "before": "2 HR",
-            "after": "1 HR"
-          }
-        },
-        {
-          "rule": "A4",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_A4_door_maneuvering_clearance.ifc",
-          "meta": {
-            "rule": "A4",
-            "description": "Door swing/opening relocated within ANSI A117.1 required maneuvering clearance of adjacent wall corner",
-            "element_type": "IfcDoor",
-            "element_id": 503,
-            "global_id": "2N3oFtM8X6lO2dN1$77xF_",
-            "name": "M_Single-Flush:0915 x 2134mm:0915 x 2134mm:184984",
-            "host_wall_global_id": "1Uma8nuu1Frxm4jZQJyUi_",
-            "attribute": "OpeningElement.ObjectPlacement (offset along host wall)",
-            "before_clearance_mm": 509.0,
-            "after_clearance_mm": 150.0
-          }
-        },
-        {
-          "rule": "A5",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_A5_dead_end_corridor.ifc",
-          "meta": {
-            "rule": "A5",
-            "description": "Corridor connectivity graph edge severed, creating a dead-end exceeding IBC 1020.4 travel-distance allowance",
-            "element_type": "IfcDoor",
-            "element_id": 473,
-            "global_id": "2N3oFtM8X6lO2dN1$77xaz",
-            "name": "M_Single-Flush:0915 x 2134mm:0915 x 2134mm:186459",
-            "severed_space_global_id": "04Sq57eS5FffNezn2ilgts",
-            "severed_space_name": "114 / OPEN OFFICE",
-            "remaining_space_global_id": "2p9k3Vk8DEmPDRJ6691rGh",
-            "isolated_branch_space_count": 3,
-            "action": "Removed IfcRelSpaceBoundary linking this door to the branch space"
-          }
-        }
-      ],
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\wbdg_office\\arc.ifc",
-      "skipped_rules": []
+     "rule": "A4",
+     "path": "dental_clinic_A4_ifcopeningelement_objectplacement__offse.ifc",
+     "meta": {
+      "rule": "A4",
+      "description": "Door opening moved to 150mm from the nearest wall corner (was 537mm), inside the 300mm manoeuvring clearance the clause requires",
+      "element_type": "IfcDoor",
+      "attribute": "IfcOpeningElement.ObjectPlacement (offset along host wall axis)",
+      "before": 536.9999999999559,
+      "after": 150.0,
+      "clause": "ANSI A117.1 404.2.4 / ADA  - latch-side manoeuvring clearance at a door (min. 300 mm beyond the latch side for a front approach)",
+      "mutated_global_id": "0mxk1RW8H5mvX1dNnpRqtX",
+      "global_id": "0mxk1RW8H5mvX1dNnpRqtX",
+      "host_wall_global_id": "3LbNSBzHHBSuzhUUvuwB8Q"
+     },
+     "self_verified": true
     },
     {
-      "folder": "west_riverside_hospital",
-      "source_file": "arc.ifc",
-      "positive": [
-        {
-          "rule": "A1",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_A1_egress_door_width.ifc",
-          "meta": {
-            "rule": "A1",
-            "description": "Egress door clear width reduced below IBC 1010.1.1 (815mm)",
-            "element_type": "IfcDoor",
-            "element_id": 177163,
-            "global_id": "3JlX9$$_PCKBNpDob64$5M",
-            "name": "M_Single-Flush:0915 x 2032mm_Wood:439207",
-            "attribute": "OverallWidth",
-            "before_mm": 915.0,
-            "after_mm": 750.0
-          }
-        },
-        {
-          "rule": "A2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_A2_stair_riser_height.ifc",
-          "meta": {
-            "rule": "A2",
-            "description": "Stair riser height increased beyond IBC 1011.5.2 (178mm max)",
-            "element_type": "IfcStair",
-            "element_id": 103003,
-            "global_id": "1wrNt7GW19tOpUaBTGwvsc",
-            "name": "Stair:180mm max riser 280mm going:291848",
-            "pset": "Pset_StairCommon",
-            "attribute": "RiserHeight",
-            "before_mm": 178.57,
-            "after_mm": 190.0
-          }
-        },
-        {
-          "rule": "A3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_A3_fire_rating.ifc",
-          "meta": {
-            "rule": "A3",
-            "description": "Fire rating explicitly documented as missing on hosted door (no fire-rating data exists anywhere in baseline model)",
-            "element_type": "IfcDoor",
-            "element_id": 177163,
-            "global_id": "3JlX9$$_PCKBNpDob64$5M",
-            "name": "M_Single-Flush:0915 x 2032mm_Wood:439207",
-            "pset": "Pset_DoorCommon",
-            "attribute": "FireRating",
-            "before": "(no property present)",
-            "after": "(blank, explicitly set)"
-          }
-        },
-        {
-          "rule": "A4",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_A4_door_maneuvering_clearance.ifc",
-          "meta": {
-            "rule": "A4",
-            "description": "Door swing/opening relocated within ANSI A117.1 required maneuvering clearance of adjacent wall corner",
-            "element_type": "IfcDoor",
-            "element_id": 1169213,
-            "global_id": "0IbIIu6Lz82Qlw1VJakDVL",
-            "name": "M_Single-Flush:0813 x 2134mm:782687",
-            "host_wall_global_id": "2QRZsMKYn35ff5LwqHZ$5z",
-            "attribute": "OpeningElement.ObjectPlacement (offset along host wall)",
-            "before_clearance_mm": 520.0,
-            "after_clearance_mm": 150.0
-          }
-        }
-      ],
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\west_riverside_hospital\\arc.ifc",
-      "skipped_rules": [
-        "A5"
-      ]
+     "rule": "A5",
+     "path": "dental_clinic_A5_ifcrelspaceboundary__one_severed.ifc",
+     "meta": {
+      "rule": "A5",
+      "description": "Corridor connectivity severed at this door, leaving 2 space(s) behind a dead end via '1DC5'  - exceeds the IBC 1020.4 dead-end allowance",
+      "element_type": "IfcDoor",
+      "attribute": "IfcRelSpaceBoundary (one severed)",
+      "before": "connected to spaces 0ztdC3L1HAzhbhMHypqc8e and 0ztdC3L1HAzhbhMHypqc1c",
+      "after": "connected only to space 0ztdC3L1HAzhbhMHypqc1c",
+      "clause": "IBC 1020.4  - dead-end corridors shall not exceed 6100 mm (with sprinkler allowance); 1006.2 requires a second egress path",
+      "mutated_global_id": "0ztdC3L1HAzhbhMHypqcDa",
+      "global_id": "0ztdC3L1HAzhbhMHypqcDa",
+      "severed_space_global_id": "0ztdC3L1HAzhbhMHypqc8e",
+      "remaining_space_global_id": "0ztdC3L1HAzhbhMHypqc1c",
+      "action": "one IfcRelSpaceBoundary deleted (connectivity, not geometry)"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A6",
+     "path": "dental_clinic_A6_ifcextrudedareasolid_depth__space_height.ifc",
+     "meta": {
+      "rule": "A6",
+      "description": "Ceiling height of habitable space 'CENTRAL WAITING' lowered from 4570mm to 2500mm, below the 2750mm minimum",
+      "element_type": "IfcSpace",
+      "attribute": "IfcExtrudedAreaSolid.Depth (space height)",
+      "before": 4570.00000000445,
+      "after": 2500.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.2.1(a)  - a habitable room shall have a ceiling height of at least 2.75 m; Part 4 Sec 3.7.3  - an egress corridor at least 2.4 m",
+      "mutated_global_id": "0ztdC3L1HAzhbhMHypqbH5",
+      "global_id": "0ztdC3L1HAzhbhMHypqbH5"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A7",
+     "path": "dental_clinic_A7_footprint_least_width.ifc",
+     "meta": {
+      "rule": "A7",
+      "description": "Room 'CENTRAL WAITING' re-proportioned from 9203x20413mm to 2500x54718mm: the least width is now below the 2900mm minimum while the floor area (136.8 m2) is preserved",
+      "element_type": "IfcSpace",
+      "attribute": "footprint least width",
+      "before": 9202.599999999666,
+      "after": 2500.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.2.2  - a habitable room shall be at least 9.5 m2 with a least width of 2.9 m; another room in the dwelling at least 5 m2 with a least width of 2 m",
+      "mutated_global_id": "0ztdC3L1HAzhbhMHypqbH5",
+      "global_id": "0ztdC3L1HAzhbhMHypqbH5"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A8",
+     "path": "dental_clinic_A8_ifcwindow_overallwidth___overallheight.ifc",
+     "meta": {
+      "rule": "A8",
+      "description": "Window shrunk from 1000x1735mm to 250x434mm, taking the opening area of room 'STAFF LOUNGE' from 16.9% to 1.1% of its 10.3 m2 floor area, below the 15% Table 3.1.12 minimum",
+      "element_type": "IfcWindow",
+      "attribute": "IfcWindow.OverallWidth / OverallHeight",
+      "before": 1.7349999999999952,
+      "after": 0.1084374999999997,
+      "clause": "BNBC 2020 Part 3 Sec 1.19.6, Table 3.1.12  - the aggregate area of openings in the exterior wall, excluding doors, shall be at least 15% of the net floor area of a habitable room, 18% of a kitchen and 10% of a non-habitable space",
+      "mutated_global_id": "2g$QZpOGbBUxSNx_ZgxJsp",
+      "global_id": "0ztdC3L1HAzhbhMHypqcVr",
+      "space_name": "STAFF LOUNGE",
+      "required_percent": 15.0,
+      "space_floor_area_m2": 10.28343020067711
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A9",
+     "path": "dental_clinic_A9_pset_railingcommon_height.ifc",
+     "meta": {
+      "rule": "A9",
+      "description": "Guard height set from 1100mm to 850mm, below the 1000mm minimum",
+      "element_type": "IfcRailing",
+      "attribute": "Pset_RailingCommon.Height",
+      "before": 1100.0,
+      "after": 850.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.14  - parapets and guardrails enclosing an accessible flat roof shall be at least 1 m high; Sec 1.14.5.6  - a stair handrail shall be at least 0.9 m high",
+      "mutated_global_id": "0bpfxAz3XBrAx$RjFuHwqx",
+      "global_id": "0bpfxAz3XBrAx$RjFuHwqx",
+      "pset": "Pset_RailingCommon"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A10",
+     "path": "dental_clinic_A10_stair_flight_width.ifc",
+     "meta": {
+      "rule": "A10",
+      "description": "Stair flight narrowed from 1100mm to 900mm across 27 tread solid(s), below the 1120mm egress minimum (this flight was already under the 1120mm limit before injection)",
+      "element_type": "IfcStairFlight",
+      "attribute": "stair flight width",
+      "before": 1100.0,
+      "after": 900.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.5.1 with Part 4 Table 4.3.6  - the clear width of an egress stairway shall be at least 1120 mm",
+      "mutated_global_id": "1Qj_TeRaL3sQOJS_Vp7NV9",
+      "global_id": "1Qj_TeRaL3sQOJS_Vp7NV9"
+     },
+     "self_verified": true
     }
-  ]
+   ],
+   "negative": "arc.ifc",
+   "skipped_rules": [],
+   "rejected": [],
+   "multi_error": {
+    "path": "dental_clinic_MULTI_A1-A2-A3-A4-A5-A6-A7-A8-A9-A10.ifc",
+    "rules": [
+     "A1",
+     "A2",
+     "A3",
+     "A4",
+     "A5",
+     "A6",
+     "A7",
+     "A8",
+     "A9",
+     "A10"
+    ],
+    "applied": [
+     {
+      "rule": "A1",
+      "meta": {
+       "rule": "A1",
+       "description": "Egress door clear width reduced from 915.0mm to 750.0mm, below the 815mm minimum",
+       "element_type": "IfcDoor",
+       "attribute": "IfcDoor.OverallWidth",
+       "before": 915.0000000000005,
+       "after": 750.0,
+       "clause": "IBC 1010.1.1  - egress door clear width shall be not less than 815 mm",
+       "mutated_global_id": "0mxk1RW8H5mvX1dNnpRqso",
+       "global_id": "0mxk1RW8H5mvX1dNnpRqso"
+      }
+     },
+     {
+      "rule": "A2",
+      "meta": {
+       "rule": "A2",
+       "description": "Stair riser height increased from 175.8mm to 190.0mm, above the 178mm maximum",
+       "element_type": "IfcStairFlight",
+       "attribute": "Pset_StairFlightCommon.RiserHeight",
+       "before": 175.7692307694019,
+       "after": 190.0,
+       "clause": "IBC 1011.5.2  - stair riser height shall be not more than 178 mm",
+       "mutated_global_id": "09Eh99qNP7cx7E8HsVBkZD",
+       "global_id": "09Eh99qNP7cx7E8HsVBkZD",
+       "pset": "Pset_StairFlightCommon"
+      }
+     },
+     {
+      "rule": "A3",
+      "meta": {
+       "rule": "A3",
+       "description": "Fire rating on this IfcWallStandardCase downgraded from '2 HR' to '1 HR'",
+       "element_type": "IfcWallStandardCase",
+       "attribute": "Pset_WallCommon.FireRating",
+       "before": "2 HR",
+       "after": "1 HR",
+       "clause": "IBC Chapter 7 / Table 716.1(2)  - opening protectives and fire-barrier ratings",
+       "mutated_global_id": "0ClPCUC7jCQRnj1dhupHgw",
+       "global_id": "0ClPCUC7jCQRnj1dhupHgw",
+       "pset": "Pset_WallCommon"
+      }
+     },
+     {
+      "rule": "A4",
+      "meta": {
+       "rule": "A4",
+       "description": "Door opening moved to 150mm from the nearest wall corner (was 537mm), inside the 300mm manoeuvring clearance the clause requires",
+       "element_type": "IfcDoor",
+       "attribute": "IfcOpeningElement.ObjectPlacement (offset along host wall axis)",
+       "before": 536.9999999999559,
+       "after": 150.0,
+       "clause": "ANSI A117.1 404.2.4 / ADA  - latch-side manoeuvring clearance at a door (min. 300 mm beyond the latch side for a front approach)",
+       "mutated_global_id": "0mxk1RW8H5mvX1dNnpRqtX",
+       "global_id": "0mxk1RW8H5mvX1dNnpRqtX",
+       "host_wall_global_id": "3LbNSBzHHBSuzhUUvuwB8Q"
+      }
+     },
+     {
+      "rule": "A5",
+      "meta": {
+       "rule": "A5",
+       "description": "Corridor connectivity severed at this door, leaving 2 space(s) behind a dead end via '1DC5'  - exceeds the IBC 1020.4 dead-end allowance",
+       "element_type": "IfcDoor",
+       "attribute": "IfcRelSpaceBoundary (one severed)",
+       "before": "connected to spaces 0ztdC3L1HAzhbhMHypqc8e and 0ztdC3L1HAzhbhMHypqc1c",
+       "after": "connected only to space 0ztdC3L1HAzhbhMHypqc1c",
+       "clause": "IBC 1020.4  - dead-end corridors shall not exceed 6100 mm (with sprinkler allowance); 1006.2 requires a second egress path",
+       "mutated_global_id": "0ztdC3L1HAzhbhMHypqcDa",
+       "global_id": "0ztdC3L1HAzhbhMHypqcDa",
+       "severed_space_global_id": "0ztdC3L1HAzhbhMHypqc8e",
+       "remaining_space_global_id": "0ztdC3L1HAzhbhMHypqc1c",
+       "action": "one IfcRelSpaceBoundary deleted (connectivity, not geometry)"
+      }
+     },
+     {
+      "rule": "A6",
+      "meta": {
+       "rule": "A6",
+       "description": "Ceiling height of habitable space 'CENTRAL WAITING' lowered from 4570mm to 2500mm, below the 2750mm minimum",
+       "element_type": "IfcSpace",
+       "attribute": "IfcExtrudedAreaSolid.Depth (space height)",
+       "before": 4570.00000000445,
+       "after": 2500.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.2.1(a)  - a habitable room shall have a ceiling height of at least 2.75 m; Part 4 Sec 3.7.3  - an egress corridor at least 2.4 m",
+       "mutated_global_id": "0ztdC3L1HAzhbhMHypqbH5",
+       "global_id": "0ztdC3L1HAzhbhMHypqbH5"
+      }
+     },
+     {
+      "rule": "A7",
+      "meta": {
+       "rule": "A7",
+       "description": "Room 'CENTRAL WAITING' re-proportioned from 9203x20413mm to 2500x54718mm: the least width is now below the 2900mm minimum while the floor area (136.8 m2) is preserved",
+       "element_type": "IfcSpace",
+       "attribute": "footprint least width",
+       "before": 9202.599999999666,
+       "after": 2500.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.2.2  - a habitable room shall be at least 9.5 m2 with a least width of 2.9 m; another room in the dwelling at least 5 m2 with a least width of 2 m",
+       "mutated_global_id": "0ztdC3L1HAzhbhMHypqbH5",
+       "global_id": "0ztdC3L1HAzhbhMHypqbH5"
+      }
+     },
+     {
+      "rule": "A8",
+      "meta": {
+       "rule": "A8",
+       "description": "Window shrunk from 1000x1735mm to 250x434mm, taking the opening area of room 'STAFF LOUNGE' from 16.9% to 1.1% of its 10.3 m2 floor area, below the 15% Table 3.1.12 minimum",
+       "element_type": "IfcWindow",
+       "attribute": "IfcWindow.OverallWidth / OverallHeight",
+       "before": 1.7349999999999952,
+       "after": 0.1084374999999997,
+       "clause": "BNBC 2020 Part 3 Sec 1.19.6, Table 3.1.12  - the aggregate area of openings in the exterior wall, excluding doors, shall be at least 15% of the net floor area of a habitable room, 18% of a kitchen and 10% of a non-habitable space",
+       "mutated_global_id": "2g$QZpOGbBUxSNx_ZgxJsp",
+       "global_id": "0ztdC3L1HAzhbhMHypqcVr",
+       "space_name": "STAFF LOUNGE",
+       "required_percent": 15.0,
+       "space_floor_area_m2": 10.28343020067711
+      }
+     },
+     {
+      "rule": "A9",
+      "meta": {
+       "rule": "A9",
+       "description": "Guard height set from 1100mm to 850mm, below the 1000mm minimum",
+       "element_type": "IfcRailing",
+       "attribute": "Pset_RailingCommon.Height",
+       "before": 1100.0,
+       "after": 850.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.14  - parapets and guardrails enclosing an accessible flat roof shall be at least 1 m high; Sec 1.14.5.6  - a stair handrail shall be at least 0.9 m high",
+       "mutated_global_id": "0bpfxAz3XBrAx$RjFuHwqx",
+       "global_id": "0bpfxAz3XBrAx$RjFuHwqx",
+       "pset": "Pset_RailingCommon"
+      }
+     },
+     {
+      "rule": "A10",
+      "meta": {
+       "rule": "A10",
+       "description": "Stair flight narrowed from 1100mm to 900mm across 27 tread solid(s), below the 1120mm egress minimum (this flight was already under the 1120mm limit before injection)",
+       "element_type": "IfcStairFlight",
+       "attribute": "stair flight width",
+       "before": 1100.0,
+       "after": 900.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.5.1 with Part 4 Table 4.3.6  - the clear width of an egress stairway shall be at least 1120 mm",
+       "mutated_global_id": "1Qj_TeRaL3sQOJS_Vp7NV9",
+       "global_id": "1Qj_TeRaL3sQOJS_Vp7NV9"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "folder": "schependomlaan",
+   "source_file": "arc_design.ifc",
+   "positive": [
+    {
+     "rule": "A1",
+     "path": "schependomlaan_A1_ifcdoor_overallwidth.ifc",
+     "meta": {
+      "rule": "A1",
+      "description": "Egress door clear width reduced from 930.0mm to 750.0mm, below the 815mm minimum",
+      "element_type": "IfcDoor",
+      "attribute": "IfcDoor.OverallWidth",
+      "before": 930.0,
+      "after": 750.0,
+      "clause": "IBC 1010.1.1  - egress door clear width shall be not less than 815 mm",
+      "mutated_global_id": "0$vj6GrA15b852nxv8ecYB",
+      "global_id": "0$vj6GrA15b852nxv8ecYB"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A2",
+     "path": "schependomlaan_A2_pset_stairflightcommon_riserheight.ifc",
+     "meta": {
+      "rule": "A2",
+      "description": "Stair riser height documented as 190.0mm, above the 178mm maximum  - no riser data existed in the baseline model",
+      "element_type": "IfcStair",
+      "attribute": "Pset_StairFlightCommon.RiserHeight",
+      "after": 190.0,
+      "clause": "IBC 1011.5.2  - stair riser height shall be not more than 178 mm",
+      "mutated_global_id": "07XglCvfr2NBer4fwBJv6e",
+      "global_id": "07XglCvfr2NBer4fwBJv6e",
+      "pset": "Pset_StairFlightCommon"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A3",
+     "path": "schependomlaan_A3_pset_doorcommon_firerating.ifc",
+     "meta": {
+      "rule": "A3",
+      "description": "Fire rating blanked on this hosted door (was '30 minuten brandwerend en zelfsluitend')",
+      "element_type": "IfcDoor",
+      "attribute": "Pset_DoorCommon.FireRating",
+      "before": "30 minuten brandwerend en zelfsluitend",
+      "after": "(blank)",
+      "clause": "IBC Chapter 7 / Table 716.1(2)  - opening protectives and fire-barrier ratings",
+      "mutated_global_id": "012S6Z0qLCRuoYXSZ2tygw",
+      "global_id": "012S6Z0qLCRuoYXSZ2tygw",
+      "pset": "Pset_DoorCommon"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A4",
+     "path": "schependomlaan_A4_ifcopeningelement_objectplacement__offse.ifc",
+     "meta": {
+      "rule": "A4",
+      "description": "Door opening moved to 150mm from the nearest wall corner (was 508mm), inside the 300mm manoeuvring clearance the clause requires",
+      "element_type": "IfcDoor",
+      "attribute": "IfcOpeningElement.ObjectPlacement (offset along host wall axis)",
+      "before": 508.0,
+      "after": 150.0,
+      "clause": "ANSI A117.1 404.2.4 / ADA  - latch-side manoeuvring clearance at a door (min. 300 mm beyond the latch side for a front approach)",
+      "mutated_global_id": "012S6Z0qLCRuoYXSZ2tygw",
+      "global_id": "012S6Z0qLCRuoYXSZ2tygw",
+      "host_wall_global_id": "1j6lJOCJrBfhwVjXcDrBMU"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A5",
+     "path": "schependomlaan_A5_ifcrelspaceboundary__one_severed.ifc",
+     "meta": {
+      "rule": "A5",
+      "description": "Corridor connectivity severed at this door, leaving 2 space(s) behind a dead end via '2.04'  - exceeds the IBC 1020.4 dead-end allowance",
+      "element_type": "IfcDoor",
+      "attribute": "IfcRelSpaceBoundary (one severed)",
+      "before": "connected to spaces 2rpp3iZFTCVwGEE7x9qiQ8 and 1GBaX8Qs19WPwcdIjq6ONn",
+      "after": "connected only to space 1GBaX8Qs19WPwcdIjq6ONn",
+      "clause": "IBC 1020.4  - dead-end corridors shall not exceed 6100 mm (with sprinkler allowance); 1006.2 requires a second egress path",
+      "mutated_global_id": "0NWv8IgP5Ch9a8sHZoyivA",
+      "global_id": "0NWv8IgP5Ch9a8sHZoyivA",
+      "severed_space_global_id": "2rpp3iZFTCVwGEE7x9qiQ8",
+      "remaining_space_global_id": "1GBaX8Qs19WPwcdIjq6ONn",
+      "action": "one IfcRelSpaceBoundary deleted (connectivity, not geometry)"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A6",
+     "path": "schependomlaan_A6_basequantities_height.ifc",
+     "meta": {
+      "rule": "A6",
+      "description": "Ceiling height of corridor space 'entree' lowered from 2620mm to 2150mm, below the 2400mm minimum",
+      "element_type": "IfcSpace",
+      "attribute": "BaseQuantities.Height",
+      "before": 2620.0,
+      "after": 2150.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.2.1(a)  - a habitable room shall have a ceiling height of at least 2.75 m; Part 4 Sec 3.7.3  - an egress corridor at least 2.4 m",
+      "mutated_global_id": "00XVyzXGDDQPsHPeNwCNmZ",
+      "global_id": "00XVyzXGDDQPsHPeNwCNmZ"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A7",
+     "path": "schependomlaan_A7_footprint_least_width.ifc",
+     "meta": {
+      "rule": "A7",
+      "description": "Room 'berging' re-proportioned from 1336x2770mm to 1336x2769mm: the least width is now below the 2000mm minimum while the floor area (3.7 m2) is preserved (this room was already under the 2000mm limit before injection)",
+      "element_type": "IfcSpace",
+      "attribute": "footprint least width",
+      "before": 1336.0,
+      "after": 1336.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.2.2  - a habitable room shall be at least 9.5 m2 with a least width of 2.9 m; another room in the dwelling at least 5 m2 with a least width of 2 m",
+      "mutated_global_id": "3ZMk1e17XESP$vROePi38_",
+      "global_id": "3ZMk1e17XESP$vROePi38_"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A9",
+     "path": "schependomlaan_A9_pset_railingcommon_height.ifc",
+     "meta": {
+      "rule": "A9",
+      "description": "Guard height set from (no Height property) to 850mm, below the 1000mm minimum",
+      "element_type": "IfcRailing",
+      "attribute": "Pset_RailingCommon.Height",
+      "after": 850.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.14  - parapets and guardrails enclosing an accessible flat roof shall be at least 1 m high; Sec 1.14.5.6  - a stair handrail shall be at least 0.9 m high",
+      "mutated_global_id": "018TK7$EL5zAD5j0tKRbOl",
+      "global_id": "018TK7$EL5zAD5j0tKRbOl",
+      "pset": "Pset_RailingCommon"
+     },
+     "self_verified": true
+    }
+   ],
+   "negative": "arc_design.ifc",
+   "skipped_rules": [
+    "A8",
+    "A10"
+   ],
+   "rejected": [],
+   "multi_error": {
+    "path": "schependomlaan_MULTI_A1-A2-A3-A4-A5-A6-A7-A9.ifc",
+    "rules": [
+     "A1",
+     "A2",
+     "A3",
+     "A4",
+     "A5",
+     "A6",
+     "A7",
+     "A9"
+    ],
+    "applied": [
+     {
+      "rule": "A1",
+      "meta": {
+       "rule": "A1",
+       "description": "Egress door clear width reduced from 930.0mm to 750.0mm, below the 815mm minimum",
+       "element_type": "IfcDoor",
+       "attribute": "IfcDoor.OverallWidth",
+       "before": 930.0,
+       "after": 750.0,
+       "clause": "IBC 1010.1.1  - egress door clear width shall be not less than 815 mm",
+       "mutated_global_id": "0$vj6GrA15b852nxv8ecYB",
+       "global_id": "0$vj6GrA15b852nxv8ecYB"
+      }
+     },
+     {
+      "rule": "A2",
+      "meta": {
+       "rule": "A2",
+       "description": "Stair riser height documented as 190.0mm, above the 178mm maximum  - no riser data existed in the baseline model",
+       "element_type": "IfcStair",
+       "attribute": "Pset_StairFlightCommon.RiserHeight",
+       "after": 190.0,
+       "clause": "IBC 1011.5.2  - stair riser height shall be not more than 178 mm",
+       "mutated_global_id": "07XglCvfr2NBer4fwBJv6e",
+       "global_id": "07XglCvfr2NBer4fwBJv6e",
+       "pset": "Pset_StairFlightCommon"
+      }
+     },
+     {
+      "rule": "A3",
+      "meta": {
+       "rule": "A3",
+       "description": "Fire rating blanked on this hosted door (was '30 minuten brandwerend en zelfsluitend')",
+       "element_type": "IfcDoor",
+       "attribute": "Pset_DoorCommon.FireRating",
+       "before": "30 minuten brandwerend en zelfsluitend",
+       "after": "(blank)",
+       "clause": "IBC Chapter 7 / Table 716.1(2)  - opening protectives and fire-barrier ratings",
+       "mutated_global_id": "012S6Z0qLCRuoYXSZ2tygw",
+       "global_id": "012S6Z0qLCRuoYXSZ2tygw",
+       "pset": "Pset_DoorCommon"
+      }
+     },
+     {
+      "rule": "A4",
+      "meta": {
+       "rule": "A4",
+       "description": "Door opening moved to 150mm from the nearest wall corner (was 508mm), inside the 300mm manoeuvring clearance the clause requires",
+       "element_type": "IfcDoor",
+       "attribute": "IfcOpeningElement.ObjectPlacement (offset along host wall axis)",
+       "before": 508.0,
+       "after": 150.0,
+       "clause": "ANSI A117.1 404.2.4 / ADA  - latch-side manoeuvring clearance at a door (min. 300 mm beyond the latch side for a front approach)",
+       "mutated_global_id": "012S6Z0qLCRuoYXSZ2tygw",
+       "global_id": "012S6Z0qLCRuoYXSZ2tygw",
+       "host_wall_global_id": "1j6lJOCJrBfhwVjXcDrBMU"
+      }
+     },
+     {
+      "rule": "A5",
+      "meta": {
+       "rule": "A5",
+       "description": "Corridor connectivity severed at this door, leaving 2 space(s) behind a dead end via '2.04'  - exceeds the IBC 1020.4 dead-end allowance",
+       "element_type": "IfcDoor",
+       "attribute": "IfcRelSpaceBoundary (one severed)",
+       "before": "connected to spaces 2rpp3iZFTCVwGEE7x9qiQ8 and 1GBaX8Qs19WPwcdIjq6ONn",
+       "after": "connected only to space 1GBaX8Qs19WPwcdIjq6ONn",
+       "clause": "IBC 1020.4  - dead-end corridors shall not exceed 6100 mm (with sprinkler allowance); 1006.2 requires a second egress path",
+       "mutated_global_id": "0NWv8IgP5Ch9a8sHZoyivA",
+       "global_id": "0NWv8IgP5Ch9a8sHZoyivA",
+       "severed_space_global_id": "2rpp3iZFTCVwGEE7x9qiQ8",
+       "remaining_space_global_id": "1GBaX8Qs19WPwcdIjq6ONn",
+       "action": "one IfcRelSpaceBoundary deleted (connectivity, not geometry)"
+      }
+     },
+     {
+      "rule": "A6",
+      "meta": {
+       "rule": "A6",
+       "description": "Ceiling height of corridor space 'entree' lowered from 2620mm to 2150mm, below the 2400mm minimum",
+       "element_type": "IfcSpace",
+       "attribute": "BaseQuantities.Height",
+       "before": 2620.0,
+       "after": 2150.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.2.1(a)  - a habitable room shall have a ceiling height of at least 2.75 m; Part 4 Sec 3.7.3  - an egress corridor at least 2.4 m",
+       "mutated_global_id": "00XVyzXGDDQPsHPeNwCNmZ",
+       "global_id": "00XVyzXGDDQPsHPeNwCNmZ"
+      }
+     },
+     {
+      "rule": "A7",
+      "meta": {
+       "rule": "A7",
+       "description": "Room 'berging' re-proportioned from 1336x2770mm to 1336x2769mm: the least width is now below the 2000mm minimum while the floor area (3.7 m2) is preserved (this room was already under the 2000mm limit before injection)",
+       "element_type": "IfcSpace",
+       "attribute": "footprint least width",
+       "before": 1336.0,
+       "after": 1336.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.2.2  - a habitable room shall be at least 9.5 m2 with a least width of 2.9 m; another room in the dwelling at least 5 m2 with a least width of 2 m",
+       "mutated_global_id": "3ZMk1e17XESP$vROePi38_",
+       "global_id": "3ZMk1e17XESP$vROePi38_"
+      }
+     },
+     {
+      "rule": "A9",
+      "meta": {
+       "rule": "A9",
+       "description": "Guard height set from (no Height property) to 850mm, below the 1000mm minimum",
+       "element_type": "IfcRailing",
+       "attribute": "Pset_RailingCommon.Height",
+       "after": 850.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.14  - parapets and guardrails enclosing an accessible flat roof shall be at least 1 m high; Sec 1.14.5.6  - a stair handrail shall be at least 0.9 m high",
+       "mutated_global_id": "018TK7$EL5zAD5j0tKRbOl",
+       "global_id": "018TK7$EL5zAD5j0tKRbOl",
+       "pset": "Pset_RailingCommon"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "folder": "sixty5",
+   "source_file": "arc.ifc",
+   "positive": [
+    {
+     "rule": "A1",
+     "path": "sixty5_A1_ifcdoor_overallwidth.ifc",
+     "meta": {
+      "rule": "A1",
+      "description": "Egress door clear width reduced from 975.0mm to 750.0mm, below the 815mm minimum",
+      "element_type": "IfcDoor",
+      "attribute": "IfcDoor.OverallWidth",
+      "before": 975.0,
+      "after": 750.0,
+      "clause": "IBC 1010.1.1  - egress door clear width shall be not less than 815 mm",
+      "mutated_global_id": "0$DcxOaIXzyS3zo_mh7q5w",
+      "global_id": "0$DcxOaIXzyS3zo_mh7q5w"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A2",
+     "path": "sixty5_A2_pset_stairflightcommon_riserheight.ifc",
+     "meta": {
+      "rule": "A2",
+      "description": "Stair riser height documented as 190.0mm, above the 178mm maximum  - no riser data existed in the baseline model",
+      "element_type": "IfcStair",
+      "attribute": "Pset_StairFlightCommon.RiserHeight",
+      "after": 190.0,
+      "clause": "IBC 1011.5.2  - stair riser height shall be not more than 178 mm",
+      "mutated_global_id": "0$U0aPTqf1sfJHfgYUoawd",
+      "global_id": "0$U0aPTqf1sfJHfgYUoawd",
+      "pset": "Pset_StairFlightCommon"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A3",
+     "path": "sixty5_A3_pset_wallcommon_firerating.ifc",
+     "meta": {
+      "rule": "A3",
+      "description": "Fire rating on this IfcWall downgraded from '60' to '(blank)'",
+      "element_type": "IfcWall",
+      "attribute": "Pset_WallCommon.FireRating",
+      "before": "60",
+      "after": "(blank)",
+      "clause": "IBC Chapter 7 / Table 716.1(2)  - opening protectives and fire-barrier ratings",
+      "mutated_global_id": "01RtDTbYCSPQ3tk_qT5j7v",
+      "global_id": "01RtDTbYCSPQ3tk_qT5j7v",
+      "pset": "Pset_WallCommon"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A4",
+     "path": "sixty5_A4_ifcopeningelement_objectplacement__offse.ifc",
+     "meta": {
+      "rule": "A4",
+      "description": "Door opening moved to 150mm from the nearest wall corner (was 503mm), inside the 300mm manoeuvring clearance the clause requires",
+      "element_type": "IfcDoor",
+      "attribute": "IfcOpeningElement.ObjectPlacement (offset along host wall axis)",
+      "before": 502.599580836,
+      "after": 150.0,
+      "clause": "ANSI A117.1 404.2.4 / ADA  - latch-side manoeuvring clearance at a door (min. 300 mm beyond the latch side for a front approach)",
+      "mutated_global_id": "0$OTaJYWb70PbGSu$X5b1D",
+      "global_id": "0$OTaJYWb70PbGSu$X5b1D",
+      "host_wall_global_id": "1be8I9ShTDwBfpI3lMuIS1"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A9",
+     "path": "sixty5_A9_pset_railingcommon_height.ifc",
+     "meta": {
+      "rule": "A9",
+      "description": "Guard height set from (no Height property) to 850mm, below the 1000mm minimum",
+      "element_type": "IfcRailing",
+      "attribute": "Pset_RailingCommon.Height",
+      "after": 850.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.14  - parapets and guardrails enclosing an accessible flat roof shall be at least 1 m high; Sec 1.14.5.6  - a stair handrail shall be at least 0.9 m high",
+      "mutated_global_id": "00qhPi_gKiZOMKtLSVzTs3",
+      "global_id": "00qhPi_gKiZOMKtLSVzTs3",
+      "pset": "Pset_RailingCommon"
+     },
+     "self_verified": true
+    }
+   ],
+   "negative": "arc.ifc",
+   "skipped_rules": [
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A10"
+   ],
+   "rejected": [],
+   "multi_error": {
+    "path": "sixty5_MULTI_A1-A2-A3-A4-A9.ifc",
+    "rules": [
+     "A1",
+     "A2",
+     "A3",
+     "A4",
+     "A9"
+    ],
+    "applied": [
+     {
+      "rule": "A1",
+      "meta": {
+       "rule": "A1",
+       "description": "Egress door clear width reduced from 975.0mm to 750.0mm, below the 815mm minimum",
+       "element_type": "IfcDoor",
+       "attribute": "IfcDoor.OverallWidth",
+       "before": 975.0,
+       "after": 750.0,
+       "clause": "IBC 1010.1.1  - egress door clear width shall be not less than 815 mm",
+       "mutated_global_id": "0$DcxOaIXzyS3zo_mh7q5w",
+       "global_id": "0$DcxOaIXzyS3zo_mh7q5w"
+      }
+     },
+     {
+      "rule": "A2",
+      "meta": {
+       "rule": "A2",
+       "description": "Stair riser height documented as 190.0mm, above the 178mm maximum  - no riser data existed in the baseline model",
+       "element_type": "IfcStair",
+       "attribute": "Pset_StairFlightCommon.RiserHeight",
+       "after": 190.0,
+       "clause": "IBC 1011.5.2  - stair riser height shall be not more than 178 mm",
+       "mutated_global_id": "0$U0aPTqf1sfJHfgYUoawd",
+       "global_id": "0$U0aPTqf1sfJHfgYUoawd",
+       "pset": "Pset_StairFlightCommon"
+      }
+     },
+     {
+      "rule": "A3",
+      "meta": {
+       "rule": "A3",
+       "description": "Fire rating on this IfcWall downgraded from '60' to '(blank)'",
+       "element_type": "IfcWall",
+       "attribute": "Pset_WallCommon.FireRating",
+       "before": "60",
+       "after": "(blank)",
+       "clause": "IBC Chapter 7 / Table 716.1(2)  - opening protectives and fire-barrier ratings",
+       "mutated_global_id": "01RtDTbYCSPQ3tk_qT5j7v",
+       "global_id": "01RtDTbYCSPQ3tk_qT5j7v",
+       "pset": "Pset_WallCommon"
+      }
+     },
+     {
+      "rule": "A4",
+      "meta": {
+       "rule": "A4",
+       "description": "Door opening moved to 150mm from the nearest wall corner (was 503mm), inside the 300mm manoeuvring clearance the clause requires",
+       "element_type": "IfcDoor",
+       "attribute": "IfcOpeningElement.ObjectPlacement (offset along host wall axis)",
+       "before": 502.599580836,
+       "after": 150.0,
+       "clause": "ANSI A117.1 404.2.4 / ADA  - latch-side manoeuvring clearance at a door (min. 300 mm beyond the latch side for a front approach)",
+       "mutated_global_id": "0$OTaJYWb70PbGSu$X5b1D",
+       "global_id": "0$OTaJYWb70PbGSu$X5b1D",
+       "host_wall_global_id": "1be8I9ShTDwBfpI3lMuIS1"
+      }
+     },
+     {
+      "rule": "A9",
+      "meta": {
+       "rule": "A9",
+       "description": "Guard height set from (no Height property) to 850mm, below the 1000mm minimum",
+       "element_type": "IfcRailing",
+       "attribute": "Pset_RailingCommon.Height",
+       "after": 850.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.14  - parapets and guardrails enclosing an accessible flat roof shall be at least 1 m high; Sec 1.14.5.6  - a stair handrail shall be at least 0.9 m high",
+       "mutated_global_id": "00qhPi_gKiZOMKtLSVzTs3",
+       "global_id": "00qhPi_gKiZOMKtLSVzTs3",
+       "pset": "Pset_RailingCommon"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "folder": "wbdg_office",
+   "source_file": "arc.ifc",
+   "positive": [
+    {
+     "rule": "A1",
+     "path": "wbdg_office_A1_ifcdoor_overallwidth.ifc",
+     "meta": {
+      "rule": "A1",
+      "description": "Egress door clear width reduced from 915.0mm to 750.0mm, below the 815mm minimum",
+      "element_type": "IfcDoor",
+      "attribute": "IfcDoor.OverallWidth",
+      "before": 914.9999999999999,
+      "after": 750.0,
+      "clause": "IBC 1010.1.1  - egress door clear width shall be not less than 815 mm",
+      "mutated_global_id": "06njXbG3HC4RydTXssDq$e",
+      "global_id": "06njXbG3HC4RydTXssDq$e"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A2",
+     "path": "wbdg_office_A2_pset_stairflightcommon_riserheight.ifc",
+     "meta": {
+      "rule": "A2",
+      "description": "Stair riser height increased from 177.8mm to 190.0mm, above the 178mm maximum",
+      "element_type": "IfcStairFlight",
+      "attribute": "Pset_StairFlightCommon.RiserHeight",
+      "before": 177.8008749999782,
+      "after": 190.0,
+      "clause": "IBC 1011.5.2  - stair riser height shall be not more than 178 mm",
+      "mutated_global_id": "0kbkfXZr1FEw7asXXm6_SC",
+      "global_id": "0kbkfXZr1FEw7asXXm6_SC",
+      "pset": "Pset_StairFlightCommon"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A3",
+     "path": "wbdg_office_A3_pset_wallcommon_firerating.ifc",
+     "meta": {
+      "rule": "A3",
+      "description": "Fire rating on this IfcWallStandardCase downgraded from '2 HR' to '1 HR'",
+      "element_type": "IfcWallStandardCase",
+      "attribute": "Pset_WallCommon.FireRating",
+      "before": "2 HR",
+      "after": "1 HR",
+      "clause": "IBC Chapter 7 / Table 716.1(2)  - opening protectives and fire-barrier ratings",
+      "mutated_global_id": "1giqnsgvr6uA16isIlsm2j",
+      "global_id": "1giqnsgvr6uA16isIlsm2j",
+      "pset": "Pset_WallCommon"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A4",
+     "path": "wbdg_office_A4_ifcopeningelement_objectplacement__offse.ifc",
+     "meta": {
+      "rule": "A4",
+      "description": "Door opening moved to 150mm from the nearest wall corner (was 509mm), inside the 300mm manoeuvring clearance the clause requires",
+      "element_type": "IfcDoor",
+      "attribute": "IfcOpeningElement.ObjectPlacement (offset along host wall axis)",
+      "before": 508.9999999999799,
+      "after": 150.0,
+      "clause": "ANSI A117.1 404.2.4 / ADA  - latch-side manoeuvring clearance at a door (min. 300 mm beyond the latch side for a front approach)",
+      "mutated_global_id": "2N3oFtM8X6lO2dN1$77xF_",
+      "global_id": "2N3oFtM8X6lO2dN1$77xF_",
+      "host_wall_global_id": "1Uma8nuu1Frxm4jZQJyUi_"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A5",
+     "path": "wbdg_office_A5_ifcrelspaceboundary__one_severed.ifc",
+     "meta": {
+      "rule": "A5",
+      "description": "Corridor connectivity severed at this door, leaving 3 space(s) behind a dead end via '114'  - exceeds the IBC 1020.4 dead-end allowance",
+      "element_type": "IfcDoor",
+      "attribute": "IfcRelSpaceBoundary (one severed)",
+      "before": "connected to spaces 04Sq57eS5FffNezn2ilgts and 2p9k3Vk8DEmPDRJ6691rGh",
+      "after": "connected only to space 2p9k3Vk8DEmPDRJ6691rGh",
+      "clause": "IBC 1020.4  - dead-end corridors shall not exceed 6100 mm (with sprinkler allowance); 1006.2 requires a second egress path",
+      "mutated_global_id": "2N3oFtM8X6lO2dN1$77xaz",
+      "global_id": "2N3oFtM8X6lO2dN1$77xaz",
+      "severed_space_global_id": "04Sq57eS5FffNezn2ilgts",
+      "remaining_space_global_id": "2p9k3Vk8DEmPDRJ6691rGh",
+      "action": "one IfcRelSpaceBoundary deleted (connectivity, not geometry)"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A6",
+     "path": "wbdg_office_A6_ifcextrudedareasolid_depth__space_height.ifc",
+     "meta": {
+      "rule": "A6",
+      "description": "Ceiling height of corridor space 'VEST/ENTRY' lowered from 2500mm to 2150mm, below the 2400mm minimum",
+      "element_type": "IfcSpace",
+      "attribute": "IfcExtrudedAreaSolid.Depth (space height)",
+      "before": 2500.0,
+      "after": 2150.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.2.1(a)  - a habitable room shall have a ceiling height of at least 2.75 m; Part 4 Sec 3.7.3  - an egress corridor at least 2.4 m",
+      "mutated_global_id": "04Sq57eS5FffNezn2ilg3X",
+      "global_id": "04Sq57eS5FffNezn2ilg3X"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A7",
+     "path": "wbdg_office_A7_footprint_least_width.ifc",
+     "meta": {
+      "rule": "A7",
+      "description": "Room 'OPEN OFFICE' re-proportioned from 14573x49929mm to 2500x244084mm: the least width is now below the 2900mm minimum while the floor area (610.2 m2) is preserved",
+      "element_type": "IfcSpace",
+      "attribute": "footprint least width",
+      "before": 14572.700000000035,
+      "after": 2500.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.2.2  - a habitable room shall be at least 9.5 m2 with a least width of 2.9 m; another room in the dwelling at least 5 m2 with a least width of 2 m",
+      "mutated_global_id": "06njXbG3HC4RydTXssDqYR",
+      "global_id": "06njXbG3HC4RydTXssDqYR"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A8",
+     "path": "wbdg_office_A8_ifcwindow_overallwidth___overallheight.ifc",
+     "meta": {
+      "rule": "A8",
+      "description": "Window shrunk from 1000x2000mm to 250x500mm, taking the opening area of room 'EXTERIOR VESTIBULE TO TSVA' from 33.8% to 2.1% of its 5.9 m2 floor area, below the 10% Table 3.1.12 minimum",
+      "element_type": "IfcWindow",
+      "attribute": "IfcWindow.OverallWidth / OverallHeight",
+      "before": 1.9999999999999958,
+      "after": 0.12499999999999974,
+      "clause": "BNBC 2020 Part 3 Sec 1.19.6, Table 3.1.12  - the aggregate area of openings in the exterior wall, excluding doors, shall be at least 15% of the net floor area of a habitable room, 18% of a kitchen and 10% of a non-habitable space",
+      "mutated_global_id": "3ixGTk4CHB_eDqdoQo1iZJ",
+      "global_id": "04Sq57eS5FffNezn2ilgCA",
+      "space_name": "EXTERIOR VESTIBULE TO TSVA",
+      "required_percent": 10.0,
+      "space_floor_area_m2": 5.917313694750291
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A9",
+     "path": "wbdg_office_A9_pset_railingcommon_height.ifc",
+     "meta": {
+      "rule": "A9",
+      "description": "Guard height set from 1100mm to 850mm, below the 1000mm minimum",
+      "element_type": "IfcRailing",
+      "attribute": "Pset_RailingCommon.Height",
+      "before": 1100.0,
+      "after": 850.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.14  - parapets and guardrails enclosing an accessible flat roof shall be at least 1 m high; Sec 1.14.5.6  - a stair handrail shall be at least 0.9 m high",
+      "mutated_global_id": "0tDNYxkw5BaA_qcJ8IMlOX",
+      "global_id": "0tDNYxkw5BaA_qcJ8IMlOX",
+      "pset": "Pset_RailingCommon"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A10",
+     "path": "wbdg_office_A10_stair_flight_width.ifc",
+     "meta": {
+      "rule": "A10",
+      "description": "Stair flight narrowed from 1000mm to 900mm across 23 tread solid(s), below the 1120mm egress minimum (this flight was already under the 1120mm limit before injection)",
+      "element_type": "IfcStairFlight",
+      "attribute": "stair flight width",
+      "before": 1000.0,
+      "after": 900.0,
+      "clause": "BNBC 2020 Part 3 Sec 1.14.5.1 with Part 4 Table 4.3.6  - the clear width of an egress stairway shall be at least 1120 mm",
+      "mutated_global_id": "0kbkfXZr1FEw7asXXm6_SC",
+      "global_id": "0kbkfXZr1FEw7asXXm6_SC"
+     },
+     "self_verified": true
+    }
+   ],
+   "negative": "arc.ifc",
+   "skipped_rules": [],
+   "rejected": [],
+   "multi_error": {
+    "path": "wbdg_office_MULTI_A1-A2-A3-A4-A5-A6-A7-A8-A9-A10.ifc",
+    "rules": [
+     "A1",
+     "A2",
+     "A3",
+     "A4",
+     "A5",
+     "A6",
+     "A7",
+     "A8",
+     "A9",
+     "A10"
+    ],
+    "applied": [
+     {
+      "rule": "A1",
+      "meta": {
+       "rule": "A1",
+       "description": "Egress door clear width reduced from 915.0mm to 750.0mm, below the 815mm minimum",
+       "element_type": "IfcDoor",
+       "attribute": "IfcDoor.OverallWidth",
+       "before": 914.9999999999999,
+       "after": 750.0,
+       "clause": "IBC 1010.1.1  - egress door clear width shall be not less than 815 mm",
+       "mutated_global_id": "06njXbG3HC4RydTXssDq$e",
+       "global_id": "06njXbG3HC4RydTXssDq$e"
+      }
+     },
+     {
+      "rule": "A2",
+      "meta": {
+       "rule": "A2",
+       "description": "Stair riser height increased from 177.8mm to 190.0mm, above the 178mm maximum",
+       "element_type": "IfcStairFlight",
+       "attribute": "Pset_StairFlightCommon.RiserHeight",
+       "before": 177.8008749999782,
+       "after": 190.0,
+       "clause": "IBC 1011.5.2  - stair riser height shall be not more than 178 mm",
+       "mutated_global_id": "0kbkfXZr1FEw7asXXm6_SC",
+       "global_id": "0kbkfXZr1FEw7asXXm6_SC",
+       "pset": "Pset_StairFlightCommon"
+      }
+     },
+     {
+      "rule": "A3",
+      "meta": {
+       "rule": "A3",
+       "description": "Fire rating on this IfcWallStandardCase downgraded from '2 HR' to '1 HR'",
+       "element_type": "IfcWallStandardCase",
+       "attribute": "Pset_WallCommon.FireRating",
+       "before": "2 HR",
+       "after": "1 HR",
+       "clause": "IBC Chapter 7 / Table 716.1(2)  - opening protectives and fire-barrier ratings",
+       "mutated_global_id": "1giqnsgvr6uA16isIlsm2j",
+       "global_id": "1giqnsgvr6uA16isIlsm2j",
+       "pset": "Pset_WallCommon"
+      }
+     },
+     {
+      "rule": "A4",
+      "meta": {
+       "rule": "A4",
+       "description": "Door opening moved to 150mm from the nearest wall corner (was 509mm), inside the 300mm manoeuvring clearance the clause requires",
+       "element_type": "IfcDoor",
+       "attribute": "IfcOpeningElement.ObjectPlacement (offset along host wall axis)",
+       "before": 508.9999999999799,
+       "after": 150.0,
+       "clause": "ANSI A117.1 404.2.4 / ADA  - latch-side manoeuvring clearance at a door (min. 300 mm beyond the latch side for a front approach)",
+       "mutated_global_id": "2N3oFtM8X6lO2dN1$77xF_",
+       "global_id": "2N3oFtM8X6lO2dN1$77xF_",
+       "host_wall_global_id": "1Uma8nuu1Frxm4jZQJyUi_"
+      }
+     },
+     {
+      "rule": "A5",
+      "meta": {
+       "rule": "A5",
+       "description": "Corridor connectivity severed at this door, leaving 3 space(s) behind a dead end via '114'  - exceeds the IBC 1020.4 dead-end allowance",
+       "element_type": "IfcDoor",
+       "attribute": "IfcRelSpaceBoundary (one severed)",
+       "before": "connected to spaces 04Sq57eS5FffNezn2ilgts and 2p9k3Vk8DEmPDRJ6691rGh",
+       "after": "connected only to space 2p9k3Vk8DEmPDRJ6691rGh",
+       "clause": "IBC 1020.4  - dead-end corridors shall not exceed 6100 mm (with sprinkler allowance); 1006.2 requires a second egress path",
+       "mutated_global_id": "2N3oFtM8X6lO2dN1$77xaz",
+       "global_id": "2N3oFtM8X6lO2dN1$77xaz",
+       "severed_space_global_id": "04Sq57eS5FffNezn2ilgts",
+       "remaining_space_global_id": "2p9k3Vk8DEmPDRJ6691rGh",
+       "action": "one IfcRelSpaceBoundary deleted (connectivity, not geometry)"
+      }
+     },
+     {
+      "rule": "A6",
+      "meta": {
+       "rule": "A6",
+       "description": "Ceiling height of corridor space 'VEST/ENTRY' lowered from 2500mm to 2150mm, below the 2400mm minimum",
+       "element_type": "IfcSpace",
+       "attribute": "IfcExtrudedAreaSolid.Depth (space height)",
+       "before": 2500.0,
+       "after": 2150.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.2.1(a)  - a habitable room shall have a ceiling height of at least 2.75 m; Part 4 Sec 3.7.3  - an egress corridor at least 2.4 m",
+       "mutated_global_id": "04Sq57eS5FffNezn2ilg3X",
+       "global_id": "04Sq57eS5FffNezn2ilg3X"
+      }
+     },
+     {
+      "rule": "A7",
+      "meta": {
+       "rule": "A7",
+       "description": "Room 'OPEN OFFICE' re-proportioned from 14573x49929mm to 2500x244084mm: the least width is now below the 2900mm minimum while the floor area (610.2 m2) is preserved",
+       "element_type": "IfcSpace",
+       "attribute": "footprint least width",
+       "before": 14572.700000000035,
+       "after": 2500.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.2.2  - a habitable room shall be at least 9.5 m2 with a least width of 2.9 m; another room in the dwelling at least 5 m2 with a least width of 2 m",
+       "mutated_global_id": "06njXbG3HC4RydTXssDqYR",
+       "global_id": "06njXbG3HC4RydTXssDqYR"
+      }
+     },
+     {
+      "rule": "A8",
+      "meta": {
+       "rule": "A8",
+       "description": "Window shrunk from 1000x2000mm to 250x500mm, taking the opening area of room 'EXTERIOR VESTIBULE TO TSVA' from 33.8% to 2.1% of its 5.9 m2 floor area, below the 10% Table 3.1.12 minimum",
+       "element_type": "IfcWindow",
+       "attribute": "IfcWindow.OverallWidth / OverallHeight",
+       "before": 1.9999999999999958,
+       "after": 0.12499999999999974,
+       "clause": "BNBC 2020 Part 3 Sec 1.19.6, Table 3.1.12  - the aggregate area of openings in the exterior wall, excluding doors, shall be at least 15% of the net floor area of a habitable room, 18% of a kitchen and 10% of a non-habitable space",
+       "mutated_global_id": "3ixGTk4CHB_eDqdoQo1iZJ",
+       "global_id": "04Sq57eS5FffNezn2ilgCA",
+       "space_name": "EXTERIOR VESTIBULE TO TSVA",
+       "required_percent": 10.0,
+       "space_floor_area_m2": 5.917313694750291
+      }
+     },
+     {
+      "rule": "A9",
+      "meta": {
+       "rule": "A9",
+       "description": "Guard height set from 1100mm to 850mm, below the 1000mm minimum",
+       "element_type": "IfcRailing",
+       "attribute": "Pset_RailingCommon.Height",
+       "before": 1100.0,
+       "after": 850.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.14  - parapets and guardrails enclosing an accessible flat roof shall be at least 1 m high; Sec 1.14.5.6  - a stair handrail shall be at least 0.9 m high",
+       "mutated_global_id": "0tDNYxkw5BaA_qcJ8IMlOX",
+       "global_id": "0tDNYxkw5BaA_qcJ8IMlOX",
+       "pset": "Pset_RailingCommon"
+      }
+     },
+     {
+      "rule": "A10",
+      "meta": {
+       "rule": "A10",
+       "description": "Stair flight narrowed from 1000mm to 900mm across 23 tread solid(s), below the 1120mm egress minimum (this flight was already under the 1120mm limit before injection)",
+       "element_type": "IfcStairFlight",
+       "attribute": "stair flight width",
+       "before": 1000.0,
+       "after": 900.0,
+       "clause": "BNBC 2020 Part 3 Sec 1.14.5.1 with Part 4 Table 4.3.6  - the clear width of an egress stairway shall be at least 1120 mm",
+       "mutated_global_id": "0kbkfXZr1FEw7asXXm6_SC",
+       "global_id": "0kbkfXZr1FEw7asXXm6_SC"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "folder": "west_riverside_hospital",
+   "source_file": "arc.ifc",
+   "positive": [
+    {
+     "rule": "A1",
+     "path": "west_riverside_hospital_A1_ifcdoor_overallwidth.ifc",
+     "meta": {
+      "rule": "A1",
+      "description": "Egress door clear width reduced from 915.0mm to 750.0mm, below the 815mm minimum",
+      "element_type": "IfcDoor",
+      "attribute": "IfcDoor.OverallWidth",
+      "before": 915.00000000001,
+      "after": 750.0,
+      "clause": "IBC 1010.1.1  - egress door clear width shall be not less than 815 mm",
+      "mutated_global_id": "05QVF2nu93Xuoh14xoxrdD",
+      "global_id": "05QVF2nu93Xuoh14xoxrdD"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A2",
+     "path": "west_riverside_hospital_A2_pset_staircommon_riserheight.ifc",
+     "meta": {
+      "rule": "A2",
+      "description": "Stair riser height increased from 178.6mm to 190.0mm, above the 178mm maximum",
+      "element_type": "IfcStair",
+      "attribute": "Pset_StairCommon.RiserHeight",
+      "before": 178.571428571429,
+      "after": 190.0,
+      "clause": "IBC 1011.5.2  - stair riser height shall be not more than 178 mm",
+      "mutated_global_id": "07Kk2vmM5AS9ub7mE_V$6H",
+      "global_id": "07Kk2vmM5AS9ub7mE_V$6H",
+      "pset": "Pset_StairCommon"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A3",
+     "path": "west_riverside_hospital_A3_pset_doorcommon_firerating.ifc",
+     "meta": {
+      "rule": "A3",
+      "description": "Fire rating documented as missing on this hosted door  - no fire-rating data exists in the baseline model",
+      "element_type": "IfcDoor",
+      "attribute": "Pset_DoorCommon.FireRating",
+      "after": "(blank)",
+      "clause": "IBC Chapter 7 / Table 716.1(2)  - opening protectives and fire-barrier ratings",
+      "mutated_global_id": "05QVF2nu93Xuoh14xoxrYX",
+      "global_id": "05QVF2nu93Xuoh14xoxrYX",
+      "pset": "Pset_DoorCommon"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "A4",
+     "path": "west_riverside_hospital_A4_ifcopeningelement_objectplacement__offse.ifc",
+     "meta": {
+      "rule": "A4",
+      "description": "Door opening moved to 150mm from the nearest wall corner (was 520mm), inside the 300mm manoeuvring clearance the clause requires",
+      "element_type": "IfcDoor",
+      "attribute": "IfcOpeningElement.ObjectPlacement (offset along host wall axis)",
+      "before": 519.99999999999,
+      "after": 150.0,
+      "clause": "ANSI A117.1 404.2.4 / ADA  - latch-side manoeuvring clearance at a door (min. 300 mm beyond the latch side for a front approach)",
+      "mutated_global_id": "0IbIIu6Lz82Qlw1VJakDVL",
+      "global_id": "0IbIIu6Lz82Qlw1VJakDVL",
+      "host_wall_global_id": "2QRZsMKYn35ff5LwqHZ$5z"
+     },
+     "self_verified": true
+    }
+   ],
+   "negative": "arc.ifc",
+   "skipped_rules": [
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9",
+    "A10"
+   ],
+   "rejected": [],
+   "multi_error": {
+    "path": "west_riverside_hospital_MULTI_A1-A2-A3-A4.ifc",
+    "rules": [
+     "A1",
+     "A2",
+     "A3",
+     "A4"
+    ],
+    "applied": [
+     {
+      "rule": "A1",
+      "meta": {
+       "rule": "A1",
+       "description": "Egress door clear width reduced from 915.0mm to 750.0mm, below the 815mm minimum",
+       "element_type": "IfcDoor",
+       "attribute": "IfcDoor.OverallWidth",
+       "before": 915.00000000001,
+       "after": 750.0,
+       "clause": "IBC 1010.1.1  - egress door clear width shall be not less than 815 mm",
+       "mutated_global_id": "05QVF2nu93Xuoh14xoxrdD",
+       "global_id": "05QVF2nu93Xuoh14xoxrdD"
+      }
+     },
+     {
+      "rule": "A2",
+      "meta": {
+       "rule": "A2",
+       "description": "Stair riser height increased from 178.6mm to 190.0mm, above the 178mm maximum",
+       "element_type": "IfcStair",
+       "attribute": "Pset_StairCommon.RiserHeight",
+       "before": 178.571428571429,
+       "after": 190.0,
+       "clause": "IBC 1011.5.2  - stair riser height shall be not more than 178 mm",
+       "mutated_global_id": "07Kk2vmM5AS9ub7mE_V$6H",
+       "global_id": "07Kk2vmM5AS9ub7mE_V$6H",
+       "pset": "Pset_StairCommon"
+      }
+     },
+     {
+      "rule": "A3",
+      "meta": {
+       "rule": "A3",
+       "description": "Fire rating documented as missing on this hosted door  - no fire-rating data exists in the baseline model",
+       "element_type": "IfcDoor",
+       "attribute": "Pset_DoorCommon.FireRating",
+       "after": "(blank)",
+       "clause": "IBC Chapter 7 / Table 716.1(2)  - opening protectives and fire-barrier ratings",
+       "mutated_global_id": "05QVF2nu93Xuoh14xoxrYX",
+       "global_id": "05QVF2nu93Xuoh14xoxrYX",
+       "pset": "Pset_DoorCommon"
+      }
+     },
+     {
+      "rule": "A4",
+      "meta": {
+       "rule": "A4",
+       "description": "Door opening moved to 150mm from the nearest wall corner (was 520mm), inside the 300mm manoeuvring clearance the clause requires",
+       "element_type": "IfcDoor",
+       "attribute": "IfcOpeningElement.ObjectPlacement (offset along host wall axis)",
+       "before": 519.99999999999,
+       "after": 150.0,
+       "clause": "ANSI A117.1 404.2.4 / ADA  - latch-side manoeuvring clearance at a door (min. 300 mm beyond the latch side for a front approach)",
+       "mutated_global_id": "0IbIIu6Lz82Qlw1VJakDVL",
+       "global_id": "0IbIIu6Lz82Qlw1VJakDVL",
+       "host_wall_global_id": "2QRZsMKYn35ff5LwqHZ$5z"
+      }
+     }
+    ]
+   }
+  }
+ ]
 }

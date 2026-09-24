@@ -5,3 +5,6 @@
 
 # Per-job fault-injection outputs are generated at runtime and can be large.
 ifc-fault-injector/out/
+
+# macOS Finder metadata — never useful in history.
+.DS_Store

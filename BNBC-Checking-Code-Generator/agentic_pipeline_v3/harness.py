@@ -297,7 +297,10 @@ def _arch_multi(rule_id: str) -> list[FixtureCase]:
     cases = []
     for p in d.rglob("*.ifc"):
         m = re.search(r"_MULTI_([A-Z0-9-]+)\.ifc$", p.name)
-        if not m or rule_id not in re.findall(r"[AS]\d", m.group(1)):
+        # \d+ , not \d: with a single digit "A1-A10" parses as ["A1", "A1"],
+        # so a two-digit rule could never match its own fixture and would
+        # silently be credited to the one-digit rule sharing its prefix.
+        if not m or rule_id not in re.findall(r"[AS]\d+", m.group(1)):
             continue
         folder = p.parent.name
         cases.append(FixtureCase(folder, "multi", p, rule_id, None, meta_confidence="filename_only"))

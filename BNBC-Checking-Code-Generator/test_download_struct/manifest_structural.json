@@ -1,1363 +1,1193 @@
 {
-  "generated_at": "2026-08-18 03:09:48",
-  "models": [
+ "generated_at": "2026-09-20T21:34:45",
+ "generated_by": "scripts/build_fixture_corpus.py",
+ "source_root": "/Users/azmainapro/Documents/Real World BIMs/models",
+ "note": "Every positive fixture was re-opened from disk, swept for dangling references, and had its clause independently re-derived by ifcfault.verify.checks before being listed here. Fixture metadata is derived from the mutation record only, never from a checker's output.",
+ "models": [
+  {
+   "folder": "dental_clinic",
+   "source_file": "str.ifc",
+   "single_error": [
     {
-      "folder": "dental_clinic",
-      "source_file": "str.ifc",
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\dental_clinic\\str.ifc",
-      "single_error": [
-        {
-          "rule": "S1",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_str_S1_beam_span_depth.ifc",
-          "meta": {
-            "rule": "S1",
-            "description": "Beam cross-section depth cut, driving span-to-depth ratio past EC2 7.4.2 / ACI 318 Table 9.3.1.1 simply-supported limit",
-            "element_type": "IfcBeam",
-            "element_id": 661,
-            "global_id": "0NwXg6Ayr9z88KpqSjw_fn",
-            "name": "M_W-Wide Flange:W460X60:W460X60:187816",
-            "span_mm": 11075.0,
-            "before_depth_mm": 455.0,
-            "after_depth_mm": 400.0,
-            "before_L_over_d": 24.3,
-            "after_L_over_d": 27.7
-          }
-        },
-        {
-          "rule": "S2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_str_S2_column_dimension.ifc",
-          "meta": {
-            "rule": "S2",
-            "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-            "element_type": "IfcColumn",
-            "element_id": 981,
-            "global_id": "3CGq687PzBuuySFo1Q5nEq",
-            "name": "M_W-Wide Flange-Column:W250X67:W250X67:241102",
-            "height_mm": 4875.0,
-            "before_min_dim_mm": 204.0,
-            "after_dim_mm": 250.0,
-            "before_slenderness": 23.9,
-            "after_slenderness": 19.5
-          }
-        },
-        {
-          "rule": "S3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_str_S3_slab_thickness.ifc",
-          "meta": {
-            "rule": "S3",
-            "description": "Slab thickness cut below ACI 318 Table 7.3.1.1 minimum for its span",
-            "element_type": "IfcSlab",
-            "element_id": 1783,
-            "global_id": "2lH_RQeBDBG8rH6PWO_5fC",
-            "name": "Floor:150mm Slab on Grade:221475",
-            "before_thickness_mm": 150.0,
-            "after_thickness_mm": 120.0
-          }
-        },
-        {
-          "rule": "S4",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_str_S4_floating_column.ifc",
-          "meta": {
-            "rule": "S4",
-            "description": "Ground-level column removed while the column it supports on the storey above remains, creating a discontinuous (floating) vertical load path (ASCE 7 Table 12.3-2 / EC8 4.2.3.3)",
-            "element_type": "IfcColumn",
-            "deleted_element_id": 1027,
-            "deleted_global_id": "3CGq687PzBuuySFo1Q5mpU",
-            "deleted_name": "M_W-Wide Flange-Column:W250X67:W250X67:242340",
-            "deleted_storey": "Second Floor",
-            "surviving_column_above_global_id": "0uJFlOV3rFvOu6lBJ3bWjL",
-            "surviving_column_above_name": "M_W-Wide Flange-Column:W150X22.5:W150X22.5:217263",
-            "surviving_column_above_storey": "Roof - Main",
-            "plan_offset_mm": 795.0
-          }
-        },
-        {
-          "rule": "S5",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\dental_clinic\\dental_clinic_str_S5_soft_storey.ifc",
-          "meta": {
-            "rule": "S5",
-            "description": "All shear/load-bearing walls on one storey deleted, creating a soft-storey lateral-stiffness discontinuity (ASCE 7 / EC8 4.2.3.3)",
-            "element_type": "IfcWall",
-            "target_storey": "TOF Footing",
-            "target_storey_elevation": -1.000000000000353,
-            "deleted_wall_count": 26,
-            "deleted_walls": [
-              {
-                "element_id": 1174,
-                "global_id": "3saVcraO9CJRqkF0xoe8zy",
-                "name": "Basic Wall:Foundation - Concrete (264mm):145934"
-              },
-              {
-                "element_id": 1789,
-                "global_id": "3saVcraO9CJRqkF0xoe8_j",
-                "name": "Basic Wall:Foundation - Concrete (264mm):146143"
-              },
-              {
-                "element_id": 1787,
-                "global_id": "3saVcraO9CJRqkF0xoe8vD",
-                "name": "Basic Wall:Foundation - Concrete (264mm):146239"
-              },
-              {
-                "element_id": 1785,
-                "global_id": "3saVcraO9CJRqkF0xoe8xw",
-                "name": "Basic Wall:Foundation - Concrete (264mm):146312"
-              },
-              {
-                "element_id": 1171,
-                "global_id": "3saVcraO9CJRqkF0xoe8b3",
-                "name": "Basic Wall:Foundation - Concrete (264mm):146481"
-              },
-              {
-                "element_id": 871,
-                "global_id": "3saVcraO9CJRqkF0xoe8dx",
-                "name": "Basic Wall:Foundation - Concrete (264mm):146569"
-              },
-              {
-                "element_id": 1790,
-                "global_id": "3saVcraO9CJRqkF0xoe8dT",
-                "name": "Basic Wall:Foundation - Concrete (264mm):146607"
-              },
-              {
-                "element_id": 1178,
-                "global_id": "3saVcraO9CJRqkF0xoe8cW",
-                "name": "Basic Wall:Foundation - Concrete (264mm):146642"
-              },
-              {
-                "element_id": 1173,
-                "global_id": "2lH_RQeBDBG8rH6PWO_6KU",
-                "name": "Basic Wall:Foundation - Concrete (264mm):220785"
-              },
-              {
-                "element_id": 1179,
-                "global_id": "2lH_RQeBDBG8rH6PWO_6N6",
-                "name": "Basic Wall:Foundation - Concrete (264mm):220841"
-              }
-            ],
-            "deleted_wall_ids_all": [
-              1174,
-              1789,
-              1787,
-              1785,
-              1171,
-              871,
-              1790,
-              1178,
-              1173,
-              1179,
-              1177,
-              1172,
-              1165,
-              870,
-              1791,
-              1788,
-              1786,
-              465,
-              1169,
-              1180,
-              1176,
-              1170,
-              1175,
-              1167,
-              1166,
-              1168
-            ]
-          }
-        }
-      ],
-      "multi_error": {
-        "rules": [
-          "S2",
-          "S4"
-        ],
-        "path": "D:\\capstone_Test_cases\\Test_cases\\Positive_Multi\\dental_clinic\\dental_clinic_str_MULTI_S2-S4.ifc",
-        "applied": [
-          {
-            "rule": "S2",
-            "meta": {
-              "rule": "S2",
-              "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-              "element_type": "IfcColumn",
-              "element_id": 981,
-              "global_id": "3CGq687PzBuuySFo1Q5nEq",
-              "name": "M_W-Wide Flange-Column:W250X67:W250X67:241102",
-              "height_mm": 4875.0,
-              "before_min_dim_mm": 204.0,
-              "after_dim_mm": 250.0,
-              "before_slenderness": 23.9,
-              "after_slenderness": 19.5
-            }
-          },
-          {
-            "rule": "S4",
-            "meta": {
-              "rule": "S4",
-              "description": "Ground-level column removed while the column it supports on the storey above remains, creating a discontinuous (floating) vertical load path (ASCE 7 Table 12.3-2 / EC8 4.2.3.3)",
-              "element_type": "IfcColumn",
-              "deleted_element_id": 1027,
-              "deleted_global_id": "3CGq687PzBuuySFo1Q5mpU",
-              "deleted_name": "M_W-Wide Flange-Column:W250X67:W250X67:242340",
-              "deleted_storey": "Second Floor",
-              "surviving_column_above_global_id": "0uJFlOV3rFvOu6lBJ3bWjL",
-              "surviving_column_above_name": "M_W-Wide Flange-Column:W150X22.5:W150X22.5:217263",
-              "surviving_column_above_storey": "Roof - Main",
-              "plan_offset_mm": 795.0
-            }
-          }
-        ]
-      }
+     "rule": "S1",
+     "path": "dental_clinic_S1_cross_section_depth.ifc",
+     "meta": {
+      "rule": "S1",
+      "description": "Beam depth cut from 455mm to 385mm over a 10613mm span, driving span-to-depth from 23.3 to 27.6  - past the limit of 24",
+      "element_type": "IfcBeam",
+      "attribute": "cross-section depth",
+      "before": 455.0,
+      "after": 384.5287680917004,
+      "clause": "EC2 7.4.2 / ACI 318 Table 9.3.1.1  - span-to-depth ratio limit for deflection control (24 for a simply supported member)",
+      "mutated_global_id": "2t9idiDlv0ZBWxqSNhKYfb",
+      "global_id": "2t9idiDlv0ZBWxqSNhKYfb"
+     },
+     "self_verified": true
     },
     {
-      "folder": "schependomlaan",
-      "source_file": "str_engineer.ifc",
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\schependomlaan\\str_engineer.ifc",
-      "single_error": [
-        {
-          "rule": "S1",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_str_engineer_S1_beam_span_depth.ifc",
-          "meta": {
-            "rule": "S1",
-            "description": "Beam cross-section depth cut, driving span-to-depth ratio past EC2 7.4.2 / ACI 318 Table 9.3.1.1 simply-supported limit",
-            "element_type": "IfcBeam",
-            "element_id": 438,
-            "global_id": "1W7hxxtwPC29LisnhFj9fY",
-            "name": "CL_28_houten_balk_vuren_en_grenen_ongeschaafd:70x170mm:373560",
-            "span_mm": 7982.5,
-            "before_depth_mm": 170.0,
-            "after_depth_mm": 400.0,
-            "before_L_over_d": 47.0,
-            "after_L_over_d": 20.0
-          }
-        },
-        {
-          "rule": "S2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_str_engineer_S2_column_dimension.ifc",
-          "meta": {
-            "rule": "S2",
-            "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-            "element_type": "IfcColumn",
-            "element_id": 4806,
-            "global_id": "34$OUxCufFXuH_dmj0XvDy",
-            "name": "28_3B_staal - kolom - buis vierkant koud:k2:453821",
-            "height_mm": 6720.0,
-            "before_min_dim_mm": 80.0,
-            "after_dim_mm": 250.0,
-            "before_slenderness": 84.0,
-            "after_slenderness": 26.9
-          }
-        },
-        {
-          "rule": "S3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_str_engineer_S3_slab_thickness.ifc",
-          "meta": {
-            "rule": "S3",
-            "description": "Slab thickness cut below ACI 318 Table 7.3.1.1 minimum for its span",
-            "element_type": "IfcSlab",
-            "element_id": 8053,
-            "global_id": "2FL1hVU$v8$gTpVEQfqgbz",
-            "name": "Floor:CL_23_breedplaat_290mm_+_isolatie 20mm_70mm_(C20/25):201310",
-            "before_thickness_mm": 380.0,
-            "after_thickness_mm": 120.0
-          }
-        },
-        {
-          "rule": "S4",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_str_engineer_S4_floating_column.ifc",
-          "meta": {
-            "rule": "S4",
-            "description": "Ground-level column removed while the column it supports on the storey above remains, creating a discontinuous (floating) vertical load path (ASCE 7 Table 12.3-2 / EC8 4.2.3.3)",
-            "element_type": "IfcColumn",
-            "deleted_element_id": 3690,
-            "deleted_global_id": "0392S3x1113eTFxyqvvgkL",
-            "deleted_name": "CL_28_stalen_kolom_HEB:HE220B:262617",
-            "deleted_storey": "3e Verdiepingsvloer",
-            "surviving_column_above_global_id": "1dw_2eUTr138f5CRTUa9nX",
-            "surviving_column_above_name": "CL_28_3B_hout - kolom - vuren en grenen geschaafd:71x171mm:469845",
-            "surviving_column_above_storey": "Dakvloer",
-            "plan_offset_mm": 3949.4
-          }
-        },
-        {
-          "rule": "S5",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_str_engineer_S5_soft_storey.ifc",
-          "meta": {
-            "rule": "S5",
-            "description": "All shear/load-bearing walls on one storey deleted, creating a soft-storey lateral-stiffness discontinuity (ASCE 7 / EC8 4.2.3.3)",
-            "element_type": "IfcWall",
-            "target_storey": "Bk Putvloer",
-            "target_storey_elevation": null,
-            "deleted_wall_count": 9,
-            "deleted_walls": [
-              {
-                "element_id": 8881,
-                "global_id": "0eXPrOxTf4UhQHrOKpb9cg",
-                "name": "Basic Wall:CL_28_kalkzandsteen_214mm:168765"
-              },
-              {
-                "element_id": 10763,
-                "global_id": "18u9y71VTC8RvA7HxH69WC",
-                "name": "Basic Wall:CL_28_beton_250mm_(C20/25):310269"
-              },
-              {
-                "element_id": 10783,
-                "global_id": "18u9y71VTC8RvA7HxH69x_",
-                "name": "Basic Wall:CL_28_beton_250mm_(C20/25):310543"
-              },
-              {
-                "element_id": 10792,
-                "global_id": "0pcWzSD$z0lgo_3kAwpl$8",
-                "name": "Basic Wall:CL_22_beton_200mm 2:387242"
-              },
-              {
-                "element_id": 10807,
-                "global_id": "0pcWzSD$z0lgo_3kAwpl_o",
-                "name": "Basic Wall:CL_22_beton_200mm 2:387280"
-              },
-              {
-                "element_id": 10819,
-                "global_id": "0pcWzSD$z0lgo_3kAwplvw",
-                "name": "Basic Wall:CL_22_beton_200mm 2:387352"
-              },
-              {
-                "element_id": 10884,
-                "global_id": "28OALxTjv5xu5aFVU5aQuo",
-                "name": "Basic Wall:CL_28_beton_200mm_(C20/25) 2:393250"
-              },
-              {
-                "element_id": 10925,
-                "global_id": "2vT2ZUT1nFu8VJjlPHy_tl",
-                "name": "Basic Wall:CL_28_beton_250mm_(C20/25):409693"
-              },
-              {
-                "element_id": 13138,
-                "global_id": "3rHYZ_CrP1tAuaEJaLKoju",
-                "name": "Basic Wall:CL_28_kalkzandsteen_150mm:620997"
-              }
-            ],
-            "deleted_wall_ids_all": [
-              8881,
-              10763,
-              10783,
-              10792,
-              10807,
-              10819,
-              10884,
-              10925,
-              13138
-            ]
-          }
-        }
-      ],
-      "multi_error": {
-        "rules": [
-          "S1",
-          "S2",
-          "S5"
-        ],
-        "path": "D:\\capstone_Test_cases\\Test_cases\\Positive_Multi\\schependomlaan\\schependomlaan_str_engineer_MULTI_S1-S2-S5.ifc",
-        "applied": [
-          {
-            "rule": "S1",
-            "meta": {
-              "rule": "S1",
-              "description": "Beam cross-section depth cut, driving span-to-depth ratio past EC2 7.4.2 / ACI 318 Table 9.3.1.1 simply-supported limit",
-              "element_type": "IfcBeam",
-              "element_id": 438,
-              "global_id": "1W7hxxtwPC29LisnhFj9fY",
-              "name": "CL_28_houten_balk_vuren_en_grenen_ongeschaafd:70x170mm:373560",
-              "span_mm": 7982.5,
-              "before_depth_mm": 170.0,
-              "after_depth_mm": 400.0,
-              "before_L_over_d": 47.0,
-              "after_L_over_d": 20.0
-            }
-          },
-          {
-            "rule": "S2",
-            "meta": {
-              "rule": "S2",
-              "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-              "element_type": "IfcColumn",
-              "element_id": 4806,
-              "global_id": "34$OUxCufFXuH_dmj0XvDy",
-              "name": "28_3B_staal - kolom - buis vierkant koud:k2:453821",
-              "height_mm": 6720.0,
-              "before_min_dim_mm": 80.0,
-              "after_dim_mm": 250.0,
-              "before_slenderness": 84.0,
-              "after_slenderness": 26.9
-            }
-          },
-          {
-            "rule": "S5",
-            "meta": {
-              "rule": "S5",
-              "description": "All shear/load-bearing walls on one storey deleted, creating a soft-storey lateral-stiffness discontinuity (ASCE 7 / EC8 4.2.3.3)",
-              "element_type": "IfcWall",
-              "target_storey": "Bk Putvloer",
-              "target_storey_elevation": null,
-              "deleted_wall_count": 9,
-              "deleted_walls": [
-                {
-                  "element_id": 8881,
-                  "global_id": "0eXPrOxTf4UhQHrOKpb9cg",
-                  "name": "Basic Wall:CL_28_kalkzandsteen_214mm:168765"
-                },
-                {
-                  "element_id": 10763,
-                  "global_id": "18u9y71VTC8RvA7HxH69WC",
-                  "name": "Basic Wall:CL_28_beton_250mm_(C20/25):310269"
-                },
-                {
-                  "element_id": 10783,
-                  "global_id": "18u9y71VTC8RvA7HxH69x_",
-                  "name": "Basic Wall:CL_28_beton_250mm_(C20/25):310543"
-                },
-                {
-                  "element_id": 10792,
-                  "global_id": "0pcWzSD$z0lgo_3kAwpl$8",
-                  "name": "Basic Wall:CL_22_beton_200mm 2:387242"
-                },
-                {
-                  "element_id": 10807,
-                  "global_id": "0pcWzSD$z0lgo_3kAwpl_o",
-                  "name": "Basic Wall:CL_22_beton_200mm 2:387280"
-                },
-                {
-                  "element_id": 10819,
-                  "global_id": "0pcWzSD$z0lgo_3kAwplvw",
-                  "name": "Basic Wall:CL_22_beton_200mm 2:387352"
-                },
-                {
-                  "element_id": 10884,
-                  "global_id": "28OALxTjv5xu5aFVU5aQuo",
-                  "name": "Basic Wall:CL_28_beton_200mm_(C20/25) 2:393250"
-                },
-                {
-                  "element_id": 10925,
-                  "global_id": "2vT2ZUT1nFu8VJjlPHy_tl",
-                  "name": "Basic Wall:CL_28_beton_250mm_(C20/25):409693"
-                },
-                {
-                  "element_id": 13138,
-                  "global_id": "3rHYZ_CrP1tAuaEJaLKoju",
-                  "name": "Basic Wall:CL_28_kalkzandsteen_150mm:620997"
-                }
-              ],
-              "deleted_wall_ids_all": [
-                8881,
-                10763,
-                10783,
-                10792,
-                10807,
-                10819,
-                10884,
-                10925,
-                13138
-              ]
-            }
-          }
-        ]
-      }
+     "rule": "S2",
+     "path": "dental_clinic_S2_cross_section_dimension.ifc",
+     "meta": {
+      "rule": "S2",
+      "description": "Column cross-section reduced from 400mm to a 200mm square over a 695mm height, below the 250mm minimum; slenderness 1.7 -> 3.5",
+      "element_type": "IfcColumn",
+      "attribute": "cross-section dimension",
+      "before": 400.0,
+      "after": 200.0,
+      "clause": "EC8 5.4.1.2.1 / EC2 5.8.3.1  - minimum cross-sectional dimension for a primary seismic column (250 mm) and second-order slenderness limit",
+      "mutated_global_id": "2sNe4zweD6$gxBqyrJS0p$",
+      "global_id": "2sNe4zweD6$gxBqyrJS0p$"
+     },
+     "self_verified": true
     },
     {
-      "folder": "schependomlaan",
-      "source_file": "str_hollowcore_floors.ifc",
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\schependomlaan\\str_hollowcore_floors.ifc",
-      "single_error": [
-        {
-          "rule": "S3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_str_hollowcore_floors_S3_slab_thickness.ifc",
-          "meta": {
-            "rule": "S3",
-            "description": "Slab thickness cut below ACI 318 Table 7.3.1.1 minimum for its span",
-            "element_type": "IfcSlab",
-            "element_id": 61705,
-            "global_id": "1L6FOB000i034qCZStC3Ot",
-            "name": "KANAALPLAAT",
-            "before_thickness_mm": 200.0,
-            "after_thickness_mm": 120.0
-          }
-        }
-      ],
-      "multi_error": {
-        "skipped": true,
-        "reason": "fewer than 2 supported error types"
-      }
+     "rule": "S3",
+     "path": "dental_clinic_S3_slab_thickness.ifc",
+     "meta": {
+      "rule": "S3",
+      "description": "Slab thickness cut from 150mm to 105mm, below the 150mm minimum",
+      "element_type": "IfcSlab",
+      "attribute": "slab thickness",
+      "before": 150.0,
+      "after": 105.0,
+      "clause": "ACI 318 Table 7.3.1.1  - minimum thickness of a one-way solid slab (150 mm for the spans in these models)",
+      "mutated_global_id": "04P9YDzmrE2hYqZJi1w5iG",
+      "global_id": "04P9YDzmrE2hYqZJi1w5iG"
+     },
+     "self_verified": true
     },
     {
-      "folder": "schependomlaan",
-      "source_file": "str_steel.ifc",
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\schependomlaan\\str_steel.ifc",
-      "single_error": [
-        {
-          "rule": "S1",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_str_steel_S1_beam_span_depth.ifc",
-          "meta": {
-            "rule": "S1",
-            "description": "Beam cross-section depth cut, driving span-to-depth ratio past EC2 7.4.2 / ACI 318 Table 9.3.1.1 simply-supported limit",
-            "element_type": "IfcBeam",
-            "element_id": 40885,
-            "global_id": "1L2zNf0005h34qCZOuDJ0n",
-            "name": "LIGGER",
-            "span_mm": 11583.5,
-            "before_depth_mm": 220.0,
-            "after_depth_mm": 400.0,
-            "before_L_over_d": 52.7,
-            "after_L_over_d": 29.0
-          }
-        },
-        {
-          "rule": "S2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\schependomlaan\\schependomlaan_str_steel_S2_column_dimension.ifc",
-          "meta": {
-            "rule": "S2",
-            "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-            "element_type": "IfcColumn",
-            "element_id": 45298,
-            "global_id": "1L1inK0000_J4qCZOrCJGn",
-            "name": "KOLOM",
-            "height_mm": 3705.0,
-            "before_min_dim_mm": 80.0,
-            "after_dim_mm": 250.0,
-            "before_slenderness": 46.3,
-            "after_slenderness": 14.8
-          }
-        }
-      ],
-      "multi_error": {
-        "rules": [
-          "S1",
-          "S2"
-        ],
-        "path": "D:\\capstone_Test_cases\\Test_cases\\Positive_Multi\\schependomlaan\\schependomlaan_str_steel_MULTI_S1-S2.ifc",
-        "applied": [
-          {
-            "rule": "S1",
-            "meta": {
-              "rule": "S1",
-              "description": "Beam cross-section depth cut, driving span-to-depth ratio past EC2 7.4.2 / ACI 318 Table 9.3.1.1 simply-supported limit",
-              "element_type": "IfcBeam",
-              "element_id": 40885,
-              "global_id": "1L2zNf0005h34qCZOuDJ0n",
-              "name": "LIGGER",
-              "span_mm": 11583.5,
-              "before_depth_mm": 220.0,
-              "after_depth_mm": 400.0,
-              "before_L_over_d": 52.7,
-              "after_L_over_d": 29.0
-            }
-          },
-          {
-            "rule": "S2",
-            "meta": {
-              "rule": "S2",
-              "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-              "element_type": "IfcColumn",
-              "element_id": 45298,
-              "global_id": "1L1inK0000_J4qCZOrCJGn",
-              "name": "KOLOM",
-              "height_mm": 3705.0,
-              "before_min_dim_mm": 80.0,
-              "after_dim_mm": 250.0,
-              "before_slenderness": 46.3,
-              "after_slenderness": 14.8
-            }
-          }
-        ]
-      }
+     "rule": "S6",
+     "path": "dental_clinic_S6_ifcmateriallayerset_nominal_thickness.ifc",
+     "meta": {
+      "rule": "S6",
+      "description": "Nominal thickness of this concrete bearing wall reduced from 300mm to 75mm across 1 layer(s), below the 100mm minimum; the body geometry is left at its drawn size, so the declared build-up and the drawn wall now disagree",
+      "element_type": "IfcWall",
+      "attribute": "IfcMaterialLayerSet nominal thickness",
+      "before": 300.0,
+      "after": 75.0,
+      "clause": "BNBC 2020 Part 6 Sec 7.4.9.1  - the nominal thickness of a masonry bearing wall shall not be less than 250 mm; Sec 6.6.5.3.1  - a concrete bearing wall shall not be thinner than 1/25 of its supported height, nor less than 100 mm",
+      "mutated_global_id": "04P9YDzmrE2hYqZJi1w5eE",
+      "global_id": "04P9YDzmrE2hYqZJi1w5eE"
+     },
+     "self_verified": true
     },
     {
-      "folder": "sixty5",
-      "source_file": "str.ifc",
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\sixty5\\str.ifc",
-      "single_error": [
-        {
-          "rule": "S1",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_str_S1_beam_span_depth.ifc",
-          "meta": {
-            "rule": "S1",
-            "description": "Beam cross-section depth cut, driving span-to-depth ratio past EC2 7.4.2 / ACI 318 Table 9.3.1.1 simply-supported limit",
-            "element_type": "IfcBeam",
-            "element_id": 47366,
-            "global_id": "0PlwGGcLHCAQLNhDCdAaSD",
-            "name": "28_SF_AT_balk vierkant beton:balk vierkant_gen_250x710 (C25/30):611202",
-            "span_mm": 11372.5,
-            "before_depth_mm": 450.0,
-            "after_depth_mm": 400.0,
-            "before_L_over_d": 25.3,
-            "after_L_over_d": 28.4
-          }
-        },
-        {
-          "rule": "S2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_str_S2_column_dimension.ifc",
-          "meta": {
-            "rule": "S2",
-            "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-            "element_type": "IfcColumn",
-            "element_id": 99522,
-            "global_id": "0$RIVnfCX8oAAtt7kUU_Bg",
-            "name": "28_SC_AT_kolom koker_gen:kolom_gen_K250x150x10:628769",
-            "height_mm": 6140.0,
-            "before_min_dim_mm": 150.0,
-            "after_dim_mm": 250.0,
-            "before_slenderness": 40.9,
-            "after_slenderness": 24.6
-          }
-        },
-        {
-          "rule": "S3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_str_S3_slab_thickness.ifc",
-          "meta": {
-            "rule": "S3",
-            "description": "Slab thickness cut below ACI 318 Table 7.3.1.1 minimum for its span",
-            "element_type": "IfcSlab",
-            "element_id": 10877,
-            "global_id": "3RqcUiwovFxAb87$GZczDX",
-            "name": "Floor:23_FL_AT_ge\u00efsoleerde kanaalplaatvloer_200:595438:4",
-            "before_thickness_mm": 340.0,
-            "after_thickness_mm": 120.0
-          }
-        },
-        {
-          "rule": "S4",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_str_S4_floating_column.ifc",
-          "meta": {
-            "rule": "S4",
-            "description": "Ground-level column removed while the column it supports on the storey above remains, creating a discontinuous (floating) vertical load path (ASCE 7 Table 12.3-2 / EC8 4.2.3.3)",
-            "element_type": "IfcColumn",
-            "deleted_element_id": 16132,
-            "deleted_global_id": "3ojUr7V3T4awVGcuENcpnP",
-            "deleted_name": "28_SC_AT_kolom vierkant prefab:kolom vierkant_gen_lxb 400x400:599415",
-            "deleted_storey": "00 begane grond",
-            "surviving_column_above_global_id": "0psVJ5XKzAC9zCc0SVHgzm",
-            "surviving_column_above_name": "28_SC_AT_kolom vierkant prefab:kolom vierkant_gen_lxb 350x350:602479",
-            "surviving_column_above_storey": "01 eerste verdieping",
-            "plan_offset_mm": 0.0
-          }
-        },
-        {
-          "rule": "S5",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\sixty5\\sixty5_str_S5_soft_storey.ifc",
-          "meta": {
-            "rule": "S5",
-            "description": "All shear/load-bearing walls on one storey deleted, creating a soft-storey lateral-stiffness discontinuity (ASCE 7 / EC8 4.2.3.3)",
-            "element_type": "IfcWall",
-            "target_storey": "01 eerste verdieping",
-            "target_storey_elevation": 4500.00000000004,
-            "deleted_wall_count": 21,
-            "deleted_walls": [
-              {
-                "element_id": 13289,
-                "global_id": "12jWe1_Rb2cR0ot5ICgwq8",
-                "name": "Basic Wall:22_WA_AT_ihw beton_200 (C35/45):596993"
-              },
-              {
-                "element_id": 13526,
-                "global_id": "12jWe1_Rb2cR0ot5ICgwtA",
-                "name": "Basic Wall:22_WA_AT_ihw beton_250 (C35/45):597187"
-              },
-              {
-                "element_id": 13617,
-                "global_id": "12jWe1_Rb2cR0ot5ICgwtC",
-                "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597189"
-              },
-              {
-                "element_id": 13983,
-                "global_id": "12jWe1_Rb2cR0ot5ICgwoc",
-                "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597423"
-              },
-              {
-                "element_id": 14343,
-                "global_id": "12jWe1_Rb2cR0ot5ICgwzR",
-                "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597586"
-              },
-              {
-                "element_id": 14395,
-                "global_id": "12jWe1_Rb2cR0ot5ICgwzT",
-                "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597588"
-              },
-              {
-                "element_id": 14447,
-                "global_id": "12jWe1_Rb2cR0ot5ICgw_i",
-                "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597669"
-              },
-              {
-                "element_id": 14499,
-                "global_id": "12jWe1_Rb2cR0ot5ICgw_k",
-                "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597671"
-              },
-              {
-                "element_id": 14551,
-                "global_id": "12jWe1_Rb2cR0ot5ICgw_m",
-                "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597689"
-              },
-              {
-                "element_id": 14707,
-                "global_id": "12jWe1_Rb2cR0ot5ICgw_o",
-                "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597691"
-              }
-            ],
-            "deleted_wall_ids_all": [
-              13289,
-              13526,
-              13617,
-              13983,
-              14343,
-              14395,
-              14447,
-              14499,
-              14551,
-              14707,
-              14863,
-              15022,
-              15183,
-              15301,
-              15422,
-              15620,
-              15814,
-              15997,
-              16205,
-              203874,
-              204014
-            ]
-          }
-        }
-      ],
-      "multi_error": {
-        "rules": [
-          "S2",
-          "S3",
-          "S5"
-        ],
-        "path": "D:\\capstone_Test_cases\\Test_cases\\Positive_Multi\\sixty5\\sixty5_str_MULTI_S2-S3-S5.ifc",
-        "applied": [
-          {
-            "rule": "S2",
-            "meta": {
-              "rule": "S2",
-              "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-              "element_type": "IfcColumn",
-              "element_id": 99522,
-              "global_id": "0$RIVnfCX8oAAtt7kUU_Bg",
-              "name": "28_SC_AT_kolom koker_gen:kolom_gen_K250x150x10:628769",
-              "height_mm": 6140.0,
-              "before_min_dim_mm": 150.0,
-              "after_dim_mm": 250.0,
-              "before_slenderness": 40.9,
-              "after_slenderness": 24.6
-            }
-          },
-          {
-            "rule": "S3",
-            "meta": {
-              "rule": "S3",
-              "description": "Slab thickness cut below ACI 318 Table 7.3.1.1 minimum for its span",
-              "element_type": "IfcSlab",
-              "element_id": 10877,
-              "global_id": "3RqcUiwovFxAb87$GZczDX",
-              "name": "Floor:23_FL_AT_ge\u00efsoleerde kanaalplaatvloer_200:595438:4",
-              "before_thickness_mm": 340.0,
-              "after_thickness_mm": 120.0
-            }
-          },
-          {
-            "rule": "S5",
-            "meta": {
-              "rule": "S5",
-              "description": "All shear/load-bearing walls on one storey deleted, creating a soft-storey lateral-stiffness discontinuity (ASCE 7 / EC8 4.2.3.3)",
-              "element_type": "IfcWall",
-              "target_storey": "01 eerste verdieping",
-              "target_storey_elevation": 4500.00000000004,
-              "deleted_wall_count": 21,
-              "deleted_walls": [
-                {
-                  "element_id": 13289,
-                  "global_id": "12jWe1_Rb2cR0ot5ICgwq8",
-                  "name": "Basic Wall:22_WA_AT_ihw beton_200 (C35/45):596993"
-                },
-                {
-                  "element_id": 13526,
-                  "global_id": "12jWe1_Rb2cR0ot5ICgwtA",
-                  "name": "Basic Wall:22_WA_AT_ihw beton_250 (C35/45):597187"
-                },
-                {
-                  "element_id": 13617,
-                  "global_id": "12jWe1_Rb2cR0ot5ICgwtC",
-                  "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597189"
-                },
-                {
-                  "element_id": 13983,
-                  "global_id": "12jWe1_Rb2cR0ot5ICgwoc",
-                  "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597423"
-                },
-                {
-                  "element_id": 14343,
-                  "global_id": "12jWe1_Rb2cR0ot5ICgwzR",
-                  "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597586"
-                },
-                {
-                  "element_id": 14395,
-                  "global_id": "12jWe1_Rb2cR0ot5ICgwzT",
-                  "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597588"
-                },
-                {
-                  "element_id": 14447,
-                  "global_id": "12jWe1_Rb2cR0ot5ICgw_i",
-                  "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597669"
-                },
-                {
-                  "element_id": 14499,
-                  "global_id": "12jWe1_Rb2cR0ot5ICgw_k",
-                  "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597671"
-                },
-                {
-                  "element_id": 14551,
-                  "global_id": "12jWe1_Rb2cR0ot5ICgw_m",
-                  "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597689"
-                },
-                {
-                  "element_id": 14707,
-                  "global_id": "12jWe1_Rb2cR0ot5ICgw_o",
-                  "name": "Basic Wall:22_WA_AT_ihw beton_225 (C35/45):597691"
-                }
-              ],
-              "deleted_wall_ids_all": [
-                13289,
-                13526,
-                13617,
-                13983,
-                14343,
-                14395,
-                14447,
-                14499,
-                14551,
-                14707,
-                14863,
-                15022,
-                15183,
-                15301,
-                15422,
-                15620,
-                15814,
-                15997,
-                16205,
-                203874,
-                204014
-              ]
-            }
-          }
-        ]
-      }
+     "rule": "S7",
+     "path": "dental_clinic_S7_cross_section_dimensions.ifc",
+     "meta": {
+      "rule": "S7",
+      "description": "Special moment frame column section changed from 400x400mm to 250x700mm: the shortest dimension is now below the 300mm minimum and the dimension ratio 0.36 is below the 0.4 minimum",
+      "element_type": "IfcColumn",
+      "attribute": "cross-section dimensions",
+      "before": 400.0,
+      "after": 250.0,
+      "clause": "BNBC 2020 Part 6 Sec 8.3.5.1  - a special moment frame column shall have a shortest cross-sectional dimension of at least 300 mm and a shortest-to-perpendicular dimension ratio of at least 0.4",
+      "mutated_global_id": "2sNe4zweD6$gxBqyrJS0p$",
+      "global_id": "2sNe4zweD6$gxBqyrJS0p$"
+     },
+     "self_verified": true
     },
     {
-      "folder": "wbdg_office",
-      "source_file": "str.ifc",
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\wbdg_office\\str.ifc",
-      "single_error": [
-        {
-          "rule": "S1",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_str_S1_beam_span_depth.ifc",
-          "meta": {
-            "rule": "S1",
-            "description": "Beam cross-section depth cut, driving span-to-depth ratio past EC2 7.4.2 / ACI 318 Table 9.3.1.1 simply-supported limit",
-            "element_type": "IfcBeam",
-            "element_id": 418,
-            "global_id": "3iFOdnkqD4vxXLEZB7MIGJ",
-            "name": "M_W-Wide Flange:W460X60:W460X60:159017",
-            "span_mm": 11714.5,
-            "before_depth_mm": 455.0,
-            "after_depth_mm": 400.0,
-            "before_L_over_d": 25.7,
-            "after_L_over_d": 29.3
-          }
-        },
-        {
-          "rule": "S2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_str_S2_column_dimension.ifc",
-          "meta": {
-            "rule": "S2",
-            "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-            "element_type": "IfcColumn",
-            "element_id": 588,
-            "global_id": "2rx4FsVcjEO8rf_ydqo0yC",
-            "name": "M_W-Wide Flange-Column:W250X67:W250X67:143837",
-            "height_mm": 5267.2,
-            "before_min_dim_mm": 204.0,
-            "after_dim_mm": 250.0,
-            "before_slenderness": 25.8,
-            "after_slenderness": 21.1
-          }
-        },
-        {
-          "rule": "S3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_str_S3_slab_thickness.ifc",
-          "meta": {
-            "rule": "S3",
-            "description": "Slab thickness cut below ACI 318 Table 7.3.1.1 minimum for its span",
-            "element_type": "IfcSlab",
-            "element_id": 135612,
-            "global_id": "0w3RE7F05Fifsk9Akmcljr",
-            "name": "Basic Roof:Standing Seam Metal Roof:161560",
-            "before_thickness_mm": 351.2,
-            "after_thickness_mm": 120.0
-          }
-        },
-        {
-          "rule": "S4",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_str_S4_floating_column.ifc",
-          "meta": {
-            "rule": "S4",
-            "description": "Ground-level column removed while the column it supports on the storey above remains, creating a discontinuous (floating) vertical load path (ASCE 7 Table 12.3-2 / EC8 4.2.3.3)",
-            "element_type": "IfcColumn",
-            "deleted_element_id": 588,
-            "deleted_global_id": "2rx4FsVcjEO8rf_ydqo0yC",
-            "deleted_name": "M_W-Wide Flange-Column:W250X67:W250X67:143837",
-            "deleted_storey": "T/FDN",
-            "surviving_column_above_global_id": "0OCKWbE5XClAxb7e2zYgWe",
-            "surviving_column_above_name": "M_W-Wide Flange-Column:W250X67:W250X67:149316",
-            "surviving_column_above_storey": "Level 2",
-            "plan_offset_mm": 0.0
-          }
-        },
-        {
-          "rule": "S5",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\wbdg_office\\wbdg_office_str_S5_soft_storey.ifc",
-          "meta": {
-            "rule": "S5",
-            "description": "All shear/load-bearing walls on one storey deleted, creating a soft-storey lateral-stiffness discontinuity (ASCE 7 / EC8 4.2.3.3)",
-            "element_type": "IfcWall",
-            "target_storey": "T/FDN",
-            "target_storey_elevation": -1.0,
-            "deleted_wall_count": 8,
-            "deleted_walls": [
-              {
-                "element_id": 508,
-                "global_id": "3nxP5U1Pn9dvBtyihOLery",
-                "name": "Basic Wall:Foundation - Concrete (300mm):142858"
-              },
-              {
-                "element_id": 658,
-                "global_id": "3nxP5U1Pn9dvBtyihOLeq5",
-                "name": "Basic Wall:Foundation - Concrete (300mm):142963"
-              },
-              {
-                "element_id": 659,
-                "global_id": "3nxP5U1Pn9dvBtyihOLesp",
-                "name": "Basic Wall:Foundation - Concrete (300mm):143045"
-              },
-              {
-                "element_id": 507,
-                "global_id": "3nxP5U1Pn9dvBtyihOLeny",
-                "name": "Basic Wall:Foundation - Concrete (300mm):143114"
-              },
-              {
-                "element_id": 661,
-                "global_id": "3j78rpLc50q8dD4qE8hne8",
-                "name": "Basic Wall:Foundation - Concrete (300mm):166070"
-              },
-              {
-                "element_id": 660,
-                "global_id": "3j78rpLc50q8dD4qE8hnfT",
-                "name": "Basic Wall:Foundation - Concrete (300mm):166115"
-              },
-              {
-                "element_id": 662,
-                "global_id": "3j78rpLc50q8dD4qE8hnkq",
-                "name": "Basic Wall:Foundation - Concrete (300mm):166154"
-              },
-              {
-                "element_id": 663,
-                "global_id": "3j78rpLc50q8dD4qE8hnkJ",
-                "name": "Basic Wall:Foundation - Concrete (300mm):166189"
-              }
-            ],
-            "deleted_wall_ids_all": [
-              508,
-              658,
-              659,
-              507,
-              661,
-              660,
-              662,
-              663
-            ]
-          }
-        }
-      ],
-      "multi_error": {
-        "rules": [
-          "S1",
-          "S3",
-          "S4"
-        ],
-        "path": "D:\\capstone_Test_cases\\Test_cases\\Positive_Multi\\wbdg_office\\wbdg_office_str_MULTI_S1-S3-S4.ifc",
-        "applied": [
-          {
-            "rule": "S1",
-            "meta": {
-              "rule": "S1",
-              "description": "Beam cross-section depth cut, driving span-to-depth ratio past EC2 7.4.2 / ACI 318 Table 9.3.1.1 simply-supported limit",
-              "element_type": "IfcBeam",
-              "element_id": 418,
-              "global_id": "3iFOdnkqD4vxXLEZB7MIGJ",
-              "name": "M_W-Wide Flange:W460X60:W460X60:159017",
-              "span_mm": 11714.5,
-              "before_depth_mm": 455.0,
-              "after_depth_mm": 400.0,
-              "before_L_over_d": 25.7,
-              "after_L_over_d": 29.3
-            }
-          },
-          {
-            "rule": "S3",
-            "meta": {
-              "rule": "S3",
-              "description": "Slab thickness cut below ACI 318 Table 7.3.1.1 minimum for its span",
-              "element_type": "IfcSlab",
-              "element_id": 135612,
-              "global_id": "0w3RE7F05Fifsk9Akmcljr",
-              "name": "Basic Roof:Standing Seam Metal Roof:161560",
-              "before_thickness_mm": 351.2,
-              "after_thickness_mm": 120.0
-            }
-          },
-          {
-            "rule": "S4",
-            "meta": {
-              "rule": "S4",
-              "description": "Ground-level column removed while the column it supports on the storey above remains, creating a discontinuous (floating) vertical load path (ASCE 7 Table 12.3-2 / EC8 4.2.3.3)",
-              "element_type": "IfcColumn",
-              "deleted_element_id": 588,
-              "deleted_global_id": "2rx4FsVcjEO8rf_ydqo0yC",
-              "deleted_name": "M_W-Wide Flange-Column:W250X67:W250X67:143837",
-              "deleted_storey": "T/FDN",
-              "surviving_column_above_global_id": "0OCKWbE5XClAxb7e2zYgWe",
-              "surviving_column_above_name": "M_W-Wide Flange-Column:W250X67:W250X67:149316",
-              "surviving_column_above_storey": "Level 2",
-              "plan_offset_mm": 0.0
-            }
-          }
-        ]
-      }
-    },
-    {
-      "folder": "west_riverside_hospital",
-      "source_file": "str.ifc",
-      "negative": "D:\\capstone_Test_cases\\Test_cases\\Negative\\west_riverside_hospital\\str.ifc",
-      "single_error": [
-        {
-          "rule": "S1",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_str_S1_beam_span_depth.ifc",
-          "meta": {
-            "rule": "S1",
-            "description": "Beam cross-section depth cut, driving span-to-depth ratio past EC2 7.4.2 / ACI 318 Table 9.3.1.1 simply-supported limit",
-            "element_type": "IfcBeam",
-            "element_id": 10774,
-            "global_id": "2$_BGh6Zr8J9t6WBfF705m",
-            "name": "M_C-Channel:C310X30.8:171268",
-            "span_mm": 18389.9,
-            "before_depth_mm": 305.0,
-            "after_depth_mm": 400.0,
-            "before_L_over_d": 60.3,
-            "after_L_over_d": 46.0
-          }
-        },
-        {
-          "rule": "S2",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_str_S2_column_dimension.ifc",
-          "meta": {
-            "rule": "S2",
-            "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-            "element_type": "IfcColumn",
-            "element_id": 100346,
-            "global_id": "1doVLz5QH7Hfjcxa8K13gr",
-            "name": "M_HSS-Hollow Structural Section-Column:HSS152.4X152.4X7.9:228069",
-            "height_mm": 15000.0,
-            "before_min_dim_mm": 152.0,
-            "after_dim_mm": 250.0,
-            "before_slenderness": 98.7,
-            "after_slenderness": 60.0
-          }
-        },
-        {
-          "rule": "S3",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_str_S3_slab_thickness.ifc",
-          "meta": {
-            "rule": "S3",
-            "description": "Slab thickness cut below ACI 318 Table 7.3.1.1 minimum for its span",
-            "element_type": "IfcSlab",
-            "element_id": 67416,
-            "global_id": "3Csn1z$1v5Q8DXdumWYJUE",
-            "name": "Floor:150mm Concrete With 75mm Metal Deck:203304",
-            "before_thickness_mm": 150.0,
-            "after_thickness_mm": 120.0
-          }
-        },
-        {
-          "rule": "S4",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_str_S4_floating_column.ifc",
-          "meta": {
-            "rule": "S4",
-            "description": "Ground-level column removed while the column it supports on the storey above remains, creating a discontinuous (floating) vertical load path (ASCE 7 Table 12.3-2 / EC8 4.2.3.3)",
-            "element_type": "IfcColumn",
-            "deleted_element_id": 395,
-            "deleted_global_id": "2hI2x6REX3J8XpEoqQfBY3",
-            "deleted_name": "UC-Universal Column-Column:356x368x177UC:158538",
-            "deleted_storey": "Level 1",
-            "surviving_column_above_global_id": "1SF7KmDOX7zxh0mvdcI7ZU",
-            "surviving_column_above_name": "UC-Universal Column-Column:356x368x177UC:266122",
-            "surviving_column_above_storey": "Level 3 TOS",
-            "plan_offset_mm": 0.0
-          }
-        },
-        {
-          "rule": "S5",
-          "path": "D:\\capstone_Test_cases\\Test_cases\\Positive\\west_riverside_hospital\\west_riverside_hospital_str_S5_soft_storey.ifc",
-          "meta": {
-            "rule": "S5",
-            "description": "All shear/load-bearing walls on one storey deleted, creating a soft-storey lateral-stiffness discontinuity (ASCE 7 / EC8 4.2.3.3)",
-            "element_type": "IfcWall",
-            "target_storey": "Level 1",
-            "target_storey_elevation": 6.59062507910815e-10,
-            "deleted_wall_count": 28,
-            "deleted_walls": [
-              {
-                "element_id": 85043,
-                "global_id": "3iM76qwej9Tf9ttHcbQqRA",
-                "name": "Basic Wall:Foundation - 375mm Concrete w_step:208780"
-              },
-              {
-                "element_id": 85218,
-                "global_id": "3iM76qwej9Tf9ttHcbQrbB",
-                "name": "Basic Wall:Foundation - 375mm Concrete w_step:208909"
-              },
-              {
-                "element_id": 85391,
-                "global_id": "3iM76qwej9Tf9ttHcbQrdG",
-                "name": "Basic Wall:Foundation - 375mm Concrete w_step:209046"
-              },
-              {
-                "element_id": 85615,
-                "global_id": "3iM76qwej9Tf9ttHcbQrWB",
-                "name": "Basic Wall:Foundation - 375mm Concrete w_step:209229"
-              },
-              {
-                "element_id": 85821,
-                "global_id": "3iM76qwej9Tf9ttHcbQrYo",
-                "name": "Basic Wall:Foundation - 375mm Concrete w_step:209396"
-              },
-              {
-                "element_id": 86026,
-                "global_id": "3iM76qwej9Tf9ttHcbQriU",
-                "name": "Basic Wall:Foundation - 375mm Concrete w_step:209496"
-              },
-              {
-                "element_id": 86139,
-                "global_id": "3iM76qwej9Tf9ttHcbQrlG",
-                "name": "Basic Wall:Foundation - 375mm Concrete w_step:209558"
-              },
-              {
-                "element_id": 86332,
-                "global_id": "3iM76qwej9Tf9ttHcbQrlv",
-                "name": "Basic Wall:Foundation - 375mm Concrete w_step:209599"
-              },
-              {
-                "element_id": 115312,
-                "global_id": "0nLMa_hqjDM9PNHQIvZ_EF",
-                "name": "Basic Wall:Foundation - 300mm Concrete - Retaining:248034"
-              },
-              {
-                "element_id": 115362,
-                "global_id": "0nLMa_hqjDM9PNHQIvZ_9A",
-                "name": "Basic Wall:Foundation - 300mm Concrete - Retaining:248103"
-              }
-            ],
-            "deleted_wall_ids_all": [
-              85043,
-              85218,
-              85391,
-              85615,
-              85821,
-              86026,
-              86139,
-              86332,
-              115312,
-              115362,
-              115666,
-              115710,
-              115754,
-              115987,
-              116045,
-              121431,
-              121475,
-              121519,
-              121563,
-              121607,
-              121651,
-              121695,
-              121739,
-              121783,
-              123400,
-              123444,
-              123488,
-              123532
-            ]
-          }
-        }
-      ],
-      "multi_error": {
-        "rules": [
-          "S1",
-          "S2",
-          "S4",
-          "S5"
-        ],
-        "path": "D:\\capstone_Test_cases\\Test_cases\\Positive_Multi\\west_riverside_hospital\\west_riverside_hospital_str_MULTI_S1-S2-S4-S5.ifc",
-        "applied": [
-          {
-            "rule": "S1",
-            "meta": {
-              "rule": "S1",
-              "description": "Beam cross-section depth cut, driving span-to-depth ratio past EC2 7.4.2 / ACI 318 Table 9.3.1.1 simply-supported limit",
-              "element_type": "IfcBeam",
-              "element_id": 10774,
-              "global_id": "2$_BGh6Zr8J9t6WBfF705m",
-              "name": "M_C-Channel:C310X30.8:171268",
-              "span_mm": 18389.9,
-              "before_depth_mm": 305.0,
-              "after_depth_mm": 400.0,
-              "before_L_over_d": 60.3,
-              "after_L_over_d": 46.0
-            }
-          },
-          {
-            "rule": "S2",
-            "meta": {
-              "rule": "S2",
-              "description": "Tallest column's cross-section reduced to a slender 250mm square, violating EC8 5.4.1.2.1 / EC2 5.8.3.1 minimum dimension/slenderness",
-              "element_type": "IfcColumn",
-              "element_id": 100346,
-              "global_id": "1doVLz5QH7Hfjcxa8K13gr",
-              "name": "M_HSS-Hollow Structural Section-Column:HSS152.4X152.4X7.9:228069",
-              "height_mm": 15000.0,
-              "before_min_dim_mm": 152.0,
-              "after_dim_mm": 250.0,
-              "before_slenderness": 98.7,
-              "after_slenderness": 60.0
-            }
-          },
-          {
-            "rule": "S4",
-            "meta": {
-              "rule": "S4",
-              "description": "Ground-level column removed while the column it supports on the storey above remains, creating a discontinuous (floating) vertical load path (ASCE 7 Table 12.3-2 / EC8 4.2.3.3)",
-              "element_type": "IfcColumn",
-              "deleted_element_id": 395,
-              "deleted_global_id": "2hI2x6REX3J8XpEoqQfBY3",
-              "deleted_name": "UC-Universal Column-Column:356x368x177UC:158538",
-              "deleted_storey": "Level 1",
-              "surviving_column_above_global_id": "1SF7KmDOX7zxh0mvdcI7ZU",
-              "surviving_column_above_name": "UC-Universal Column-Column:356x368x177UC:266122",
-              "surviving_column_above_storey": "Level 3 TOS",
-              "plan_offset_mm": 0.0
-            }
-          },
-          {
-            "rule": "S5",
-            "meta": {
-              "rule": "S5",
-              "description": "All shear/load-bearing walls on one storey deleted, creating a soft-storey lateral-stiffness discontinuity (ASCE 7 / EC8 4.2.3.3)",
-              "element_type": "IfcWall",
-              "target_storey": "Level 1",
-              "target_storey_elevation": 6.59062507910815e-10,
-              "deleted_wall_count": 28,
-              "deleted_walls": [
-                {
-                  "element_id": 85043,
-                  "global_id": "3iM76qwej9Tf9ttHcbQqRA",
-                  "name": "Basic Wall:Foundation - 375mm Concrete w_step:208780"
-                },
-                {
-                  "element_id": 85218,
-                  "global_id": "3iM76qwej9Tf9ttHcbQrbB",
-                  "name": "Basic Wall:Foundation - 375mm Concrete w_step:208909"
-                },
-                {
-                  "element_id": 85391,
-                  "global_id": "3iM76qwej9Tf9ttHcbQrdG",
-                  "name": "Basic Wall:Foundation - 375mm Concrete w_step:209046"
-                },
-                {
-                  "element_id": 85615,
-                  "global_id": "3iM76qwej9Tf9ttHcbQrWB",
-                  "name": "Basic Wall:Foundation - 375mm Concrete w_step:209229"
-                },
-                {
-                  "element_id": 85821,
-                  "global_id": "3iM76qwej9Tf9ttHcbQrYo",
-                  "name": "Basic Wall:Foundation - 375mm Concrete w_step:209396"
-                },
-                {
-                  "element_id": 86026,
-                  "global_id": "3iM76qwej9Tf9ttHcbQriU",
-                  "name": "Basic Wall:Foundation - 375mm Concrete w_step:209496"
-                },
-                {
-                  "element_id": 86139,
-                  "global_id": "3iM76qwej9Tf9ttHcbQrlG",
-                  "name": "Basic Wall:Foundation - 375mm Concrete w_step:209558"
-                },
-                {
-                  "element_id": 86332,
-                  "global_id": "3iM76qwej9Tf9ttHcbQrlv",
-                  "name": "Basic Wall:Foundation - 375mm Concrete w_step:209599"
-                },
-                {
-                  "element_id": 115312,
-                  "global_id": "0nLMa_hqjDM9PNHQIvZ_EF",
-                  "name": "Basic Wall:Foundation - 300mm Concrete - Retaining:248034"
-                },
-                {
-                  "element_id": 115362,
-                  "global_id": "0nLMa_hqjDM9PNHQIvZ_9A",
-                  "name": "Basic Wall:Foundation - 300mm Concrete - Retaining:248103"
-                }
-              ],
-              "deleted_wall_ids_all": [
-                85043,
-                85218,
-                85391,
-                85615,
-                85821,
-                86026,
-                86139,
-                86332,
-                115312,
-                115362,
-                115666,
-                115710,
-                115754,
-                115987,
-                116045,
-                121431,
-                121475,
-                121519,
-                121563,
-                121607,
-                121651,
-                121695,
-                121739,
-                121783,
-                123400,
-                123444,
-                123488,
-                123532
-              ]
-            }
-          }
-        ]
-      }
+     "rule": "S10",
+     "path": "dental_clinic_S10_ifcextrudedareasolid_depth__footing_thic.ifc",
+     "meta": {
+      "rule": "S10",
+      "description": "Footing thickness reduced from 300mm to 90mm, below the 150mm minimum for a soil-supported footing",
+      "element_type": "IfcFooting",
+      "attribute": "IfcExtrudedAreaSolid.Depth (footing thickness)",
+      "before": 299.9999999999999,
+      "after": 90.0,
+      "clause": "BNBC 2020 Part 6 Sec 6.8.7  - depth of footing above bottom reinforcement shall not be less than 150 mm for footings on soil, nor 300 mm for footings on piles",
+      "mutated_global_id": "0LUbnfayLC5AVf6sOTiwMk",
+      "global_id": "0LUbnfayLC5AVf6sOTiwMk"
+     },
+     "self_verified": true
     }
-  ]
+   ],
+   "negative": "str.ifc",
+   "skipped_rules": [
+    "S4",
+    "S5",
+    "S8",
+    "S9"
+   ],
+   "rejected": [],
+   "multi_error": {
+    "path": "dental_clinic_MULTI_S1-S2-S3-S6-S7-S10.ifc",
+    "rules": [
+     "S1",
+     "S2",
+     "S3",
+     "S6",
+     "S7",
+     "S10"
+    ],
+    "applied": [
+     {
+      "rule": "S1",
+      "meta": {
+       "rule": "S1",
+       "description": "Beam depth cut from 455mm to 385mm over a 10613mm span, driving span-to-depth from 23.3 to 27.6  - past the limit of 24",
+       "element_type": "IfcBeam",
+       "attribute": "cross-section depth",
+       "before": 455.0,
+       "after": 384.5287680917004,
+       "clause": "EC2 7.4.2 / ACI 318 Table 9.3.1.1  - span-to-depth ratio limit for deflection control (24 for a simply supported member)",
+       "mutated_global_id": "2t9idiDlv0ZBWxqSNhKYfb",
+       "global_id": "2t9idiDlv0ZBWxqSNhKYfb"
+      }
+     },
+     {
+      "rule": "S2",
+      "meta": {
+       "rule": "S2",
+       "description": "Column cross-section reduced from 400mm to a 200mm square over a 695mm height, below the 250mm minimum; slenderness 1.7 -> 3.5",
+       "element_type": "IfcColumn",
+       "attribute": "cross-section dimension",
+       "before": 400.0,
+       "after": 200.0,
+       "clause": "EC8 5.4.1.2.1 / EC2 5.8.3.1  - minimum cross-sectional dimension for a primary seismic column (250 mm) and second-order slenderness limit",
+       "mutated_global_id": "2sNe4zweD6$gxBqyrJS0p$",
+       "global_id": "2sNe4zweD6$gxBqyrJS0p$"
+      }
+     },
+     {
+      "rule": "S3",
+      "meta": {
+       "rule": "S3",
+       "description": "Slab thickness cut from 150mm to 105mm, below the 150mm minimum",
+       "element_type": "IfcSlab",
+       "attribute": "slab thickness",
+       "before": 150.0,
+       "after": 105.0,
+       "clause": "ACI 318 Table 7.3.1.1  - minimum thickness of a one-way solid slab (150 mm for the spans in these models)",
+       "mutated_global_id": "04P9YDzmrE2hYqZJi1w5iG",
+       "global_id": "04P9YDzmrE2hYqZJi1w5iG"
+      }
+     },
+     {
+      "rule": "S6",
+      "meta": {
+       "rule": "S6",
+       "description": "Nominal thickness of this concrete bearing wall reduced from 300mm to 75mm across 1 layer(s), below the 100mm minimum; the body geometry is left at its drawn size, so the declared build-up and the drawn wall now disagree",
+       "element_type": "IfcWall",
+       "attribute": "IfcMaterialLayerSet nominal thickness",
+       "before": 300.0,
+       "after": 75.0,
+       "clause": "BNBC 2020 Part 6 Sec 7.4.9.1  - the nominal thickness of a masonry bearing wall shall not be less than 250 mm; Sec 6.6.5.3.1  - a concrete bearing wall shall not be thinner than 1/25 of its supported height, nor less than 100 mm",
+       "mutated_global_id": "04P9YDzmrE2hYqZJi1w5eE",
+       "global_id": "04P9YDzmrE2hYqZJi1w5eE"
+      }
+     },
+     {
+      "rule": "S7",
+      "meta": {
+       "rule": "S7",
+       "description": "Special moment frame column section changed from 400x400mm to 250x700mm: the shortest dimension is now below the 300mm minimum and the dimension ratio 0.36 is below the 0.4 minimum",
+       "element_type": "IfcColumn",
+       "attribute": "cross-section dimensions",
+       "before": 400.0,
+       "after": 250.0,
+       "clause": "BNBC 2020 Part 6 Sec 8.3.5.1  - a special moment frame column shall have a shortest cross-sectional dimension of at least 300 mm and a shortest-to-perpendicular dimension ratio of at least 0.4",
+       "mutated_global_id": "2sNe4zweD6$gxBqyrJS0p1",
+       "global_id": "2sNe4zweD6$gxBqyrJS0p1"
+      }
+     },
+     {
+      "rule": "S10",
+      "meta": {
+       "rule": "S10",
+       "description": "Footing thickness reduced from 300mm to 90mm, below the 150mm minimum for a soil-supported footing",
+       "element_type": "IfcFooting",
+       "attribute": "IfcExtrudedAreaSolid.Depth (footing thickness)",
+       "before": 299.9999999999999,
+       "after": 90.0,
+       "clause": "BNBC 2020 Part 6 Sec 6.8.7  - depth of footing above bottom reinforcement shall not be less than 150 mm for footings on soil, nor 300 mm for footings on piles",
+       "mutated_global_id": "0LUbnfayLC5AVf6sOTiwMk",
+       "global_id": "0LUbnfayLC5AVf6sOTiwMk"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "folder": "schependomlaan",
+   "source_file": "str_engineer.ifc",
+   "single_error": [
+    {
+     "rule": "S1",
+     "path": "schependomlaan_S1_cross_section_depth.ifc",
+     "meta": {
+      "rule": "S1",
+      "description": "Beam depth cut from 170mm to 135mm over a 3731mm span, driving span-to-depth from 21.9 to 27.6  - past the limit of 24",
+      "element_type": "IfcBeam",
+      "attribute": "cross-section depth",
+      "before": 169.999999999999,
+      "after": 135.19570716525325,
+      "clause": "EC2 7.4.2 / ACI 318 Table 9.3.1.1  - span-to-depth ratio limit for deflection control (24 for a simply supported member)",
+      "mutated_global_id": "1W7hxxtwPC29LisnhFj9gw",
+      "global_id": "1W7hxxtwPC29LisnhFj9gw"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S2",
+     "path": "schependomlaan_S2_cross_section_dimension.ifc",
+     "meta": {
+      "rule": "S2",
+      "description": "Column cross-section reduced from 80mm to a 60mm square over a 6720mm height, below the 250mm minimum; slenderness 84.0 -> 112.0 (this column was already under the 250mm minimum at 80mm, so the injected defect is the increased slenderness)",
+      "element_type": "IfcColumn",
+      "attribute": "cross-section dimension",
+      "before": 80.0,
+      "after": 60.0,
+      "clause": "EC8 5.4.1.2.1 / EC2 5.8.3.1  - minimum cross-sectional dimension for a primary seismic column (250 mm) and second-order slenderness limit",
+      "mutated_global_id": "1pHyRxe3z9kOUJlAEw5VaX",
+      "global_id": "1pHyRxe3z9kOUJlAEw5VaX"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S3",
+     "path": "schependomlaan_S3_slab_thickness.ifc",
+     "meta": {
+      "rule": "S3",
+      "description": "Slab thickness cut from 380mm to 120mm, below the 150mm minimum",
+      "element_type": "IfcSlab",
+      "attribute": "slab thickness",
+      "before": 380.0,
+      "after": 120.0,
+      "clause": "ACI 318 Table 7.3.1.1  - minimum thickness of a one-way solid slab (150 mm for the spans in these models)",
+      "mutated_global_id": "0eXPrOxTf4UhQHrOKpb9xJ",
+      "global_id": "0eXPrOxTf4UhQHrOKpb9xJ"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S5",
+     "path": "schependomlaan_S5_all_walls_on_the_storey_deleted.ifc",
+     "meta": {
+      "rule": "S5",
+      "description": "All 168 wall(s) on storey 'Bk fundering' deleted, creating a soft-storey lateral-stiffness discontinuity at that level while the storeys above and below keep theirs",
+      "element_type": "IfcWall",
+      "attribute": "(all walls on the storey deleted)",
+      "before": 168,
+      "after": 0,
+      "clause": "ASCE 7 Table 12.3-2 / EC8 4.2.3.3  - soft-storey vertical irregularity: a storey with markedly lower lateral stiffness than the one above",
+      "mutated_global_id": "3OQaiS4Pn5eOmMu06oBeXL",
+      "target_storey": "Bk fundering",
+      "deleted_count": 168
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S6",
+     "path": "schependomlaan_S6_ifcmateriallayerset_nominal_thickness.ifc",
+     "meta": {
+      "rule": "S6",
+      "description": "Nominal thickness of this masonry bearing wall reduced from 300mm to 188mm across 1 layer(s), below the 250mm minimum; the body geometry is left at its drawn size, so the declared build-up and the drawn wall now disagree",
+      "element_type": "IfcWall",
+      "attribute": "IfcMaterialLayerSet nominal thickness",
+      "before": 300.0,
+      "after": 187.5,
+      "clause": "BNBC 2020 Part 6 Sec 7.4.9.1  - the nominal thickness of a masonry bearing wall shall not be less than 250 mm; Sec 6.6.5.3.1  - a concrete bearing wall shall not be thinner than 1/25 of its supported height, nor less than 100 mm",
+      "mutated_global_id": "0eXPrOxTf4UhQHrOKpb8G9",
+      "global_id": "0eXPrOxTf4UhQHrOKpb8G9"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S9",
+     "path": "schependomlaan_S9_plan_outline_at_the_south_west_corner.ifc",
+     "meta": {
+      "rule": "S9",
+      "description": "Storey 'Bk fundering' turned from a 23040x21310mm rectangle into an L by deleting 26 lateral element(s) from its south-west corner; the projections beyond the resulting re-entrant corner are 20% and 55% of the plan, over the 15% limit",
+      "element_type": "IfcWallStandardCase",
+      "attribute": "plan outline at the south-west corner",
+      "before": "rectangular plan",
+      "after": "L-shaped plan, projections 20% x 55%",
+      "clause": "BNBC 2020 Part 6 Table 6.1.5 Type II  - a re-entrant corner exists where both projections of the structure beyond the corner are greater than 15 percent of the plan dimension in that direction",
+      "mutated_global_id": "3OQaiS4Pn5eOmMu06oBeXL",
+      "target_storey": "Bk fundering",
+      "deleted_count": 26
+     },
+     "self_verified": true
+    }
+   ],
+   "negative": "str_engineer.ifc",
+   "skipped_rules": [
+    "S4",
+    "S7",
+    "S8",
+    "S10"
+   ],
+   "rejected": [],
+   "multi_error": {
+    "path": "schependomlaan_MULTI_S1-S2-S3-S5-S9.ifc",
+    "rules": [
+     "S1",
+     "S2",
+     "S3",
+     "S5",
+     "S9"
+    ],
+    "applied": [
+     {
+      "rule": "S1",
+      "meta": {
+       "rule": "S1",
+       "description": "Beam depth cut from 170mm to 135mm over a 3731mm span, driving span-to-depth from 21.9 to 27.6  - past the limit of 24",
+       "element_type": "IfcBeam",
+       "attribute": "cross-section depth",
+       "before": 169.999999999999,
+       "after": 135.19570716525325,
+       "clause": "EC2 7.4.2 / ACI 318 Table 9.3.1.1  - span-to-depth ratio limit for deflection control (24 for a simply supported member)",
+       "mutated_global_id": "1W7hxxtwPC29LisnhFj9gw",
+       "global_id": "1W7hxxtwPC29LisnhFj9gw"
+      }
+     },
+     {
+      "rule": "S2",
+      "meta": {
+       "rule": "S2",
+       "description": "Column cross-section reduced from 80mm to a 60mm square over a 6720mm height, below the 250mm minimum; slenderness 84.0 -> 112.0 (this column was already under the 250mm minimum at 80mm, so the injected defect is the increased slenderness)",
+       "element_type": "IfcColumn",
+       "attribute": "cross-section dimension",
+       "before": 80.0,
+       "after": 60.0,
+       "clause": "EC8 5.4.1.2.1 / EC2 5.8.3.1  - minimum cross-sectional dimension for a primary seismic column (250 mm) and second-order slenderness limit",
+       "mutated_global_id": "1pHyRxe3z9kOUJlAEw5VaX",
+       "global_id": "1pHyRxe3z9kOUJlAEw5VaX"
+      }
+     },
+     {
+      "rule": "S3",
+      "meta": {
+       "rule": "S3",
+       "description": "Slab thickness cut from 380mm to 120mm, below the 150mm minimum",
+       "element_type": "IfcSlab",
+       "attribute": "slab thickness",
+       "before": 380.0,
+       "after": 120.0,
+       "clause": "ACI 318 Table 7.3.1.1  - minimum thickness of a one-way solid slab (150 mm for the spans in these models)",
+       "mutated_global_id": "0eXPrOxTf4UhQHrOKpb9xJ",
+       "global_id": "0eXPrOxTf4UhQHrOKpb9xJ"
+      }
+     },
+     {
+      "rule": "S5",
+      "meta": {
+       "rule": "S5",
+       "description": "All 168 wall(s) on storey 'Bk fundering' deleted, creating a soft-storey lateral-stiffness discontinuity at that level while the storeys above and below keep theirs",
+       "element_type": "IfcWall",
+       "attribute": "(all walls on the storey deleted)",
+       "before": 168,
+       "after": 0,
+       "clause": "ASCE 7 Table 12.3-2 / EC8 4.2.3.3  - soft-storey vertical irregularity: a storey with markedly lower lateral stiffness than the one above",
+       "mutated_global_id": "3OQaiS4Pn5eOmMu06oBeXL",
+       "target_storey": "Bk fundering",
+       "deleted_count": 168
+      }
+     },
+     {
+      "rule": "S9",
+      "meta": {
+       "rule": "S9",
+       "description": "Storey '1e Verdiepingvloer' turned from a 21500x20696mm rectangle into an L by deleting 7 lateral element(s) from its south-east corner; the projections beyond the resulting re-entrant corner are 35% and 30% of the plan, over the 15% limit",
+       "element_type": "IfcWallStandardCase",
+       "attribute": "plan outline at the south-east corner",
+       "before": "rectangular plan",
+       "after": "L-shaped plan, projections 35% x 30%",
+       "clause": "BNBC 2020 Part 6 Table 6.1.5 Type II  - a re-entrant corner exists where both projections of the structure beyond the corner are greater than 15 percent of the plan dimension in that direction",
+       "mutated_global_id": "3OQaiS4Pn5eOmMu06oBr0r",
+       "target_storey": "1e Verdiepingvloer",
+       "deleted_count": 7
+      }
+     }
+    ]
+   }
+  },
+  {
+   "folder": "sixty5",
+   "source_file": "str.ifc",
+   "single_error": [
+    {
+     "rule": "S1",
+     "path": "sixty5_S1_cross_section_depth.ifc",
+     "meta": {
+      "rule": "S1",
+      "description": "Beam depth cut from 450mm to 278mm over a 7673mm span, driving span-to-depth from 17.1 to 27.6  - past the limit of 24",
+      "element_type": "IfcBeam",
+      "attribute": "cross-section depth",
+      "before": 449.999999999993,
+      "after": 277.98913174818443,
+      "clause": "EC2 7.4.2 / ACI 318 Table 9.3.1.1  - span-to-depth ratio limit for deflection control (24 for a simply supported member)",
+      "mutated_global_id": "0$RIVnfCX8oAAtt7kUU_87",
+      "global_id": "0$RIVnfCX8oAAtt7kUU_87"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S2",
+     "path": "sixty5_S2_cross_section_dimension.ifc",
+     "meta": {
+      "rule": "S2",
+      "description": "Column cross-section reduced from 300mm to a 200mm square over a 4560mm height, below the 250mm minimum; slenderness 15.2 -> 22.8",
+      "element_type": "IfcColumn",
+      "attribute": "cross-section dimension",
+      "before": 300.0,
+      "after": 200.0,
+      "clause": "EC8 5.4.1.2.1 / EC2 5.8.3.1  - minimum cross-sectional dimension for a primary seismic column (250 mm) and second-order slenderness limit",
+      "mutated_global_id": "2NMMfYPrr1$Qa4j2kSbc0K",
+      "global_id": "2NMMfYPrr1$Qa4j2kSbc0K"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S3",
+     "path": "sixty5_S3_slab_thickness.ifc",
+     "meta": {
+      "rule": "S3",
+      "description": "Slab thickness cut from 340mm to 120mm, below the 150mm minimum",
+      "element_type": "IfcSlab",
+      "attribute": "slab thickness",
+      "before": 340.0,
+      "after": 120.0,
+      "clause": "ACI 318 Table 7.3.1.1  - minimum thickness of a one-way solid slab (150 mm for the spans in these models)",
+      "mutated_global_id": "12jWe1_Rb2cR0ot5ICgwJd",
+      "global_id": "12jWe1_Rb2cR0ot5ICgwJd"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S4",
+     "path": "sixty5_S4_entity_deleted.ifc",
+     "meta": {
+      "rule": "S4",
+      "description": "Supporting column '28_SC_AT_kolom vierkant prefab:kolom vierkant_gen_lxb 150x1118:1105428' deleted from storey '07 zevende verdieping', leaving column '28_SC_AT_kolom vierkant prefab:kolom vierkant_gen_lxb 150x1118:1105882' on storey '08 achtste verdieping' with no vertical load path below it",
+      "element_type": "IfcColumn",
+      "attribute": "(entity deleted)",
+      "before": "'28_SC_AT_kolom vierkant prefab:kolom vierkant_gen_lxb 150x1118:1105428'",
+      "clause": "ASCE 7 Table 12.3-2 / EC8 4.2.3.3  - vertical irregularity: in-plane discontinuity in the lateral force-resisting element",
+      "mutated_global_id": "00KsckrWzAdA4ziNmT0cL7",
+      "surviving_column_global_id": "11UzOMs2j8BupR4QDrmqWZ",
+      "surviving_column_above_global_id": "11UzOMs2j8BupR4QDrmqWZ",
+      "deleted_storey": "07 zevende verdieping"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S5",
+     "path": "sixty5_S5_all_walls_on_the_storey_deleted.ifc",
+     "meta": {
+      "rule": "S5",
+      "description": "All 21 wall(s) on storey '01 eerste verdieping' deleted, creating a soft-storey lateral-stiffness discontinuity at that level while the storeys above and below keep theirs",
+      "element_type": "IfcWall",
+      "attribute": "(all walls on the storey deleted)",
+      "before": 21,
+      "after": 0,
+      "clause": "ASCE 7 Table 12.3-2 / EC8 4.2.3.3  - soft-storey vertical irregularity: a storey with markedly lower lateral stiffness than the one above",
+      "mutated_global_id": "02GkOQJZz4x9WAhoZkM67Z",
+      "target_storey": "01 eerste verdieping",
+      "deleted_count": 21
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S6",
+     "path": "sixty5_S6_ifcmateriallayerset_nominal_thickness.ifc",
+     "meta": {
+      "rule": "S6",
+      "description": "Nominal thickness of this concrete bearing wall reduced from 510mm to 75mm across 1 layer(s), below the 100mm minimum; the body geometry is left at its drawn size, so the declared build-up and the drawn wall now disagree",
+      "element_type": "IfcWall",
+      "attribute": "IfcMaterialLayerSet nominal thickness",
+      "before": 510.0,
+      "after": 75.0,
+      "clause": "BNBC 2020 Part 6 Sec 7.4.9.1  - the nominal thickness of a masonry bearing wall shall not be less than 250 mm; Sec 6.6.5.3.1  - a concrete bearing wall shall not be thinner than 1/25 of its supported height, nor less than 100 mm",
+      "mutated_global_id": "0nRcV1AFj0fw_5nAHlSdNH",
+      "global_id": "0nRcV1AFj0fw_5nAHlSdNH"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S7",
+     "path": "sixty5_S7_cross_section_dimensions.ifc",
+     "meta": {
+      "rule": "S7",
+      "description": "Special moment frame column section changed from 300x500mm to 250x700mm: the shortest dimension is now below the 300mm minimum and the dimension ratio 0.36 is below the 0.4 minimum",
+      "element_type": "IfcColumn",
+      "attribute": "cross-section dimensions",
+      "before": 300.0,
+      "after": 250.0,
+      "clause": "BNBC 2020 Part 6 Sec 8.3.5.1  - a special moment frame column shall have a shortest cross-sectional dimension of at least 300 mm and a shortest-to-perpendicular dimension ratio of at least 0.4",
+      "mutated_global_id": "2NMMfYPrr1$Qa4j2kSbcsX",
+      "global_id": "2NMMfYPrr1$Qa4j2kSbcsX"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S8",
+     "path": "sixty5_S8_plan_dimension_on_y.ifc",
+     "meta": {
+      "rule": "S8",
+      "description": "Storey '12 twaalfde verdieping' set back on the Y axis from 26570mm to 15255mm by deleting 13 lateral element(s) past the cut, against 30320mm on the adjacent storey '11 elfde verdieping'  - a ratio of 1.99, over the 1.30 limit",
+      "element_type": "IfcWallStandardCase",
+      "attribute": "plan dimension on Y",
+      "before": 26570.0001656001,
+      "after": 15255.0001656001,
+      "clause": "BNBC 2020 Part 6 Table 6.1.4 Type III  - vertical geometric irregularity exists where the horizontal dimension of the lateral force-resisting system in any storey is more than 130 percent of that in an adjacent storey",
+      "mutated_global_id": "02GkOQJZz4x9WAhoZkKFPX",
+      "target_storey": "12 twaalfde verdieping",
+      "deleted_count": 13
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S9",
+     "path": "sixty5_S9_plan_outline_at_the_south_east_corner.ifc",
+     "meta": {
+      "rule": "S9",
+      "description": "Storey '11 elfde verdieping' turned from a 21920x30320mm rectangle into an L by deleting 9 lateral element(s) from its south-east corner; the projections beyond the resulting re-entrant corner are 40% and 35% of the plan, over the 15% limit",
+      "element_type": "IfcColumn",
+      "attribute": "plan outline at the south-east corner",
+      "before": "rectangular plan",
+      "after": "L-shaped plan, projections 40% x 35%",
+      "clause": "BNBC 2020 Part 6 Table 6.1.5 Type II  - a re-entrant corner exists where both projections of the structure beyond the corner are greater than 15 percent of the plan dimension in that direction",
+      "mutated_global_id": "02GkOQJZz4x9WAhoZkKFPP",
+      "target_storey": "11 elfde verdieping",
+      "deleted_count": 9
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S10",
+     "path": "sixty5_S10_ifcextrudedareasolid_depth__footing_thic.ifc",
+     "meta": {
+      "rule": "S10",
+      "description": "Footing thickness reduced from 540mm to 180mm, below the 300mm minimum for a pile-supported footing",
+      "element_type": "IfcFooting",
+      "attribute": "IfcExtrudedAreaSolid.Depth (footing thickness)",
+      "before": 540.0,
+      "after": 180.0,
+      "clause": "BNBC 2020 Part 6 Sec 6.8.7  - depth of footing above bottom reinforcement shall not be less than 150 mm for footings on soil, nor 300 mm for footings on piles",
+      "mutated_global_id": "0lMCTb6U5Cyh8$TvS9gWaB",
+      "global_id": "0lMCTb6U5Cyh8$TvS9gWaB"
+     },
+     "self_verified": true
+    }
+   ],
+   "negative": "str.ifc",
+   "skipped_rules": [],
+   "rejected": [],
+   "multi_error": {
+    "path": "sixty5_MULTI_S1-S2-S3-S6-S7-S10-S4-S5-S8-S9.ifc",
+    "rules": [
+     "S1",
+     "S2",
+     "S3",
+     "S6",
+     "S7",
+     "S10",
+     "S4",
+     "S5",
+     "S8",
+     "S9"
+    ],
+    "applied": [
+     {
+      "rule": "S1",
+      "meta": {
+       "rule": "S1",
+       "description": "Beam depth cut from 450mm to 278mm over a 7673mm span, driving span-to-depth from 17.1 to 27.6  - past the limit of 24",
+       "element_type": "IfcBeam",
+       "attribute": "cross-section depth",
+       "before": 449.999999999993,
+       "after": 277.98913174818443,
+       "clause": "EC2 7.4.2 / ACI 318 Table 9.3.1.1  - span-to-depth ratio limit for deflection control (24 for a simply supported member)",
+       "mutated_global_id": "0$RIVnfCX8oAAtt7kUU_87",
+       "global_id": "0$RIVnfCX8oAAtt7kUU_87"
+      }
+     },
+     {
+      "rule": "S2",
+      "meta": {
+       "rule": "S2",
+       "description": "Column cross-section reduced from 300mm to a 200mm square over a 4560mm height, below the 250mm minimum; slenderness 15.2 -> 22.8",
+       "element_type": "IfcColumn",
+       "attribute": "cross-section dimension",
+       "before": 300.0,
+       "after": 200.0,
+       "clause": "EC8 5.4.1.2.1 / EC2 5.8.3.1  - minimum cross-sectional dimension for a primary seismic column (250 mm) and second-order slenderness limit",
+       "mutated_global_id": "2NMMfYPrr1$Qa4j2kSbc0K",
+       "global_id": "2NMMfYPrr1$Qa4j2kSbc0K"
+      }
+     },
+     {
+      "rule": "S3",
+      "meta": {
+       "rule": "S3",
+       "description": "Slab thickness cut from 340mm to 120mm, below the 150mm minimum",
+       "element_type": "IfcSlab",
+       "attribute": "slab thickness",
+       "before": 340.0,
+       "after": 120.0,
+       "clause": "ACI 318 Table 7.3.1.1  - minimum thickness of a one-way solid slab (150 mm for the spans in these models)",
+       "mutated_global_id": "12jWe1_Rb2cR0ot5ICgwJd",
+       "global_id": "12jWe1_Rb2cR0ot5ICgwJd"
+      }
+     },
+     {
+      "rule": "S6",
+      "meta": {
+       "rule": "S6",
+       "description": "Nominal thickness of this concrete bearing wall reduced from 510mm to 75mm across 1 layer(s), below the 100mm minimum; the body geometry is left at its drawn size, so the declared build-up and the drawn wall now disagree",
+       "element_type": "IfcWall",
+       "attribute": "IfcMaterialLayerSet nominal thickness",
+       "before": 510.0,
+       "after": 75.0,
+       "clause": "BNBC 2020 Part 6 Sec 7.4.9.1  - the nominal thickness of a masonry bearing wall shall not be less than 250 mm; Sec 6.6.5.3.1  - a concrete bearing wall shall not be thinner than 1/25 of its supported height, nor less than 100 mm",
+       "mutated_global_id": "0nRcV1AFj0fw_5nAHlSdNH",
+       "global_id": "0nRcV1AFj0fw_5nAHlSdNH"
+      }
+     },
+     {
+      "rule": "S7",
+      "meta": {
+       "rule": "S7",
+       "description": "Special moment frame column section changed from 300x500mm to 250x700mm: the shortest dimension is now below the 300mm minimum and the dimension ratio 0.36 is below the 0.4 minimum",
+       "element_type": "IfcColumn",
+       "attribute": "cross-section dimensions",
+       "before": 300.0,
+       "after": 250.0,
+       "clause": "BNBC 2020 Part 6 Sec 8.3.5.1  - a special moment frame column shall have a shortest cross-sectional dimension of at least 300 mm and a shortest-to-perpendicular dimension ratio of at least 0.4",
+       "mutated_global_id": "2NMMfYPrr1$Qa4j2kSbcsX",
+       "global_id": "2NMMfYPrr1$Qa4j2kSbcsX"
+      }
+     },
+     {
+      "rule": "S10",
+      "meta": {
+       "rule": "S10",
+       "description": "Footing thickness reduced from 540mm to 180mm, below the 300mm minimum for a pile-supported footing",
+       "element_type": "IfcFooting",
+       "attribute": "IfcExtrudedAreaSolid.Depth (footing thickness)",
+       "before": 540.0,
+       "after": 180.0,
+       "clause": "BNBC 2020 Part 6 Sec 6.8.7  - depth of footing above bottom reinforcement shall not be less than 150 mm for footings on soil, nor 300 mm for footings on piles",
+       "mutated_global_id": "0lMCTb6U5Cyh8$TvS9gWaB",
+       "global_id": "0lMCTb6U5Cyh8$TvS9gWaB"
+      }
+     },
+     {
+      "rule": "S4",
+      "meta": {
+       "rule": "S4",
+       "description": "Supporting column '28_SC_AT_kolom vierkant prefab:kolom vierkant_gen_lxb 150x1118:1105428' deleted from storey '07 zevende verdieping', leaving column '28_SC_AT_kolom vierkant prefab:kolom vierkant_gen_lxb 150x1118:1105882' on storey '08 achtste verdieping' with no vertical load path below it",
+       "element_type": "IfcColumn",
+       "attribute": "(entity deleted)",
+       "before": "'28_SC_AT_kolom vierkant prefab:kolom vierkant_gen_lxb 150x1118:1105428'",
+       "clause": "ASCE 7 Table 12.3-2 / EC8 4.2.3.3  - vertical irregularity: in-plane discontinuity in the lateral force-resisting element",
+       "mutated_global_id": "00KsckrWzAdA4ziNmT0cL7",
+       "surviving_column_global_id": "11UzOMs2j8BupR4QDrmqWZ",
+       "surviving_column_above_global_id": "11UzOMs2j8BupR4QDrmqWZ",
+       "deleted_storey": "07 zevende verdieping"
+      }
+     },
+     {
+      "rule": "S5",
+      "meta": {
+       "rule": "S5",
+       "description": "All 21 wall(s) on storey '01 eerste verdieping' deleted, creating a soft-storey lateral-stiffness discontinuity at that level while the storeys above and below keep theirs",
+       "element_type": "IfcWall",
+       "attribute": "(all walls on the storey deleted)",
+       "before": 21,
+       "after": 0,
+       "clause": "ASCE 7 Table 12.3-2 / EC8 4.2.3.3  - soft-storey vertical irregularity: a storey with markedly lower lateral stiffness than the one above",
+       "mutated_global_id": "02GkOQJZz4x9WAhoZkM67Z",
+       "target_storey": "01 eerste verdieping",
+       "deleted_count": 21
+      }
+     },
+     {
+      "rule": "S8",
+      "meta": {
+       "rule": "S8",
+       "description": "Storey '12 twaalfde verdieping' set back on the Y axis from 26570mm to 15255mm by deleting 13 lateral element(s) past the cut, against 30320mm on the adjacent storey '11 elfde verdieping'  - a ratio of 1.99, over the 1.30 limit",
+       "element_type": "IfcWallStandardCase",
+       "attribute": "plan dimension on Y",
+       "before": 26570.0001656001,
+       "after": 15255.0001656001,
+       "clause": "BNBC 2020 Part 6 Table 6.1.4 Type III  - vertical geometric irregularity exists where the horizontal dimension of the lateral force-resisting system in any storey is more than 130 percent of that in an adjacent storey",
+       "mutated_global_id": "02GkOQJZz4x9WAhoZkKFPX",
+       "target_storey": "12 twaalfde verdieping",
+       "deleted_count": 13
+      }
+     },
+     {
+      "rule": "S9",
+      "meta": {
+       "rule": "S9",
+       "description": "Storey '11 elfde verdieping' turned from a 21920x30320mm rectangle into an L by deleting 9 lateral element(s) from its south-east corner; the projections beyond the resulting re-entrant corner are 40% and 35% of the plan, over the 15% limit",
+       "element_type": "IfcColumn",
+       "attribute": "plan outline at the south-east corner",
+       "before": "rectangular plan",
+       "after": "L-shaped plan, projections 40% x 35%",
+       "clause": "BNBC 2020 Part 6 Table 6.1.5 Type II  - a re-entrant corner exists where both projections of the structure beyond the corner are greater than 15 percent of the plan dimension in that direction",
+       "mutated_global_id": "02GkOQJZz4x9WAhoZkKFPP",
+       "target_storey": "11 elfde verdieping",
+       "deleted_count": 9
+      }
+     }
+    ]
+   }
+  },
+  {
+   "folder": "wbdg_office",
+   "source_file": "str.ifc",
+   "single_error": [
+    {
+     "rule": "S1",
+     "path": "wbdg_office_S1_cross_section_depth.ifc",
+     "meta": {
+      "rule": "S1",
+      "description": "Beam depth cut from 455mm to 363mm over a 10010mm span, driving span-to-depth from 22.0 to 27.6  - past the limit of 24",
+      "element_type": "IfcBeam",
+      "attribute": "cross-section depth",
+      "before": 455.0000000000006,
+      "after": 362.66423913046117,
+      "clause": "EC2 7.4.2 / ACI 318 Table 9.3.1.1  - span-to-depth ratio limit for deflection control (24 for a simply supported member)",
+      "mutated_global_id": "3iFOdnkqD4vxXLEZB7MJbX",
+      "global_id": "3iFOdnkqD4vxXLEZB7MJbX"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S2",
+     "path": "wbdg_office_S2_cross_section_dimension.ifc",
+     "meta": {
+      "rule": "S2",
+      "description": "Column cross-section reduced from 204mm to a 143mm square over a 5267mm height, below the 250mm minimum; slenderness 25.8 -> 36.9 (this column was already under the 250mm minimum at 204mm, so the injected defect is the increased slenderness)",
+      "element_type": "IfcColumn",
+      "attribute": "cross-section dimension",
+      "before": 203.99999999999997,
+      "after": 142.79999999999998,
+      "clause": "EC8 5.4.1.2.1 / EC2 5.8.3.1  - minimum cross-sectional dimension for a primary seismic column (250 mm) and second-order slenderness limit",
+      "mutated_global_id": "2rx4FsVcjEO8rf_ydqo0g0",
+      "global_id": "2rx4FsVcjEO8rf_ydqo0g0"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S3",
+     "path": "wbdg_office_S3_slab_thickness.ifc",
+     "meta": {
+      "rule": "S3",
+      "description": "Slab thickness cut from 351mm to 120mm, below the 150mm minimum",
+      "element_type": "IfcSlab",
+      "attribute": "slab thickness",
+      "before": 351.1786649170522,
+      "after": 120.0,
+      "clause": "ACI 318 Table 7.3.1.1  - minimum thickness of a one-way solid slab (150 mm for the spans in these models)",
+      "mutated_global_id": "0w3RE7F05Fifsk9Akmcljr",
+      "global_id": "0w3RE7F05Fifsk9Akmcljr"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S6",
+     "path": "wbdg_office_S6_ifcmateriallayerset_nominal_thickness.ifc",
+     "meta": {
+      "rule": "S6",
+      "description": "Nominal thickness of this concrete bearing wall reduced from 300mm to 75mm across 1 layer(s), below the 100mm minimum; the body geometry is left at its drawn size, so the declared build-up and the drawn wall now disagree",
+      "element_type": "IfcWall",
+      "attribute": "IfcMaterialLayerSet nominal thickness",
+      "before": 300.0,
+      "after": 75.0,
+      "clause": "BNBC 2020 Part 6 Sec 7.4.9.1  - the nominal thickness of a masonry bearing wall shall not be less than 250 mm; Sec 6.6.5.3.1  - a concrete bearing wall shall not be thinner than 1/25 of its supported height, nor less than 100 mm",
+      "mutated_global_id": "3j78rpLc50q8dD4qE8hne8",
+      "global_id": "3j78rpLc50q8dD4qE8hne8"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S8",
+     "path": "wbdg_office_S8_plan_dimension_on_y.ifc",
+     "meta": {
+      "rule": "S8",
+      "description": "Storey 'Level 2' set back on the Y axis from 35830mm to 17926mm by deleting 16 lateral element(s) past the cut, against 36517mm on the adjacent storey 'T/FDN'  - a ratio of 2.04, over the 1.30 limit",
+      "element_type": "IfcColumn",
+      "attribute": "plan dimension on Y",
+      "before": 35829.90000000061,
+      "after": 17926.062000000773,
+      "clause": "BNBC 2020 Part 6 Table 6.1.4 Type III  - vertical geometric irregularity exists where the horizontal dimension of the lateral force-resisting system in any storey is more than 130 percent of that in an adjacent storey",
+      "mutated_global_id": "1trXgJhnr0DuT_DyskqK7K",
+      "target_storey": "Level 2",
+      "deleted_count": 16
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S10",
+     "path": "wbdg_office_S10_ifcextrudedareasolid_depth__footing_thic.ifc",
+     "meta": {
+      "rule": "S10",
+      "description": "Footing thickness reduced from 300mm to 90mm, below the 150mm minimum for a soil-supported footing",
+      "element_type": "IfcFooting",
+      "attribute": "IfcExtrudedAreaSolid.Depth (footing thickness)",
+      "before": 299.9999999999999,
+      "after": 90.0,
+      "clause": "BNBC 2020 Part 6 Sec 6.8.7  - depth of footing above bottom reinforcement shall not be less than 150 mm for footings on soil, nor 300 mm for footings on piles",
+      "mutated_global_id": "3j78rpLc50q8dD4qE8hnlZ",
+      "global_id": "3j78rpLc50q8dD4qE8hnlZ"
+     },
+     "self_verified": true
+    }
+   ],
+   "negative": "str.ifc",
+   "skipped_rules": [
+    "S4",
+    "S5",
+    "S7",
+    "S9"
+   ],
+   "rejected": [],
+   "multi_error": {
+    "path": "wbdg_office_MULTI_S1-S2-S3-S6-S10-S8.ifc",
+    "rules": [
+     "S1",
+     "S2",
+     "S3",
+     "S6",
+     "S10",
+     "S8"
+    ],
+    "applied": [
+     {
+      "rule": "S1",
+      "meta": {
+       "rule": "S1",
+       "description": "Beam depth cut from 455mm to 363mm over a 10010mm span, driving span-to-depth from 22.0 to 27.6  - past the limit of 24",
+       "element_type": "IfcBeam",
+       "attribute": "cross-section depth",
+       "before": 455.0000000000006,
+       "after": 362.66423913046117,
+       "clause": "EC2 7.4.2 / ACI 318 Table 9.3.1.1  - span-to-depth ratio limit for deflection control (24 for a simply supported member)",
+       "mutated_global_id": "3iFOdnkqD4vxXLEZB7MJbX",
+       "global_id": "3iFOdnkqD4vxXLEZB7MJbX"
+      }
+     },
+     {
+      "rule": "S2",
+      "meta": {
+       "rule": "S2",
+       "description": "Column cross-section reduced from 204mm to a 143mm square over a 5267mm height, below the 250mm minimum; slenderness 25.8 -> 36.9 (this column was already under the 250mm minimum at 204mm, so the injected defect is the increased slenderness)",
+       "element_type": "IfcColumn",
+       "attribute": "cross-section dimension",
+       "before": 203.99999999999997,
+       "after": 142.79999999999998,
+       "clause": "EC8 5.4.1.2.1 / EC2 5.8.3.1  - minimum cross-sectional dimension for a primary seismic column (250 mm) and second-order slenderness limit",
+       "mutated_global_id": "2rx4FsVcjEO8rf_ydqo0g0",
+       "global_id": "2rx4FsVcjEO8rf_ydqo0g0"
+      }
+     },
+     {
+      "rule": "S3",
+      "meta": {
+       "rule": "S3",
+       "description": "Slab thickness cut from 351mm to 120mm, below the 150mm minimum",
+       "element_type": "IfcSlab",
+       "attribute": "slab thickness",
+       "before": 351.1786649170522,
+       "after": 120.0,
+       "clause": "ACI 318 Table 7.3.1.1  - minimum thickness of a one-way solid slab (150 mm for the spans in these models)",
+       "mutated_global_id": "0w3RE7F05Fifsk9Akmcljr",
+       "global_id": "0w3RE7F05Fifsk9Akmcljr"
+      }
+     },
+     {
+      "rule": "S6",
+      "meta": {
+       "rule": "S6",
+       "description": "Nominal thickness of this concrete bearing wall reduced from 300mm to 75mm across 1 layer(s), below the 100mm minimum; the body geometry is left at its drawn size, so the declared build-up and the drawn wall now disagree",
+       "element_type": "IfcWall",
+       "attribute": "IfcMaterialLayerSet nominal thickness",
+       "before": 300.0,
+       "after": 75.0,
+       "clause": "BNBC 2020 Part 6 Sec 7.4.9.1  - the nominal thickness of a masonry bearing wall shall not be less than 250 mm; Sec 6.6.5.3.1  - a concrete bearing wall shall not be thinner than 1/25 of its supported height, nor less than 100 mm",
+       "mutated_global_id": "3j78rpLc50q8dD4qE8hne8",
+       "global_id": "3j78rpLc50q8dD4qE8hne8"
+      }
+     },
+     {
+      "rule": "S10",
+      "meta": {
+       "rule": "S10",
+       "description": "Footing thickness reduced from 300mm to 90mm, below the 150mm minimum for a soil-supported footing",
+       "element_type": "IfcFooting",
+       "attribute": "IfcExtrudedAreaSolid.Depth (footing thickness)",
+       "before": 299.9999999999999,
+       "after": 90.0,
+       "clause": "BNBC 2020 Part 6 Sec 6.8.7  - depth of footing above bottom reinforcement shall not be less than 150 mm for footings on soil, nor 300 mm for footings on piles",
+       "mutated_global_id": "3j78rpLc50q8dD4qE8hnlZ",
+       "global_id": "3j78rpLc50q8dD4qE8hnlZ"
+      }
+     },
+     {
+      "rule": "S8",
+      "meta": {
+       "rule": "S8",
+       "description": "Storey 'Level 2' set back on the Y axis from 35830mm to 17926mm by deleting 16 lateral element(s) past the cut, against 36517mm on the adjacent storey 'T/FDN'  - a ratio of 2.04, over the 1.30 limit",
+       "element_type": "IfcColumn",
+       "attribute": "plan dimension on Y",
+       "before": 35829.90000000061,
+       "after": 17926.062000000773,
+       "clause": "BNBC 2020 Part 6 Table 6.1.4 Type III  - vertical geometric irregularity exists where the horizontal dimension of the lateral force-resisting system in any storey is more than 130 percent of that in an adjacent storey",
+       "mutated_global_id": "1trXgJhnr0DuT_DyskqK7K",
+       "target_storey": "Level 2",
+       "deleted_count": 16
+      }
+     }
+    ]
+   }
+  },
+  {
+   "folder": "west_riverside_hospital",
+   "source_file": "str.ifc",
+   "single_error": [
+    {
+     "rule": "S1",
+     "path": "west_riverside_hospital_S1_cross_section_depth.ifc",
+     "meta": {
+      "rule": "S1",
+      "description": "Beam depth cut from 305mm to 207mm over a 5723mm span, driving span-to-depth from 18.8 to 27.6  - past the limit of 24",
+      "element_type": "IfcBeam",
+      "attribute": "cross-section depth",
+      "before": 305.000000000004,
+      "after": 207.33695652182246,
+      "clause": "EC2 7.4.2 / ACI 318 Table 9.3.1.1  - span-to-depth ratio limit for deflection control (24 for a simply supported member)",
+      "mutated_global_id": "1fyrQTBUD7RBDt0Gvfp7Dm",
+      "global_id": "1fyrQTBUD7RBDt0Gvfp7Dm"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S2",
+     "path": "west_riverside_hospital_S2_cross_section_dimension.ifc",
+     "meta": {
+      "rule": "S2",
+      "description": "Column cross-section reduced from 368mm to a 200mm square over a 12300mm height, below the 250mm minimum; slenderness 33.4 -> 61.5",
+      "element_type": "IfcColumn",
+      "attribute": "cross-section dimension",
+      "before": 368.2,
+      "after": 200.0,
+      "clause": "EC8 5.4.1.2.1 / EC2 5.8.3.1  - minimum cross-sectional dimension for a primary seismic column (250 mm) and second-order slenderness limit",
+      "mutated_global_id": "17FgWlBgH3PASDyB6ea2T9",
+      "global_id": "17FgWlBgH3PASDyB6ea2T9"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S3",
+     "path": "west_riverside_hospital_S3_slab_thickness.ifc",
+     "meta": {
+      "rule": "S3",
+      "description": "Slab thickness cut from 150mm to 105mm, below the 150mm minimum",
+      "element_type": "IfcSlab",
+      "attribute": "slab thickness",
+      "before": 150.000000000001,
+      "after": 105.0000000000007,
+      "clause": "ACI 318 Table 7.3.1.1  - minimum thickness of a one-way solid slab (150 mm for the spans in these models)",
+      "mutated_global_id": "01QiYp4Bv6gOSNZBUav55O",
+      "global_id": "01QiYp4Bv6gOSNZBUav55O"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S6",
+     "path": "west_riverside_hospital_S6_ifcmateriallayerset_nominal_thickness.ifc",
+     "meta": {
+      "rule": "S6",
+      "description": "Nominal thickness of this concrete bearing wall reduced from 375mm to 75mm across 1 layer(s), below the 100mm minimum; the body geometry is left at its drawn size, so the declared build-up and the drawn wall now disagree",
+      "element_type": "IfcWall",
+      "attribute": "IfcMaterialLayerSet nominal thickness",
+      "before": 375.0,
+      "after": 75.0,
+      "clause": "BNBC 2020 Part 6 Sec 7.4.9.1  - the nominal thickness of a masonry bearing wall shall not be less than 250 mm; Sec 6.6.5.3.1  - a concrete bearing wall shall not be thinner than 1/25 of its supported height, nor less than 100 mm",
+      "mutated_global_id": "3iM76qwej9Tf9ttHcbQqRA",
+      "global_id": "3iM76qwej9Tf9ttHcbQqRA"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S7",
+     "path": "west_riverside_hospital_S7_cross_section_dimensions.ifc",
+     "meta": {
+      "rule": "S7",
+      "description": "Special moment frame column section changed from 1246x1574mm to 250x700mm: the shortest dimension is now below the 300mm minimum and the dimension ratio 0.36 is below the 0.4 minimum",
+      "element_type": "IfcColumn",
+      "attribute": "cross-section dimensions",
+      "before": 1246.230139626711,
+      "after": 250.0,
+      "clause": "BNBC 2020 Part 6 Sec 8.3.5.1  - a special moment frame column shall have a shortest cross-sectional dimension of at least 300 mm and a shortest-to-perpendicular dimension ratio of at least 0.4",
+      "mutated_global_id": "1hOXJARKz4lepvz$z2iSHk",
+      "global_id": "1hOXJARKz4lepvz$z2iSHk"
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S8",
+     "path": "west_riverside_hospital_S8_plan_dimension_on_x.ifc",
+     "meta": {
+      "rule": "S8",
+      "description": "Storey 'Level 3 TOS' set back on the X axis from 91606mm to 61204mm by deleting 24 lateral element(s) past the cut, against 99017mm on the adjacent storey 'Level 1'  - a ratio of 1.62, over the 1.30 limit",
+      "element_type": "IfcColumn",
+      "attribute": "plan dimension on X",
+      "before": 91605.64366177181,
+      "after": 61204.149030913984,
+      "clause": "BNBC 2020 Part 6 Table 6.1.4 Type III  - vertical geometric irregularity exists where the horizontal dimension of the lateral force-resisting system in any storey is more than 130 percent of that in an adjacent storey",
+      "mutated_global_id": "1fOVjSd7T40PyRtVEklqJV",
+      "target_storey": "Level 3 TOS",
+      "deleted_count": 24
+     },
+     "self_verified": true
+    },
+    {
+     "rule": "S10",
+     "path": "west_riverside_hospital_S10_ifcextrudedareasolid_depth__footing_thic.ifc",
+     "meta": {
+      "rule": "S10",
+      "description": "Footing thickness reduced from 300mm to 90mm, below the 150mm minimum for a soil-supported footing",
+      "element_type": "IfcFooting",
+      "attribute": "IfcExtrudedAreaSolid.Depth (footing thickness)",
+      "before": 300.0,
+      "after": 90.0,
+      "clause": "BNBC 2020 Part 6 Sec 6.8.7  - depth of footing above bottom reinforcement shall not be less than 150 mm for footings on soil, nor 300 mm for footings on piles",
+      "mutated_global_id": "25VG$Fj5jDzP7LbWNvGVmY",
+      "global_id": "25VG$Fj5jDzP7LbWNvGVmY"
+     },
+     "self_verified": true
+    }
+   ],
+   "negative": "str.ifc",
+   "skipped_rules": [
+    "S4",
+    "S5",
+    "S9"
+   ],
+   "rejected": [],
+   "multi_error": {
+    "path": "west_riverside_hospital_MULTI_S1-S2-S3-S6-S7-S10-S8.ifc",
+    "rules": [
+     "S1",
+     "S2",
+     "S3",
+     "S6",
+     "S7",
+     "S10",
+     "S8"
+    ],
+    "applied": [
+     {
+      "rule": "S1",
+      "meta": {
+       "rule": "S1",
+       "description": "Beam depth cut from 305mm to 207mm over a 5723mm span, driving span-to-depth from 18.8 to 27.6  - past the limit of 24",
+       "element_type": "IfcBeam",
+       "attribute": "cross-section depth",
+       "before": 305.000000000004,
+       "after": 207.33695652182246,
+       "clause": "EC2 7.4.2 / ACI 318 Table 9.3.1.1  - span-to-depth ratio limit for deflection control (24 for a simply supported member)",
+       "mutated_global_id": "1fyrQTBUD7RBDt0Gvfp7Dm",
+       "global_id": "1fyrQTBUD7RBDt0Gvfp7Dm"
+      }
+     },
+     {
+      "rule": "S2",
+      "meta": {
+       "rule": "S2",
+       "description": "Column cross-section reduced from 368mm to a 200mm square over a 12300mm height, below the 250mm minimum; slenderness 33.4 -> 61.5",
+       "element_type": "IfcColumn",
+       "attribute": "cross-section dimension",
+       "before": 368.2,
+       "after": 200.0,
+       "clause": "EC8 5.4.1.2.1 / EC2 5.8.3.1  - minimum cross-sectional dimension for a primary seismic column (250 mm) and second-order slenderness limit",
+       "mutated_global_id": "17FgWlBgH3PASDyB6ea2T9",
+       "global_id": "17FgWlBgH3PASDyB6ea2T9"
+      }
+     },
+     {
+      "rule": "S3",
+      "meta": {
+       "rule": "S3",
+       "description": "Slab thickness cut from 150mm to 105mm, below the 150mm minimum",
+       "element_type": "IfcSlab",
+       "attribute": "slab thickness",
+       "before": 150.000000000001,
+       "after": 105.0000000000007,
+       "clause": "ACI 318 Table 7.3.1.1  - minimum thickness of a one-way solid slab (150 mm for the spans in these models)",
+       "mutated_global_id": "01QiYp4Bv6gOSNZBUav55O",
+       "global_id": "01QiYp4Bv6gOSNZBUav55O"
+      }
+     },
+     {
+      "rule": "S6",
+      "meta": {
+       "rule": "S6",
+       "description": "Nominal thickness of this concrete bearing wall reduced from 375mm to 75mm across 1 layer(s), below the 100mm minimum; the body geometry is left at its drawn size, so the declared build-up and the drawn wall now disagree",
+       "element_type": "IfcWall",
+       "attribute": "IfcMaterialLayerSet nominal thickness",
+       "before": 375.0,
+       "after": 75.0,
+       "clause": "BNBC 2020 Part 6 Sec 7.4.9.1  - the nominal thickness of a masonry bearing wall shall not be less than 250 mm; Sec 6.6.5.3.1  - a concrete bearing wall shall not be thinner than 1/25 of its supported height, nor less than 100 mm",
+       "mutated_global_id": "3iM76qwej9Tf9ttHcbQqRA",
+       "global_id": "3iM76qwej9Tf9ttHcbQqRA"
+      }
+     },
+     {
+      "rule": "S7",
+      "meta": {
+       "rule": "S7",
+       "description": "Special moment frame column section changed from 1246x1574mm to 250x700mm: the shortest dimension is now below the 300mm minimum and the dimension ratio 0.36 is below the 0.4 minimum",
+       "element_type": "IfcColumn",
+       "attribute": "cross-section dimensions",
+       "before": 1246.230139626711,
+       "after": 250.0,
+       "clause": "BNBC 2020 Part 6 Sec 8.3.5.1  - a special moment frame column shall have a shortest cross-sectional dimension of at least 300 mm and a shortest-to-perpendicular dimension ratio of at least 0.4",
+       "mutated_global_id": "1hOXJARKz4lepvz$z2iSHk",
+       "global_id": "1hOXJARKz4lepvz$z2iSHk"
+      }
+     },
+     {
+      "rule": "S10",
+      "meta": {
+       "rule": "S10",
+       "description": "Footing thickness reduced from 300mm to 90mm, below the 150mm minimum for a soil-supported footing",
+       "element_type": "IfcFooting",
+       "attribute": "IfcExtrudedAreaSolid.Depth (footing thickness)",
+       "before": 300.0,
+       "after": 90.0,
+       "clause": "BNBC 2020 Part 6 Sec 6.8.7  - depth of footing above bottom reinforcement shall not be less than 150 mm for footings on soil, nor 300 mm for footings on piles",
+       "mutated_global_id": "25VG$Fj5jDzP7LbWNvGVmY",
+       "global_id": "25VG$Fj5jDzP7LbWNvGVmY"
+      }
+     },
+     {
+      "rule": "S8",
+      "meta": {
+       "rule": "S8",
+       "description": "Storey 'Level 3 TOS' set back on the X axis from 91606mm to 61204mm by deleting 24 lateral element(s) past the cut, against 99017mm on the adjacent storey 'Level 1'  - a ratio of 1.62, over the 1.30 limit",
+       "element_type": "IfcColumn",
+       "attribute": "plan dimension on X",
+       "before": 91605.64366177181,
+       "after": 61204.149030913984,
+       "clause": "BNBC 2020 Part 6 Table 6.1.4 Type III  - vertical geometric irregularity exists where the horizontal dimension of the lateral force-resisting system in any storey is more than 130 percent of that in an adjacent storey",
+       "mutated_global_id": "1fOVjSd7T40PyRtVEklqJV",
+       "target_storey": "Level 3 TOS",
+       "deleted_count": 24
+      }
+     }
+    ]
+   }
+  }
+ ]
 }
