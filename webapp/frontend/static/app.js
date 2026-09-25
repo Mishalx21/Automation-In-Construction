@@ -238,15 +238,25 @@ function renderInjectMatrix(job) {
   }
 }
 
+/** "A2" < "A10", not the other way round — plain string sort gets this wrong. */
+function compareRuleIds(a, b) {
+  const pa = String(a).match(/^([A-Za-z]*)(\d+)$/);
+  const pb = String(b).match(/^([A-Za-z]*)(\d+)$/);
+  if (pa && pb && pa[1] === pb[1]) return parseInt(pa[2], 10) - parseInt(pb[2], 10);
+  return String(a).localeCompare(String(b));
+}
+
 function buildRuleTable(table, rules, withApplicability, cbClass) {
   // Candidate count and the "not applicable" badge only ever have content
   // for the per-model injection analysis; the check-compliance catalogue
   // has neither, so those columns are dropped there instead of sitting
   // empty and stealing width from the description column.
   table.classList.toggle("with-applicability", withApplicability);
+  const sorted = [...rules].sort((a, b) => compareRuleIds(a.rule_id, b.rule_id));
   table.innerHTML = `
-    <tr><th></th><th>Rule</th><th>${withApplicability ? "What it injects" : "What it checks"}</th>${withApplicability ? "<th></th><th></th>" : ""}</tr>` +
-    rules.map((r) => `
+    <tr><th></th><th>Rule</th><th>${withApplicability ? "What it injects" : "What it checks"}</th>${withApplicability
+      ? `<th title="Elements in this model eligible for this rule's violation">Found</th><th></th>` : ""}</tr>` +
+    sorted.map((r) => `
     <tr class="${r.applicable === false ? "na" : ""}">
       <td>${r.applicable === false ? "" : `<input type="checkbox" class="${cbClass}" value="${r.rule_id}" checked aria-label="${escapeHtml(r.rule_id)}">`}</td>
       <td class="rule-id">${r.rule_id}</td>
@@ -1013,7 +1023,7 @@ function renderCheckResults(job) {
       event.stopPropagation();
       const guid = button.dataset.guid;
       if (!guid) return;
-      window.highlightViolationIds?.([guid]);
+      window.showSingleViolation?.(guid);
       $("preview-card").scrollIntoView({behavior: "smooth", block: "center"});
     });
   });

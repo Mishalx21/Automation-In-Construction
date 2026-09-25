@@ -297,7 +297,7 @@ th { color: var(--muted); font-weight: 600; font-size: .68rem; text-transform: u
    injection table (buildRuleTable omits them for the check-compliance
    catalogue), so their width is scoped to that table only — otherwise
    the check table's description column would lose that space for nothing. */
-.tables table.with-applicability th:nth-child(4), .tables table.with-applicability td:nth-child(4) { width: 2rem; }
+.tables table.with-applicability th:nth-child(4), .tables table.with-applicability td:nth-child(4) { width: 2.7rem; white-space: nowrap; }
 .tables table.with-applicability th:nth-child(5), .tables table.with-applicability td:nth-child(5) { width: 4.6rem; }
 .tables table.with-applicability td:nth-child(5) .badge { white-space: normal; text-align: center; }
 td.num { text-align: right; font-variant-numeric: tabular-nums; }

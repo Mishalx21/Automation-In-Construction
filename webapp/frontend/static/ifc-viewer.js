@@ -99,12 +99,11 @@ function updateViolationButton() {
   violationCountBadge.classList.toggle("hidden", lastViolationIds.length === 0);
 }
 
-window.highlightViolationIds = (globalIds) => {
+/** Colours exactly the given elements red and x-rays the rest of the model.
+ * Purely a display action — does not touch the tracked "full set" below. */
+function displayViolationHighlight(globalIds) {
   clearViolationHighlights();
-  const ids = (globalIds || []).filter(Boolean);
-  lastViolationIds = ids;
-  updateViolationButton();
-  const wanted = new Set(ids);
+  const wanted = new Set((globalIds || []).filter(Boolean));
   // Reveal internal violations by making the rest of the model translucent.
   viewer.scene.setObjectsXRayed(viewer.scene.objectIds, true);
   for (const [id, object] of Object.entries(viewer.scene.objects)) {
@@ -117,10 +116,25 @@ window.highlightViolationIds = (globalIds) => {
   if (highlightedViolationIds.length) {
     selection.textContent = `${highlightedViolationIds.length} violated component(s) shown in red; the surrounding model is transparent.`;
   }
+}
+
+// Sets/replaces the full known set of flagged elements (called once, right
+// after a compliance check or injection completes) and displays all of them.
+window.highlightViolationIds = (globalIds) => {
+  lastViolationIds = (globalIds || []).filter(Boolean);
+  updateViolationButton();
+  displayViolationHighlight(lastViolationIds);
+};
+
+// Narrows the display to a single flagged element (e.g. a "Show in model"
+// click on one specific violation) without disturbing the tracked full set,
+// so "Show violations" still brings every flagged element back afterwards.
+window.showSingleViolation = (globalId) => {
+  displayViolationHighlight([globalId]);
 };
 
 showViolationsButton.addEventListener("click", () => {
-  if (lastViolationIds.length) window.highlightViolationIds(lastViolationIds);
+  if (lastViolationIds.length) displayViolationHighlight(lastViolationIds);
 });
 
 const ifcAPI = new WebIFC.IfcAPI();
