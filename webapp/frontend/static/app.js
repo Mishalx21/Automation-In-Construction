@@ -858,10 +858,19 @@ function measuredKv(measured) {
 }
 
 /** "M_Concrete-Rectangular Beam:FB3:744165 (0WSzKynGn1vOzPGJa2X0RZ)"
- *  -> { name: "M_Concrete-Rectangular Beam:FB3:744165", guid: "0WSz…" } */
+ *  -> { name: "M_Concrete-Rectangular Beam:FB3:744165", guid: "0WSz…" }
+ *
+ * Some conditions (e.g. door_clear_floor_space_obstructed) describe the
+ * violating element AND a second, unrelated object in one string, e.g.
+ * "Door (DOOR_GUID) <- obstructed by Railing (RAILING_GUID)". The violating
+ * element's GlobalId always comes first, so this takes the *first*
+ * GUID-shaped "(...)" found rather than the last — matching against the
+ * end of the string would grab the unrelated object's id instead. */
 function splitElement(element) {
-  const m = String(element ?? "").match(/^(.*?)\s*\(([^()]{22})\)\s*$/);
-  return m ? { name: m[1], guid: m[2] } : { name: element ?? "", guid: null };
+  const s = String(element ?? "");
+  const m = s.match(/\s*\(([^()]{22})\)/);
+  if (!m) return { name: s, guid: null };
+  return { name: (s.slice(0, m.index) + s.slice(m.index + m[0].length)).trim(), guid: m[1] };
 }
 
 function kvChips(measured) {
@@ -930,9 +939,9 @@ function checkedSummaryLine(report) {
 // Stat tiles per the tile contract: status color lives on the dot + label
 // (never color alone); the big value always wears the ink token.
 
-function statTile(label, value, cls) {
+function statTile(label, value, cls, title) {
   return `
-    <div class="tile">
+    <div class="tile"${title ? ` title="${escapeHtml(title)}"` : ""}>
       <span class="tile-label"><span class="dot ${cls}" aria-hidden="true"></span>${label}</span>
       <span class="tile-value">${value}</span>
     </div>`;
@@ -975,7 +984,8 @@ function renderCheckSummary(job) {
       ${statTile("Failed", failed, "bad")}
       ${statTile("Unknown", unknown, "warn")}
       ${statTile("Not applicable", counts.not_applicable, "na")}
-      ${statTile("Violations found", totalViolations, "bad")}
+      ${statTile("Violations found", totalViolations, "bad",
+        "Total violation findings across all rules — the same element can appear in more than one, so this can exceed the number of distinct flagged elements shown by “Show violations” in the model preview.")}
     </div>`;
 }
 
@@ -1017,7 +1027,11 @@ function renderCheckResults(job) {
   const violationIds = (job.results || []).flatMap((result) =>
     (result.report?.violations || []).flatMap((violation) =>
       (violation.locations || []).map((location) => splitElement(location.element).guid).filter(Boolean)));
-  window.highlightViolationIds?.(violationIds);
+  // De-duplicated: the same element can be flagged by more than one rule
+  // (e.g. a door failing both a fire-rating and a clearance check), and the
+  // "Show violations" count should match how many distinct objects actually
+  // turn red in the viewer, not how many findings mention them.
+  window.highlightViolationIds?.([...new Set(violationIds)]);
   $("check-results-list").querySelectorAll(".show-in-model").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
