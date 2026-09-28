@@ -259,7 +259,7 @@ function buildRuleTable(table, rules, withApplicability, cbClass) {
     sorted.map((r) => `
     <tr class="${r.applicable === false ? "na" : ""}">
       <td>${r.applicable === false ? "" : `<input type="checkbox" class="${cbClass}" value="${r.rule_id}" checked aria-label="${escapeHtml(r.rule_id)}">`}</td>
-      <td class="rule-id">${r.rule_id}</td>
+      <td class="rule-id"><span class="rule-bubble">${escapeHtml(r.rule_id)}</span></td>
       <td>${escapeHtml(r.description || r.title)}<span class="clause">${escapeHtml(r.clause || r.reference)}</span>
         ${!withApplicability && r.rule_preview ? `<details class="source-rule"><summary>View source rule</summary><pre>${escapeHtml(r.rule_preview)}</pre></details>` : ""}</td>
       ${withApplicability ? `
@@ -347,7 +347,7 @@ function renderBatchCaseResult(idx, jobId, rules, job) {
     .map((m) => m.target_global_id)
     .filter(Boolean);
   body.innerHTML = `
-    <div class="mut-meta">${rules.map((r) => `<span class="badge bad">${escapeHtml(r)}</span>`).join("")}</div>
+    <div class="mut-meta">${rules.map((r) => `<span class="rule-bubble bad">${escapeHtml(r)}</span>`).join("")}</div>
     <p class="dl-row">
       <a class="btn small" href="/ifc/api/jobs/${jobId}/download">Violating .ifc</a>
       <a class="btn small" href="/ifc/api/jobs/${jobId}/download/colored">Coloured .ifc</a>
@@ -466,7 +466,7 @@ function mutationCard(m, idx) {
   <div class="mut-card">
     <div class="mut-head">
       <span class="v-num">${idx + 1}</span>
-      <span class="badge bad">${escapeHtml(m.rule_id || "")}</span>
+      <span class="rule-bubble bad">${escapeHtml(m.rule_id || "")}</span>
       <span class="mut-type">${escapeHtml(m.element_type || "")}</span>
       <span class="mut-attr">${escapeHtml(m.attribute || "")}</span>
       ${change}
@@ -1005,7 +1005,8 @@ function renderCheckResults(job) {
     <div class="rule-result ${r.verdict}">
       <div class="rr-head">
         <span class="badge ${badgeCls}">${escapeHtml(verdictLabel)}</span>
-        <span class="rr-title">${escapeHtml(r.rule_id)} — ${escapeHtml(catalogueById[r.rule_id]?.title || "")}</span>
+        <span class="rule-bubble ${badgeCls}">${escapeHtml(r.rule_id)}</span>
+        <span class="rr-title">${escapeHtml(catalogueById[r.rule_id]?.title || "")}</span>
         ${violations.length ? `<span class="rr-count">${violations.length} violation${violations.length !== 1 ? "s" : ""}</span>` : ""}
         ${r.duration_s != null ? `<span class="rr-time">${r.duration_s}s</span>` : ""}
       </div>

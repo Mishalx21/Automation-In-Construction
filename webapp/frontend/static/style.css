@@ -4,6 +4,8 @@
 * { box-sizing: border-box; }
 
 :root {
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
   --bg: #e9ebef;
   --canvas: #dfe2e8;
   --card: #ffffff;
@@ -11,9 +13,9 @@
   --muted: #555f6e;
   --line: #dfe2e8;
   --line-strong: #b7bec9;
-  --accent: #2454eb;
-  --accent-light: #4f7dff;
-  --accent-dark: #1638a8;
+  --accent: #1957c2;
+  --accent-light: #3e7bdb;
+  --accent-dark: #0e3a85;
   --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
   --ok: #157f3c;
   --bad: #c01c1c;
@@ -38,9 +40,9 @@
     --muted: #94a0af;
     --line: #2b3138;
     --line-strong: #3a414b;
-    --accent: #7ea2f7;
-    --accent-light: #9db8ff;
-    --accent-dark: #3b5fce;
+    --accent: #6fa1fa;
+    --accent-light: #93bcff;
+    --accent-dark: #3560c4;
     --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
     --ok: #4ade80;
     --bad: #f87171;
@@ -54,7 +56,7 @@
 
 body {
   margin: 0;
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans);
   background: var(--bg);
   color: var(--ink);
   line-height: 1.5;
@@ -189,6 +191,24 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
   border-radius: 999px; padding: .12rem .5rem;
 }
 
+/* --- rule-bubble: column-grid marker notation ------------------------------------
+ * Rule ids (A1, A2, S1, S10...) already read like the letter/number grid-bubble
+ * labels on a structural drawing's column grid. Give them that actual mark —
+ * a thin ring, monospace, colour tracking the verdict where one applies —
+ * everywhere a rule id appears, instead of plain bold text. */
+.rule-bubble {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.9rem; height: 1.9rem; padding: 0 .3rem; flex: none;
+  border-radius: 50%; border: 1.5px solid var(--line-strong);
+  background: var(--card); color: var(--ink);
+  font-family: var(--font-mono); font-weight: 600; font-size: .72rem;
+  letter-spacing: -.02em; line-height: 1;
+}
+.rule-bubble.ok   { color: var(--ok);   border-color: currentColor; }
+.rule-bubble.bad  { color: var(--bad);  border-color: currentColor; }
+.rule-bubble.warn { color: var(--warn); border-color: currentColor; }
+.rule-bubble.na, .rule-bubble.wait { color: var(--na); border-color: currentColor; }
+
 main { padding-top: .9rem; padding-bottom: 1.4rem; }
 
 /* --- auth ----------------------------------------------------------------------- */
@@ -301,7 +321,7 @@ th { color: var(--muted); font-weight: 600; font-size: .68rem; text-transform: u
 .tables table.with-applicability th:nth-child(5), .tables table.with-applicability td:nth-child(5) { width: 4.6rem; }
 .tables table.with-applicability td:nth-child(5) .badge { white-space: normal; text-align: center; }
 td.num { text-align: right; font-variant-numeric: tabular-nums; }
-td.rule-id { font-weight: 700; white-space: nowrap; }
+td.rule-id { white-space: nowrap; padding-left: .2rem; }
 .clause { display: block; color: var(--muted); font-size: .73rem; }
 tr.na td { opacity: .55; }
 table tr:not(:first-child):nth-child(even) td { background: color-mix(in srgb, var(--chip) 55%, transparent); }
@@ -347,14 +367,14 @@ details pre {
 }
 .mut-head { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; }
 .mut-type {
-  font-family: ui-monospace, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: .76rem; font-weight: 600; color: var(--muted);
 }
 .mut-attr { font-size: .76rem; color: var(--muted); }
 .mut-desc { margin: .4rem 0 .3rem; font-size: .85rem; }
 .mut-meta { display: flex; gap: .35rem; flex-wrap: wrap; }
 .chip.mono {
-  font-family: ui-monospace, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: .7rem; color: var(--muted);
 }
 .chg {
@@ -378,7 +398,7 @@ details pre {
   font-size: .8rem; flex-wrap: wrap;
 }
 .vc-name {
-  font-family: ui-monospace, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: .76rem; font-weight: 600;
 }
 .vc-msg { color: var(--muted); }
@@ -528,7 +548,7 @@ table.v-locations th:nth-child(3), table.v-locations td:nth-child(3) { width: 36
 table.v-locations th:nth-child(4), table.v-locations td:nth-child(4) { width: 22%; }
 .v-el { font-weight: 600; overflow-wrap: break-word; }
 .v-guid {
-  display: block; font-family: ui-monospace, Consolas, monospace;
+  display: block; font-family: var(--font-mono);
   font-size: .68rem; color: var(--muted); overflow-wrap: break-word;
 }
 .v-storey { color: var(--muted); overflow-wrap: break-word; }
@@ -701,7 +721,7 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
   border: 2px solid rgba(255,255,255,.28); border-top-color: #fff; border-radius: 50%;
   animation: spin .8s linear infinite;
 }
-.viewer-selection { margin: .55rem 0 0; padding: .45rem .6rem; border-radius: var(--radius-sm); background: var(--chip); color: var(--muted); font-family: ui-monospace, Consolas, monospace; font-size: .76rem; }
+.viewer-selection { margin: .55rem 0 0; padding: .45rem .6rem; border-radius: var(--radius-sm); background: var(--chip); color: var(--muted); font-family: var(--font-mono); font-size: .76rem; }
 
 /* --- responsive: stack below the split breakpoint ---------------------------------- */
 @media (max-width: 60rem) {
