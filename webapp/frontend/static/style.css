@@ -1851,3 +1851,9 @@ body.is-signed-in .landing-signin-hint { display: none; }
 
 /* the finding currently shown in the viewer */
 .show-in-model.is-current { background: var(--accent-on); color: #fff; border-color: var(--accent-on); }
+
+/* rule rows: the whole row is the control */
+tr.is-pickable { cursor: pointer; }
+tr.is-pickable td { transition: background-color .15s; }
+tr.is-picked td { background: color-mix(in srgb, var(--accent) 9%, transparent) !important; }
+tr.is-picked .rule-bubble { border-color: var(--accent); color: var(--accent); }

@@ -289,7 +289,23 @@ function buildRuleTable(table, rules, withApplicability, cbClass) {
         : ""}</td>` : ""}
     </tr>`).join("");
   table.querySelectorAll(`.${cbClass}`).forEach((cb) =>
-    cb.addEventListener("change", () => refreshRunButton(cbClass === "inject-cb" ? "inject-btn" : "check-btn", `.${cbClass}`)));
+    cb.addEventListener("change", () => {
+      cb.closest("tr")?.classList.toggle("is-picked", cb.checked);
+      refreshRunButton(cbClass === "inject-cb" ? "inject-btn" : "check-btn", `.${cbClass}`);
+    }));
+  // The whole row picks the rule, not just the 13px box. Clicks on the box
+  // itself, and on "View source rule", keep their own behaviour.
+  table.querySelectorAll("tr").forEach((row) => {
+    const cb = row.querySelector(`.${cbClass}`);
+    if (!cb) return;
+    row.classList.add("is-pickable");
+    row.addEventListener("click", (event) => {
+      if (event.target.closest("input, details, a, button")) return;
+      if (window.getSelection()?.toString()) return; // selecting text, not picking
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  });
 }
 
 // --- rule filter -------------------------------------------------------------------
@@ -326,12 +342,12 @@ function setupRuleFilter(prefix, cbClass, btnId) {
     rows().forEach((row) => {
       if (row.classList.contains("filtered-out")) return;
       const cb = row.querySelector(`.${cbClass}`);
-      if (cb) cb.checked = true;
+      if (cb) { cb.checked = true; row.classList.add("is-picked"); }
     });
     updateCount();
   };
   $(`${prefix}-clear`).onclick = () => {
-    boxes().forEach((cb) => { cb.checked = false; });
+    boxes().forEach((cb) => { cb.checked = false; cb.closest("tr")?.classList.remove("is-picked"); });
     updateCount();
   };
   boxes().forEach((cb) => cb.addEventListener("change", updateCount));
