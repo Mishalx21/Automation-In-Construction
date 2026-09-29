@@ -308,7 +308,7 @@ function setupRuleFilter(prefix, cbClass, btnId) {
   function updateCount() {
     const all = boxes();
     const picked = all.filter((cb) => cb.checked).length;
-    if (count) count.textContent = picked ? `${picked} of ${all.length} selected` : `none of ${all.length} selected`;
+    if (count) count.textContent = `${picked}/${all.length} selected`;
     refreshRunButton(btnId, `.${cbClass}`);
   }
 
