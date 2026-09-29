@@ -17,6 +17,11 @@
   --accent-light: #3e7bdb;
   --accent-dark: #0e3a85;
   --accent-soft: color-mix(in srgb, var(--accent) 10%, transparent);
+  /* Solid-fill surfaces (primary buttons) need enough contrast for white
+     text on top of them — in dark mode --accent itself is deliberately
+     lightened for legibility as *text/icon color* against a dark page, which
+     makes it too light to also serve as a white-on-accent button fill. */
+  --accent-on: var(--accent);
   --ok: #157f3c;
   --bad: #c01c1c;
   --warn: #ab5b06;
@@ -45,6 +50,7 @@
     --accent-light: #93bcff;
     --accent-dark: #3560c4;
     --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+    --accent-on: var(--accent-dark);
     --ok: #4ade80;
     --bad: #f87171;
     --warn: #fbbf24;
@@ -139,8 +145,8 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 }
 .btn:hover:not(:disabled) { border-color: var(--accent); }
 .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.btn.primary:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 88%, black); }
+.btn.primary { background: var(--accent-on); border-color: var(--accent-on); color: #fff; }
+.btn.primary:hover:not(:disabled) { background: color-mix(in srgb, var(--accent-on) 88%, black); }
 .btn.small { font-size: .82rem; padding: .28rem .6rem; }
 .btn.ghost { background: transparent; border-color: transparent; }
 .btn.ghost:hover:not(:disabled) { background: var(--chip); border-color: transparent; }
@@ -204,7 +210,7 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 .step-num {
   display: inline-flex; align-items: center; justify-content: center;
   width: 1.35rem; height: 1.35rem; border-radius: 50%;
-  background: var(--accent); color: #fff;
+  background: var(--accent-on); color: #fff;
   font-size: .82rem; font-weight: 700; flex: none;
 }
 .tag {
@@ -422,7 +428,11 @@ details pre {
 }
 .mut-attr { font-size: .82rem; color: var(--muted); }
 .mut-desc { margin: .4rem 0 .3rem; font-size: .85rem; }
-.mut-meta { display: flex; gap: .35rem; flex-wrap: wrap; }
+.mut-meta {
+  display: flex; align-items: center; gap: .35rem; flex-wrap: wrap;
+  margin-top: .5rem; padding-top: .5rem; border-top: 1px solid var(--line);
+}
+.mut-meta .show-in-model { margin-left: auto; }
 .chip.mono {
   font-family: var(--font-mono);
   font-size: .79rem; color: var(--muted);
@@ -593,7 +603,7 @@ table.v-locations th:nth-child(4), table.v-locations td:nth-child(4) { width: 22
   color: var(--accent); font: 700 .79rem/1.15 system-ui, sans-serif; cursor: pointer;
   white-space: normal; max-width: 100%;
 }
-.show-in-model:hover, .show-in-model:focus-visible { background: var(--accent); color: #fff; outline: none; }
+.show-in-model:hover, .show-in-model:focus-visible { background: var(--accent-on); color: #fff; outline: none; }
 .v-measured .kv {
   display: inline-block; max-width: 100%; box-sizing: border-box;
   font-size: .82rem; background: var(--chip);
@@ -735,7 +745,7 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
 #ifc-viewer { display: block; width: 100%; height: 100%; }
 .preview-toolbar { position: absolute; z-index: 3; top: .6rem; left: .6rem; right: .6rem; display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; padding: .3rem; border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius-sm); background: rgba(15,20,28,.92); }
 .preview-tool { min-height: 1.9rem; border: 0; border-radius: var(--radius-sm); padding: .38rem .58rem; background: transparent; color: #dfe4ea; font: 700 .82rem/1.1 system-ui, sans-serif; cursor: pointer; white-space: nowrap; }
-.preview-tool:hover, .preview-tool:focus-visible, .preview-tool.active { background: var(--accent); color: #fff; outline: none; }
+.preview-tool:hover, .preview-tool:focus-visible, .preview-tool.active { background: var(--accent-on); color: #fff; outline: none; }
 .preview-tool:disabled { opacity: .4; cursor: not-allowed; }
 .preview-tool-divider { width: 1px; height: 1.4rem; margin: 0 .1rem; background: rgba(255,255,255,.22); }
 .preview-tool.flagged { display: inline-flex; align-items: center; gap: .35rem; color: #ffb4b0; }

@@ -460,6 +460,13 @@ $("inject-btn").addEventListener("click", async () => {
 
 function fmtVal(v) {
   if (v == null) return "—";
+  if (typeof v === "number") {
+    // IFC attribute values often arrive as raw floats with binary rounding
+    // noise (e.g. 915.0000000000005) — round to a sane display precision
+    // instead of showing that noise as if it were meaningful.
+    const rounded = Math.round(v * 1000) / 1000;
+    return String(rounded);
+  }
   if (typeof v === "object") return JSON.stringify(v);
   return String(v);
 }
@@ -902,8 +909,7 @@ function violationCard(v, idx) {
   <div class="violation">
     <div class="v-head">
       <span class="v-num">${idx + 1}</span>
-      <div class="v-title">${escapeHtml(v.description || v.condition || "")}
-        ${v.condition ? `<span class="clause">${escapeHtml(v.condition)}</span>` : ""}</div>
+      <div class="v-title">${escapeHtml(v.description || v.condition || "")}</div>
     </div>
     ${explainBlock(v)}
     ${v.threshold ? `<div class="v-meta"><span class="chip limit">Limit: ${escapeHtml(v.threshold)}</span></div>` : ""}
