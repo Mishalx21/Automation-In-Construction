@@ -18,32 +18,23 @@
 (() => {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  // --- 1. scroll-driven model -----------------------------------------------------
+  // --- 1. the model: hover to take it apart ----------------------------------------
+  // Hover and focus are handled in CSS. This only covers touch, where there is
+  // no hover to speak of: a tap toggles the same state, so the model is not
+  // simply inert on a phone.
   const stage = document.getElementById("tower-stage");
-  if (stage) {
-    // The model completes its assembly over roughly the first viewport of
-    // scrolling, which is the span where it is actually on screen.
-    const travel = () => Math.max(window.innerHeight * 0.9, 1);
-    let ticking = false;
-
-    function render() {
-      ticking = false;
-      const p = Math.min(Math.max(window.scrollY / travel(), 0), 1);
-      stage.style.setProperty("--p", p.toFixed(4));
+  const scene = stage?.querySelector(".tower-scene");
+  if (stage && scene) {
+    const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!canHover) {
+      scene.addEventListener("click", () => stage.classList.toggle("is-exploded"));
     }
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(render);
-    }
-
-    if (reducedMotion.matches) {
-      // Hold the assembled pose; no scroll coupling.
-      stage.style.setProperty("--p", "1");
-    } else {
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll, { passive: true });
-      render();
+    const caption = stage.querySelector(".tower-caption");
+    if (caption) {
+      caption.textContent = canHover ? "Hover to take it apart" : "Tap to take it apart";
+      const dot = document.createElement("span");
+      dot.className = "scan-dot";
+      caption.prepend(dot);
     }
   }
 

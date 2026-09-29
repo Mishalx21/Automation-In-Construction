@@ -380,12 +380,14 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 .landing-signin-hint { margin: 0; }
 
 /* --- the 3D model ----------------------------------------------------------------
- * An exploded axonometric that assembles into a tower as --p goes 0 -> 1
- * (landing.js writes --p from the scroll position). Every transform below is
- * derived from that one value, so there is no per-frame layout work: the
- * browser only recomposites. */
+ * The building rests assembled (--p: 1) and comes apart into an exploded
+ * axonometric on hover (--p: 0), reassembling when the pointer leaves. Touch
+ * devices get the same thing on tap, via .is-exploded from landing.js.
+ * Every transform derives from that one value, so the browser only
+ * recomposites — and the model is never tied to the scroll position, which
+ * used to carry it off-screen before it finished moving. */
 .hero-visual {
-  --p: 0;
+  --p: 1;
   position: relative;
   min-height: 26rem;
   display: grid;
@@ -397,21 +399,22 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
   position: relative;
   width: min(26rem, 78%); aspect-ratio: 1;
   transform-style: preserve-3d;
-  /* the whole scene tips up and turns as the page scrolls */
+  /* At rest the view is closer to an elevation, so the stack reads as a
+     building; opening it tips further towards a plan, where the separated
+     floors are easiest to read. */
   transform:
-    translateY(calc(var(--p) * -1.6rem))
-    rotateX(calc(58deg + var(--p) * 6deg))
-    rotateZ(calc(-34deg + var(--p) * 52deg));
-  transition: transform .12s linear;
+    rotateX(calc(50deg + (1 - var(--p)) * 11deg))
+    rotateZ(calc(22deg - (1 - var(--p)) * 50deg));
+  transition: transform .75s cubic-bezier(.3, .9, .3, 1);
 }
 .tower { position: absolute; inset: 0; transform-style: preserve-3d; }
 
 /* Floor plates: stacked along Z (which reads as vertical once the scene is
-   tipped). They start spread apart and close up as --p approaches 1. */
+   tipped). Flush at rest; they lift apart in sequence as --p falls to 0. */
 .floor {
-  --gap: 1.55rem;
+  --gap: 1.75rem;
   --spread: calc((1 - var(--p)) * 1.5rem);
-  --size: calc(100% - var(--i) * 4.4%);
+  --size: calc(68% - var(--i) * 3%);
   position: absolute; left: 50%; top: 50%;
   width: var(--size); height: var(--size);
   margin: 0; border-radius: 3px;
@@ -422,9 +425,12 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
     color-mix(in srgb, var(--accent) 7%, transparent);
   transform:
     translate(-50%, -50%)
-    translateZ(calc(var(--i) * var(--gap) + var(--i) * var(--spread) - 6rem));
-  opacity: calc(.55 + var(--p) * .45);
-  transition: transform .12s linear, opacity .12s linear;
+    translateZ(calc(var(--i) * var(--gap) + var(--i) * var(--spread) - 7rem));
+  opacity: calc(.62 + var(--p) * .38);
+  /* the stagger is what makes it read as taking something apart rather than
+     as one block scaling */
+  transition: transform .6s cubic-bezier(.3, .9, .3, 1), opacity .45s ease;
+  transition-delay: calc(var(--i) * 28ms);
 }
 .floor.roof {
   border-color: color-mix(in srgb, var(--accent) 85%, transparent);
@@ -443,54 +449,74 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
   0%, 100% { box-shadow: 0 0 18px -6px color-mix(in srgb, var(--bad) 45%, transparent); }
   50%      { box-shadow: 0 0 30px 0 color-mix(in srgb, var(--bad) 65%, transparent); }
 }
-.floor-flag {
-  position: absolute; left: 50%; top: 50%;
-  transform: translate(-50%, -50%) rotateZ(90deg) scale(calc(.55 + var(--p) * .45));
-  padding: .1rem .45rem; border-radius: 999px; white-space: nowrap;
+.model-callout {
+  position: absolute; left: 4%; top: 34%; z-index: 2; margin: 0;
+  padding: .18rem .55rem; border-radius: 999px; white-space: nowrap;
   background: var(--bad); color: #fff;
-  font: 700 .62rem/1.5 var(--font-mono); letter-spacing: .02em;
-  opacity: var(--p);
-  transition: opacity .12s linear, transform .12s linear;
+  font: 700 .72rem/1.6 var(--font-sans);
+  box-shadow: 0 4px 14px -4px color-mix(in srgb, var(--bad) 75%, transparent);
+  opacity: calc(1 - var(--p));
+  transform: translateX(calc(var(--p) * -.6rem));
+  transition: opacity .4s ease .2s, transform .5s cubic-bezier(.3, .9, .3, 1) .2s;
+}
+/* leader line out to the flagged floor */
+.model-callout::after {
+  content: ""; position: absolute; left: 100%; top: 50%;
+  width: 3.4rem; height: 1px;
+  background: linear-gradient(90deg, var(--bad), transparent);
 }
 
-/* Corner columns: a thin plate rotated upright, spanning the stack. */
+/* Corner columns: a thin strip stood upright, spanning the stack.
+   The corner offset goes in left/top, not in translate: a percentage in
+   translate resolves against the element's own 2px width, which put all four
+   columns in the middle. left/top resolve against the tower. */
 .column {
   --cx: 0; --cy: 0;
-  position: absolute; left: 50%; top: 50%;
-  width: 2px; height: 13.5rem;
-  background: linear-gradient(var(--accent), color-mix(in srgb, var(--accent) 15%, transparent));
-  transform:
-    translate(-50%, -50%)
-    translate3d(calc(var(--cx) * 42%), calc(var(--cy) * 42%), 0)
-    rotateX(90deg);
-  opacity: calc(var(--p) * .85);
-  transition: opacity .12s linear;
+  position: absolute;
+  left: calc(50% + var(--cx) * 34%);
+  top: calc(50% + var(--cy) * 34%);
+  width: 2px; height: 14rem;
+  background: linear-gradient(var(--accent), color-mix(in srgb, var(--accent) 25%, transparent));
+  transform: translate(-50%, -50%) rotateX(90deg);
+  opacity: calc(var(--p) * .8);
+  transition: opacity .5s ease;
 }
 
-/* The checker sweeping the model: rides up the stack with the scroll. */
+/* The checker sweeping the model. It runs on its own loop rather than on
+   --p, so the resting model still has something happening in it. */
 .scan-plane {
   position: absolute; left: 50%; top: 50%;
-  width: 116%; height: 116%;
+  width: 80%; height: 80%;
   border: 1px solid color-mix(in srgb, var(--accent-2) 75%, transparent);
   border-radius: 4px;
   background: color-mix(in srgb, var(--accent-2) 12%, transparent);
   box-shadow: 0 0 28px -2px color-mix(in srgb, var(--accent-2) 55%, transparent);
-  transform:
-    translate(-50%, -50%)
-    translateZ(calc(-6.5rem + var(--p) * 13.5rem));
-  opacity: calc(.25 + var(--p) * .6);
-  transition: transform .12s linear, opacity .12s linear;
+  transform: translate(-50%, -50%) translateZ(-6rem);
+  animation: scan-sweep 7s ease-in-out infinite;
+}
+@keyframes scan-sweep {
+  0%, 100% { transform: translate(-50%, -50%) translateZ(-7.2rem); opacity: .3; }
+  50%      { transform: translate(-50%, -50%) translateZ(7.2rem);  opacity: .8; }
 }
 .tower-caption {
   position: absolute; left: 0; right: 0; bottom: .25rem; margin: 0;
   display: flex; align-items: center; justify-content: center; gap: .45rem;
   color: var(--muted); font-size: .8rem; font-weight: 600;
-  opacity: calc(1 - var(--p)); transition: opacity .12s linear;
+  /* the hint has done its job once the model is open */
+  opacity: var(--p); transition: opacity .35s ease;
 }
 .scan-dot {
   width: .45rem; height: .45rem; border-radius: 50%; background: var(--accent-2);
   animation: progress-pulse 1.6s ease-in-out infinite;
 }
+
+/* Take it apart on hover, put it back on leave. Pointer-capable devices only;
+   touch taps toggle .is-exploded instead. */
+@media (hover: hover) and (pointer: fine) {
+  .hero-visual:hover, .hero-visual:focus-within { --p: 0; }
+}
+.hero-visual.is-exploded { --p: 0; }
+.tower-scene { cursor: pointer; }
 
 /* --- the figures from the study --------------------------------------------------- */
 .landing-stats {
@@ -627,7 +653,7 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 }
 .wf-verdicts li { display: flex; align-items: start; gap: .45rem; line-height: 1.5; }
 .wf-verdicts .dot { margin-top: .43rem; }
-.wf-verdicts b { color: var(--ink); font-family: var(--font-mono); font-size: .8rem; }
+.wf-verdicts b { color: var(--ink); font-family: var(--font-mono); font-size: .8rem; white-space: nowrap; }
 .wf-cta { align-self: start; justify-self: start; }
 .wf-cta span { transition: transform .25s ease; display: inline-block; }
 .wf-cta:hover span { transform: translateX(3px); }
