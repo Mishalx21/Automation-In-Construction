@@ -226,6 +226,7 @@ function renderInjectMatrix(job) {
     `${job.filename} — ${a.schema_name || "IFC"} — ${(a.file_size_bytes / 1048576).toFixed(1)} MB`;
   buildRuleTable($("inject-table-archi"), a.rules.filter((r) => r.domain === "architectural"), true, "inject-cb");
   buildRuleTable($("inject-table-struct"), a.rules.filter((r) => r.domain === "structural"), true, "inject-cb");
+  setupRuleFilter("inject", "inject-cb", "inject-btn");
   show("inject-rules", true);
   refreshRunButton("inject-btn", ".inject-cb");
   lastAnalysisRules = a.rules || [];
@@ -254,6 +255,12 @@ function compareRuleIds(a, b) {
   return String(a).localeCompare(String(b));
 }
 
+// The injection analysis prefixes every description with "Inject a controlled
+// A10 violation." — the rule id is already in the bubble beside it, so the
+// sentence only pushes the part that matters further down the column.
+const RULE_PREFIX = /^inject a controlled\s+[a-z]?\d+[a-z]?\s+violation\.?\s*/i;
+const ruleText = (r) => (r.description || r.title || "").replace(RULE_PREFIX, "").trim() || (r.title || "");
+
 function buildRuleTable(table, rules, withApplicability, cbClass) {
   // Candidate count and the "not applicable" badge only ever have content
   // for the per-model injection analysis; the check-compliance catalogue
@@ -266,9 +273,9 @@ function buildRuleTable(table, rules, withApplicability, cbClass) {
       ? `<th title="Elements in this model eligible for this rule's violation">Found</th><th></th>` : ""}</tr>` +
     sorted.map((r) => `
     <tr class="${r.applicable === false ? "na" : ""}">
-      <td>${r.applicable === false ? "" : `<input type="checkbox" class="${cbClass}" value="${r.rule_id}" checked aria-label="${escapeHtml(r.rule_id)}">`}</td>
+      <td>${r.applicable === false ? "" : `<input type="checkbox" class="${cbClass}" value="${r.rule_id}" aria-label="${escapeHtml(r.rule_id)}">`}</td>
       <td class="rule-id"><span class="rule-bubble">${escapeHtml(r.rule_id)}</span></td>
-      <td>${escapeHtml(r.description || r.title)}<span class="clause">${escapeHtml(r.clause || r.reference)}</span>
+      <td>${escapeHtml(ruleText(r))}<span class="clause">${escapeHtml(r.clause || r.reference)}</span>
         ${!withApplicability && r.rule_preview ? `<details class="source-rule"><summary>View source rule</summary><pre>${escapeHtml(r.rule_preview)}</pre></details>` : ""}</td>
       ${withApplicability ? `
       <td class="num">${r.candidate_count != null ? r.candidate_count : ""}</td>
@@ -278,6 +285,54 @@ function buildRuleTable(table, rules, withApplicability, cbClass) {
     </tr>`).join("");
   table.querySelectorAll(`.${cbClass}`).forEach((cb) =>
     cb.addEventListener("change", () => refreshRunButton(cbClass === "inject-cb" ? "inject-btn" : "check-btn", `.${cbClass}`)));
+}
+
+// --- rule filter -------------------------------------------------------------------
+// Twenty rules in two tables is more than anyone reads at once, so the list is
+// searchable and starts with nothing selected. Rows are hidden rather than
+// removed, so a checkbox that scrolls out of the filter keeps its state.
+function setupRuleFilter(prefix, cbClass, btnId) {
+  const search = $(`${prefix}-filter`);
+  const count = $(`${prefix}-count`);
+  const tables = [$(`${prefix}-table-archi`), $(`${prefix}-table-struct`)].filter(Boolean);
+  if (!search || !tables.length) return;
+
+  const rows = () => tables.flatMap((t) => [...t.querySelectorAll("tr")].slice(1));
+  const boxes = () => [...document.querySelectorAll(`.${cbClass}`)];
+
+  function updateCount() {
+    const all = boxes();
+    const picked = all.filter((cb) => cb.checked).length;
+    if (count) count.textContent = picked ? `${picked} of ${all.length} selected` : `none of ${all.length} selected`;
+    refreshRunButton(btnId, `.${cbClass}`);
+  }
+
+  function applyFilter() {
+    const q = search.value.trim().toLowerCase();
+    rows().forEach((row) => {
+      row.classList.toggle("filtered-out", q !== "" && !row.textContent.toLowerCase().includes(q));
+    });
+  }
+
+  search.oninput = applyFilter;
+  // Select all / Clear act on what the filter is currently showing, which is
+  // what "all" means once a filter is typed.
+  $(`${prefix}-select-all`).onclick = () => {
+    rows().forEach((row) => {
+      if (row.classList.contains("filtered-out")) return;
+      const cb = row.querySelector(`.${cbClass}`);
+      if (cb) cb.checked = true;
+    });
+    updateCount();
+  };
+  $(`${prefix}-clear`).onclick = () => {
+    boxes().forEach((cb) => { cb.checked = false; });
+    updateCount();
+  };
+  boxes().forEach((cb) => cb.addEventListener("change", updateCount));
+  search.value = "";
+  applyFilter();
+  updateCount();
 }
 
 function refreshRunButton(btnId, cbClass) {
@@ -576,6 +631,7 @@ async function renderCheckerCatalogue() {
     catalogueById = Object.fromEntries(checkers.map((c) => [c.rule_id, c]));
     buildRuleTable($("check-table-archi"), checkers.filter((c) => c.domain === "architectural"), false, "check-cb");
     buildRuleTable($("check-table-struct"), checkers.filter((c) => c.domain === "structural"), false, "check-cb");
+    setupRuleFilter("check", "check-cb", "check-btn");
     refreshRunButton("check-btn", ".check-cb");
   } catch (e) {
     showError("check-error", `Could not load the checker catalogue: ${e.message}`);

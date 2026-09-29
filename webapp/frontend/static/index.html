@@ -460,7 +460,7 @@
       <div id="preview-pane">
       <section class="card preview-card hidden" id="preview-card">
         <div class="section-head">
-          <div><span class="eyebrow">Model preview</span><h2>Explore the IFC model</h2></div>
+          <div><span class="eyebrow">Model preview</span><h2>Explore your model</h2></div>
           <span id="preview-status" class="history-hint">Preparing viewer…</span>
         </div>
         <p class="hint">Orbit: left-drag · Pan: right-drag · Zoom: scroll · Select: click an element.</p>
@@ -468,8 +468,8 @@
         <div class="viewer-shell crop-marks">
           <canvas id="ifc-viewer" aria-label="Interactive IFC model preview"></canvas>
           <div class="preview-toolbar" role="toolbar" aria-label="Model preview controls">
-            <button id="preview-original" class="preview-tool active" type="button">Original IFC</button>
-            <button id="preview-violating" class="preview-tool" type="button" disabled>Violating IFC</button>
+            <button id="preview-original" class="preview-tool active" type="button">Your model</button>
+            <button id="preview-violating" class="preview-tool" type="button" disabled>Modified copy</button>
             <span class="preview-tool-divider" aria-hidden="true"></span>
             <button id="preview-reset-view" class="preview-tool" type="button">Reset view</button>
             <button id="preview-isolate" class="preview-tool" type="button">Isolate selected</button>
@@ -552,6 +552,15 @@
 
             <div id="inject-manual-mode">
               <p class="hint">Tick the rules you want broken. Only the ones your model has the data for can be selected.</p>
+            <div class="rule-filter">
+              <span class="rule-search">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m13.2 13.2 3.3 3.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                <input type="search" id="inject-filter" placeholder="Filter rules…" aria-label="Filter rules">
+              </span>
+              <span class="rule-count" id="inject-count" aria-live="polite"></span>
+              <button class="btn small" id="inject-select-all" type="button">Select all</button>
+              <button class="btn small ghost" id="inject-clear" type="button">Clear</button>
+            </div>
               <div class="tables">
                 <div>
                   <h3>Architectural</h3>
@@ -653,6 +662,15 @@
 
           <div id="check-rules" class="hidden">
             <p id="check-file-meta" class="file-meta"></p>
+            <div class="rule-filter">
+              <span class="rule-search">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m13.2 13.2 3.3 3.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                <input type="search" id="check-filter" placeholder="Filter checks…" aria-label="Filter rules">
+              </span>
+              <span class="rule-count" id="check-count" aria-live="polite"></span>
+              <button class="btn small" id="check-select-all" type="button">Select all</button>
+              <button class="btn small ghost" id="check-clear" type="button">Clear</button>
+            </div>
             <div class="tables">
               <div>
                 <h3>Architectural</h3>

@@ -338,7 +338,7 @@ window.loadIfcPreview = async (file) => {
     pendingViolatingUrl = null;
     violatingTab.disabled = true;
     setPreviewTab("original");
-    await loadPreviewData(originalIfc, "Original IFC preview ready");
+    await loadPreviewData(originalIfc, "Your model is ready");
   } catch (error) {
     status.textContent = "Preview unavailable";
     selection.textContent = "Could not read preview: " + (error.message || error);
@@ -360,7 +360,7 @@ window.loadIfcPreviewUrl = async (url) => {
     violatingIfc = await response.arrayBuffer();
     violatingTab.disabled = false;
     setPreviewTab("violating");
-    await loadPreviewData(violatingIfc, "Violating IFC preview ready");
+    await loadPreviewData(violatingIfc, "Modified copy ready");
   } catch (error) {
     status.textContent = "Preview unavailable";
     selection.textContent = "Could not load violating IFC: " + (error.message || error);
@@ -376,14 +376,14 @@ window.prepareViolatingXktPreview = (url) => {
   violatingXktUrl = url;
   if (!url) {
     violatingTab.disabled = true;
-    status.textContent = "Violating preview unavailable";
+    status.textContent = "Modified copy unavailable";
     selection.textContent = "The coloured IFC is ready to download, but its optional server conversion was unavailable.";
     return;
   }
   pendingViolatingUrl = url;
   violatingTab.disabled = false;
-  status.textContent = "Violating IFC ready to preview";
-  selection.textContent = "Select the Violating IFC tab to load the generated model.";
+  status.textContent = "Modified copy ready to view";
+  selection.textContent = "Select Modified copy to load the generated model.";
 };
 
 // Open the coloured injection model and persist its focus across tab switches.
@@ -396,7 +396,7 @@ window.focusInjectedViolation = (globalIds) => {
     return;
   }
   setPreviewTab("violating");
-  loadXktPreview(violatingXktUrl, "Violating model preview — injected locations shown in red");
+  loadXktPreview(violatingXktUrl, "Modified copy — the changed parts are shown in red");
 };
 
 originalTab.addEventListener("click", () => {
@@ -405,17 +405,17 @@ originalTab.addEventListener("click", () => {
     loadXktPreview(originalXktUrl, "Original model preview ready");
   } else if (originalIfc) {
     setPreviewTab("original");
-    loadPreviewData(originalIfc, "Original IFC preview ready");
+    loadPreviewData(originalIfc, "Your model is ready");
   }
 });
 
 violatingTab.addEventListener("click", () => {
   if (violatingIfc) {
     setPreviewTab("violating");
-    loadPreviewData(violatingIfc, "Violating IFC preview ready");
+    loadPreviewData(violatingIfc, "Modified copy ready");
   } else if (violatingXktUrl) {
     // Keep the URL so users can switch back and forth between both models.
     setPreviewTab("violating");
-    loadXktPreview(violatingXktUrl, "Violating model preview ready");
+    loadXktPreview(violatingXktUrl, "Modified copy ready");
   }
 });
