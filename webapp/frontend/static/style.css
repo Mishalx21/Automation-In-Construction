@@ -1665,7 +1665,14 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
 .rule-filter {
   display: flex; align-items: center; flex-wrap: wrap; gap: .45rem;
   margin: .1rem 0 .8rem;
+  /* The rule list is long; keep the controls and the run button in reach
+     instead of stranding the button below twenty rows. */
+  position: sticky; top: 0; z-index: 4;
+  padding: .55rem 0;
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
 }
+.rule-run { margin-left: auto; }
 .rule-search {
   position: relative; display: inline-flex; align-items: center; flex: 1 1 12rem; min-width: 0;
 }

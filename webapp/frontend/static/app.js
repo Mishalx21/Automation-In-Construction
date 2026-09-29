@@ -259,7 +259,12 @@ function compareRuleIds(a, b) {
 // A10 violation." — the rule id is already in the bubble beside it, so the
 // sentence only pushes the part that matters further down the column.
 const RULE_PREFIX = /^inject a controlled\s+[a-z]?\d+[a-z]?\s+violation\.?\s*/i;
-const ruleText = (r) => (r.description || r.title || "").replace(RULE_PREFIX, "").trim() || (r.title || "");
+const ruleText = (r) =>
+  (r.description || "").replace(RULE_PREFIX, "").trim()
+  || r.title
+  || catalogueById[r.rule_id]?.title
+  || r.description
+  || r.rule_id;
 
 function buildRuleTable(table, rules, withApplicability, cbClass) {
   // Candidate count and the "not applicable" badge only ever have content
