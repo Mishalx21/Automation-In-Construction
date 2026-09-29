@@ -168,18 +168,37 @@
   const TASK_SLUGS = {"check-card": "design-validation", "inject-card": "mutation-lab"};
   const SLUG_TASKS = Object.fromEntries(Object.entries(TASK_SLUGS).map(([id, slug]) => [slug, id]));
   const currentPath = () => location.pathname.replace(/\/+$/, "") || "/";
-  const isSignedIn = () => !$("workspace")?.classList.contains("hidden");
+  let signedIn = false;
   function pushTaskUrl(workflowId, replace) {
     const slug = TASK_SLUGS[workflowId];
     if (!slug || currentPath() === "/" + slug) return;
     history[replace ? "replaceState" : "pushState"]({workflow: workflowId}, "", "/" + slug);
   }
+  // Signed-in users can visit the homepage too; these swap between it and
+  // the workspace without touching the session.
+  function setWorkspaceVisible(on) {
+    show($("workspace"), on);
+    show($("auth-main"), !on);
+    // The 3D viewer sizes itself on resize; it measured 0x0 while hidden.
+    if (on) window.dispatchEvent(new Event("resize"));
+  }
+  function openTask(workflowId, push) {
+    setWorkspaceVisible(true);
+    window.selectWorkflow?.(workflowId);
+    if (push) pushTaskUrl(workflowId, false);
+    window.scrollTo(0, 0);
+  }
   document.querySelectorAll(".workflow-choice").forEach((button) => {
-    button.addEventListener("click", () => pushTaskUrl(button.dataset.workflow, false));
+    button.addEventListener("click", () => {
+      if (signedIn && $("workspace").classList.contains("hidden")) setWorkspaceVisible(true);
+      pushTaskUrl(button.dataset.workflow, false);
+    });
   });
 
   // --- reveal topbar controls once signed in ------------------------------------
   window.addEventListener("auth:ready", () => {
+    signedIn = true;
+    show(document.querySelector(".landing-signin-hint"), false);
     show($("workflow-switch"), true);
     show(historyToggle, true);
     // Priority: a task already in the URL (direct visit/refresh/bookmark),
@@ -216,11 +235,16 @@
   if (landingView && loginView) {
     if (currentPath() === "/login") showLogin(false);
     else if (!SLUG_TASKS[currentPath().slice(1)]) showLanding(false);
+    function goHome(push) {
+      if (signedIn) setWorkspaceVisible(false);
+      showLanding(push);
+    }
     window.addEventListener("popstate", () => {
       const path = currentPath();
-      if (isSignedIn()) {
+      if (signedIn) {
         const task = SLUG_TASKS[path.slice(1)];
-        if (task) window.selectWorkflow?.(task);
+        if (task) openTask(task, false);
+        else goHome(false);
         return;
       }
       if (path === "/login") showLogin(false);
@@ -228,12 +252,21 @@
     });
     document.querySelectorAll(".landing-option").forEach((button) => {
       button.addEventListener("click", () => {
+        if (signedIn) {
+          openTask(button.dataset.intent, true);
+          return;
+        }
         sessionStorage.setItem("workbench:intent", button.dataset.intent);
         showLogin(true);
       });
     });
     $("landing-signin")?.addEventListener("click", () => showLogin(true));
     $("login-back")?.addEventListener("click", () => showLanding(true));
+    $("brand-home")?.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+      event.preventDefault();
+      goHome(currentPath() !== "/");
+    });
   }
 
   // --- file strip: collapse the dropzone once a file is picked -------------------
