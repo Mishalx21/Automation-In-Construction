@@ -1830,3 +1830,6 @@ body.is-signed-in .landing-signin-hint { display: none; }
 .tiles.has-filter .tile[data-key]:not(.is-active):hover { opacity: .85; }
 .rule-result.is-filtered { display: none; }
 .filter-empty { margin: .8rem 0; color: var(--muted); font-size: .85rem; text-align: center; }
+
+/* the finding currently shown in the viewer */
+.show-in-model.is-current { background: var(--accent-on); color: #fff; border-color: var(--accent-on); }

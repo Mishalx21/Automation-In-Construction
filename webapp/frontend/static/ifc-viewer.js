@@ -129,8 +129,23 @@ window.highlightViolationIds = (globalIds) => {
 // Narrows the display to a single flagged element (e.g. a "Show in model"
 // click on one specific violation) without disturbing the tracked full set,
 // so "Show violations" still brings every flagged element back afterwards.
-window.showSingleViolation = (globalId) => {
-  displayViolationHighlight([globalId]);
+window.showSingleViolation = (globalIds) => {
+  const ids = [].concat(globalIds || []).filter(Boolean);
+  // Undo any earlier Isolate / X-ray / selection, so what is shown depends only
+  // on this click and not on whatever the previous one left behind.
+  viewer.scene.setObjectsSelected(viewer.scene.selectedObjectIds, false);
+  viewer.scene.setObjectsVisible(viewer.scene.objectIds, true);
+  displayViolationHighlight(ids);
+  if (!highlightedViolationIds.length) {
+    selection.textContent = "That element is not in the model on screen.";
+    return;
+  }
+  // Frame it: a finding elsewhere in the building is otherwise off-screen, and
+  // the click looks as if it did nothing.
+  viewer.cameraFlight.flyTo({ aabb: viewer.scene.getAABB(highlightedViolationIds), duration: 0.6, fit: true });
+  selection.textContent = highlightedViolationIds.length > 1
+    ? `${highlightedViolationIds.length} components of this finding shown in red; the rest of the model is transparent.`
+    : "This component is shown in red; the rest of the model is transparent.";
 };
 
 showViolationsButton.addEventListener("click", () => {

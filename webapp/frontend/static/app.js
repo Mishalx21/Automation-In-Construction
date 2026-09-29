@@ -942,6 +942,14 @@ function measuredKv(measured) {
  * element's GlobalId always comes first, so this takes the *first*
  * GUID-shaped "(...)" found rather than the last — matching against the
  * end of the string would grab the unrelated object's id instead. */
+// An element string can name more than one object — a door clearance finding
+// reads "Door … (door-id) <- obstructed by Railing … (railing-id)". The first
+// id alone is the door, which is the same for every obstruction of that door,
+// so "Show in model" would light up the same thing each time. Take them all.
+function elementGuids(element) {
+  return [...String(element ?? "").matchAll(/\(([^()]{22})\)/g)].map((m) => m[1]);
+}
+
 function splitElement(element) {
   const s = String(element ?? "");
   const m = s.match(/\s*\(([^()]{22})\)/);
@@ -963,7 +971,7 @@ function violationCard(v, idx) {
             ${guid ? `<span class="v-guid" title="GlobalId">${escapeHtml(guid)}</span>` : ""}</td>
         <td class="v-storey">${escapeHtml(loc.storey || "")}</td>
         <td class="v-measured">${kvChips(loc.measured)}</td>
-        <td class="v-action">${guid ? `<button class="show-in-model" type="button" data-guid="${escapeHtml(guid)}">Show in model</button>` : ""}</td>
+        <td class="v-action">${guid ? `<button class="show-in-model" type="button" data-guid="${escapeHtml(elementGuids(loc.element).join(" "))}">Show in model</button>` : ""}</td>
       </tr>`;
   }).join("");
 
@@ -1140,9 +1148,12 @@ function wireResultCard(card) {
   card.querySelectorAll(".show-in-model").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
-      const guid = button.dataset.guid;
-      if (!guid) return;
-      window.showSingleViolation?.(guid);
+      const guids = (button.dataset.guid || "").split(" ").filter(Boolean);
+      if (!guids.length) return;
+      document.querySelectorAll("#check-results-list .show-in-model.is-current")
+        .forEach((b) => b.classList.remove("is-current"));
+      button.classList.add("is-current");
+      window.showSingleViolation?.(guids);
       $("preview-card").scrollIntoView({behavior: "smooth", block: "center"});
     });
   });
