@@ -113,7 +113,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     if len(storeys) < 2:
         return {
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
-            "unknown_reasons": [], "checked_summary": {},
+            "unknown_reasons": [], "checked_summary": {}, "checks": [],
             "summary": (
                 "Fewer than two IfcBuildingStorey elements carry an elevation; "
                 "there is no adjacent storey to compare against."
@@ -122,7 +122,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     if not columns and not walls:
         return {
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
-            "unknown_reasons": [], "checked_summary": {},
+            "unknown_reasons": [], "checked_summary": {}, "checks": [],
             "summary": "No IfcColumn or IfcWall elements to stand for the lateral force-resisting system.",
         }
 
@@ -175,6 +175,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
                 "elements_checked": 0, "elements_skipped": len(ordered),
                 "skip_reasons": {"no_lateral_elements_on_storey": len(ordered)},
             }},
+            "checks": [],
             "summary": (
                 "Lateral elements resolve to fewer than two storeys; no adjacent pair "
                 "can be compared."
@@ -219,6 +220,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
                 "elements_checked": len(comparable), "elements_skipped": len(ordered) - len(comparable),
                 "skip_reasons": {"too_few_lateral_elements": too_few or len(ordered)},
             }},
+            "checks": [],
             "summary": (
                 f"Fewer than two storeys carry at least {MIN_ELEMENTS_PER_STOREY} placed "
                 f"lateral elements; the plan dimension cannot be compared."
@@ -226,6 +228,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         }
 
     violations = []
+    checks = []
     compared_pairs = 0
     skipped_pairs = 0
     # Neighbours in the FULL storey order, so an excluded intermediate storey
@@ -242,10 +245,40 @@ def check_rule(model: ifcopenshell.file) -> dict:
                 continue
             larger, smaller = (a, b) if a >= b else (b, a)
             ratio = larger / smaller
-            if ratio <= MAX_DIMENSION_RATIO:
-                continue
             wider = lower if a >= b else upper
             narrower = upper if a >= b else lower
+            is_violation = ratio > MAX_DIMENSION_RATIO
+            threshold = f"<= {MAX_DIMENSION_RATIO:.0%} of the adjacent storey"
+            measured_wider = (
+                f"axis={axis}, dimension={larger:.0f} mm, "
+                f"adjacent='{narrower.Name or narrower.GlobalId}' at {smaller:.0f} mm, "
+                f"ratio={ratio:.2f}, limit={MAX_DIMENSION_RATIO:.2f}, "
+                f"role=wider, basis={wall_basis}"
+            )
+            measured_narrower = (
+                f"axis={axis}, dimension={smaller:.0f} mm, "
+                f"adjacent='{wider.Name or wider.GlobalId}' at {larger:.0f} mm, "
+                f"ratio={ratio:.2f}, limit={MAX_DIMENSION_RATIO:.2f}, "
+                f"role=narrower, basis={wall_basis}"
+            )
+            checks.append({
+                "element": f"Storey '{wider.Name or wider.GlobalId}'",
+                "storey": str(wider.Name or wider.GlobalId),
+                "criterion": f"Plan irregularity — {axis} axis",
+                "measured": measured_wider,
+                "threshold": threshold,
+                "result": "fail" if is_violation else "pass",
+            })
+            checks.append({
+                "element": f"Storey '{narrower.Name or narrower.GlobalId}'",
+                "storey": str(narrower.Name or narrower.GlobalId),
+                "criterion": f"Plan irregularity — {axis} axis",
+                "measured": measured_narrower,
+                "threshold": threshold,
+                "result": "fail" if is_violation else "pass",
+            })
+            if not is_violation:
+                continue
             violations.append({
                 "condition": COND_SETBACK,
                 "description": (
@@ -253,7 +286,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
                     "than 130% between adjacent storeys — a vertical geometric irregularity."
                 ),
                 "rule_ref": RULE_REF,
-                "threshold": f"<= {MAX_DIMENSION_RATIO:.0%} of the adjacent storey",
+                "threshold": threshold,
                 # The irregularity belongs to the PAIR, not to one level: the
                 # plan steps between them. Both storeys are reported so the
                 # finding can be found from either end of the step - looking
@@ -263,22 +296,12 @@ def check_rule(model: ifcopenshell.file) -> dict:
                     {
                         "element": f"Storey '{wider.Name or wider.GlobalId}'",
                         "storey": str(wider.Name or wider.GlobalId),
-                        "measured": (
-                            f"axis={axis}, dimension={larger:.0f} mm, "
-                            f"adjacent='{narrower.Name or narrower.GlobalId}' at {smaller:.0f} mm, "
-                            f"ratio={ratio:.2f}, limit={MAX_DIMENSION_RATIO:.2f}, "
-                            f"role=wider, basis={wall_basis}"
-                        ),
+                        "measured": measured_wider,
                     },
                     {
                         "element": f"Storey '{narrower.Name or narrower.GlobalId}'",
                         "storey": str(narrower.Name or narrower.GlobalId),
-                        "measured": (
-                            f"axis={axis}, dimension={smaller:.0f} mm, "
-                            f"adjacent='{wider.Name or wider.GlobalId}' at {larger:.0f} mm, "
-                            f"ratio={ratio:.2f}, limit={MAX_DIMENSION_RATIO:.2f}, "
-                            f"role=narrower, basis={wall_basis}"
-                        ),
+                        "measured": measured_narrower,
                     },
                 ],
             })
@@ -338,6 +361,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

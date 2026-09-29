@@ -41,10 +41,12 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcBeam elements found in the model.",
+            "checks": [],
         }
 
     settings = geom_settings()
     violations = []
+    checks = []
     checked = skipped = 0
 
     for beam in beams:
@@ -67,15 +69,25 @@ def check_rule(model: ifcopenshell.file) -> dict:
 
         checked += 1
         ratio = span_mm / depth_mm
-        if ratio > MAX_SPAN_TO_DEPTH:
+        threshold = f"<= {MAX_SPAN_TO_DEPTH:.0f}"
+        measured = f"span={span_mm:.0f} mm, depth={depth_mm:.0f} mm, L/d={ratio:.1f}"
+        is_violation = ratio > MAX_SPAN_TO_DEPTH
+        checks.append({
+            "element": element_label(beam),
+            "storey": element_storey(beam),
+            "measured": measured,
+            "threshold": threshold,
+            "result": "fail" if is_violation else "pass",
+        })
+        if is_violation:
             violations.append({
                 "condition": COND,
                 "description": "Beam span-to-depth ratio exceeds the deflection-control limit.",
                 "rule_ref": RULE_REF,
-                "threshold": f"<= {MAX_SPAN_TO_DEPTH:.0f}",
+                "threshold": threshold,
                 "locations": [{
                     "element": element_label(beam), "storey": element_storey(beam),
-                    "measured": f"span={span_mm:.0f} mm, depth={depth_mm:.0f} mm, L/d={ratio:.1f}",
+                    "measured": measured,
                 }],
             })
 
@@ -104,6 +116,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     return {
         "verdict": verdict, "violations": violations, "violation_count": len(violations),
         "unknown_reasons": unknown_reasons, "checked_summary": checked_summary, "summary": summary,
+        "checks": checks,
     }
 
 

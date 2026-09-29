@@ -46,10 +46,12 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcSlab elements found in the model.",
+            "checks": [],
         }
 
     settings = geom_settings()
     violations = []
+    checks = []
     checked = skipped = 0
 
     for slab in slabs:
@@ -84,15 +86,25 @@ def check_rule(model: ifcopenshell.file) -> dict:
 
         checked += 1
         required_min = max(ABSOLUTE_MIN_MM, span_mm / SPAN_COEFF)
-        if thickness_mm < required_min:
+        threshold = f">= max({ABSOLUTE_MIN_MM:.0f} mm, span/{SPAN_COEFF:.0f})"
+        measured = f"thickness={thickness_mm:.0f} mm, span={span_mm:.0f} mm, required>={required_min:.0f} mm"
+        is_violation = thickness_mm < required_min
+        checks.append({
+            "element": element_label(slab),
+            "storey": element_storey(slab),
+            "measured": measured,
+            "threshold": threshold,
+            "result": "fail" if is_violation else "pass",
+        })
+        if is_violation:
             violations.append({
                 "condition": COND,
                 "description": "Slab thickness is below the minimum required for its span.",
                 "rule_ref": RULE_REF,
-                "threshold": f">= max({ABSOLUTE_MIN_MM:.0f} mm, span/{SPAN_COEFF:.0f})",
+                "threshold": threshold,
                 "locations": [{
                     "element": element_label(slab), "storey": element_storey(slab),
-                    "measured": f"thickness={thickness_mm:.0f} mm, span={span_mm:.0f} mm, required>={required_min:.0f} mm",
+                    "measured": measured,
                 }],
             })
 
@@ -121,6 +133,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     return {
         "verdict": verdict, "violations": violations, "violation_count": len(violations),
         "unknown_reasons": unknown_reasons, "checked_summary": checked_summary, "summary": summary,
+        "checks": checks,
     }
 
 

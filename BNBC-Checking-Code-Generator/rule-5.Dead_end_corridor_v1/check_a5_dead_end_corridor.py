@@ -93,12 +93,14 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcSpace or IfcDoor elements found in the model.",
+            "checks": [],
         }
 
     unit_mm = length_unit_to_mm(model)
     settings = geom_settings()
 
     violations = []
+    checks = []
     unknown_reasons = []
 
     # ---- condition 1: corridor dead ends ---------------------------------
@@ -120,15 +122,26 @@ def check_rule(model: ifcopenshell.file) -> dict:
         connected = [d for d, o in door_origins if _point_in_bbox(o, bbox, ADJACENCY_MARGIN_MM)]
         (x0, y0, _), (x1, y1, _) = bbox
         plan_length = max(x1 - x0, y1 - y0)
-        if len(connected) <= 1 and plan_length > DEAD_END_MAX_MM:
+        dead_end_measured = f"length={plan_length:.0f} mm, connected_doors={len(connected)}"
+        dead_end_threshold = f"<= {DEAD_END_MAX_MM:.0f} mm when only one door serves the corridor"
+        dead_end_is_violation = len(connected) <= 1 and plan_length > DEAD_END_MAX_MM
+        checks.append({
+            "element": element_label(space),
+            "storey": element_storey(space),
+            "criterion": "Dead-end corridor length",
+            "measured": dead_end_measured,
+            "threshold": dead_end_threshold,
+            "result": "fail" if dead_end_is_violation else "pass",
+        })
+        if dead_end_is_violation:
             violations.append({
                 "condition": COND_DEAD_END,
                 "description": "Corridor is a dead end (<=1 exit door) longer than the allowed maximum.",
                 "rule_ref": RULE_REF,
-                "threshold": f"<= {DEAD_END_MAX_MM:.0f} mm when only one door serves the corridor",
+                "threshold": dead_end_threshold,
                 "locations": [{
                     "element": element_label(space), "storey": element_storey(space),
-                    "measured": f"length={plan_length:.0f} mm, connected_doors={len(connected)}",
+                    "measured": dead_end_measured,
                 }],
             })
 
@@ -174,19 +187,31 @@ def check_rule(model: ifcopenshell.file) -> dict:
                         max_dist = dist
                         worst_pair = (d1, d2)
 
-            if worst_pair is not None and max_dist < required_min:
+            if worst_pair is not None:
                 d1, d2 = worst_pair
-                violations.append({
-                    "condition": COND_EXIT_SEP,
-                    "description": "The two most widely separated exits are closer than half the plan diagonal.",
-                    "rule_ref": RULE_REF,
-                    "threshold": f">= {required_min:.0f} mm (half of {diagonal:.0f} mm diagonal)",
-                    "locations": [{
-                        "element": f"{element_label(d1)} <-> {element_label(d2)}",
-                        "storey": element_storey(d1),
-                        "measured": f"separation={max_dist:.0f} mm, required>={required_min:.0f} mm",
-                    }],
+                exit_sep_measured = f"separation={max_dist:.0f} mm, required>={required_min:.0f} mm"
+                exit_sep_threshold = f">= {required_min:.0f} mm (half of {diagonal:.0f} mm diagonal)"
+                exit_sep_is_violation = max_dist < required_min
+                checks.append({
+                    "element": f"{element_label(d1)} <-> {element_label(d2)}",
+                    "storey": element_storey(d1),
+                    "criterion": "Exit separation",
+                    "measured": exit_sep_measured,
+                    "threshold": exit_sep_threshold,
+                    "result": "fail" if exit_sep_is_violation else "pass",
                 })
+                if exit_sep_is_violation:
+                    violations.append({
+                        "condition": COND_EXIT_SEP,
+                        "description": "The two most widely separated exits are closer than half the plan diagonal.",
+                        "rule_ref": RULE_REF,
+                        "threshold": exit_sep_threshold,
+                        "locations": [{
+                            "element": f"{element_label(d1)} <-> {element_label(d2)}",
+                            "storey": element_storey(d1),
+                            "measured": exit_sep_measured,
+                        }],
+                    })
         else:
             unknown_reasons.append({
                 "condition": COND_EXIT_SEP, "missing": "no IfcSpace geometry to derive plan diagonal",
@@ -217,6 +242,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     return {
         "verdict": verdict, "violations": violations, "violation_count": len(violations),
         "unknown_reasons": unknown_reasons, "checked_summary": checked_summary, "summary": summary,
+        "checks": checks,
     }
 
 

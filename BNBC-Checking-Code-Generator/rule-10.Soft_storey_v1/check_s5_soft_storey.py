@@ -50,6 +50,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcBuildingStorey elements found in the model.",
+            "checks": [],
         }
 
     if not walls:
@@ -79,6 +80,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "unknown_reasons": [],
             "checked_summary": {COND: {"elements_checked": len(storeys), "elements_skipped": 0, "skip_reasons": {}}},
             "summary": f"No IfcWall found anywhere across {len(storeys)} storey(s) -- total lateral wall-system loss.",
+            "checks": [],
         }
 
     flags = [_is_load_bearing(w) for w in walls]
@@ -97,22 +99,34 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No load-bearing walls found on any storey; condition out of scope.",
+            "checks": [],
         }
 
     median_count = statistics.median(values)
     threshold = median_count * SOFT_STOREY_RATIO
 
     violations = []
+    checks = []
     for storey, count in counts.items():
-        if median_count > 0 and count < threshold:
+        measured = f"load_bearing_walls={count}, building_median={median_count:.1f}"
+        storey_threshold = f">= {threshold:.1f} walls ({SOFT_STOREY_RATIO:.0%} of median {median_count:.1f})"
+        is_violation = median_count > 0 and count < threshold
+        checks.append({
+            "element": f"Storey '{storey}'",
+            "storey": storey,
+            "measured": measured,
+            "threshold": storey_threshold,
+            "result": "fail" if is_violation else "pass",
+        })
+        if is_violation:
             violations.append({
                 "condition": COND,
                 "description": "Storey has far fewer load-bearing walls than the building median — a soft-storey signature.",
                 "rule_ref": RULE_REF,
-                "threshold": f">= {threshold:.1f} walls ({SOFT_STOREY_RATIO:.0%} of median {median_count:.1f})",
+                "threshold": storey_threshold,
                 "locations": [{
                     "element": f"Storey '{storey}'", "storey": storey,
-                    "measured": f"load_bearing_walls={count}, building_median={median_count:.1f}",
+                    "measured": measured,
                 }],
             })
 
@@ -130,6 +144,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     return {
         "verdict": verdict, "violations": violations, "violation_count": len(violations),
         "unknown_reasons": [], "checked_summary": checked_summary, "summary": summary,
+        "checks": checks,
     }
 
 

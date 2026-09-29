@@ -15,3 +15,6 @@ ifc-fault-injector/out/
 .impeccable/
 .playwright-mcp/
 skills-lock.json
+
+# Local live-reload compose override (see the file header).
+webapp/docker-compose.override.yml

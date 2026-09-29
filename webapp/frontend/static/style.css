@@ -149,8 +149,12 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
   from { background-position: 0% 50%; }
   to   { background-position: 300% 50%; }
 }
-.brand-mini { display: flex; align-items: center; gap: .65rem; flex: none; cursor: pointer; border-radius: var(--radius-sm); }
+.brand-mini { display: flex; align-items: center; gap: .65rem; flex: none; cursor: pointer; color: inherit; text-decoration: none; border-radius: var(--radius-sm); }
 .brand-mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.brand-mark {
+  width: 32px; height: 32px; border-radius: 8px; flex: none;
+  box-shadow: var(--shadow);
+}
 /* The supplied wordmark, inlined as a symbol so its ink follows the theme. */
 .brand-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 .brand-logo {

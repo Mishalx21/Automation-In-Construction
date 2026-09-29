@@ -94,6 +94,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcDoor elements found in the model.",
+            "checks": [],
         }
 
     unit_mm = length_unit_to_mm(model)
@@ -106,6 +107,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     candidate_origins = [(o, c) for o, c in candidate_origins if o is not None]
 
     violations = []
+    checks = []
     checked = 0
     skipped = 0
 
@@ -127,6 +129,8 @@ def check_rule(model: ifcopenshell.file) -> dict:
                 if abs(ox - dx) <= CANDIDATE_PREFILTER_MM and abs(oy - dy) <= CANDIDATE_PREFILTER_MM
             ]
 
+        threshold = f">= {CLEARANCE_MARGIN_MM:.0f} mm clear on all sides"
+        door_obstructions = []
         for obstruction in nearby:
             if host is not None and obstruction.id() == host.id():
                 continue
@@ -134,17 +138,33 @@ def check_rule(model: ifcopenshell.file) -> dict:
             if obs_bbox is None:
                 continue
             if _overlaps(zone, obs_bbox):
+                door_obstructions.append(obstruction)
                 violations.append({
                     "condition": COND,
                     "description": "An obstruction intersects the door's required clear floor space.",
                     "rule_ref": RULE_REF,
-                    "threshold": f">= {CLEARANCE_MARGIN_MM:.0f} mm clear on all sides",
+                    "threshold": threshold,
                     "locations": [{
                         "element": f"{element_label(door)} <- obstructed by {element_label(obstruction)}",
                         "storey": element_storey(door),
                         "measured": f"obstruction={element_label(obstruction)} intersects door clearance zone",
                     }],
                 })
+
+        is_violation = bool(door_obstructions)
+        if is_violation:
+            measured = f"obstruction={element_label(door_obstructions[0])} intersects door clearance zone"
+            if len(door_obstructions) > 1:
+                measured += f" (+{len(door_obstructions) - 1} more)"
+        else:
+            measured = "no obstruction intersects door clearance zone"
+        checks.append({
+            "element": element_label(door),
+            "storey": element_storey(door),
+            "measured": measured,
+            "threshold": threshold,
+            "result": "fail" if is_violation else "pass",
+        })
 
     unknown_reasons = []
     if skipped:
@@ -171,6 +191,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     return {
         "verdict": verdict, "violations": violations, "violation_count": len(violations),
         "unknown_reasons": unknown_reasons, "checked_summary": checked_summary, "summary": summary,
+        "checks": checks,
     }
 
 

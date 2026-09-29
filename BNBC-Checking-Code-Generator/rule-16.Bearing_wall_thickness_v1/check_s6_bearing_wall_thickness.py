@@ -239,6 +239,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcWall elements found in the model.",
+            "checks": [],
         }
 
     bearing = [w for w in walls if _is_load_bearing(w) is True]
@@ -250,11 +251,13 @@ def check_rule(model: ifcopenshell.file) -> dict:
                 f"None of the {len(walls)} wall(s) are flagged "
                 f"Pset_WallCommon.LoadBearing; no bearing wall to check."
             ),
+            "checks": [],
         }
 
     unit_mm = length_unit_to_mm(model)
 
     violations = []
+    checks = []
     checked = {COND_MASONRY: 0, COND_CONCRETE: 0}
     unknown_material = 0
     no_thickness = 0
@@ -284,18 +287,30 @@ def check_rule(model: ifcopenshell.file) -> dict:
 
         if kind == "masonry":
             checked[COND_MASONRY] += 1
-            if thickness_mm < MIN_MASONRY_THICKNESS_MM:
+            measured = (
+                f"thickness={thickness_mm:.0f} mm, "
+                f"required={MIN_MASONRY_THICKNESS_MM:.0f} mm, material=masonry"
+            )
+            threshold = f">= {MIN_MASONRY_THICKNESS_MM:.0f} mm"
+            is_violation = thickness_mm < MIN_MASONRY_THICKNESS_MM
+            checks.append(
+                {
+                    "element": label,
+                    "storey": storey,
+                    "measured": measured,
+                    "threshold": threshold,
+                    "result": "fail" if is_violation else "pass",
+                }
+            )
+            if is_violation:
                 violations.append({
                     "condition": COND_MASONRY,
                     "description": "Masonry bearing wall is thinner than the nominal minimum.",
                     "rule_ref": RULE_REF,
-                    "threshold": f">= {MIN_MASONRY_THICKNESS_MM:.0f} mm",
+                    "threshold": threshold,
                     "locations": [{
                         "element": label, "storey": storey,
-                        "measured": (
-                            f"thickness={thickness_mm:.0f} mm, "
-                            f"required={MIN_MASONRY_THICKNESS_MM:.0f} mm, material=masonry"
-                        ),
+                        "measured": measured,
                     }],
                 })
             continue
@@ -311,7 +326,22 @@ def check_rule(model: ifcopenshell.file) -> dict:
             basis = f"height={height_mm:.0f} mm, h/25={height_mm / CONCRETE_HEIGHT_RATIO:.0f} mm"
 
         checked[COND_CONCRETE] += 1
-        if thickness_mm < required:
+        measured = (
+            f"thickness={thickness_mm:.0f} mm, required={required:.0f} mm, "
+            f"material=concrete, {basis}"
+        )
+        threshold = f">= {required:.0f} mm"
+        is_violation = thickness_mm < required
+        checks.append(
+            {
+                "element": label,
+                "storey": storey,
+                "measured": measured,
+                "threshold": threshold,
+                "result": "fail" if is_violation else "pass",
+            }
+        )
+        if is_violation:
             violations.append({
                 "condition": COND_CONCRETE,
                 "description": (
@@ -319,13 +349,10 @@ def check_rule(model: ifcopenshell.file) -> dict:
                     "height or than the 100 mm absolute minimum."
                 ),
                 "rule_ref": RULE_REF,
-                "threshold": f">= {required:.0f} mm",
+                "threshold": threshold,
                 "locations": [{
                     "element": label, "storey": storey,
-                    "measured": (
-                        f"thickness={thickness_mm:.0f} mm, required={required:.0f} mm, "
-                        f"material=concrete, {basis}"
-                    ),
+                    "measured": measured,
                 }],
             })
 
@@ -396,6 +423,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

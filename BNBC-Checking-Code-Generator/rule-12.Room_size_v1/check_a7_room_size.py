@@ -301,12 +301,14 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "unknown_reasons": [],
             "checked_summary": {},
             "summary": "No IfcSpace elements found in the model.",
+            "checks": [],
         }
 
     unit_mm = length_unit_to_mm(model)
     area_to_m2 = _area_unit_to_m2(model, unit_mm)
 
     violations = []
+    checks = []
     checked = {COND_AREA: 0, COND_WIDTH: 0}
     skipped = {COND_AREA: 0, COND_WIDTH: 0}
     unclassified = 0
@@ -357,19 +359,30 @@ def check_rule(model: ifcopenshell.file) -> dict:
             continue
         else:
             checked[COND_AREA] += 1
-            if area_m2 < required_area:
+            area_measured = (
+                f"area={area_m2:.2f} m2, required={required_area:.1f} m2, "
+                f"room_type={kind}"
+            )
+            area_threshold = f">= {required_area:.1f} m2"
+            area_is_violation = area_m2 < required_area
+            checks.append({
+                "element": label,
+                "storey": storey,
+                "criterion": "Room area",
+                "measured": area_measured,
+                "threshold": area_threshold,
+                "result": "fail" if area_is_violation else "pass",
+            })
+            if area_is_violation:
                 violations.append({
                     "condition": COND_AREA,
                     "description": "Room net floor area is below the minimum required.",
                     "rule_ref": RULE_REF,
-                    "threshold": f">= {required_area:.1f} m2",
+                    "threshold": area_threshold,
                     "locations": [{
                         "element": label,
                         "storey": storey,
-                        "measured": (
-                            f"area={area_m2:.2f} m2, required={required_area:.1f} m2, "
-                            f"room_type={kind}"
-                        ),
+                        "measured": area_measured,
                     }],
                 })
 
@@ -378,19 +391,30 @@ def check_rule(model: ifcopenshell.file) -> dict:
             skipped[COND_WIDTH] += 1
         else:
             checked[COND_WIDTH] += 1
-            if width_mm < required_width:
+            width_measured = (
+                f"width={width_mm:.0f} mm, required={required_width:.0f} mm, "
+                f"room_type={kind}"
+            )
+            width_threshold = f">= {required_width:.0f} mm"
+            width_is_violation = width_mm < required_width
+            checks.append({
+                "element": label,
+                "storey": storey,
+                "criterion": "Least width",
+                "measured": width_measured,
+                "threshold": width_threshold,
+                "result": "fail" if width_is_violation else "pass",
+            })
+            if width_is_violation:
                 violations.append({
                     "condition": COND_WIDTH,
                     "description": "Room least lateral dimension is below the minimum required.",
                     "rule_ref": RULE_REF,
-                    "threshold": f">= {required_width:.0f} mm",
+                    "threshold": width_threshold,
                     "locations": [{
                         "element": label,
                         "storey": storey,
-                        "measured": (
-                            f"width={width_mm:.0f} mm, required={required_width:.0f} mm, "
-                            f"room_type={kind}"
-                        ),
+                        "measured": width_measured,
                     }],
                 })
 
@@ -469,6 +493,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

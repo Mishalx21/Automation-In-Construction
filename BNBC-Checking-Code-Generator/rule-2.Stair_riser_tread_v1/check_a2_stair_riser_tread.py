@@ -74,11 +74,13 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "unknown_reasons": [],
             "checked_summary": {},
             "summary": "No IfcStairFlight or IfcStair elements found in the model.",
+            "checks": [],
         }
 
     unit_mm = length_unit_to_mm(model)
 
     violations = []
+    checks = []
     checked = {COND_RISER: 0, COND_TREAD: 0}
     skipped = {COND_RISER: 0, COND_TREAD: 0}
 
@@ -91,15 +93,26 @@ def check_rule(model: ifcopenshell.file) -> dict:
             skipped[COND_RISER] += 1
         else:
             checked[COND_RISER] += 1
-            if riser_mm > MAX_RISER_MM:
+            riser_measured = f"riser={riser_mm:.1f} mm, required<={MAX_RISER_MM:.0f} mm"
+            riser_threshold = f"<= {MAX_RISER_MM:.0f} mm"
+            riser_is_violation = riser_mm > MAX_RISER_MM
+            checks.append({
+                "element": label,
+                "storey": storey,
+                "criterion": "Riser height",
+                "measured": riser_measured,
+                "threshold": riser_threshold,
+                "result": "fail" if riser_is_violation else "pass",
+            })
+            if riser_is_violation:
                 violations.append({
                     "condition": COND_RISER,
                     "description": "Stair riser height exceeds the maximum allowed.",
                     "rule_ref": RULE_REF,
-                    "threshold": f"<= {MAX_RISER_MM:.0f} mm",
+                    "threshold": riser_threshold,
                     "locations": [{
                         "element": label, "storey": storey,
-                        "measured": f"riser={riser_mm:.1f} mm, required<={MAX_RISER_MM:.0f} mm",
+                        "measured": riser_measured,
                     }],
                 })
 
@@ -107,15 +120,26 @@ def check_rule(model: ifcopenshell.file) -> dict:
             skipped[COND_TREAD] += 1
         else:
             checked[COND_TREAD] += 1
-            if tread_mm < MIN_TREAD_MM:
+            tread_measured = f"tread={tread_mm:.1f} mm, required>={MIN_TREAD_MM:.0f} mm"
+            tread_threshold = f">= {MIN_TREAD_MM:.0f} mm"
+            tread_is_violation = tread_mm < MIN_TREAD_MM
+            checks.append({
+                "element": label,
+                "storey": storey,
+                "criterion": "Tread depth",
+                "measured": tread_measured,
+                "threshold": tread_threshold,
+                "result": "fail" if tread_is_violation else "pass",
+            })
+            if tread_is_violation:
                 violations.append({
                     "condition": COND_TREAD,
                     "description": "Stair tread depth is below the minimum required.",
                     "rule_ref": RULE_REF,
-                    "threshold": f">= {MIN_TREAD_MM:.0f} mm",
+                    "threshold": tread_threshold,
                     "locations": [{
                         "element": label, "storey": storey,
-                        "measured": f"tread={tread_mm:.1f} mm, required>={MIN_TREAD_MM:.0f} mm",
+                        "measured": tread_measured,
                     }],
                 })
 
@@ -155,6 +179,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

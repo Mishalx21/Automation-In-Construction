@@ -148,11 +148,13 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcRailing elements found in the model.",
+            "checks": [],
         }
 
     unit_mm = length_unit_to_mm(model)
 
     violations = []
+    checks = []
     checked = {COND_GUARD: 0, COND_HANDRAIL: 0}
     skipped = {COND_GUARD: 0, COND_HANDRAIL: 0}
     unclassified = 0
@@ -186,7 +188,24 @@ def check_rule(model: ifcopenshell.file) -> dict:
             continue
 
         checked[condition] += 1
-        if height_mm < required:
+        label = element_label(railing)
+        storey = element_storey(railing)
+        measured = (
+            f"height={height_mm:.0f} mm, required={required:.0f} mm, "
+            f"railing_type={kind}"
+        )
+        threshold = f">= {required:.0f} mm"
+        is_violation = height_mm < required
+        checks.append(
+            {
+                "element": label,
+                "storey": storey,
+                "measured": measured,
+                "threshold": threshold,
+                "result": "fail" if is_violation else "pass",
+            }
+        )
+        if is_violation:
             violations.append({
                 "condition": condition,
                 "description": (
@@ -195,14 +214,11 @@ def check_rule(model: ifcopenshell.file) -> dict:
                     else "Stair handrail height is below the minimum required."
                 ),
                 "rule_ref": RULE_REF,
-                "threshold": f">= {required:.0f} mm",
+                "threshold": threshold,
                 "locations": [{
-                    "element": element_label(railing),
-                    "storey": element_storey(railing),
-                    "measured": (
-                        f"height={height_mm:.0f} mm, required={required:.0f} mm, "
-                        f"railing_type={kind}"
-                    ),
+                    "element": label,
+                    "storey": storey,
+                    "measured": measured,
                 }],
             })
 
@@ -266,6 +282,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

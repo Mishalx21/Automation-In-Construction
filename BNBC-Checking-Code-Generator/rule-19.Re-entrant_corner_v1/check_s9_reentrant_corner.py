@@ -213,13 +213,13 @@ def check_rule(model: ifcopenshell.file) -> dict:
     if not storeys:
         return {
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
-            "unknown_reasons": [], "checked_summary": {},
+            "unknown_reasons": [], "checked_summary": {}, "checks": [],
             "summary": "No IfcBuildingStorey elements found in the model.",
         }
     if not columns and not walls:
         return {
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
-            "unknown_reasons": [], "checked_summary": {},
+            "unknown_reasons": [], "checked_summary": {}, "checks": [],
             "summary": (
                 "No IfcColumn or IfcWall elements to stand for the lateral "
                 "force-resisting system."
@@ -246,6 +246,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         by_storey.setdefault(storey.GlobalId, []).append(element)
 
     violations = []
+    checks = []
     checked = 0
     too_few = 0
     too_sparse = 0
@@ -306,7 +307,23 @@ def check_rule(model: ifcopenshell.file) -> dict:
             cells_x, cells_y = _corner_notch(filled, GRID_CELLS, GRID_CELLS, flip_x, flip_y)
             fraction_x = cells_x / GRID_CELLS
             fraction_y = cells_y / GRID_CELLS
-            if fraction_x <= MAX_PROJECTION_FRACTION or fraction_y <= MAX_PROJECTION_FRACTION:
+            is_violation = fraction_x > MAX_PROJECTION_FRACTION and fraction_y > MAX_PROJECTION_FRACTION
+            threshold = f"<= {MAX_PROJECTION_FRACTION:.0%} of the plan dimension in one direction"
+            measured = (
+                f"corner={corner_name}, "
+                f"projection_x={fraction_x:.0%} of {width:.0f} mm, "
+                f"projection_y={fraction_y:.0%} of {depth:.0f} mm, "
+                f"limit={MAX_PROJECTION_FRACTION:.0%}"
+            )
+            checks.append({
+                "element": f"Storey '{storey_name}'",
+                "storey": storey_name,
+                "criterion": f"Re-entrant corner ({corner_name})",
+                "measured": measured,
+                "threshold": threshold,
+                "result": "fail" if is_violation else "pass",
+            })
+            if not is_violation:
                 continue
             violations.append({
                 "condition": COND_REENTRANT,
@@ -315,16 +332,11 @@ def check_rule(model: ifcopenshell.file) -> dict:
                     "15% of the plan dimension in both directions."
                 ),
                 "rule_ref": RULE_REF,
-                "threshold": f"<= {MAX_PROJECTION_FRACTION:.0%} of the plan dimension in one direction",
+                "threshold": threshold,
                 "locations": [{
                     "element": f"Storey '{storey_name}'",
                     "storey": storey_name,
-                    "measured": (
-                        f"corner={corner_name}, "
-                        f"projection_x={fraction_x:.0%} of {width:.0f} mm, "
-                        f"projection_y={fraction_y:.0%} of {depth:.0f} mm, "
-                        f"limit={MAX_PROJECTION_FRACTION:.0%}"
-                    ),
+                    "measured": measured,
                 }],
             })
 
@@ -384,6 +396,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

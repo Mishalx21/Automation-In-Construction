@@ -44,12 +44,23 @@
 <path d="M341.042 68.051V24.147H366.130Q369.586 24.147 372.370 25.491Q375.154 26.835 376.754 29.267Q378.354 31.699 378.354 34.963Q378.354 37.587 377.394 39.635Q376.434 41.683 374.802 43.027Q373.170 44.371 371.122 45.011V45.267Q373.554 45.779 375.442 47.187Q377.330 48.595 378.450 50.803Q379.570 53.011 379.570 56.019Q379.570 59.987 377.746 62.675Q375.922 65.363 372.914 66.707Q369.906 68.051 366.194 68.051ZM350.578 60.243H364.338Q366.706 60.243 368.210 58.899Q369.714 57.555 369.714 54.739Q369.714 53.075 369.074 51.859Q368.434 50.643 367.154 49.971Q365.874 49.299 363.890 49.299H350.578ZM350.578 41.875H363.250Q364.978 41.875 366.162 41.203Q367.346 40.531 367.954 39.411Q368.562 38.291 368.562 36.819Q368.562 34.323 367.186 33.043Q365.810 31.763 363.570 31.763H350.578ZM388.018 68.051V24.147H397.554V68.051ZM408.050 68.051V24.147H422.578L428.850 46.611Q429.234 47.827 429.618 49.491Q430.002 51.155 430.418 52.787Q430.834 54.419 431.090 55.699H431.602Q431.730 54.611 432.050 53.107Q432.370 51.603 432.754 49.875Q433.138 48.147 433.586 46.547L439.858 24.147H454.130V68.051H444.722V47.251Q444.722 44.371 444.754 41.459Q444.786 38.547 444.882 36.371Q444.978 34.195 444.978 33.555H444.466Q444.338 34.259 443.858 36.147Q443.378 38.035 442.834 40.147Q442.290 42.259 441.842 43.795L434.994 68.051H426.674L419.762 43.859Q419.378 42.515 418.898 40.691Q418.418 38.867 418.002 36.915Q417.586 34.963 417.202 33.555H416.690Q416.754 35.283 416.818 37.683Q416.882 40.083 416.946 42.611Q417.010 45.139 417.010 47.251V68.051Z" fill="currentColor"/></symbol>
   </svg>
   <header id="topbar">
-    <div class="brand-mini">
+    <a class="brand-mini" id="brand-home" href="/" aria-label="ComplyBIM home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <defs>
+          <linearGradient id="brandGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="var(--accent-light)"/>
+            <stop offset="1" stop-color="var(--accent-dark)"/>
+          </linearGradient>
+        </defs>
+        <rect width="32" height="32" rx="8" fill="url(#brandGrad)"/>
+        <rect x=".5" y=".5" width="31" height="31" rx="7.5" fill="none" stroke="rgba(255,255,255,.18)"/>
+        <path d="M9 23V13l7-5 7 5v10h-4v-6h-6v6z" fill="#fff" fill-opacity=".96"/>
+      </svg>
       <div class="brand-text">
         <svg class="brand-logo" viewBox="0 0 458.99 92.2" role="img" aria-label="complyBIM"><use href="#cb-word"/></svg>
         <span class="brand-subtitle">Code compliance, measured — not guessed</span>
       </div>
-    </div>
+    </a>
     <nav class="workflow-switch hidden" id="workflow-switch" aria-label="Choose workflow">
       <button class="workflow-choice active" type="button" data-workflow="check-card">
         <span class="choice-icon">
@@ -678,6 +689,7 @@
             <div id="check-results-list"></div>
             <p class="dl-row">
               <a id="check-report" class="btn" target="_blank">Full report (JSON)</a>
+              <a id="check-report-pdf" class="btn" target="_blank">Full report (PDF)</a>
             </p>
           </div>
         </section>

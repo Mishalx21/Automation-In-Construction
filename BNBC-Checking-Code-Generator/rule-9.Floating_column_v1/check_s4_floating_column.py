@@ -66,6 +66,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcColumn elements found in the model.",
+            "checks": [],
         }
 
     settings = geom_settings()
@@ -80,6 +81,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     footing_footprints = [(f, fp) for f, fp in footing_footprints if fp is not None]
 
     violations = []
+    checks = []
     checked = skipped = 0
 
     for storey, cols in by_storey.items():
@@ -108,16 +110,29 @@ def check_rule(model: ifcopenshell.file) -> dict:
             if not supported and is_lowest:
                 supported = any(_overlaps_xy(fp, ofp) for _, ofp in footing_footprints)
 
-            if not supported:
+            threshold = "must be supported by a column or footing directly below"
+            is_violation = not supported
+            if is_violation:
                 reason = "no footing beneath it" if is_lowest else f"no column beneath it at '{below_storey}'"
+                measured = f"support_found=False ({reason})"
+            else:
+                measured = "support_found=True"
+            checks.append({
+                "element": element_label(col),
+                "storey": storey,
+                "measured": measured,
+                "threshold": threshold,
+                "result": "fail" if is_violation else "pass",
+            })
+            if is_violation:
                 violations.append({
                     "condition": COND,
                     "description": f"Column has {reason} — the load path is discontinuous.",
                     "rule_ref": RULE_REF,
-                    "threshold": "must be supported by a column or footing directly below",
+                    "threshold": threshold,
                     "locations": [{
                         "element": element_label(col), "storey": storey,
-                        "measured": f"support_found=False ({reason})",
+                        "measured": measured,
                     }],
                 })
 
@@ -146,6 +161,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     return {
         "verdict": verdict, "violations": violations, "violation_count": len(violations),
         "unknown_reasons": unknown_reasons, "checked_summary": checked_summary, "summary": summary,
+        "checks": checks,
     }
 
 

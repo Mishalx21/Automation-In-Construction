@@ -185,11 +185,13 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "unknown_reasons": [],
             "checked_summary": {},
             "summary": "No IfcSpace elements found in the model.",
+            "checks": [],
         }
 
     unit_mm = length_unit_to_mm(model)
 
     violations = []
+    checks = []
     checked = {COND_ROOM: 0, COND_CORRIDOR: 0}
     skipped = {COND_ROOM: 0, COND_CORRIDOR: 0}
     no_height = 0
@@ -225,7 +227,20 @@ def check_rule(model: ifcopenshell.file) -> dict:
             continue
 
         checked[condition] += 1
-        if height_mm < required:
+        measured = (
+            f"height={height_mm:.0f} mm, required={required:.0f} mm, "
+            f"space_type={kind}"
+        )
+        threshold = f">= {required:.0f} mm"
+        is_violation = height_mm < required
+        checks.append({
+            "element": element_label(space),
+            "storey": element_storey(space),
+            "measured": measured,
+            "threshold": threshold,
+            "result": "fail" if is_violation else "pass",
+        })
+        if is_violation:
             violations.append({
                 "condition": condition,
                 "description": (
@@ -234,14 +249,11 @@ def check_rule(model: ifcopenshell.file) -> dict:
                     else "Habitable room clear ceiling height is below the minimum required."
                 ),
                 "rule_ref": RULE_REF,
-                "threshold": f">= {required:.0f} mm",
+                "threshold": threshold,
                 "locations": [{
                     "element": element_label(space),
                     "storey": element_storey(space),
-                    "measured": (
-                        f"height={height_mm:.0f} mm, required={required:.0f} mm, "
-                        f"space_type={kind}"
-                    ),
+                    "measured": measured,
                 }],
             })
 
@@ -308,6 +320,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

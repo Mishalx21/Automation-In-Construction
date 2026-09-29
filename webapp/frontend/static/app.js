@@ -1297,6 +1297,7 @@ function renderCheckResults(job, final = false) {
     window.highlightViolationIds?.(ids);
   }
   $("check-report").href = `/bnbc/api/jobs/${bnbcJobId}/download/report`;
+  $("check-report-pdf").href = `/bnbc/api/jobs/${bnbcJobId}/download/report.pdf`;
   show("check-results", true);
 }
 

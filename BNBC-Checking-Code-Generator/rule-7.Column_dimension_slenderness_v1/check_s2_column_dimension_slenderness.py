@@ -46,10 +46,12 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcColumn elements found in the model.",
+            "checks": [],
         }
 
     settings = geom_settings()
     violations = []
+    checks = []
     checked = skipped = 0
 
     for column in columns:
@@ -74,28 +76,50 @@ def check_rule(model: ifcopenshell.file) -> dict:
         label = element_label(column)
         storey = element_storey(column)
 
-        if least_dim < MIN_DIMENSION_MM:
+        dim_threshold = f">= {MIN_DIMENSION_MM:.0f} mm"
+        dim_measured = f"least_dimension={least_dim:.0f} mm, required>={MIN_DIMENSION_MM:.0f} mm"
+        dim_is_violation = least_dim < MIN_DIMENSION_MM
+        checks.append({
+            "element": label,
+            "storey": storey,
+            "criterion": "Minimum dimension",
+            "measured": dim_measured,
+            "threshold": dim_threshold,
+            "result": "fail" if dim_is_violation else "pass",
+        })
+        if dim_is_violation:
             violations.append({
                 "condition": COND_DIM,
                 "description": "Column least cross-section dimension is below the minimum required.",
                 "rule_ref": RULE_REF,
-                "threshold": f">= {MIN_DIMENSION_MM:.0f} mm",
+                "threshold": dim_threshold,
                 "locations": [{
                     "element": label, "storey": storey,
-                    "measured": f"least_dimension={least_dim:.0f} mm, required>={MIN_DIMENSION_MM:.0f} mm",
+                    "measured": dim_measured,
                 }],
             })
 
         slenderness = height / least_dim
-        if slenderness > MAX_SLENDERNESS:
+        slend_threshold = f"<= {MAX_SLENDERNESS:.0f}"
+        slend_measured = f"height={height:.0f} mm, least_dimension={least_dim:.0f} mm, ratio={slenderness:.1f}"
+        slend_is_violation = slenderness > MAX_SLENDERNESS
+        checks.append({
+            "element": label,
+            "storey": storey,
+            "criterion": "Slenderness ratio",
+            "measured": slend_measured,
+            "threshold": slend_threshold,
+            "result": "fail" if slend_is_violation else "pass",
+        })
+        if slend_is_violation:
             violations.append({
                 "condition": COND_SLEND,
                 "description": "Column slenderness ratio (height / least dimension) exceeds the limit.",
                 "rule_ref": RULE_REF,
-                "threshold": f"<= {MAX_SLENDERNESS:.0f}",
+                "threshold": slend_threshold,
                 "locations": [{
                     "element": label, "storey": storey,
-                    "measured": f"height={height:.0f} mm, least_dimension={least_dim:.0f} mm, ratio={slenderness:.1f}",
+                    "measured": slend_measured,
                 }],
             })
 
@@ -126,6 +150,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     return {
         "verdict": verdict, "violations": violations, "violation_count": len(violations),
         "unknown_reasons": unknown_reasons, "checked_summary": checked_summary, "summary": summary,
+        "checks": checks,
     }
 
 
