@@ -715,43 +715,43 @@ const EXPLAINERS = {
   },
   // --- architectural, BNBC clauses (A6–A10) ---
   room_min_ceiling_height: {
-    plain: (kv) => `This room is only <b>${kv.height || "?"}</b> from floor to ceiling — BNBC asks for at least <b>${kv.required || "2750 mm"}</b> in a habitable room. A low ceiling makes a room feel oppressive and traps warm, stale air over the people in it.`,
-    why: "BNBC Part 3 Sec 1.14.2.1(a) sets 2.75 m so that a habitable room holds enough air volume and can be ventilated and lit properly.",
+    plain: (kv) => `This room is only <b>${kv.height || "?"}</b> from floor to ceiling — the code asks for at least <b>${kv.required || "2750 mm"}</b> in a habitable room. A low ceiling makes a room feel oppressive and traps warm, stale air over the people in it.`,
+    why: "The code sets 2.75 m so that a habitable room holds enough air volume and can be ventilated and lit properly.",
     check: "Raise the floor-to-floor height, or reduce the floor and ceiling build-ups so the clear height comes back.",
   },
   corridor_min_ceiling_height: {
     plain: (kv) => `This escape corridor has only <b>${kv.height || "?"}</b> of headroom — the minimum for a corridor used as a means of egress is <b>${kv.required || "2400 mm"}</b>.`,
-    why: "BNBC Part 4 Sec 3.7.3: smoke banks down from the ceiling, so a low corridor fills with it sooner and leaves less clear air to escape through.",
+    why: "Smoke banks down from the ceiling, so a low corridor fills with it sooner and leaves less clear air to escape through.",
     check: "Raise the ceiling, or re-route the services and bulkheads that are eating the headroom.",
   },
   room_min_floor_area: {
     plain: (kv) => `This room has only <b>${kv.area || "?"}</b> of floor area; the minimum for a ${kv.room_type === "other" ? "non-habitable" : "habitable"} room is <b>${kv.required || "?"}</b>.`,
-    why: "BNBC Part 3 Sec 1.14.2.2 sets a floor area per room so a dwelling cannot be subdivided into cells too small to live or breathe in.",
+    why: "The code sets a floor area per room so a dwelling cannot be subdivided into cells too small to live or breathe in.",
     check: "Combine it with the adjoining space, or re-plan the floor so the room reaches the minimum area.",
   },
   room_min_least_width: {
     plain: (kv) => `The narrow side of this room measures <b>${kv.width || "?"}</b>, below the <b>${kv.required || "?"}</b> minimum. A room can meet its area target and still be an unusable corridor-shaped strip — this one does.`,
-    why: "BNBC Part 3 Sec 1.14.2.2 fixes a least width as well as an area, precisely so the area cannot be met by a long thin room.",
+    why: "The code fixes a least width as well as an area, precisely so the area cannot be met by a long thin room.",
     check: "Re-proportion the room, moving the partition so the short dimension reaches the minimum.",
   },
   space_min_opening_area_ratio: {
-    plain: (kv) => `The windows serving this room add up to <b>${kv.opening_area || "?"}</b> against a floor area of <b>${kv.floor_area || "?"}</b> — an opening ratio of <b>${kv.opening_ratio || "?"}</b>, where BNBC requires <b>${kv.required || "?"}</b>.`,
-    why: "BNBC Part 3 Sec 1.19.6 / Table 3.1.12 ties daylight and natural ventilation to floor area; under-glazed rooms stay dark and stuffy in Bangladesh's climate.",
+    plain: (kv) => `The windows serving this room add up to <b>${kv.opening_area || "?"}</b> against a floor area of <b>${kv.floor_area || "?"}</b> — an opening ratio of <b>${kv.opening_ratio || "?"}</b>, where the code requires <b>${kv.required || "?"}</b>.`,
+    why: "The code ties daylight and natural ventilation to floor area; under-glazed rooms stay dark and stuffy in a hot, humid climate.",
     check: "Enlarge or add windows in the exterior wall. Doors do not count towards this ratio, even glazed ones.",
   },
   guard_min_height: {
     plain: (kv) => `This guard stands <b>${kv.height || "?"}</b> above the floor — the minimum is <b>${kv.required || "1000 mm"}</b>. A guard below waist height stops being a barrier and becomes something to trip over the top of.`,
-    why: "BNBC Part 3 Sec 1.14.14 requires a 1 m parapet or guardrail at every accessible flat roof and open edge, because an adult's centre of gravity sits above a low rail.",
+    why: "The code requires a 1 m parapet or guardrail at every accessible flat roof and open edge, because an adult's centre of gravity sits above a low rail.",
     check: "Raise the guard to at least 1 m, or replace it with a parapet of the required height.",
   },
   stair_handrail_min_height: {
     plain: (kv) => `This handrail sits <b>${kv.height || "?"}</b> above the stair nosing, below the <b>${kv.required || "900 mm"}</b> minimum — too low to catch hold of naturally on the way down.`,
-    why: "BNBC Part 3 Sec 1.14.5.6 sets 0.9 m from the nose of the stair so the rail meets the hand where it falls.",
+    why: "The code sets 0.9 m from the nose of the stair so the rail meets the hand where it falls.",
     check: "Raise the handrail, measuring from the tread nosing rather than from the landing.",
   },
   stairway_min_width: {
     plain: (kv) => `This stairway is <b>${kv.width || "?"}</b> wide against a minimum of <b>${kv.required || "1120 mm"}</b>${kv.measured_on && kv.measured_on.indexOf("enclosure") !== -1 ? " (measured across the whole stair enclosure, so the flight itself is narrower still)" : ""}. Two people cannot pass on it, and it cannot carry the flow of a floor emptying at once.`,
-    why: "BNBC Part 4 Table 4.3.6 sizes egress stairs by occupancy; 1120 mm is the lowest value in the table, and a hospital or a large school needs 2235 mm.",
+    why: "The code sizes egress stairs by occupancy; 1120 mm is the lowest value in the table, and a hospital or a large school needs 2235 mm.",
     check: "Widen the flight, or add a second stair so each carries less of the occupant load.",
   },
   // --- structural, international analogues (S1–S5) ---
@@ -790,38 +790,38 @@ const EXPLAINERS = {
   },
   // --- structural, BNBC clauses (S6–S10) ---
   masonry_bearing_wall_min_thickness: {
-    plain: (kv) => `This load-bearing masonry wall is only <b>${kv.thickness || "?"}</b> thick — BNBC requires a nominal <b>${kv.required || "250 mm"}</b> for a wall carrying vertical load.`,
-    why: "BNBC Part 6 Sec 7.4.9.1: a thin masonry bearing wall is slender out of plane, so it buckles or is pushed over long before its bricks are crushed.",
+    plain: (kv) => `This load-bearing masonry wall is only <b>${kv.thickness || "?"}</b> thick — the code requires a nominal <b>${kv.required || "250 mm"}</b> for a wall carrying vertical load.`,
+    why: "A thin masonry bearing wall is slender out of plane, so it buckles or is pushed over long before its bricks are crushed.",
     check: "Thicken the wall, or take the load off it with a frame and re-classify it as non-load-bearing.",
   },
   concrete_bearing_wall_min_thickness: {
     plain: (kv) => `This concrete bearing wall is <b>${kv.thickness || "?"}</b> thick, under the <b>${kv.required || "?"}</b> its supported height demands.`,
-    why: "BNBC Part 6 Sec 6.6.5.3.1 ties a bearing wall's thickness to 1/25 of the height it supports, with 100 mm as the floor — the taller the wall, the thicker it has to be to stay stable.",
+    why: "The code ties a bearing wall's thickness to 1/25 of the height it supports, with 100 mm as the floor — the taller the wall, the thicker it has to be to stay stable.",
     check: "Thicken the wall, brace it at mid-height to shorten the supported height, or design it explicitly rather than by the empirical method.",
   },
   smf_column_min_dimension: {
     plain: (kv) => `The short side of this column measures <b>${kv.short_dimension || "?"}</b> (section ${kv.section || "?"}), below the <b>${kv.required || "300 mm"}</b> a special moment frame column needs.`,
-    why: "BNBC Part 6 Sec 8.3.5.1(a): an earthquake frame column has to fit confinement hoops and a beam-column joint inside it, and a thin section cannot be cast properly around that congestion.",
+    why: "An earthquake frame column has to fit confinement hoops and a beam-column joint inside it, and a thin section cannot be cast properly around that congestion.",
     check: "Enlarge the section to at least 300 mm on its short side, or exclude the column from the seismic frame and design it to carry gravity only.",
   },
   smf_column_dimension_ratio: {
     plain: (kv) => `This column is <b>${kv.section || "?"}</b> — a short-to-long ratio of <b>${kv.ratio || "?"}</b> against a minimum of <b>${kv.required || "0.4"}</b>. It is a blade, strong one way and weak the other.`,
-    why: "BNBC Part 6 Sec 8.3.5.1(b): an earthquake arrives from any direction, so a column that is far stiffer about one axis than the other is loaded on its weak side half the time.",
+    why: "An earthquake arrives from any direction, so a column that is far stiffer about one axis than the other is loaded on its weak side half the time.",
     check: "Square the section up towards 0.4 or better, or model it as a wall and design it as one.",
   },
   storey_plan_dimension_jump: {
     plain: (kv) => `On the ${kv.axis || "?"} axis this storey spans <b>${kv.dimension || "?"}</b> while the storey next to it (${kv.adjacent || "?"}) spans a different amount — a ratio of <b>${kv.ratio || "?"}</b> against a limit of <b>${kv.limit || "1.30"}</b>. The building steps in or out sharply here.`,
-    why: "BNBC Part 6 Table 6.1.4 Type III: a setback concentrates earthquake forces at the level where the plan changes, and the structure above and below no longer shares them evenly.",
+    why: "A setback concentrates earthquake forces at the level where the plan changes, and the structure above and below no longer shares them evenly.",
     check: "Soften the setback across more than one floor, or design the transition level explicitly for the concentrated forces.",
   },
   plan_reentrant_corner: {
     plain: (kv) => `This storey's plan has an inside corner at its <b>${kv.corner || "?"}</b>, with wings projecting <b>${kv.projection_x || "?"}</b> and <b>${kv.projection_y || "?"}</b> of the plan — both past the <b>${kv.limit || "15%"}</b> limit. The floor is an L rather than a rectangle.`,
-    why: "BNBC Part 6 Table 6.1.5 Type II: in an earthquake the two wings of an L move differently and tear at the inside corner, which is where the cracking starts.",
+    why: "In an earthquake the two wings of an L move differently and tear at the inside corner, which is where the cracking starts.",
     check: "Separate the wings with a seismic joint, or add collectors and chords at the corner to carry the forces across it.",
   },
   footing_min_thickness: {
     plain: (kv) => `This footing is <b>${kv.thickness || "?"}</b> thick, below the <b>${kv.required || "?"}</b> minimum for a ${kv.support === "pile" ? "pile-supported" : "soil-supported"} footing.`,
-    why: "BNBC Part 6 Sec 6.8.7: a footing needs depth to develop its reinforcement and to resist punching shear where the column pushes through it — a thin pad fails suddenly, in shear, without warning.",
+    why: "A footing needs depth to develop its reinforcement and to resist punching shear where the column pushes through it — a thin pad fails suddenly, in shear, without warning.",
     check: "Deepen the footing, or spread the load over a larger pad so the punching shear drops.",
   },
 };
