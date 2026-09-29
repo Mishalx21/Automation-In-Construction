@@ -332,21 +332,20 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 main { padding-top: .9rem; padding-bottom: 1.4rem; }
 
 /* --- landing: pre-sign-in homepage ---------------------------------------------
- * A scrolling story rather than a single screen: the claim and a 3D model that
- * assembles as you scroll, the figures from the study, then the two workflows —
- * each expanding into how it actually works (hover to preview, click to pin). */
+ * A product page, not a talk: the app on screen in the hero, one line of
+ * figures, then each workflow as copy beside the output it produces, and a
+ * closing call to action. */
 .landing {
   max-width: 76rem;
-  margin: 0 auto 4rem;
+  margin: 0 auto 4.5rem;
   display: flex;
   flex-direction: column;
-  gap: 4.5rem;
+  gap: 6rem;
 }
 .landing-hero {
-  display: grid; grid-template-columns: 1.02fr .98fr;
-  gap: 2rem 3rem; align-items: center;
-  min-height: min(72vh, 40rem);
-  margin-top: 2.5rem;
+  display: grid; grid-template-columns: .92fr 1.08fr;
+  gap: 2.5rem 3.5rem; align-items: center;
+  margin-top: 3.25rem;
 }
 .landing-intro { min-width: 0; }
 /* Staggered entrance for the hero, which is above the fold and so never
@@ -373,7 +372,7 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
   from { background-position: 0% 50%; }
   to   { background-position: 100% 50%; }
 }
-.hero-sub { color: var(--muted); font-size: .95rem; line-height: 1.6; max-width: 46ch; margin: 0; }
+.hero-sub { color: var(--muted); font-size: 1.02rem; line-height: 1.65; max-width: 44ch; margin: 0; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.4rem 0 .8rem; }
 .hero-cta .btn { padding: .6rem 1.15rem; font-size: .88rem; }
 .landing-signin-hint { margin: 0; }
@@ -388,11 +387,7 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 .hero-visual {
   --p: 0;
   position: relative;
-  min-height: 26rem;
-  display: grid;
-  place-items: center;
-  perspective: 1200px;
-  perspective-origin: 50% 46%;
+  min-width: 0;
 }
 .tower-scene {
   position: relative;
@@ -424,7 +419,7 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
     color-mix(in srgb, var(--accent) 7%, transparent);
   transform:
     translate(-50%, -50%)
-    translateZ(calc(var(--i) * var(--gap) + var(--i) * var(--spread) - 7rem));
+    translateZ(calc(var(--i) * var(--gap) + (var(--i) - 4) * var(--spread) - 7rem));
   opacity: calc(.62 + var(--p) * .38);
   /* the stagger is what makes it read as taking something apart rather than
      as one block scaling */
@@ -449,7 +444,7 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
   50%      { box-shadow: 0 0 30px 0 color-mix(in srgb, var(--bad) 65%, transparent); }
 }
 .model-callout {
-  position: absolute; left: 4%; top: 34%; z-index: 2; margin: 0;
+  position: absolute; left: 4%; top: 47%; z-index: 2; margin: 0;
   padding: .18rem .55rem; border-radius: 999px; white-space: nowrap;
   background: var(--bad); color: #fff;
   font: 700 .72rem/1.6 var(--font-sans);
@@ -517,188 +512,6 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 .hero-visual.is-assembled { --p: 1; }
 .tower-scene { cursor: pointer; }
 
-/* --- the figures from the study --------------------------------------------------- */
-.landing-stats {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
-  gap: .9rem; margin: 0; padding: 0;
-}
-.landing-stats .stat {
-  position: relative; overflow: hidden;
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--line-strong); border-radius: var(--radius);
-  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 7%, var(--card)), var(--card) 75%);
-  box-shadow: var(--shadow);
-  transition: transform .25s cubic-bezier(.3, 1.3, .5, 1), box-shadow .25s, border-color .25s;
-}
-.landing-stats .stat::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px;
-  background: var(--grad-brand);
-}
-.landing-stats .stat:hover {
-  transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 45%, var(--line-strong));
-  box-shadow: var(--glow);
-}
-.landing-stats dt { color: var(--muted); font-size: .79rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
-.landing-stats dd {
-  margin: .25rem 0 0; font-size: 1.85rem; font-weight: 800; letter-spacing: -.02em;
-  font-variant-numeric: tabular-nums; line-height: 1.1;
-  background: var(--grad-text); background-size: 180% 100%;
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-}
-
-/* --- the two workflows ------------------------------------------------------------ */
-.landing-options { display: grid; gap: 1rem; }
-.section-lede {
-  margin: 0 0 .2rem; font-size: 1.15rem; font-weight: 700; letter-spacing: -.015em;
-}
-.section-lede span { color: var(--muted); font-weight: 500; font-size: .92rem; }
-
-.wf-panel {
-  --hue: var(--accent);
-  position: relative; overflow: hidden;
-  border: 1px solid var(--line-strong); border-radius: var(--radius);
-  background: var(--card); box-shadow: var(--shadow);
-  transition: border-color .25s, box-shadow .3s, transform .3s cubic-bezier(.3, 1.2, .5, 1);
-}
-.wf-panel[data-hue="inject"] { --hue: var(--warn); }
-.wf-panel::before {
-  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  background: var(--hue); transition: width .3s ease;
-}
-.wf-panel:hover, .wf-panel:focus-within, .wf-panel.is-open {
-  border-color: color-mix(in srgb, var(--hue) 55%, var(--line-strong));
-  box-shadow: 0 14px 34px -16px color-mix(in srgb, var(--hue) 70%, transparent), var(--shadow-md);
-}
-.wf-panel:hover::before, .wf-panel.is-open::before { width: 5px; }
-.wf-panel:hover { transform: translateY(-2px); }
-
-.wf-head {
-  display: flex; align-items: flex-start; gap: .95rem; width: 100%;
-  padding: 1.25rem 1.4rem 1.25rem 1.6rem;
-  border: 0; background: none; color: inherit; font: inherit;
-  text-align: left; cursor: pointer;
-}
-.wf-head:focus-visible { outline: 2px solid var(--hue); outline-offset: -3px; border-radius: var(--radius); }
-.wf-index {
-  font: 800 .75rem/1 var(--font-mono); letter-spacing: .06em;
-  color: var(--hue); padding-top: .35rem; flex: none;
-}
-.wf-head .choice-icon {
-  width: 2.4rem; height: 2.4rem; border-radius: var(--radius-sm); flex: none;
-  color: var(--hue); background: color-mix(in srgb, var(--hue) 12%, transparent);
-  border-color: color-mix(in srgb, var(--hue) 35%, var(--line-strong));
-  transition: transform .35s cubic-bezier(.3, 1.6, .5, 1);
-}
-.wf-panel:hover .choice-icon { transform: scale(1.09) rotate(-7deg); }
-.wf-head-body { display: grid; gap: .3rem; flex: 1; min-width: 0; }
-.wf-title { font-size: 1.12rem; font-weight: 800; letter-spacing: -.02em; }
-.wf-lede { color: var(--muted); font-size: .88rem; line-height: 1.55; max-width: 62ch; }
-.wf-chevron {
-  flex: none; width: 1.5rem; height: 1.5rem; margin-top: .25rem; color: var(--muted);
-  transition: transform .3s cubic-bezier(.3, 1.3, .5, 1), color .2s;
-}
-.wf-chevron svg { width: 100%; height: 100%; }
-.wf-panel:hover .wf-chevron, .wf-panel.is-open .wf-chevron { color: var(--hue); transform: rotate(180deg); }
-
-/* Collapsed by default; hover previews, .is-open pins. The 0fr -> 1fr grid
-   trick animates to the content natural height without a fixed max-height. */
-.wf-details {
-  display: grid; grid-template-rows: 0fr;
-  transition: grid-template-rows .38s cubic-bezier(.3, .9, .3, 1);
-}
-.wf-details-inner {
-  overflow: hidden; min-height: 0;
-  padding: 0 1.4rem 0 1.6rem;
-}
-.wf-panel.is-open .wf-details { grid-template-rows: 1fr; }
-.wf-panel.is-open .wf-details-inner { padding-bottom: 1.35rem; }
-.wf-details-inner > * { opacity: 0; transform: translateY(6px); transition: opacity .3s .08s, transform .3s .08s; }
-.wf-panel.is-open .wf-details-inner > * { opacity: 1; transform: none; }
-@media (hover: hover) and (pointer: fine) {
-  .wf-panel:hover .wf-details, .wf-panel:focus-within .wf-details { grid-template-rows: 1fr; }
-  .wf-panel:hover .wf-details-inner, .wf-panel:focus-within .wf-details-inner { padding-bottom: 1.35rem; }
-  .wf-panel:hover .wf-details-inner > *, .wf-panel:focus-within .wf-details-inner > * { opacity: 1; transform: none; }
-}
-
-.wf-steps {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: .7rem; margin-bottom: .9rem;
-  border-top: 1px solid var(--line); padding-top: 1rem;
-}
-.wf-step {
-  display: grid; gap: .18rem; align-content: start;
-  padding: .7rem .8rem; border-radius: var(--radius-sm);
-  background: var(--chip); border: 1px solid var(--line);
-}
-.wf-step-n {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 1.3rem; height: 1.3rem; border-radius: 50%;
-  background: var(--hue); color: #fff; font: 700 .72rem/1 var(--font-mono);
-}
-.wf-step b { font-size: .85rem; }
-.wf-step span:not(.wf-step-n) { color: var(--muted); font-size: .8rem; line-height: 1.45; }
-.wf-note {
-  margin: 0 0 .9rem; padding: .7rem .85rem; font-size: .84rem; line-height: 1.6;
-  color: var(--muted);
-  border-left: 3px solid color-mix(in srgb, var(--hue) 60%, transparent);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  background: color-mix(in srgb, var(--hue) 7%, transparent);
-}
-.wf-note b { color: var(--ink); }
-.wf-verdicts {
-  list-style: none; margin: 0 0 1rem; padding: 0;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .35rem .9rem;
-  font-size: .83rem; color: var(--muted);
-}
-.wf-verdicts li { display: flex; align-items: start; gap: .45rem; line-height: 1.5; }
-.wf-verdicts .dot { margin-top: .43rem; }
-.wf-verdicts b { color: var(--ink); font-family: var(--font-mono); font-size: .8rem; white-space: nowrap; }
-.wf-cta { align-self: start; justify-self: start; }
-.wf-cta span { transition: transform .25s ease; display: inline-block; }
-.wf-cta:hover span { transform: translateX(3px); }
-
-/* --- landing bands: what is checked, and what comes back ------------------------ */
-.landing-band { display: grid; gap: .35rem; }
-.band-title {
-  margin: 0; font-size: 1.15rem; font-weight: 800; letter-spacing: -.02em;
-  display: flex; align-items: center; gap: .55rem;
-}
-.band-title::after {
-  content: ""; flex: 1; height: 1px;
-  background: linear-gradient(90deg, var(--line-strong), transparent);
-}
-.band-lede { margin: 0 0 1rem; color: var(--muted); font-size: .9rem; }
-
-/* the eight things the checks look at */
-.check-grid {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .7rem;
-}
-.check-grid li {
-  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto;
-  column-gap: .75rem; row-gap: .15rem; align-items: center;
-  padding: .85rem .95rem;
-  border: 1px solid var(--line); border-radius: var(--radius);
-  background: var(--card); box-shadow: var(--shadow);
-  transition: transform .25s cubic-bezier(.3, 1.3, .5, 1), border-color .2s, box-shadow .25s;
-}
-.check-grid li:hover {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
-  box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--accent) 70%, transparent);
-}
-.check-ico {
-  grid-row: 1 / 3; display: inline-flex; align-items: center; justify-content: center;
-  width: 2.3rem; height: 2.3rem; flex: none; border-radius: var(--radius-sm);
-  color: var(--accent); background: var(--accent-soft);
-  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
-  transition: transform .3s cubic-bezier(.3, 1.6, .5, 1);
-}
-.check-grid li:hover .check-ico { transform: rotate(-6deg) scale(1.08); }
-.check-ico svg { width: 60%; height: 60%; }
-.check-grid b { font-size: .88rem; align-self: end; }
-.check-grid li > span:last-child { color: var(--muted); font-size: .8rem; line-height: 1.45; align-self: start; }
-
 /* a worked example of a report, in the same language the app uses */
 .report-demo {
   border: 1px solid var(--line-strong); border-radius: var(--radius);
@@ -739,11 +552,261 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
   .rd-verdict { grid-column: 1 / -1; }
 }
 
-.landing-credits {
-  margin: 0; padding-top: 1.4rem; border-top: 1px solid var(--line);
-  color: var(--muted); font-size: .82rem; line-height: 1.7; text-align: center;
+/* --- app window: the product, framed ------------------------------------------- */
+.app-window {
+  position: relative;
+  border: 1px solid var(--line-strong); border-radius: 16px;
+  background: var(--card);
+  box-shadow: 0 34px 70px -34px rgba(16, 24, 40, .5), var(--shadow-md);
+  overflow: hidden;
 }
-.landing-credits b { color: var(--ink); }
+:root[data-theme="dark"] .app-window { box-shadow: 0 34px 70px -30px rgba(0, 0, 0, .8), 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent); }
+.aw-bar {
+  display: flex; align-items: center; gap: .8rem;
+  padding: .55rem .85rem;
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--chip) 65%, var(--card));
+}
+.aw-dots { display: inline-flex; gap: .38rem; }
+.aw-dots i { width: .62rem; height: .62rem; border-radius: 50%; background: var(--line-strong); }
+.aw-dots i:nth-child(1) { background: #ff5f57; }
+.aw-dots i:nth-child(2) { background: #febc2e; }
+.aw-dots i:nth-child(3) { background: #28c840; }
+.aw-file { font: 600 .8rem/1 var(--font-mono); color: var(--ink); }
+.aw-status {
+  margin-left: auto; display: inline-flex; align-items: center; gap: .4rem;
+  color: var(--bad); font-size: .78rem; font-weight: 700;
+}
+/* the viewport: a faint drafting grid under a soft glow */
+.aw-canvas {
+  position: relative;
+  min-height: 27rem;
+  display: grid; place-items: center;
+  perspective: 1200px; perspective-origin: 50% 48%;
+  overflow: hidden;
+  background:
+    radial-gradient(80% 70% at 50% 45%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 72%),
+    linear-gradient(color-mix(in srgb, var(--accent) 7%, transparent) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 7%, transparent) 1px, transparent 1px) 0 0 / 28px 28px,
+    var(--canvas);
+}
+/* The floors' separation is in rem, so shrinking the plates alone would not
+   shrink the stack; scale the whole stage instead. */
+.aw-stage {
+  width: 100%; display: grid; place-items: center;
+  transform-style: preserve-3d;
+  transform: scale(.76);
+}
+/* results floating over the model, as the viewer shows them */
+.aw-card {
+  --row: var(--bad);
+  position: absolute; z-index: 3;
+  display: flex; align-items: center; gap: .6rem;
+  padding: .5rem .75rem .5rem .55rem;
+  border: 1px solid var(--line-strong); border-radius: 12px;
+  background: color-mix(in srgb, var(--card) 90%, transparent);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-md);
+  font-size: .78rem;
+  animation: float-y 6s ease-in-out infinite;
+}
+.aw-card.ok { --row: var(--ok); }
+.aw-card-body { display: grid; gap: .05rem; }
+.aw-card-body b { font-size: .8rem; color: var(--ink); }
+.aw-card-body span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.aw-card-a { top: 1.1rem; right: 1.1rem; }
+.aw-card-b { bottom: 2.9rem; right: 1.6rem; animation-delay: -3s; }
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* --- the figures, as one line ------------------------------------------------------- */
+.proof-strip {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: .7rem 2.4rem;
+  margin-top: -3rem;
+  padding: 1.1rem 1.25rem;
+  border-block: 1px solid var(--line);
+  color: var(--muted); font-size: .88rem;
+}
+.proof b {
+  margin-right: .35rem;
+  color: var(--ink); font-size: 1.1rem; font-weight: 800; letter-spacing: -.01em;
+  font-variant-numeric: tabular-nums;
+}
+.proof-note { color: var(--muted); }
+
+/* --- feature rows: copy beside the output it describes ------------------------ */
+.feature {
+  --hue: var(--accent);
+  display: grid; grid-template-columns: .9fr 1.1fr;
+  gap: 2.5rem 4rem; align-items: center;
+}
+.feature[data-hue="inject"] { --hue: var(--warn); }
+.feature-reverse { grid-template-columns: 1.1fr .9fr; }
+.feature-reverse .feature-copy { order: 2; }
+.feature .eyebrow { color: var(--hue); }
+.feature-title {
+  margin: .3rem 0 .85rem;
+  font-size: clamp(1.45rem, 2.6vw, 2rem); font-weight: 800;
+  letter-spacing: -.025em; line-height: 1.15;
+  max-width: 20ch;
+}
+.feature-text { margin: 0 0 1.1rem; color: var(--muted); font-size: .96rem; line-height: 1.65; max-width: 46ch; }
+.feature-points { list-style: none; margin: 0 0 1.4rem; padding: 0; display: grid; gap: .55rem; }
+.feature-points li { display: flex; align-items: flex-start; gap: .6rem; font-size: .9rem; }
+.feature-points li::before {
+  content: "✓"; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.2rem; height: 1.2rem; margin-top: .08rem; border-radius: 50%;
+  color: var(--hue); background: color-mix(in srgb, var(--hue) 14%, transparent);
+  font-size: .7rem; font-weight: 800;
+}
+.link-cta {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--hue); font: 700 .92rem/1.4 var(--font-sans);
+}
+.link-cta span { transition: transform .25s ease; }
+.link-cta:hover span { transform: translateX(4px); }
+.link-cta:focus-visible { outline: 2px solid var(--hue); outline-offset: 3px; border-radius: 4px; }
+
+/* the output, tilted a little towards the copy, settling flat on hover */
+.feature-visual { perspective: 1400px; min-width: 0; }
+.feature-visual > * {
+  transform: rotateY(-7deg) rotateX(3deg);
+  transition: transform .6s cubic-bezier(.2, .7, .2, 1), box-shadow .6s;
+}
+.feature-reverse .feature-visual > * { transform: rotateY(7deg) rotateX(3deg); }
+.feature-visual:hover > * { transform: none; }
+
+/* a mutation, as the Mutation Lab reports it */
+.mut-demo {
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: var(--card); box-shadow: var(--shadow-md); overflow: hidden;
+}
+.md-head {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .75rem 1rem; border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--warn) 10%, var(--card)), var(--card));
+}
+.md-rule {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  border: 1.5px solid var(--bad); color: var(--bad);
+  font: 600 .8rem/1 var(--font-mono);
+}
+.md-head b { font-size: .9rem; }
+.md-ok {
+  margin-left: auto; font-size: .78rem; font-weight: 700; color: var(--ok);
+  border: 1px solid currentColor; border-radius: 999px; padding: .08rem .55rem;
+  background: color-mix(in srgb, var(--ok) 12%, transparent);
+}
+.md-change {
+  display: grid; grid-template-columns: 1fr auto; gap: .2rem 1rem; align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+.md-label { color: var(--muted); font-size: .84rem; }
+.md-values { grid-row: span 2; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.md-values s { color: var(--muted); }
+.md-values b { color: var(--bad); }
+.md-arrow { margin: 0 .45rem; color: var(--muted); }
+.md-limit { color: var(--muted); font-size: .78rem; }
+.md-checks { list-style: none; margin: 0; padding: .85rem 1rem; display: grid; gap: .45rem; border-bottom: 1px solid var(--line); }
+.md-checks li { display: flex; align-items: center; gap: .55rem; font-size: .84rem; }
+.md-tick {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 1.15rem; height: 1.15rem; border-radius: 50%;
+  color: #fff; background: var(--ok); font-size: .66rem; font-weight: 800;
+}
+.md-files { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1rem; }
+.md-files span {
+  padding: .22rem .6rem; border-radius: 999px;
+  border: 1px solid var(--line-strong); background: var(--chip);
+  font-size: .76rem; font-weight: 600;
+}
+.md-files span:first-child {
+  color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, var(--line-strong));
+  background: color-mix(in srgb, var(--bad) 9%, var(--card));
+}
+
+/* --- coverage: what the checks look at, as a cluster of chips ------------------ */
+.coverage { display: grid; justify-items: center; gap: 1.5rem; text-align: center; }
+.section-title {
+  margin: 0; font-size: clamp(1.35rem, 2.4vw, 1.85rem); font-weight: 800;
+  letter-spacing: -.02em; line-height: 1.2;
+}
+.coverage-chips {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .65rem;
+  max-width: 54rem;
+}
+.coverage-chips li {
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .45rem 1rem .45rem .5rem;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  background: var(--card); box-shadow: var(--shadow);
+  font-size: .88rem; font-weight: 600;
+  transition: transform .25s cubic-bezier(.3, 1.4, .5, 1), border-color .2s, box-shadow .25s;
+}
+.coverage-chips li:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line-strong));
+  box-shadow: 0 10px 20px -12px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.chip-ico {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 1.9rem; height: 1.9rem; border-radius: 50%;
+  color: var(--accent); background: var(--accent-soft);
+}
+.chip-ico svg { width: 58%; height: 58%; }
+
+/* --- how it works, in one line ------------------------------------------------------ */
+.how-steps {
+  list-style: none; margin: 0; padding: 0; counter-reset: how;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem;
+}
+.how-steps li {
+  counter-increment: how;
+  position: relative; display: grid; gap: .3rem;
+  padding: 1.25rem 1.3rem 1.3rem;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--card); box-shadow: var(--shadow);
+}
+.how-steps li::before {
+  content: counter(how, decimal-leading-zero);
+  font: 800 .8rem/1 var(--font-mono); color: var(--accent); margin-bottom: .35rem;
+}
+.how-steps b { font-size: 1rem; }
+.how-steps span { color: var(--muted); font-size: .87rem; line-height: 1.5; }
+
+/* --- closing call to action ------------------------------------------------------ */
+.cta-band {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: grid; justify-items: center; gap: .2rem;
+  padding: 3.4rem 1.5rem 3.2rem;
+  border-radius: 22px;
+  background: var(--grad-brand); color: #fff; text-align: center;
+  box-shadow: var(--glow);
+}
+/* the drafting grid again, faint, so the band belongs to the same drawing */
+.cta-band::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgba(255, 255, 255, .08) 1px, transparent 1px) 0 0 / 32px 32px;
+  -webkit-mask-image: radial-gradient(70% 90% at 50% 50%, #000, transparent);
+  mask-image: radial-gradient(70% 90% at 50% 50%, #000, transparent);
+}
+.cta-band h2 { margin: 0 0 .4rem; font-size: clamp(1.45rem, 2.8vw, 2.05rem); font-weight: 800; letter-spacing: -.02em; }
+.cta-band p { margin: 0; opacity: .85; }
+.cta-band .hero-cta { justify-content: center; margin-bottom: 0; }
+.cta-band .btn { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .55); }
+.cta-band .btn:hover:not(:disabled) { background: rgba(255, 255, 255, .12); border-color: #fff; }
+.cta-band .btn.primary { background: #fff; color: #1d2f7a; border-color: #fff; }
+.cta-band .btn.primary:hover:not(:disabled) { background: #fff; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .45); }
 
 /* --- reveal on scroll -------------------------------------------------------------- */
 .reveal { opacity: 0; transform: translateY(18px); }
@@ -753,15 +816,18 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 }
 
 @media (max-width: 60rem) {
-  .landing { gap: 3rem; }
-  .landing-hero { grid-template-columns: 1fr; margin-top: 1.25rem; min-height: 0; }
+  .landing { gap: 4rem; }
+  .landing-hero { grid-template-columns: 1fr; margin-top: 1.5rem; }
   .hero-title, .hero-sub { max-width: none; }
-  /* the exploded stack is taller than it is wide, so it needs headroom */
-  .hero-visual { min-height: 24rem; order: -1; }
-  .tower-scene { width: min(15.5rem, 62%); }
-  .wf-head { padding: 1rem 1.05rem 1rem 1.25rem; gap: .7rem; }
-  .wf-details-inner { padding-inline: 1.25rem 1.05rem; }
-  .wf-lede { font-size: .85rem; }
+  .aw-canvas { min-height: 22rem; }
+  .aw-stage { transform: scale(.62); }
+  .aw-card { font-size: .72rem; }
+  .aw-card-b { display: none; }
+  .proof-strip { margin-top: -1.5rem; gap: .6rem 1.4rem; }
+  .feature, .feature-reverse { grid-template-columns: 1fr; gap: 1.6rem; }
+  .feature-reverse .feature-copy { order: 0; }
+  .feature-visual > *, .feature-reverse .feature-visual > * { transform: none; }
+  .how-steps { grid-template-columns: 1fr; }
 }
 
 /* --- login: its own screen, not part of the homepage --------------------------- */

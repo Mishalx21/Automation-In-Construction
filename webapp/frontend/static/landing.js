@@ -1,17 +1,16 @@
 /* ComplyBIM — landing page behavior.
  *
- * Three independent pieces, all presentational and all no-ops once the user
- * signs in and the landing section is hidden:
+ * Independent pieces, all presentational and all no-ops once the user signs
+ * in and the landing section is hidden:
  *
- *   1. the scroll-driven 3D model: writes a single 0..1 progress value onto
- *      the stage as --p; every transform in the CSS derives from it;
- *   2. the two workflow panels: hover previews the detail (CSS), click pins
- *      it open and keeps aria-expanded honest;
- *   3. the stat counters: count up once, the first time they are seen.
+ *   1. the 3D model in the hero: hover (CSS) or tap (here) puts it together;
+ *   2. the figures: count up once, the first time they are seen;
+ *   3. the feature rows: fade in as they scroll into view;
+ *   4. the sign-in backdrop: drifts a few pixels with the pointer.
  *
  * Nothing here touches app.js or auth.js state. The sign-in routing still
  * belongs to layout.js, which binds every .landing-option by data-intent —
- * including the CTA buttons inside these panels.
+ * including the calls to action inside the feature rows.
  */
 "use strict";
 
@@ -38,26 +37,7 @@
     }
   }
 
-  // --- 2. workflow panels ---------------------------------------------------------
-  document.querySelectorAll(".wf-panel").forEach((panel) => {
-    const head = panel.querySelector(".wf-head");
-    if (!head) return;
-    head.addEventListener("click", () => {
-      const open = panel.classList.toggle("is-open");
-      head.setAttribute("aria-expanded", String(open));
-      // Only one panel pinned at a time — two open panels push the page
-      // around more than they help.
-      if (open) {
-        document.querySelectorAll(".wf-panel.is-open").forEach((other) => {
-          if (other === panel) return;
-          other.classList.remove("is-open");
-          other.querySelector(".wf-head")?.setAttribute("aria-expanded", "false");
-        });
-      }
-    });
-  });
-
-  // --- 3. stat counters -----------------------------------------------------------
+  // --- 2. figures -----------------------------------------------------------
   const stats = document.getElementById("landing-stats");
   if (stats) {
     const numbers = [...stats.querySelectorAll(".stat-num")];
@@ -116,8 +96,8 @@
     }, { passive: true });
   }
 
-  // --- reveal-on-scroll ------------------------------------------------------------
-  const revealables = document.querySelectorAll(".landing-stats, .wf-panel, .section-lede, .landing-credits");
+  // --- 3. reveal on scroll ------------------------------------------------------------
+  const revealables = document.querySelectorAll(".proof-strip, .feature, .coverage, .how, .cta-band");
   if (revealables.length && "IntersectionObserver" in window && !reducedMotion.matches) {
     revealables.forEach((el) => el.classList.add("reveal"));
     const observer = new IntersectionObserver((entries) => {

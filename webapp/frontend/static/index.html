@@ -96,12 +96,12 @@
 
   <main id="auth-main">
     <section class="landing" id="landing-view">
-      <!-- hero: the claim, and the model that assembles itself as you scroll -->
+      <!-- hero: the product on screen, not a diagram about it -->
       <div class="landing-hero">
         <div class="landing-intro">
           <span class="tag landing-badge">Building code compliance checking</span>
           <h1 class="hero-title">Catch code problems <span class="accent-text">before you build.</span></h1>
-          <p class="hero-sub">Every building has to follow thousands of safety rules — how wide a door is, how high a ceiling sits, how thick a slab needs to be. Checking them by hand takes an expert days, and one missed rule can mean tearing finished work out again. Upload your building model and get a straight answer: what breaks the rules, by how much, and exactly where.</p>
+          <p class="hero-sub">Upload your building model. ComplyBIM measures every door, stair, room and slab against the code, and shows you what fails, by how much, and exactly where.</p>
           <div class="hero-cta">
             <button class="btn primary landing-option" type="button" data-intent="check-card">Check a building</button>
             <button class="btn landing-option" type="button" data-intent="inject-card">Modify a design</button>
@@ -109,183 +109,170 @@
           <p class="hint landing-signin-hint">Free to try — all you need is your model file. Already have an account? <button id="landing-signin" class="link-btn" type="button">Sign in</button></p>
         </div>
 
-        <!-- Scroll-driven 3D: an exploded axonometric that assembles into a
-             tower while a checker plane sweeps it. Pure CSS 3D transforms
-             driven by one custom property (--p) written by landing.js. -->
+        <!-- The 3D model sits inside an app window, with results floating over
+             it the way the real viewer shows them. Hover puts it together;
+             --p drives every transform (see landing.js and style.css). -->
         <div class="hero-visual" id="tower-stage">
-          <div class="tower-scene" aria-hidden="true">
-            <div class="tower">
-              <span class="column" style="--cx:-1; --cy:-1"></span>
-              <span class="column" style="--cx:1;  --cy:-1"></span>
-              <span class="column" style="--cx:-1; --cy:1"></span>
-              <span class="column" style="--cx:1;  --cy:1"></span>
-              <div class="floor" style="--i:0"></div>
-              <div class="floor" style="--i:1"></div>
-              <div class="floor" style="--i:2"></div>
-              <div class="floor" style="--i:3"></div>
-              <div class="floor flagged" style="--i:4"></div>
-              <div class="floor" style="--i:5"></div>
-              <div class="floor" style="--i:6"></div>
-              <div class="floor" style="--i:7"></div>
-              <div class="floor roof" style="--i:8"></div>
-              <div class="scan-plane"></div>
+          <div class="app-window">
+            <div class="aw-bar" aria-hidden="true">
+              <span class="aw-dots"><i></i><i></i><i></i></span>
+              <span class="aw-file">office-tower.ifc</span>
+              <span class="aw-status"><span class="dot bad"></span>2 of 4 rules failed</span>
+            </div>
+            <div class="aw-canvas">
+              <div class="aw-stage">
+              <div class="tower-scene" aria-hidden="true">
+                <div class="tower">
+                  <span class="column" style="--cx:-1; --cy:-1"></span>
+                  <span class="column" style="--cx:1;  --cy:-1"></span>
+                  <span class="column" style="--cx:-1; --cy:1"></span>
+                  <span class="column" style="--cx:1;  --cy:1"></span>
+                  <div class="floor" style="--i:0"></div>
+                  <div class="floor" style="--i:1"></div>
+                  <div class="floor" style="--i:2"></div>
+                  <div class="floor" style="--i:3"></div>
+                  <div class="floor flagged" style="--i:4"></div>
+                  <div class="floor" style="--i:5"></div>
+                  <div class="floor" style="--i:6"></div>
+                  <div class="floor" style="--i:7"></div>
+                  <div class="floor roof" style="--i:8"></div>
+                  <div class="scan-plane"></div>
+                </div>
+              </div>              </div>
+              <p class="model-callout" aria-hidden="true">ceiling too low</p>
+              <div class="aw-card aw-card-a" aria-hidden="true">
+                <span class="rd-verdict">fail</span>
+                <span class="aw-card-body"><b>Door too narrow</b><span>680 mm · needs 815 mm</span></span>
+              </div>
+              <div class="aw-card aw-card-b ok" aria-hidden="true">
+                <span class="rd-verdict">pass</span>
+                <span class="aw-card-body"><b>Stairs wide enough</b><span>All 9 flights measured</span></span>
+              </div>
+              <p class="tower-caption">Hover to put it together</p>
             </div>
           </div>
-          <p class="model-callout" aria-hidden="true">ceiling too low</p>
-          <p class="tower-caption">Hover to put it together</p>
         </div>
       </div>
 
-      <!-- the numbers from the study, counted up on first view -->
-      <dl class="landing-stats" id="landing-stats">
-        <div class="stat"><dt>Rules checked automatically</dt><dd><span class="stat-num" data-to="20">0</span></dd></div>
-        <div class="stat"><dt>Rules turned into correct checks</dt><dd><span class="stat-num" data-to="86.4" data-decimals="1">0</span>%</dd></div>
-        <div class="stat"><dt>Test buildings created</dt><dd><span class="stat-num" data-to="74">0</span></dd></div>
-      </dl>
-
-      <!-- the two workflows, each expanding into how it actually works -->
-      <div class="landing-options">
-        <p class="section-lede">Two things you can do. <span>Hover or tap a card to see how it works.</span></p>
-
-        <article class="wf-panel" data-hue="check">
-          <button class="wf-head" type="button" aria-expanded="false" aria-controls="wf-details-check">
-            <span class="wf-index">01</span>
-            <span class="choice-icon">
-              <svg viewBox="0 0 20 20" aria-hidden="true">
-                <rect x="4.5" y="3" width="11" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
-                <path d="M7.5 3V2.3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V3" fill="none" stroke="currentColor" stroke-width="1.4"/>
-                <path d="M7 10.4l2 2 4-4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <span class="wf-head-body">
-              <span class="wf-title">Design Validation</span>
-              <span class="wf-lede">Upload your building and get a clear answer on every rule — what passes, what fails, by how much, and which door, room or beam is the problem, shown in 3D.</span>
-            </span>
-            <span class="wf-chevron" aria-hidden="true">
-              <svg viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-          </button>
-          <div class="wf-details" id="wf-details-check">
-            <div class="wf-details-inner">
-              <div class="wf-steps">
-                <div class="wf-step"><span class="wf-step-n">1</span><b>Upload your building</b><span>The 3D model your design software already produces.</span></div>
-                <div class="wf-step"><span class="wf-step-n">2</span><b>Everything gets measured</b><span>Each door, stair, room, beam and slab, one by one.</span></div>
-                <div class="wf-step"><span class="wf-step-n">3</span><b>Measurements meet the code</b><span>Every figure is held against the limit the rule sets.</span></div>
-                <div class="wf-step"><span class="wf-step-n">4</span><b>You get the verdict</b><span>Pass or fail, the exact numbers, and the part at fault.</span></div>
-              </div>
-              <p class="wf-note"><b>Nothing is guessed.</b> Every answer comes from measuring your actual model, so the same file always gives the same result — and you can see the figure behind each one.</p>
-              <ul class="wf-verdicts">
-                <li><span class="dot ok"></span><b>pass</b> — checked, nothing wrong</li>
-                <li><span class="dot bad"></span><b>fail</b> — problems found, with the numbers</li>
-                <li><span class="dot warn"></span><b>unclear</b> — your file is missing what this rule needs, so it never guesses a pass</li>
-                <li><span class="dot na"></span><b>not applicable</b> — this rule does not apply to your building</li>
-              </ul>
-              <button class="btn primary landing-option wf-cta" type="button" data-intent="check-card">Check a building <span aria-hidden="true">→</span></button>
-            </div>
-          </div>
-        </article>
-
-        <article class="wf-panel" data-hue="inject">
-          <button class="wf-head" type="button" aria-expanded="false" aria-controls="wf-details-inject">
-            <span class="wf-index">02</span>
-            <span class="choice-icon warn">
-              <svg viewBox="0 0 20 20" aria-hidden="true">
-                <path d="M11 2 4.5 11.3h4.3l-.8 6.7 7-9.3H10.7l.3-6.7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
-              </svg>
-            </span>
-            <span class="wf-head-body">
-              <span class="wf-title">Mutation Lab</span>
-              <span class="wf-lede">Deliberately break one rule in a real design, on purpose and on record. Useful for training, for practice, and for proving the checks above really do catch what they should.</span>
-            </span>
-            <span class="wf-chevron" aria-hidden="true">
-              <svg viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-          </button>
-          <div class="wf-details" id="wf-details-inject">
-            <div class="wf-details-inner">
-              <div class="wf-steps">
-                <div class="wf-step"><span class="wf-step-n">1</span><b>Read the design</b><span>Every door, stair, wall and room in your model is listed.</span></div>
-                <div class="wf-step"><span class="wf-step-n">2</span><b>Pick a rule to break</b><span>Choose which requirement the new version should fail.</span></div>
-                <div class="wf-step"><span class="wf-step-n">3</span><b>Make the change</b><span>The model is edited only where it has to be.</span></div>
-                <div class="wf-step"><span class="wf-step-n">4</span><b>Prove it broke</b><span>The result is measured again to confirm the rule now fails.</span></div>
-              </div>
-              <p class="wf-note"><b>All or nothing.</b> Each change is made in a sealed, separate run and then measured again on its own. If the change cannot be made and confirmed, you get nothing back — never a half-finished file.</p>
-              <ul class="wf-verdicts">
-                <li><span class="dot ok"></span><b>Checked first</b> — nothing may touch your other files</li>
-                <li><span class="dot ok"></span><b>Run in isolation</b> — sealed off, with a time limit</li>
-                <li><span class="dot ok"></span><b>Measured again</b> — only the change you asked for may appear</li>
-              </ul>
-              <button class="btn primary landing-option wf-cta" type="button" data-intent="inject-card">Modify a design <span aria-hidden="true">→</span></button>
-            </div>
-          </div>
-        </article>
+      <!-- one line of figures, counted up on first view -->
+      <div class="proof-strip" id="landing-stats">
+        <span class="proof"><b class="stat-num" data-to="20">0</b>checks built in</span>
+        <span class="proof"><b><span class="stat-num" data-to="86.4" data-decimals="1">0</span>%</b>of rules turned into correct checks</span>
+        <span class="proof"><b class="stat-num" data-to="74">0</b>test buildings generated</span>
+        <span class="proof proof-note">Reads IFC — the open format your design software already exports</span>
       </div>
 
-      <section class="landing-band">
-        <h2 class="band-title">What it looks at</h2>
-        <p class="band-lede">Twenty checks, across the parts of a building where the code is strictest.</p>
-        <ul class="check-grid">
-          <li><span class="check-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="11" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="13" cy="12" r="1.1" fill="currentColor"/><path d="M16 3h3v18h-3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-          </span><b>Doors and exits</b><span>Wide enough to get out, and to get a wheelchair through.</span></li>
-          <li><span class="check-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h4v-4h4v-4h4V8h4V4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 20h18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-          </span><b>Stairs</b><span>Step height, tread depth and the width of the flight.</span></li>
-          <li><span class="check-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v8M9.5 10.5 12 8l2.5 2.5M9.5 13.5 12 16l2.5-2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span><b>Ceiling height</b><span>Enough headroom in rooms and in the corridors you escape through.</span></li>
-          <li><span class="check-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 12h17" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 5v14" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
-          </span><b>Room size</b><span>Floor area and the narrowest a habitable room may be.</span></li>
-          <li><span class="check-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </span><b>Light and air</b><span>Window area against the floor it has to serve.</span></li>
-          <li><span class="check-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 9v11M12 9v11M19 9v11" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 20h18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-          </span><b>Guards and handrails</b><span>High enough to stop someone going over the edge.</span></li>
-          <li><span class="check-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 11v10M18 11v10" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-          </span><b>Beams and columns</b><span>Depth, span and how slender a column is allowed to be.</span></li>
-          <li><span class="check-ico">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18M3 13h18" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 18h12l2 3H4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-          </span><b>Slabs and footings</b><span>Thick enough to carry what sits on them.</span></li>
+      <!-- feature: checking -->
+      <section class="feature">
+        <div class="feature-copy">
+          <span class="eyebrow">Design Validation</span>
+          <h2 class="feature-title">Every failure comes with the number behind it.</h2>
+          <p class="feature-text">Each result names the part, the figure we measured and the limit it had to meet. When your file does not hold what a rule needs, it says so — it never guesses a pass.</p>
+          <ul class="feature-points">
+            <li>Pass, fail, unclear or not applicable, for every rule you pick</li>
+            <li>The failing part highlighted in the 3D view</li>
+            <li>The whole report as a file you can keep</li>
+          </ul>
+          <button class="link-cta landing-option" type="button" data-intent="check-card">Check a building <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="feature-visual">
+          <div class="report-demo" aria-hidden="true">
+            <div class="rd-head">
+              <span class="rd-file">office-tower.ifc</span>
+              <span class="rd-summary">2 of 4 rules failed · 40 items to fix</span>
+            </div>
+            <div class="rd-row bad">
+              <span class="rd-verdict">fail</span>
+              <span class="rd-body"><b>Door too narrow to escape through</b><span>12 doors across 3 floors</span></span>
+              <span class="rd-measure"><b>680 mm</b><span>needs 815 mm</span></span>
+            </div>
+            <div class="rd-row bad">
+              <span class="rd-verdict">fail</span>
+              <span class="rd-body"><b>Ceiling lower than allowed</b><span>28 rooms across 4 floors</span></span>
+              <span class="rd-measure"><b>2 610 mm</b><span>needs 2 750 mm</span></span>
+            </div>
+            <div class="rd-row ok">
+              <span class="rd-verdict">pass</span>
+              <span class="rd-body"><b>Stairs wide enough</b><span>All 9 flights measured</span></span>
+              <span class="rd-measure"><b>1 200 mm</b><span>needs 1 120 mm</span></span>
+            </div>
+            <div class="rd-row warn">
+              <span class="rd-verdict">unclear</span>
+              <span class="rd-body"><b>Fire rating</b><span>Not recorded in the file — no pass guessed</span></span>
+              <span class="rd-measure"><b>—</b><span>no data</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- feature: making test cases -->
+      <section class="feature feature-reverse" data-hue="inject">
+        <div class="feature-copy">
+          <span class="eyebrow">Mutation Lab</span>
+          <h2 class="feature-title">Break a rule on purpose — and prove it broke.</h2>
+          <p class="feature-text">Make a copy of a real design with a known violation in it: for training, for practice, or for testing checks of your own. Your original is never touched.</p>
+          <ul class="feature-points">
+            <li>Pick the rules yourself, or ask for a set of cases at once</li>
+            <li>Every change measured again on its own before you get it</li>
+            <li>All or nothing — never a half-finished file</li>
+          </ul>
+          <button class="link-cta landing-option" type="button" data-intent="inject-card">Modify a design <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="feature-visual">
+          <div class="mut-demo" aria-hidden="true">
+            <div class="md-head">
+              <span class="md-rule">A1</span>
+              <b>Egress door width</b>
+              <span class="md-ok">✓ confirmed</span>
+            </div>
+            <div class="md-change">
+              <span class="md-label">Door D6L · clear width</span>
+              <span class="md-values"><s>915 mm</s><span class="md-arrow">→</span><b>780 mm</b></span>
+              <span class="md-limit">limit 815 mm</span>
+            </div>
+            <ul class="md-checks">
+              <li><span class="md-tick">✓</span>Only the stated change appears</li>
+              <li><span class="md-tick">✓</span>The rule now fails when measured again</li>
+              <li><span class="md-tick">✓</span>Ran sealed, inside its time limit</li>
+            </ul>
+            <div class="md-files"><span>Broken model</span><span>Coloured copy</span><span>The edit</span><span>Proof</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- coverage -->
+      <section class="coverage">
+        <h2 class="section-title">Twenty checks, where the code is strictest.</h2>
+        <ul class="coverage-chips">
+          <li><span class="chip-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="11" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="13" cy="12" r="1.1" fill="currentColor"/><path d="M16 3h3v18h-3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>Doors and exits</li>
+          <li><span class="chip-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h4v-4h4v-4h4V8h4V4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 20h18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>Stairs</li>
+          <li><span class="chip-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v8M9.5 10.5 12 8l2.5 2.5M9.5 13.5 12 16l2.5-2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ceiling height</li>
+          <li><span class="chip-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 12h17" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 5v14" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span>Room size</li>
+          <li><span class="chip-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>Light and air</li>
+          <li><span class="chip-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 9v11M12 9v11M19 9v11" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M3 20h18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>Guards and handrails</li>
+          <li><span class="chip-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 11v10M18 11v10" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Beams and columns</li>
+          <li><span class="chip-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18M3 13h18" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 18h12l2 3H4z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>Slabs and footings</li>
         </ul>
       </section>
 
-      <section class="landing-band">
-        <h2 class="band-title">What a result looks like</h2>
-        <p class="band-lede">Not a score out of ten. Every answer names the part, the figure and the limit.</p>
-        <div class="report-demo" aria-hidden="true">
-          <div class="rd-head">
-            <span class="rd-file">office-tower.ifc</span>
-            <span class="rd-summary">3 rules failed &middot; 480 things to fix</span>
-          </div>
-          <div class="rd-row bad">
-            <span class="rd-verdict">fail</span>
-            <span class="rd-body"><b>Door too narrow to escape through</b><span>Ground floor, door D6L</span></span>
-            <span class="rd-measure"><b>680 mm</b><span>needs 815 mm</span></span>
-          </div>
-          <div class="rd-row bad">
-            <span class="rd-verdict">fail</span>
-            <span class="rd-body"><b>Ceiling lower than allowed</b><span>28 rooms across 4 floors</span></span>
-            <span class="rd-measure"><b>2 610 mm</b><span>needs 2 750 mm</span></span>
-          </div>
-          <div class="rd-row ok">
-            <span class="rd-verdict">pass</span>
-            <span class="rd-body"><b>Stairs wide enough</b><span>All 9 flights measured</span></span>
-            <span class="rd-measure"><b>1 200 mm</b><span>needs 1 120 mm</span></span>
-          </div>
-          <div class="rd-row warn">
-            <span class="rd-verdict">unclear</span>
-            <span class="rd-body"><b>Fire rating</b><span>Your file does not record it — we will not guess a pass</span></span>
-            <span class="rd-measure"><b>—</b><span>no data</span></span>
-          </div>
-        </div>
+      <!-- how it works, in one line -->
+      <section class="how">
+        <ol class="how-steps">
+          <li><b>Upload your model</b><span>The IFC file your design software exports.</span></li>
+          <li><b>Pick the checks</b><span>All twenty, or only the ones you care about.</span></li>
+          <li><b>Fix what fails</b><span>Every problem comes with a number and a place.</span></li>
+        </ol>
       </section>
 
-      <p class="landing-credits">
-        <b>Automated building code compliance checking</b> — for architectural design.
-      </p>
+      <!-- closing call to action -->
+      <section class="cta-band">
+        <h2>Check your first building in minutes.</h2>
+        <p>Free to try. All you need is the model you already have.</p>
+        <div class="hero-cta">
+          <button class="btn primary landing-option" type="button" data-intent="check-card">Check a building</button>
+          <button class="btn landing-option" type="button" data-intent="inject-card">Modify a design</button>
+        </div>
+      </section>
     </section>
 
     <section class="login-view hidden" id="login-view">
