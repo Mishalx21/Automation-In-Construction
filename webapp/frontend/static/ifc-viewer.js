@@ -129,6 +129,15 @@ window.highlightViolationIds = (globalIds) => {
 // Narrows the display to a single flagged element (e.g. a "Show in model"
 // click on one specific violation) without disturbing the tracked full set,
 // so "Show violations" still brings every flagged element back afterwards.
+// Fitting the camera to the element alone fills the view with one door and
+// loses where it is. Frame a box a few times its size — never smaller than a
+// few metres — so the finding stays readable against its surroundings.
+function roomAround(aabb, factor = 2.1, minSize = 3.5) {
+  const center = [0, 1, 2].map((i) => (aabb[i] + aabb[i + 3]) / 2);
+  const half = [0, 1, 2].map((i) => Math.max((aabb[i + 3] - aabb[i]) * factor, minSize) / 2);
+  return [...center.map((c, i) => c - half[i]), ...center.map((c, i) => c + half[i])];
+}
+
 window.showSingleViolation = (globalIds) => {
   const ids = [].concat(globalIds || []).filter(Boolean);
   // Undo any earlier Isolate / X-ray / selection, so what is shown depends only
@@ -142,7 +151,7 @@ window.showSingleViolation = (globalIds) => {
   }
   // Frame it: a finding elsewhere in the building is otherwise off-screen, and
   // the click looks as if it did nothing.
-  viewer.cameraFlight.flyTo({ aabb: viewer.scene.getAABB(highlightedViolationIds), duration: 0.6, fit: true });
+  viewer.cameraFlight.flyTo({ aabb: roomAround(viewer.scene.getAABB(highlightedViolationIds)), duration: 0.6, fit: true });
   selection.textContent = highlightedViolationIds.length > 1
     ? `${highlightedViolationIds.length} components of this finding shown in red; the rest of the model is transparent.`
     : "This component is shown in red; the rest of the model is transparent.";
