@@ -244,12 +244,14 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcSpace elements found in the model.",
+            "checks": [],
         }
     if not windows:
         return {
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcWindow elements found in the model.",
+            "checks": [],
         }
 
     unit_mm = length_unit_to_mm(model)
@@ -301,6 +303,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
                 f"({coverage:.0%}); the window-to-room link is not reliable enough to "
                 f"measure opening ratios."
             ),
+            "checks": [],
         }
 
     spaces_with_external_wall = set()
@@ -313,6 +316,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
             spaces_with_external_wall.update(s.GlobalId for s in bounded)
 
     violations = []
+    checks = []
     checked = 0
     unclassified = 0
     no_area = 0
@@ -342,7 +346,21 @@ def check_rule(model: ifcopenshell.file) -> dict:
         ratio_percent = round(100.0 * window_area_m2 / floor_area_m2, 3)
         checked += 1
 
-        if ratio_percent < required_percent:
+        measured = (
+            f"opening_ratio={ratio_percent:.1f}%, required={required_percent:.0f}%, "
+            f"opening_area={window_area_m2:.2f} m2, floor_area={floor_area_m2:.2f} m2"
+        )
+        threshold = f">= {required_percent:.0f}% of net floor area"
+        is_violation = ratio_percent < required_percent
+        checks.append({
+            "element": element_label(space),
+            "storey": element_storey(space),
+            "measured": measured,
+            "threshold": threshold,
+            "result": "fail" if is_violation else "pass",
+        })
+
+        if is_violation:
             violations.append({
                 "condition": COND_OPENING,
                 "description": (
@@ -350,14 +368,11 @@ def check_rule(model: ifcopenshell.file) -> dict:
                     "minimum percentage of net floor area."
                 ),
                 "rule_ref": RULE_REF,
-                "threshold": f">= {required_percent:.0f}% of net floor area",
+                "threshold": threshold,
                 "locations": [{
                     "element": element_label(space),
                     "storey": element_storey(space),
-                    "measured": (
-                        f"opening_ratio={ratio_percent:.1f}%, required={required_percent:.0f}%, "
-                        f"opening_area={window_area_m2:.2f} m2, floor_area={floor_area_m2:.2f} m2"
-                    ),
+                    "measured": measured,
                 }],
             })
 
@@ -419,6 +434,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

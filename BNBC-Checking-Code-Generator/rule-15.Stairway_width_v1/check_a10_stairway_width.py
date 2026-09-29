@@ -87,11 +87,13 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcStairFlight or IfcStair elements found in the model.",
+            "checks": [],
         }
 
     settings = geom_settings()
 
     violations = []
+    checks = []
     checked = 0
     no_geometry = 0
     implausible = 0
@@ -106,19 +108,33 @@ def check_rule(model: ifcopenshell.file) -> dict:
             continue
 
         checked += 1
-        if width_mm < MIN_STAIRWAY_WIDTH_MM:
+        label = element_label(element)
+        storey = element_storey(element)
+        measured = (
+            f"width={width_mm:.0f} mm, required={MIN_STAIRWAY_WIDTH_MM:.0f} mm, "
+            f"measured_on={basis}"
+        )
+        threshold = f">= {MIN_STAIRWAY_WIDTH_MM:.0f} mm"
+        is_violation = width_mm < MIN_STAIRWAY_WIDTH_MM
+        checks.append(
+            {
+                "element": label,
+                "storey": storey,
+                "measured": measured,
+                "threshold": threshold,
+                "result": "fail" if is_violation else "pass",
+            }
+        )
+        if is_violation:
             violations.append({
                 "condition": COND_WIDTH,
                 "description": "Stairway width is below the minimum required in the egress system.",
                 "rule_ref": RULE_REF,
-                "threshold": f">= {MIN_STAIRWAY_WIDTH_MM:.0f} mm",
+                "threshold": threshold,
                 "locations": [{
-                    "element": element_label(element),
-                    "storey": element_storey(element),
-                    "measured": (
-                        f"width={width_mm:.0f} mm, required={MIN_STAIRWAY_WIDTH_MM:.0f} mm, "
-                        f"measured_on={basis}"
-                    ),
+                    "element": label,
+                    "storey": storey,
+                    "measured": measured,
                 }],
             })
 
@@ -167,6 +183,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

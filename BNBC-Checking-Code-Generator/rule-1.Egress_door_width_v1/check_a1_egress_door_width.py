@@ -44,11 +44,13 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "unknown_reasons": [],
             "checked_summary": {},
             "summary": "No IfcDoor elements found in the model.",
+            "checks": [],
         }
 
     unit_mm = length_unit_to_mm(model)
 
     violations = []
+    checks = []
     checked = 0
     skipped = 0
     unknown_elements = 0
@@ -63,18 +65,31 @@ def check_rule(model: ifcopenshell.file) -> dict:
         width_mm = float(width_raw) * unit_mm
         checked += 1
 
-        if width_mm < MIN_CLEAR_WIDTH_MM:
+        measured = f"width={width_mm:.1f} mm, required>={MIN_CLEAR_WIDTH_MM:.0f} mm"
+        threshold = f">= {MIN_CLEAR_WIDTH_MM:.0f} mm"
+        is_violation = width_mm < MIN_CLEAR_WIDTH_MM
+        checks.append(
+            {
+                "element": element_label(door),
+                "storey": element_storey(door),
+                "measured": measured,
+                "threshold": threshold,
+                "result": "fail" if is_violation else "pass",
+            }
+        )
+
+        if is_violation:
             violations.append(
                 {
                     "condition": CONDITION_ID,
                     "description": "Door clear width is below the minimum required for egress.",
                     "rule_ref": RULE_REF,
-                    "threshold": f">= {MIN_CLEAR_WIDTH_MM:.0f} mm",
+                    "threshold": threshold,
                     "locations": [
                         {
                             "element": element_label(door),
                             "storey": element_storey(door),
-                            "measured": f"width={width_mm:.1f} mm, required>={MIN_CLEAR_WIDTH_MM:.0f} mm",
+                            "measured": measured,
                         }
                     ],
                 }
@@ -118,6 +133,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

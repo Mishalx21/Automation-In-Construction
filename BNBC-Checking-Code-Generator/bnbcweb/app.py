@@ -15,10 +15,11 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 
 from bnbcweb import jobs as J
 from bnbcweb.jobs import JobStore
+from bnbcweb.pdf_report import build_pdf
 from bnbcweb.schemas import CheckRequest, CheckerInfo, JobStatus
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -123,4 +124,17 @@ def download_report(job_id: str):
     }
     return JSONResponse(content=payload, headers={
         "Content-Disposition": f'attachment; filename="{job.job_id}_bnbc_report.json"',
+    })
+
+
+@app.get("/api/jobs/{job_id}/download/report.pdf")
+def download_report_pdf(job_id: str):
+    job = store.get(job_id)
+    if job is None:
+        raise HTTPException(404, f"no such job '{job_id}'")
+    if job.state != J.DONE or not job.results:
+        raise HTTPException(409, "no report yet — job is not 'done'")
+    pdf_bytes = build_pdf(job.filename, job.created_at, job.results, store.checkers)
+    return Response(content=pdf_bytes, media_type="application/pdf", headers={
+        "Content-Disposition": f'attachment; filename="{job.job_id}_bnbc_report.pdf"',
     })

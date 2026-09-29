@@ -1066,6 +1066,7 @@ function renderCheckResults(job) {
     });
   });
   $("check-report").href = `/bnbc/api/jobs/${bnbcJobId}/download/report`;
+  $("check-report-pdf").href = `/bnbc/api/jobs/${bnbcJobId}/download/report.pdf`;
   show("check-results", true);
 }
 

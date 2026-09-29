@@ -151,7 +151,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     if not footings:
         return {
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
-            "unknown_reasons": [], "checked_summary": {},
+            "unknown_reasons": [], "checked_summary": {}, "checks": [],
             "summary": "No IfcFooting elements found in the model.",
         }
 
@@ -159,6 +159,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
     model_has_piles = bool(model.by_type("IfcPile"))
 
     violations = []
+    checks = []
     checked = 0
     piles_excluded = 0
     no_geometry = 0
@@ -188,19 +189,29 @@ def check_rule(model: ifcopenshell.file) -> dict:
             MIN_THICKNESS_ON_PILES_MM if support == "pile" else MIN_THICKNESS_ON_SOIL_MM
         )
         checked += 1
-        if thickness_mm < required:
+        measured = (
+            f"thickness={thickness_mm:.0f} mm, required={required:.0f} mm, "
+            f"support={support}, plan_min={plan_mm:.0f} mm"
+        )
+        threshold = f">= {required:.0f} mm"
+        is_violation = thickness_mm < required
+        checks.append({
+            "element": element_label(footing),
+            "storey": element_storey(footing),
+            "measured": measured,
+            "threshold": threshold,
+            "result": "fail" if is_violation else "pass",
+        })
+        if is_violation:
             violations.append({
                 "condition": COND_THICKNESS,
                 "description": "Footing thickness is below the minimum required.",
                 "rule_ref": RULE_REF,
-                "threshold": f">= {required:.0f} mm",
+                "threshold": threshold,
                 "locations": [{
                     "element": element_label(footing),
                     "storey": element_storey(footing),
-                    "measured": (
-                        f"thickness={thickness_mm:.0f} mm, required={required:.0f} mm, "
-                        f"support={support}, plan_min={plan_mm:.0f} mm"
-                    ),
+                    "measured": measured,
                 }],
             })
 
@@ -255,6 +266,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

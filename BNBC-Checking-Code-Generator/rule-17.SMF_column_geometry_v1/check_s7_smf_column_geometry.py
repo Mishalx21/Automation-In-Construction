@@ -185,11 +185,13 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "verdict": "not_applicable", "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcColumn elements found in the model.",
+            "checks": [],
         }
 
     unit_mm = length_unit_to_mm(model)
 
     violations = []
+    checks = []
     checked = 0
     steel_columns = 0
     non_bearing = 0
@@ -226,7 +228,24 @@ def check_rule(model: ifcopenshell.file) -> dict:
         storey = element_storey(column)
         ratio = short_mm / long_mm if long_mm else 0.0
 
-        if short_mm < MIN_SHORT_DIMENSION_MM:
+        dimension_measured = (
+            f"short_dimension={short_mm:.0f} mm, "
+            f"required={MIN_SHORT_DIMENSION_MM:.0f} mm, "
+            f"section={short_mm:.0f}x{long_mm:.0f} mm"
+        )
+        dimension_threshold = f">= {MIN_SHORT_DIMENSION_MM:.0f} mm"
+        dimension_is_violation = short_mm < MIN_SHORT_DIMENSION_MM
+        checks.append(
+            {
+                "element": label,
+                "storey": storey,
+                "criterion": "Minimum short dimension",
+                "measured": dimension_measured,
+                "threshold": dimension_threshold,
+                "result": "fail" if dimension_is_violation else "pass",
+            }
+        )
+        if dimension_is_violation:
             violations.append({
                 "condition": COND_DIMENSION,
                 "description": (
@@ -234,18 +253,30 @@ def check_rule(model: ifcopenshell.file) -> dict:
                     "column is below the minimum."
                 ),
                 "rule_ref": RULE_REF,
-                "threshold": f">= {MIN_SHORT_DIMENSION_MM:.0f} mm",
+                "threshold": dimension_threshold,
                 "locations": [{
                     "element": label, "storey": storey,
-                    "measured": (
-                        f"short_dimension={short_mm:.0f} mm, "
-                        f"required={MIN_SHORT_DIMENSION_MM:.0f} mm, "
-                        f"section={short_mm:.0f}x{long_mm:.0f} mm"
-                    ),
+                    "measured": dimension_measured,
                 }],
             })
 
-        if ratio < MIN_DIMENSION_RATIO:
+        ratio_measured = (
+            f"ratio={ratio:.2f}, required={MIN_DIMENSION_RATIO:.1f}, "
+            f"section={short_mm:.0f}x{long_mm:.0f} mm"
+        )
+        ratio_threshold = f">= {MIN_DIMENSION_RATIO:.1f}"
+        ratio_is_violation = ratio < MIN_DIMENSION_RATIO
+        checks.append(
+            {
+                "element": label,
+                "storey": storey,
+                "criterion": "Dimension ratio",
+                "measured": ratio_measured,
+                "threshold": ratio_threshold,
+                "result": "fail" if ratio_is_violation else "pass",
+            }
+        )
+        if ratio_is_violation:
             violations.append({
                 "condition": COND_RATIO,
                 "description": (
@@ -253,13 +284,10 @@ def check_rule(model: ifcopenshell.file) -> dict:
                     "perpendicular dimension is below the minimum."
                 ),
                 "rule_ref": RULE_REF,
-                "threshold": f">= {MIN_DIMENSION_RATIO:.1f}",
+                "threshold": ratio_threshold,
                 "locations": [{
                     "element": label, "storey": storey,
-                    "measured": (
-                        f"ratio={ratio:.2f}, required={MIN_DIMENSION_RATIO:.1f}, "
-                        f"section={short_mm:.0f}x{long_mm:.0f} mm"
-                    ),
+                    "measured": ratio_measured,
                 }],
             })
 
@@ -328,6 +356,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 

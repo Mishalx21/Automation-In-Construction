@@ -118,9 +118,11 @@ def check_rule(model: ifcopenshell.file) -> dict:
             "violations": [], "violation_count": 0,
             "unknown_reasons": [], "checked_summary": {},
             "summary": "No IfcWall or IfcDoor elements found in the model.",
+            "checks": [],
         }
 
     violations = []
+    checks = []
     wall_checked = wall_skipped = 0
     door_checked = door_skipped = 0
 
@@ -150,15 +152,26 @@ def check_rule(model: ifcopenshell.file) -> dict:
             continue
         wall_checked += 1
         rated_walls[wall.id()] = minutes
-        if minutes < MIN_WALL_RATING_MIN:
+        wall_measured = f"FireRating={minutes:.0f} min, required>={MIN_WALL_RATING_MIN:.0f} min"
+        wall_threshold = f">= {MIN_WALL_RATING_MIN:.0f} min"
+        wall_is_violation = minutes < MIN_WALL_RATING_MIN
+        checks.append({
+            "element": element_label(wall),
+            "storey": element_storey(wall),
+            "criterion": "Wall fire rating",
+            "measured": wall_measured,
+            "threshold": wall_threshold,
+            "result": "fail" if wall_is_violation else "pass",
+        })
+        if wall_is_violation:
             violations.append({
                 "condition": COND_WALL,
                 "description": "Wall fire-resistance rating is below the required minimum.",
                 "rule_ref": RULE_REF,
-                "threshold": f">= {MIN_WALL_RATING_MIN:.0f} min",
+                "threshold": wall_threshold,
                 "locations": [{
                     "element": element_label(wall), "storey": element_storey(wall),
-                    "measured": f"FireRating={minutes:.0f} min, required>={MIN_WALL_RATING_MIN:.0f} min",
+                    "measured": wall_measured,
                 }],
             })
 
@@ -168,15 +181,30 @@ def check_rule(model: ifcopenshell.file) -> dict:
             continue  # door not hosted by a rated wall: condition not applicable
         door_checked += 1
         raw = _fire_rating(door, "Pset_DoorCommon")
-        if raw is None:
+        door_threshold = "FireRating must be populated"
+        door_is_violation = raw is None
+        door_measured = (
+            f"door FireRating=blank, host wall={rated_walls[host.id()]:.0f} min"
+            if door_is_violation
+            else f"door FireRating={raw}, host wall={rated_walls[host.id()]:.0f} min"
+        )
+        checks.append({
+            "element": element_label(door),
+            "storey": element_storey(door),
+            "criterion": "Door fire rating",
+            "measured": door_measured,
+            "threshold": door_threshold,
+            "result": "fail" if door_is_violation else "pass",
+        })
+        if door_is_violation:
             violations.append({
                 "condition": COND_DOOR,
                 "description": "Door hosted in a fire-rated wall has no FireRating (blank).",
                 "rule_ref": RULE_REF,
-                "threshold": "FireRating must be populated",
+                "threshold": door_threshold,
                 "locations": [{
                     "element": element_label(door), "storey": element_storey(door),
-                    "measured": f"door FireRating=blank, host wall={rated_walls[host.id()]:.0f} min",
+                    "measured": door_measured,
                 }],
             })
 
@@ -210,6 +238,7 @@ def check_rule(model: ifcopenshell.file) -> dict:
         "unknown_reasons": unknown_reasons,
         "checked_summary": checked_summary,
         "summary": summary,
+        "checks": checks,
     }
 
 
