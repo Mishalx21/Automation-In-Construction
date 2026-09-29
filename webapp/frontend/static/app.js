@@ -669,6 +669,7 @@ $("check-btn").addEventListener("click", async () => {
   const rules = [...document.querySelectorAll(".check-cb:checked")].map((cb) => cb.value);
   $("check-btn").disabled = true;
   checkFilter = null;
+  openRules.clear();
   setProgress("check-progress", "Queued…");
   try {
     await api(`/bnbc/api/jobs/${bnbcJobId}/check`, {
@@ -1118,16 +1119,18 @@ function checkResultCard(r) {
 
     return `
     <div class="rule-result ${r.verdict}">
-      <div class="rr-head">
+      <button class="rr-head" type="button" aria-expanded="false">
         <span class="badge ${badgeCls}">${escapeHtml(verdictLabel)}</span>
         <span class="rule-bubble ${badgeCls}">${escapeHtml(r.rule_id)}</span>
         <span class="rr-title">${escapeHtml(catalogueById[r.rule_id]?.title || "")}</span>
         ${violations.length ? `<span class="rr-count">${violations.length} violation${violations.length !== 1 ? "s" : ""}</span>` : ""}
         ${r.duration_s != null ? `<span class="rr-time">${r.duration_s}s</span>` : ""}
-      </div>
+        <span class="rr-chevron" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      ${r.summary ? `<p class="rr-summary">${escapeHtml(r.summary)}</p>` : ""}
+      <div class="rr-body"><div class="rr-body-inner">
       ${catalogueById[r.rule_id]?.rule_preview ? `<details class="source-rule result-source-rule"><summary>View source rule and checking scope</summary><pre>${escapeHtml(catalogueById[r.rule_id].rule_preview)}</pre></details>` : ""}
       ${r.error ? `<p class="error">${escapeHtml(r.error)}</p>` : ""}
-      ${r.summary ? `<p class="rr-summary">${escapeHtml(r.summary)}</p>` : ""}
       ${shown.map((v, i) => violationCard(v, i)).join("")}
       ${rest.length ? `
         <button class="btn small show-more" type="button">
@@ -1136,6 +1139,7 @@ function checkResultCard(r) {
         <div class="v-rest hidden">${rest.map((v, i) => violationCard(v, i + 3)).join("")}</div>` : ""}
       ${unknownReasonsPanel(report)}
       ${checkedSummaryLine(report)}
+      </div></div>
     </div>`;
 }
 
@@ -1144,7 +1148,19 @@ function checkResultCard(r) {
 const cardSource = new WeakMap();
 let lastHighlightKey = null;
 
+// Which rule cards are open. Cards start closed; the set lets a card that is
+// rebuilt with a newer result come back the way the user left it.
+const openRules = new Set();
+
+function setCardOpen(card, open) {
+  card.classList.toggle("is-open", open);
+  card.querySelector(".rr-head")?.setAttribute("aria-expanded", String(open));
+  if (open) openRules.add(card.dataset.rule); else openRules.delete(card.dataset.rule);
+}
+
 function wireResultCard(card) {
+  card.querySelector(".rr-head")?.addEventListener("click", () =>
+    setCardOpen(card, !card.classList.contains("is-open")));
   card.querySelectorAll(".show-in-model").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -1233,6 +1249,7 @@ function renderCheckResults(job, final = false) {
     tpl.innerHTML = html;
     const card = tpl.content.firstElementChild;
     card.dataset.rule = r.rule_id;
+    if (openRules.has(r.rule_id)) setCardOpen(card, true);
     card.dataset.verdict = r.verdict;
     card.dataset.violations = String((r.report?.violations || []).length);
     cardSource.set(card, html);

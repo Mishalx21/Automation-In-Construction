@@ -1301,7 +1301,25 @@ details pre {
 .rule-result:nth-child(4) { animation-delay: .15s; }
 .rule-result:nth-child(n+5) { animation-delay: .2s; }
 
-.rr-head { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; }
+/* The header is the toggle for the rule's detail. */
+.rr-head {
+  display: flex; align-items: center; gap: .55rem; flex-wrap: wrap;
+  width: 100%; padding: 0; border: 0; background: none; color: inherit;
+  font: inherit; text-align: left; cursor: pointer;
+}
+.rr-head:focus-visible { outline: 2px solid var(--rr-hue, var(--accent)); outline-offset: 4px; border-radius: 6px; }
+.rr-chevron {
+  flex: none; width: 1.3rem; height: 1.3rem; color: var(--muted);
+  transition: transform .3s cubic-bezier(.3, 1.3, .5, 1), color .2s;
+}
+.rr-chevron svg { width: 100%; height: 100%; }
+.rr-head:hover .rr-chevron { color: var(--ink); }
+.rule-result.is-open .rr-chevron { transform: rotate(180deg); color: var(--rr-hue, var(--ink)); }
+/* 0fr -> 1fr animates to the content's own height, however many violations */
+.rr-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .32s cubic-bezier(.3, .9, .3, 1); }
+.rr-body-inner { overflow: hidden; min-height: 0; }
+.rule-result.is-open .rr-body { grid-template-rows: 1fr; }
+.rule-result:not(.is-open) .rr-summary { margin-bottom: 0; }
 .rr-title { font-weight: 700; font-size: .9rem; }
 .rr-count {
   font-size: .82rem; font-weight: 700; color: var(--bad);
