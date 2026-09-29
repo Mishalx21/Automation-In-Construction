@@ -668,6 +668,7 @@ $("check-btn").addEventListener("click", async () => {
   hideError("check-error");
   const rules = [...document.querySelectorAll(".check-cb:checked")].map((cb) => cb.value);
   $("check-btn").disabled = true;
+  checkFilter = null;
   setProgress("check-progress", "Queued…");
   try {
     await api(`/bnbc/api/jobs/${bnbcJobId}/check`, {
@@ -687,7 +688,7 @@ $("check-btn").addEventListener("click", async () => {
       });
     stopProgress("check-progress");
     lastCheckJob = job;
-    renderCheckResults(job);
+    renderCheckResults(job, true);
     window.recordHistory?.("bnbc", job);
   } catch (e) {
     stopProgress("check-progress");
@@ -1013,9 +1014,9 @@ function checkedSummaryLine(report) {
 // Stat tiles per the tile contract: status color lives on the dot + label
 // (never color alone); the big value always wears the ink token.
 
-function statTile(label, value, cls, title) {
+function statTile(label, value, cls, title, key) {
   return `
-    <div class="tile"${title ? ` title="${escapeHtml(title)}"` : ""}>
+    <div class="tile"${key ? ` data-key="${key}" role="button" tabindex="0" aria-pressed="false"` : ""}${title ? ` title="${escapeHtml(title)}"` : ""}>
       <span class="tile-label"><span class="dot ${cls}" aria-hidden="true"></span>${label}</span>
       <span class="tile-value">${value}</span>
     </div>`;
@@ -1034,40 +1035,72 @@ function renderCheckSummary(job) {
   const failed = counts.fail + counts.error;
   const unknown = counts.unknown;
 
-  let banner;
+  let banner = null;
   if (results.length && failed) {
-    banner = `<div class="banner bad"><span class="b-icon" aria-hidden="true">✕</span>
-      <div><strong>${failed} rule${failed > 1 ? "s" : ""} failed</strong> —
-      ${totalViolations} violation${totalViolations !== 1 ? "s" : ""} found in this model.</div></div>`;
+    banner = {cls: "bad", icon: "✕", html: `<strong>${failed} rule${failed > 1 ? "s" : ""} failed</strong> —
+      ${totalViolations} violation${totalViolations !== 1 ? "s" : ""} found in this model.`};
   } else if (results.length && unknown) {
-    banner = `<div class="banner warn"><span class="b-icon" aria-hidden="true">?</span>
-      <div><strong>No violations found</strong>, but ${unknown} rule${unknown > 1 ? "s" : ""} could not be
-      determined — see the details below before relying on this result.</div></div>`;
+    banner = {cls: "warn", icon: "?", html: `<strong>No violations found</strong>, but ${unknown} rule${unknown > 1 ? "s" : ""} could not be
+      determined — see the details below before relying on this result.`};
   } else if (results.length) {
-    banner = `<div class="banner ok"><span class="b-icon" aria-hidden="true">✓</span>
-      <div><strong>All ${results.length} checked rule${results.length > 1 ? "s" : ""} passed.</strong>
-      No violations were found in this model.</div></div>`;
-  } else {
-    banner = "";
+    banner = {cls: "ok", icon: "✓", html: `<strong>All ${results.length} checked rule${results.length > 1 ? "s" : ""} passed.</strong>
+      No violations were found in this model.`};
   }
 
-  $("check-summary").innerHTML = `
-    ${banner}
-    <div class="tiles">
-      ${statTile("Passed", counts.pass, "ok")}
-      ${statTile("Failed", failed, "bad")}
-      ${statTile("Unknown", unknown, "warn")}
-      ${statTile("Not applicable", counts.not_applicable, "na")}
-      ${statTile("Violations found", totalViolations, "bad",
-        "Total violation findings across all rules — the same element can appear in more than one, so this can exceed the number of distinct flagged elements shown by “Show violations” in the model preview.")}
-    </div>`;
+  const tiles = [
+    ["passed", "Passed", counts.pass, "ok"],
+    ["failed", "Failed", failed, "bad"],
+    ["unknown", "Unknown", unknown, "warn"],
+    ["na", "Not applicable", counts.not_applicable, "na"],
+    ["violations", "Violations found", totalViolations, "bad",
+      "Total violation findings across all rules — the same element can appear in more than one, so this can exceed the number of distinct flagged elements shown by “Show violations” in the model preview."],
+  ];
+  const root = $("check-summary");
+  if (!root.querySelector(".tiles")) {
+    root.innerHTML = `<div class="summary-banner"></div>
+      <div class="tiles">${tiles.map(([key, label, value, cls, title]) => statTile(label, value, cls, title, key)).join("")}</div>`;
+  } else {
+    for (const [key, , value] of tiles) {
+      const tile = root.querySelector(`.tile[data-key="${key}"]`);
+      const out = tile?.querySelector(".tile-value");
+      if (!out || out.textContent === String(value)) continue;
+      out.textContent = value;
+      flash(tile, "tile-flash");
+    }
+  }
+  updateBanner(root.querySelector(".summary-banner"), banner);
 }
 
-function renderCheckResults(job) {
-  show("check-rules", false);
-  renderCheckSummary(job);
+// Replay a one-shot animation on an element that already exists. Removing the
+// class on a timer rather than on animationend: the value inside the tile runs
+// its own shorter animation, and its animationend would bubble up and cut the
+// tile's flash short.
+const flashTimers = new WeakMap();
+function flash(el, cls) {
+  clearTimeout(flashTimers.get(el));
+  el.classList.remove(cls);
+  void el.offsetWidth;
+  el.classList.add(cls);
+  flashTimers.set(el, setTimeout(() => el.classList.remove(cls), 900));
+}
 
-  const cards = (job.results || []).map((r) => {
+// Keep the banner node and change its words, so its entrance animation plays
+// once per verdict rather than once per poll.
+function updateBanner(slot, banner) {
+  if (!slot) return;
+  if (!banner) { slot.innerHTML = ""; return; }
+  const el = slot.querySelector(".banner");
+  if (!el || !el.classList.contains(banner.cls)) {
+    slot.innerHTML = `<div class="banner ${banner.cls}"><span class="b-icon" aria-hidden="true">${banner.icon}</span><div class="b-text"></div></div>`;
+  }
+  const box = slot.querySelector(".banner");
+  if (box.dataset.html !== banner.html) {
+    box.querySelector(".b-text").innerHTML = banner.html;
+    box.dataset.html = banner.html;
+  }
+}
+
+function checkResultCard(r) {
     const badgeCls = VERDICT_BADGE[r.verdict] || "wait";
     const verdictLabel = VERDICT_LABEL[r.verdict] || r.verdict;
     const report = r.report || {};
@@ -1096,18 +1129,15 @@ function renderCheckResults(job) {
       ${unknownReasonsPanel(report)}
       ${checkedSummaryLine(report)}
     </div>`;
-  }).join("");
+}
 
-  $("check-results-list").innerHTML = cards;
-  const violationIds = (job.results || []).flatMap((result) =>
-    (result.report?.violations || []).flatMap((violation) =>
-      (violation.locations || []).map((location) => splitElement(location.element).guid).filter(Boolean)));
-  // De-duplicated: the same element can be flagged by more than one rule
-  // (e.g. a door failing both a fire-rating and a clearance check), and the
-  // "Show violations" count should match how many distinct objects actually
-  // turn red in the viewer, not how many findings mention them.
-  window.highlightViolationIds?.([...new Set(violationIds)]);
-  $("check-results-list").querySelectorAll(".show-in-model").forEach((button) => {
+// The rendered HTML each card was built from, so an unchanged result is left
+// alone instead of being rebuilt (and re-animated) on every poll.
+const cardSource = new WeakMap();
+let lastHighlightKey = null;
+
+function wireResultCard(card) {
+  card.querySelectorAll(".show-in-model").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
       const guid = button.dataset.guid;
@@ -1116,7 +1146,7 @@ function renderCheckResults(job) {
       $("preview-card").scrollIntoView({behavior: "smooth", block: "center"});
     });
   });
-  $("check-results-list").querySelectorAll(".show-more").forEach((btn) => {
+  card.querySelectorAll(".show-more").forEach((btn) => {
     btn.addEventListener("click", () => {
       const rest = btn.nextElementSibling;
       const expanding = rest.classList.contains("hidden");
@@ -1126,6 +1156,97 @@ function renderCheckResults(job) {
         : `Show ${rest.querySelectorAll(".violation").length} more`;
     });
   });
+}
+
+// --- summary tiles as filters ---------------------------------------------------
+// Clicking a tile narrows the list below to that group; clicking it again, or
+// another tile, changes or clears the filter. The list keeps every card; the
+// filter only hides, so streaming results slot in under the current filter.
+let checkFilter = null;
+const CHECK_FILTERS = {
+  passed: (c) => c.dataset.verdict === "pass",
+  failed: (c) => ["fail", "violation", "error"].includes(c.dataset.verdict),
+  unknown: (c) => c.dataset.verdict === "unknown",
+  na: (c) => c.dataset.verdict === "not_applicable",
+  violations: (c) => Number(c.dataset.violations) > 0,
+};
+
+function applyCheckFilter() {
+  const list = $("check-results-list");
+  const test = CHECK_FILTERS[checkFilter];
+  let visible = 0;
+  list.querySelectorAll(":scope > .rule-result").forEach((card) => {
+    const on = !test || test(card);
+    card.classList.toggle("is-filtered", !on);
+    if (on) visible++;
+  });
+  list.querySelector(":scope > .filter-empty")?.remove();
+  if (test && !visible) list.insertAdjacentHTML("beforeend", '<p class="filter-empty">No rules in this group yet.</p>');
+  const tiles = $("check-summary").querySelector(".tiles");
+  tiles?.classList.toggle("has-filter", Boolean(test));
+  tiles?.querySelectorAll(".tile[data-key]").forEach((tile) => {
+    const active = tile.dataset.key === checkFilter;
+    tile.classList.toggle("is-active", active);
+    tile.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function toggleCheckFilter(key) {
+  checkFilter = checkFilter === key ? null : key;
+  applyCheckFilter();
+}
+$("check-summary").addEventListener("click", (event) => {
+  const tile = event.target.closest(".tile[data-key]");
+  if (tile) toggleCheckFilter(tile.dataset.key);
+});
+$("check-summary").addEventListener("keydown", (event) => {
+  const tile = event.target.closest(".tile[data-key]");
+  if (!tile || (event.key !== "Enter" && event.key !== " ")) return;
+  event.preventDefault();
+  toggleCheckFilter(tile.dataset.key);
+});
+
+function renderCheckResults(job, final = false) {
+  show("check-rules", false);
+  renderCheckSummary(job);
+
+  const list = $("check-results-list");
+  const results = job.results || [];
+  const present = new Set();
+  results.forEach((r, index) => {
+    present.add(r.rule_id);
+    const html = checkResultCard(r).trim();
+    const existing = [...list.children].find((n) => n.dataset.rule === r.rule_id);
+    if (existing && cardSource.get(existing) === html) return;
+    const tpl = document.createElement("template");
+    tpl.innerHTML = html;
+    const card = tpl.content.firstElementChild;
+    card.dataset.rule = r.rule_id;
+    card.dataset.verdict = r.verdict;
+    card.dataset.violations = String((r.report?.violations || []).length);
+    cardSource.set(card, html);
+    wireResultCard(card);
+    if (existing) existing.replaceWith(card);
+    else list.insertBefore(card, list.children[index] || null);
+  });
+  [...list.children].forEach((n) => { if (!present.has(n.dataset.rule)) n.remove(); });
+  applyCheckFilter();
+
+  const violationIds = results.flatMap((result) =>
+    (result.report?.violations || []).flatMap((violation) =>
+      (violation.locations || []).map((location) => splitElement(location.element).guid).filter(Boolean)));
+  // De-duplicated: the same element can be flagged by more than one rule
+  // (e.g. a door failing both a fire-rating and a clearance check), and the
+  // "Show violations" count should match how many distinct objects actually
+  // turn red in the viewer, not how many findings mention them.
+  const ids = [...new Set(violationIds)];
+  // Re-highlighting resets the viewer, so only do it when the set changes —
+  // and always once at the end, in case the user cleared it mid-run.
+  const key = ids.slice().sort().join(",");
+  if (final || key !== lastHighlightKey) {
+    lastHighlightKey = key;
+    window.highlightViolationIds?.(ids);
+  }
   $("check-report").href = `/bnbc/api/jobs/${bnbcJobId}/download/report`;
   show("check-results", true);
 }

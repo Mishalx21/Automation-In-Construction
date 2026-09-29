@@ -1766,3 +1766,28 @@ tr.filtered-out { display: none; }
 
 /* A signed-in visitor on the front page already has an account. */
 body.is-signed-in .landing-signin-hint { display: none; }
+
+/* --- a value that just changed --------------------------------------------------
+ * On an overlay, not on the tile's own animation: swapping the tile's
+ * animation-name would restart its entrance when the class comes off. */
+.tile::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: color-mix(in srgb, var(--tile-hue) 24%, transparent);
+  opacity: 0;
+}
+.tile.tile-flash::after { animation: cell-flash .85s ease-out; }
+.tile.tile-flash .tile-value { display: inline-block; animation: value-bump .45s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes cell-flash { from { opacity: 1; } to { opacity: 0; } }
+@keyframes value-bump { from { transform: scale(1.22); } to { transform: none; } }
+
+/* --- summary tiles as filters --------------------------------------------------- */
+.tile[data-key] { cursor: pointer; transition: transform .2s, box-shadow .2s, opacity .2s, border-color .2s; }
+.tile[data-key]:focus-visible { outline: 2px solid var(--tile-hue); outline-offset: 2px; }
+.tile.is-active {
+  border-color: var(--tile-hue);
+  box-shadow: 0 0 0 1px var(--tile-hue), 0 8px 18px -10px color-mix(in srgb, var(--tile-hue) 70%, transparent);
+}
+.tiles.has-filter .tile[data-key]:not(.is-active) { opacity: .55; }
+.tiles.has-filter .tile[data-key]:not(.is-active):hover { opacity: .85; }
+.rule-result.is-filtered { display: none; }
+.filter-empty { margin: .8rem 0; color: var(--muted); font-size: .85rem; text-align: center; }
