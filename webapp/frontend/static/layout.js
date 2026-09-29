@@ -174,18 +174,24 @@
   const TASK_SLUGS = {"check-card": "design-validation", "inject-card": "mutation-lab"};
   const SLUG_TASKS = Object.fromEntries(Object.entries(TASK_SLUGS).map(([id, slug]) => [slug, id]));
   const currentPath = () => location.pathname.replace(/\/+$/, "") || "/";
-  const isSignedIn = () => !$("workspace")?.classList.contains("hidden");
+  let signedIn = false;
+  const isSignedIn = () => signedIn;
   function pushTaskUrl(workflowId, replace) {
     const slug = TASK_SLUGS[workflowId];
     if (!slug || currentPath() === "/" + slug) return;
     history[replace ? "replaceState" : "pushState"]({workflow: workflowId}, "", "/" + slug);
   }
   document.querySelectorAll(".workflow-choice").forEach((button) => {
-    button.addEventListener("click", () => pushTaskUrl(button.dataset.workflow, false));
+    button.addEventListener("click", () => {
+      if ($("workspace")?.classList.contains("hidden")) showWorkspace(button.dataset.workflow, true);
+      else pushTaskUrl(button.dataset.workflow, false);
+    });
   });
 
   // --- reveal topbar controls once signed in ------------------------------------
   window.addEventListener("auth:ready", () => {
+    signedIn = true;
+    document.body.classList.add("is-signed-in");
     show($("workflow-switch"), true);
     show(historyToggle, true);
     // Priority: a task already in the URL (direct visit/refresh/bookmark),
@@ -193,7 +199,10 @@
     const intent = sessionStorage.getItem("workbench:intent");
     const chosen = SLUG_TASKS[currentPath().slice(1)] || intent || "check-card";
     window.selectWorkflow?.(chosen);
-    pushTaskUrl(chosen, true);
+    // "/" is the front page for everyone, so a signed-in reload there stays
+    // put; signing in from /login, or any task URL, opens the workspace.
+    if (currentPath() === "/" && !intent) showLanding(false);
+    else pushTaskUrl(chosen, true);
     if (intent) sessionStorage.removeItem("workbench:intent");
   });
 
@@ -214,9 +223,20 @@
   }
   function showLanding(push) {
     if (!landingView || !loginView) return;
+    // The front page lives in #auth-main, which sign-in hides; bring it back
+    // (and put the workspace away) so it is reachable signed in too.
+    show($("auth-main"), true);
+    show($("workspace"), false);
     show(landingView, true);
     show(loginView, false);
     if (push) history.pushState({view: "landing"}, "", "/");
+    window.scrollTo(0, 0);
+  }
+  function showWorkspace(task, push) {
+    show($("auth-main"), false);
+    show($("workspace"), true);
+    window.selectWorkflow?.(task);
+    pushTaskUrl(task, !push);
     window.scrollTo(0, 0);
   }
   if (landingView && loginView) {
@@ -226,7 +246,8 @@
       const path = currentPath();
       if (isSignedIn()) {
         const task = SLUG_TASKS[path.slice(1)];
-        if (task) window.selectWorkflow?.(task);
+        if (task) showWorkspace(task, false);
+        else showLanding(false);
         return;
       }
       if (path === "/login") showLogin(false);
@@ -234,6 +255,7 @@
     });
     document.querySelectorAll(".landing-option").forEach((button) => {
       button.addEventListener("click", () => {
+        if (isSignedIn()) { showWorkspace(button.dataset.intent, true); return; }
         sessionStorage.setItem("workbench:intent", button.dataset.intent);
         showLogin(true);
       });
@@ -242,23 +264,15 @@
     $("login-back")?.addEventListener("click", () => showLanding(true));
   }
 
-  // --- the brand mark is always the way home ------------------------------------
-  // Signed out that means the landing page; signed in it means the workspace at
-  // its default task, since the workspace *is* home once you have an account.
+  // --- the brand mark always leads to the front page ------------------------------
+  // Signed in or not. From there the calls to action and the workflow switch
+  // lead back into the workspace.
   const brand = document.querySelector(".brand-mini");
   if (brand) {
     brand.tabIndex = 0;
     brand.setAttribute("role", "link");
     brand.setAttribute("aria-label", "ComplyBIM home");
-    const goHome = () => {
-      if (isSignedIn()) {
-        window.selectWorkflow?.("check-card");
-        pushTaskUrl("check-card", false);
-      } else {
-        showLanding(true);
-      }
-      window.scrollTo({top: 0, behavior: "smooth"});
-    };
+    const goHome = () => showLanding(true);
     brand.addEventListener("click", goHome);
     brand.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") { event.preventDefault(); goHome(); }

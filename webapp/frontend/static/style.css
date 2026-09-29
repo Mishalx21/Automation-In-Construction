@@ -1763,3 +1763,6 @@ tr.filtered-out { display: none; }
    the screen cannot answer — so it stays out of the way until it is real. */
 #preview-violating:disabled { display: none; }
 #preview-violating:disabled + .preview-tool-divider { display: none; }
+
+/* A signed-in visitor on the front page already has an account. */
+body.is-signed-in .landing-signin-hint { display: none; }
