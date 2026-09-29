@@ -91,13 +91,21 @@ $("preview-load-button").addEventListener("click", () => {
 function showError(id, msg) { const el = $(id); el.textContent = msg; show(el, true); }
 function hideError(id) { show($(id), false); }
 
-/** Progress line = persistent spinner + text span (spinner animation never restarts). */
-function setProgress(id, text) {
+/** Progress line = pulsing status text + a bar (its own markup built once,
+ * never rebuilt, so its animation never restarts on every tick). Pass
+ * `percent` (0-100) when the total is known (e.g. N of M rules checked) for
+ * a real filling bar; omit it for a scanning/indeterminate sweep. */
+function setProgress(id, text, percent) {
   const el = $(id);
-  if (!el.querySelector(".spinner")) {
-    el.innerHTML = '<span class="spinner" aria-hidden="true"></span><span class="ptext"></span>';
+  if (!el.querySelector(".progress-bar")) {
+    el.innerHTML = '<span class="ptext"></span><div class="progress-bar" aria-hidden="true"><div class="progress-fill"></div></div>';
   }
   el.querySelector(".ptext").textContent = text;
+  const bar = el.querySelector(".progress-bar");
+  bar.classList.toggle("indeterminate", percent == null);
+  if (percent != null) {
+    bar.querySelector(".progress-fill").style.setProperty("--fill", Math.max(.03, Math.min(1, percent / 100)));
+  }
   show(el, true);
 }
 function stopProgress(id) { show($(id), false); }
@@ -320,6 +328,7 @@ function batchCaseRow(idx) {
   return `
   <div class="batch-case" id="batch-case-${idx}">
     <div class="batch-case-head">
+      <span class="dot wait" id="batch-case-dot-${idx}" aria-hidden="true"></span>
       <span class="v-num">${idx + 1}</span>
       <span class="badge wait" id="batch-case-badge-${idx}">queued</span>
       <span class="batch-case-msg" id="batch-case-msg-${idx}"></span>
@@ -329,11 +338,10 @@ function batchCaseRow(idx) {
 }
 
 function setBatchCaseStatus(idx, status, msg) {
-  const row = $(`batch-case-${idx}`);
-  row.classList.remove("running", "done", "failed");
-  if (status !== "queued") row.classList.add(status);
+  const tone = {queued: "wait", running: "warn", done: "ok", failed: "bad"}[status] || "wait";
+  $(`batch-case-dot-${idx}`).className = `dot ${tone}`;
   const badge = $(`batch-case-badge-${idx}`);
-  badge.className = `badge ${{queued: "wait", running: "warn", done: "ok", failed: "bad"}[status] || "wait"}`;
+  badge.className = `badge ${tone}`;
   badge.textContent = status;
   $(`batch-case-msg-${idx}`).textContent = msg || "";
 }
@@ -603,8 +611,9 @@ $("check-btn").addEventListener("click", async () => {
       `/bnbc/api/jobs/${bnbcJobId}`,
       (j) => j.state === "done",
       (j) => {
+        const done = (j.results || []).length;
         setProgress("check-progress",
-          `Checking… ${(j.results || []).length}/${rules.length} rule(s) done`);
+          `Checking… ${done}/${rules.length} rule(s) done`, (done / rules.length) * 100);
         lastCheckJob = j;
         renderCheckResults(j); // stream partial results
       });
@@ -818,12 +827,10 @@ function explainBlock(v) {
   const kv = measuredKv(firstLoc.measured);
   let plain = "";
   try { plain = exp.plain(kv, String(firstLoc.measured || "")) || ""; } catch (e) { plain = ""; }
-  if (!plain && !exp.why) return "";
+  if (!plain) return "";
   return `
     <div class="v-explain">
-      ${plain ? `<p class="v-plain"><span class="v-label">What this means:</span> ${plain}</p>` : ""}
-      ${exp.why ? `<p class="v-note"><span class="v-label">Why it matters:</span> ${escapeHtml(exp.why)}</p>` : ""}
-      ${exp.check ? `<p class="v-note"><span class="v-label">What to check:</span> ${escapeHtml(exp.check)}</p>` : ""}
+      <p class="v-plain">${plain}</p>
     </div>`;
 }
 

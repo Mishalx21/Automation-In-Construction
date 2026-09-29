@@ -8,3 +8,9 @@ ifc-fault-injector/out/
 
 # macOS Finder metadata — never useful in history.
 .DS_Store
+
+# Local AI-tooling/editor config — machine-specific, not part of the project.
+.agents/
+.aider-desk/
+.impeccable/
+skills-lock.json
