@@ -13,4 +13,5 @@ ifc-fault-injector/out/
 .agents/
 .aider-desk/
 .impeccable/
+.playwright-mcp/
 skills-lock.json

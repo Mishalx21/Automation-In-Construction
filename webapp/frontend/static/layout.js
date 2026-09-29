@@ -1,4 +1,4 @@
-/* IFC Compliance Workbench — workspace layout behavior.
+/* ComplyBIM — workspace layout behavior.
  *
  * Purely presentational: resizable/collapsible split between the model
  * preview and the workflow panel, the recent-activity drawer, and the
@@ -161,11 +161,80 @@
     if (event.key === "Escape" && historyDrawer.classList.contains("open")) setDrawerOpen(false);
   });
 
+  // --- task URLs: the signed-in workspace also gets a real path per task ---------
+  // /design-validation for Design Validation, /mutation-lab for Mutation Lab
+  // — nginx's SPA catch-all serves index.html for any path, so this is
+  // plain history.pushState routing, no server change needed.
+  const TASK_SLUGS = {"check-card": "design-validation", "inject-card": "mutation-lab"};
+  const SLUG_TASKS = Object.fromEntries(Object.entries(TASK_SLUGS).map(([id, slug]) => [slug, id]));
+  const currentPath = () => location.pathname.replace(/\/+$/, "") || "/";
+  const isSignedIn = () => !$("workspace")?.classList.contains("hidden");
+  function pushTaskUrl(workflowId, replace) {
+    const slug = TASK_SLUGS[workflowId];
+    if (!slug || currentPath() === "/" + slug) return;
+    history[replace ? "replaceState" : "pushState"]({workflow: workflowId}, "", "/" + slug);
+  }
+  document.querySelectorAll(".workflow-choice").forEach((button) => {
+    button.addEventListener("click", () => pushTaskUrl(button.dataset.workflow, false));
+  });
+
   // --- reveal topbar controls once signed in ------------------------------------
   window.addEventListener("auth:ready", () => {
     show($("workflow-switch"), true);
     show(historyToggle, true);
+    // Priority: a task already in the URL (direct visit/refresh/bookmark),
+    // then a landing-option intent picked before sign-in, then the default.
+    const intent = sessionStorage.getItem("workbench:intent");
+    const chosen = SLUG_TASKS[currentPath().slice(1)] || intent || "check-card";
+    window.selectWorkflow?.(chosen);
+    pushTaskUrl(chosen, true);
+    if (intent) sessionStorage.removeItem("workbench:intent");
   });
+
+  // --- landing vs. login: two distinct screens, not one scrolled page ------------
+  // No build step / no router library, so this is the smallest thing that
+  // still behaves like real navigation: swap which section is visible and
+  // push a real /login URL (nginx's SPA catch-all already serves index.html
+  // for any path, so a direct visit or refresh on /login works too).
+  const landingView = $("landing-view");
+  const loginView = $("login-view");
+  function showLogin(push) {
+    if (!landingView || !loginView) return;
+    show(landingView, false);
+    show(loginView, true);
+    if (push) history.pushState({view: "login"}, "", "/login");
+    window.scrollTo(0, 0);
+    $("auth-email")?.focus();
+  }
+  function showLanding(push) {
+    if (!landingView || !loginView) return;
+    show(landingView, true);
+    show(loginView, false);
+    if (push) history.pushState({view: "landing"}, "", "/");
+    window.scrollTo(0, 0);
+  }
+  if (landingView && loginView) {
+    if (currentPath() === "/login") showLogin(false);
+    else if (!SLUG_TASKS[currentPath().slice(1)]) showLanding(false);
+    window.addEventListener("popstate", () => {
+      const path = currentPath();
+      if (isSignedIn()) {
+        const task = SLUG_TASKS[path.slice(1)];
+        if (task) window.selectWorkflow?.(task);
+        return;
+      }
+      if (path === "/login") showLogin(false);
+      else showLanding(false);
+    });
+    document.querySelectorAll(".landing-option").forEach((button) => {
+      button.addEventListener("click", () => {
+        sessionStorage.setItem("workbench:intent", button.dataset.intent);
+        showLogin(true);
+      });
+    });
+    $("landing-signin")?.addEventListener("click", () => showLogin(true));
+    $("login-back")?.addEventListener("click", () => showLanding(true));
+  }
 
   // --- file strip: collapse the dropzone once a file is picked -------------------
   const dropzone = $("dropzone");

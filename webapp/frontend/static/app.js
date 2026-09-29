@@ -1,4 +1,4 @@
-/* IFC Compliance Workbench — single-page UI. Vanilla JS, no build step.
+/* ComplyBIM — single-page UI. Vanilla JS, no build step.
  *
  * Two engines behind one nginx origin:
  *   /ifc/api/...   ifcfault    (upload -> survey -> emit script -> verify)
@@ -57,7 +57,7 @@ function pickFile(file) {
     show(loadPreviewButton, false);
     $("preview-status").textContent = "Preparing server preview...";
     $("viewer-selection").textContent =
-      `This ${(file.size / 1048576).toFixed(0)} MB IFC is ready to upload and analyze. Select Create test cases, then Upload & analyze to generate its server-side XKT preview.`;
+      `This ${(file.size / 1048576).toFixed(0)} MB IFC is ready to upload and analyze. Select Mutation Lab, then Analyze model to generate its server-side XKT preview.`;
     window.pendingIfcPreviewFile = null;
     previewJobId = null;
     previewJobPromise = prepareServerPreview(file);
@@ -85,7 +85,7 @@ function pickFile(file) {
 
 $("preview-load-button").addEventListener("click", () => {
   $("preview-status").textContent = "Use the server-prepared preview";
-  $("viewer-selection").textContent = "Upload and analyze the model in Create test cases to prepare an optimized XKT preview.";
+  $("viewer-selection").textContent = "Upload and analyze the model in Mutation Lab to prepare an optimized XKT preview.";
 });
 
 function showError(id, msg) { const el = $(id); el.textContent = msg; show(el, true); }
@@ -1140,6 +1140,9 @@ function selectWorkflow(id) {
   document.querySelectorAll(".workflow-choice").forEach((button) =>
     button.classList.toggle("active", button.dataset.workflow === id));
 }
+// Exposed so the pre-sign-in landing options can route straight into the
+// matching workflow tab once the user is signed in (see layout.js).
+window.selectWorkflow = selectWorkflow;
 document.querySelectorAll(".workflow-choice").forEach((button) =>
   button.addEventListener("click", () => selectWorkflow(button.dataset.workflow)));
 selectWorkflow("check-card");

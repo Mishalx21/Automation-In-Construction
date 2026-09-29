@@ -1,4 +1,4 @@
-/* IFC Compliance Workbench — dense, professional engineering-tool UI.
+/* ComplyBIM — dense, professional engineering-tool UI.
  * Vanilla CSS, no build step. Dark-mode-safe. */
 
 * { box-sizing: border-box; }
@@ -6,13 +6,13 @@
 :root {
   --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
-  --bg: #e9ebef;
-  --canvas: #dfe2e8;
+  --bg: #eef0f3;
+  --canvas: #e4e7ec;
   --card: #ffffff;
-  --ink: #10141c;
-  --muted: #555f6e;
-  --line: #dfe2e8;
-  --line-strong: #b7bec9;
+  --ink: #14171c;
+  --muted: #5a6270;
+  --line: #e1e4e8;
+  --line-strong: #c7ccd3;
   --accent: #1957c2;
   --accent-light: #3e7bdb;
   --accent-dark: #0e3a85;
@@ -26,7 +26,7 @@
   --bad: #c01c1c;
   --warn: #ab5b06;
   --na: #64748b;
-  --chip: #eef1f6;
+  --chip: #eef0f3;
   --shadow: 0 1px 2px rgba(16, 24, 40, .07);
   --shadow-md: 0 3px 10px rgba(16, 24, 40, .1);
   --radius: 7px;
@@ -34,7 +34,6 @@
   --topbar-h: 58px;
   --content-max: 92rem;
   --gutter: max(1.5rem, calc((100vw - var(--content-max)) / 2));
-  --grid-minor: color-mix(in srgb, var(--ink) 13%, transparent);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -69,28 +68,6 @@ body {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   background-color: var(--bg);
-  position: relative;
-}
-/* A faint civil-survey-style reference grid instead of a flat colour: small
-   crosshair/benchmark tick marks (a circle with a broken cross through it —
-   the mark used for control/reference points on site and structural plans),
-   not decorative dots. Drawn once as a tiny SVG and repeated via a mask, so
-   its colour still follows --grid-minor/light-dark mode. Cards sit on solid
-   --card white/dark above it, so data stays perfectly readable; only the
-   page canvas itself carries the pattern. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-color: var(--grid-minor);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='1.6' fill='none' stroke='black' stroke-width='1'/%3E%3Cpath d='M16 9v4M16 19v4M9 16h4M19 16h4' stroke='black' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='16' cy='16' r='1.6' fill='none' stroke='black' stroke-width='1'/%3E%3Cpath d='M16 9v4M16 19v4M9 16h4M19 16h4' stroke='black' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
-  -webkit-mask-repeat: repeat;
-  mask-repeat: repeat;
-  -webkit-mask-size: 32px 32px;
-  mask-size: 32px 32px;
 }
 
 main, footer { max-width: none; padding: 0 var(--gutter); }
@@ -119,7 +96,7 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 .brand-mini { display: flex; align-items: center; gap: .65rem; flex: none; }
 .brand-mark {
   width: 32px; height: 32px; border-radius: 8px; flex: none;
-  box-shadow: 0 1px 1px rgba(16, 24, 40, .06), 0 4px 10px color-mix(in srgb, var(--accent) 30%, transparent);
+  box-shadow: var(--shadow);
 }
 .brand-text { display: flex; flex-direction: column; gap: 0; line-height: 1.15; }
 .brand-title { font-size: .92rem; font-weight: 800; letter-spacing: -.015em; white-space: nowrap; color: var(--ink); }
@@ -240,8 +217,67 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 
 main { padding-top: .9rem; padding-bottom: 1.4rem; }
 
-/* --- auth ----------------------------------------------------------------------- */
-.auth-card { max-width: 26rem; margin: 3rem auto; }
+/* --- landing: pre-sign-in homepage ---------------------------------------------
+ * The one screen in this app that isn't a dense data table. A real headline,
+ * a technical line-art elevation (drawn, not photographed) with callouts
+ * using actual rule ids/thresholds, and the two real workflows as routed
+ * options — clicking one remembers the intent and opens straight into that
+ * workflow tab once sign-in completes (see layout.js). */
+.landing {
+  display: grid; grid-template-columns: 1.05fr .95fr;
+  grid-template-areas: "intro visual" "options visual";
+  gap: 1.6rem 2.5rem; align-items: start;
+  max-width: 76rem; margin: 2.5rem auto 3rem;
+}
+.landing-intro { grid-area: intro; }
+.landing-badge { display: inline-block; margin-bottom: .9rem; }
+.hero-title {
+  font-size: clamp(1.6rem, 3.2vw, 2.3rem); font-weight: 800; letter-spacing: -.02em;
+  line-height: 1.15; margin: 0 0 .8rem; max-width: 20ch;
+}
+.accent-text { color: var(--accent); }
+.hero-sub { color: var(--muted); font-size: .95rem; max-width: 40ch; margin: 0; }
+.hero-visual {
+  grid-area: visual; position: relative; min-height: 22rem;
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: var(--card); box-shadow: var(--shadow-md); overflow: hidden;
+}
+.hero-photo { width: 100%; height: 100%; min-height: 22rem; object-fit: cover; display: block; }
+.hero-photo-credit {
+  position: absolute; right: .6rem; bottom: .6rem; margin: 0;
+  padding: .25rem .6rem; border-radius: 999px;
+  background: rgba(20, 16, 10, .55); color: #fff; font-size: .79rem;
+}
+.hero-photo-credit a { color: inherit; }
+.landing-options { grid-area: options; display: grid; gap: .8rem; }
+.landing-option {
+  display: flex; align-items: center; gap: .8rem; width: 100%;
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: var(--card); padding: .9rem 1rem; text-align: left; cursor: pointer;
+  font: inherit; color: var(--ink); box-shadow: var(--shadow);
+  transition: border-color .12s, transform .12s;
+}
+.landing-option:hover, .landing-option:focus-visible {
+  border-color: var(--accent); transform: translateY(-1px); outline: none;
+}
+.landing-option .choice-icon { width: 2.1rem; height: 2.1rem; border-radius: var(--radius-sm); }
+.landing-option-body { display: grid; gap: .15rem; flex: 1; min-width: 0; }
+.landing-option-title { font-weight: 700; font-size: .92rem; }
+.landing-option-desc { color: var(--muted); font-size: .8rem; line-height: 1.4; }
+.landing-option-arrow { color: var(--muted); font-size: 1.1rem; flex: none; }
+.landing-option:hover .landing-option-arrow { color: var(--accent); }
+@media (max-width: 60rem) {
+  .landing {
+    grid-template-columns: 1fr; grid-template-areas: "visual" "intro" "options";
+    margin: 1.5rem auto 2rem;
+  }
+  .hero-title, .hero-sub { max-width: none; }
+}
+
+/* --- login: its own screen, not part of the homepage --------------------------- */
+.login-view { max-width: 26rem; margin: 4rem auto; }
+.login-back { display: block; margin-bottom: 1rem; }
+.auth-card { max-width: 26rem; margin: 0; }
 .auth-form { display: grid; gap: .7rem; }
 .auth-form label { display: grid; gap: .22rem; font-size: .82rem; font-weight: 600; }
 .auth-form input { padding: .5rem .6rem; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--card); color: var(--ink); font: inherit; }
@@ -742,6 +778,24 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
 }
 .preview-head-actions { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .viewer-shell { position: relative; height: min(58vw, 32rem); min-height: 18rem; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #1c232c; }
+
+/* --- crop marks: drafting-sheet registration marks at each corner --------------
+ * The small "+" marks printed at the edges of an architectural drawing sheet,
+ * used here to frame the one container that's literally showing a building
+ * (the model viewer) and the sign-in card (this app's one non-data screen). */
+.crop-marks { position: relative; }
+.crop-marks::before {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background-color: var(--line-strong);
+  --crop-mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Cpath d='M7 0v14M0 7h14' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E");
+  -webkit-mask-image: var(--crop-mark), var(--crop-mark), var(--crop-mark), var(--crop-mark);
+  mask-image: var(--crop-mark), var(--crop-mark), var(--crop-mark), var(--crop-mark);
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-size: 14px 14px; mask-size: 14px 14px;
+  -webkit-mask-position: 5px 5px, calc(100% - 19px) 5px, 5px calc(100% - 19px), calc(100% - 19px) calc(100% - 19px);
+  mask-position: 5px 5px, calc(100% - 19px) 5px, 5px calc(100% - 19px), calc(100% - 19px) calc(100% - 19px);
+}
+.viewer-shell.crop-marks::before { background-color: rgba(255, 255, 255, .5); }
 #ifc-viewer { display: block; width: 100%; height: 100%; }
 .preview-toolbar { position: absolute; z-index: 3; top: .6rem; left: .6rem; right: .6rem; display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; padding: .3rem; border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius-sm); background: rgba(15,20,28,.92); }
 .preview-tool { min-height: 1.9rem; border: 0; border-radius: var(--radius-sm); padding: .38rem .58rem; background: transparent; color: #dfe4ea; font: 700 .82rem/1.1 system-ui, sans-serif; cursor: pointer; white-space: nowrap; }
@@ -798,6 +852,6 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
   font-size: .82rem;
 }
 .footer-brand { display: flex; align-items: center; gap: .55rem; }
-.footer-mark { width: 22px; height: 22px; border-radius: 6px; flex: none; box-shadow: 0 1px 1px rgba(16,24,40,.06), 0 3px 8px color-mix(in srgb, var(--accent) 25%, transparent); }
+.footer-mark { width: 22px; height: 22px; border-radius: 6px; flex: none; box-shadow: var(--shadow); }
 .footer-brand-title { font-weight: 700; font-size: .82rem; color: var(--ink); letter-spacing: -.01em; }
 .footer-bottom { white-space: nowrap; }

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>IFC Compliance Workbench</title>
+  <title>ComplyBIM</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d4ed8'/%3E%3Cpath d='M9 23V13l7-5 7 5v10h-4v-6h-6v6z' fill='white'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@
         <path d="M9 23V13l7-5 7 5v10h-4v-6h-6v6z" fill="#fff" fill-opacity=".96"/>
       </svg>
       <div class="brand-text">
-        <span class="brand-title">IFC Compliance Workbench</span>
+        <span class="brand-title">ComplyBIM</span>
         <span class="brand-subtitle">Engineering review workspace</span>
       </div>
     </div>
@@ -38,14 +38,14 @@
             <path d="M7.5 3V2.3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V3" fill="none" stroke="currentColor" stroke-width="1.4"/>
             <path d="M7 10.4l2 2 4-4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-        </span>Check compliance
+        </span>Design Validation
       </button>
       <button class="workflow-choice" type="button" data-workflow="inject-card">
         <span class="choice-icon warn">
           <svg viewBox="0 0 20 20" aria-hidden="true">
             <path d="M11 2 4.5 11.3h4.3l-.8 6.7 7-9.3H10.7l.3-6.7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
           </svg>
-        </span>Create test cases
+        </span>Mutation Lab
       </button>
     </nav>
     <div class="topbar-actions">
@@ -62,17 +62,61 @@
   </header>
 
   <main id="auth-main">
-    <section class="card auth-card" id="auth-card">
-      <h2>Sign in to your workspace</h2>
-      <p class="hint">Your jobs and reports are private to your account.</p>
-      <form id="auth-form" class="auth-form">
-        <label>Email<input id="auth-email" type="email" autocomplete="email" required></label>
-        <label>Password<input id="auth-password" type="password" autocomplete="current-password" minlength="10" required></label>
-        <label id="auth-name-row" class="hidden">Name<input id="auth-name" type="text" autocomplete="name" maxlength="120"></label>
-        <p id="auth-error" class="error hidden"></p>
-        <button id="auth-submit" class="btn primary" type="submit">Sign in</button>
-      </form>
-      <p class="hint"><button id="auth-mode" class="link-btn" type="button">Create an account</button></p>
+    <section class="landing" id="landing-view">
+      <div class="landing-intro">
+        <span class="tag landing-badge">BNBC compliance for IFC models</span>
+        <h1 class="hero-title">Check your building model <span class="accent-text">before it's built.</span></h1>
+        <p class="hero-sub">Upload an IFC model and run the accepted BNBC rule checkers, or generate an independently verified test case with a known violation. Deterministic, fixture-verified checkers — no LLM calls at check time.</p>
+        <p class="hint landing-signin-hint">Already have an account? <button id="landing-signin" class="link-btn" type="button">Sign in</button></p>
+      </div>
+      <div class="hero-visual">
+        <img class="hero-photo" src="https://images.unsplash.com/photo-1574848296471-28f79a036f79?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="Angular modern high-rise building facade" loading="lazy">
+        <p class="hero-photo-credit">Photo: <a href="https://unsplash.com/photos/high-rise-building-EvczjigoKzk" target="_blank" rel="noopener">Unsplash</a></p>
+      </div>
+      <div class="landing-options">
+        <button class="landing-option" type="button" data-intent="check-card">
+          <span class="choice-icon">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <rect x="4.5" y="3" width="11" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M7.5 3V2.3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M7 10.4l2 2 4-4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="landing-option-body">
+            <span class="landing-option-title">Design Validation</span>
+            <span class="landing-option-desc">Run the accepted BNBC rule checkers against your model and get pass/fail verdicts with evidence.</span>
+          </span>
+          <span class="landing-option-arrow" aria-hidden="true">&rarr;</span>
+        </button>
+        <button class="landing-option" type="button" data-intent="inject-card">
+          <span class="choice-icon warn">
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M11 2 4.5 11.3h4.3l-.8 6.7 7-9.3H10.7l.3-6.7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="landing-option-body">
+            <span class="landing-option-title">Mutation Lab</span>
+            <span class="landing-option-desc">Inject a known, independently verified violation into a model to validate a checker or build a fixture.</span>
+          </span>
+          <span class="landing-option-arrow" aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="login-view hidden" id="login-view">
+      <button id="login-back" class="link-btn login-back" type="button">&larr; Back</button>
+      <section class="card auth-card" id="auth-card">
+        <h2>Sign in to your workspace</h2>
+        <p class="hint">Your jobs and reports are private to your account.</p>
+        <form id="auth-form" class="auth-form">
+          <label>Email<input id="auth-email" type="email" autocomplete="email" required></label>
+          <label>Password<input id="auth-password" type="password" autocomplete="current-password" minlength="10" required></label>
+          <label id="auth-name-row" class="hidden">Name<input id="auth-name" type="text" autocomplete="name" maxlength="120"></label>
+          <p id="auth-error" class="error hidden"></p>
+          <button id="auth-submit" class="btn primary" type="submit">Sign in</button>
+        </form>
+        <p class="hint"><button id="auth-mode" class="link-btn" type="button">Create an account</button></p>
+      </section>
     </section>
   </main>
 
@@ -120,7 +164,7 @@
         </div>
         <p class="hint">Orbit: left-drag · Pan: right-drag · Zoom: scroll · Select: click an element.</p>
         <p><button id="preview-load-button" class="btn small hidden" type="button">Load 3D preview</button></p>
-        <div class="viewer-shell">
+        <div class="viewer-shell crop-marks">
           <canvas id="ifc-viewer" aria-label="Interactive IFC model preview"></canvas>
           <div class="preview-toolbar" role="toolbar" aria-label="Model preview controls">
             <button id="preview-original" class="preview-tool active" type="button">Original IFC</button>
@@ -163,7 +207,7 @@
           <div class="workflow-card-head">
             <div class="workflow-card-title">
               <div class="workflow-meta"><span class="workflow-step">Step 2B</span><span class="tag">ifcfault</span></div>
-              <h2>Inject violations</h2>
+              <h2>Mutation Lab</h2>
               <p class="workflow-purpose">Generate a controlled test model with verified rule violations.</p>
             </div>
           </div>
@@ -233,7 +277,7 @@
           <div class="workflow-card-head">
             <div class="workflow-card-title">
               <div class="workflow-meta"><span class="workflow-step">Step 2A</span><span class="tag">BNBC checkers</span></div>
-              <h2>Check compliance</h2>
+              <h2>Design Validation</h2>
               <p class="workflow-purpose">Review your model against selected BNBC compliance rules.</p>
             </div>
           </div>
@@ -276,10 +320,10 @@
         <rect width="32" height="32" rx="7" fill="url(#brandGrad)"/>
         <path d="M9 23V13l7-5 7 5v10h-4v-6h-6v6z" fill="#fff" fill-opacity=".96"/>
       </svg>
-      <span class="footer-brand-title">IFC Compliance Workbench</span>
+      <span class="footer-brand-title">ComplyBIM</span>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 IFC Compliance Workbench. All rights reserved.</span>
+      <span>© 2026 ComplyBIM. All rights reserved.</span>
     </div>
   </footer>
 
