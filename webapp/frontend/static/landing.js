@@ -18,7 +18,7 @@
 (() => {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  // --- 1. the model: hover to take it apart ----------------------------------------
+  // --- 1. the model: hover to put it together --------------------------------------
   // Hover and focus are handled in CSS. This only covers touch, where there is
   // no hover to speak of: a tap toggles the same state, so the model is not
   // simply inert on a phone.
@@ -27,11 +27,11 @@
   if (stage && scene) {
     const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (!canHover) {
-      scene.addEventListener("click", () => stage.classList.toggle("is-exploded"));
+      scene.addEventListener("click", () => stage.classList.toggle("is-assembled"));
     }
     const caption = stage.querySelector(".tower-caption");
     if (caption) {
-      caption.textContent = canHover ? "Hover to take it apart" : "Tap to take it apart";
+      caption.textContent = canHover ? "Hover to put it together" : "Tap to put it together";
       const dot = document.createElement("span");
       dot.className = "scan-dot";
       caption.prepend(dot);

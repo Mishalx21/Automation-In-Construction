@@ -151,16 +151,15 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 }
 .brand-mini { display: flex; align-items: center; gap: .65rem; flex: none; cursor: pointer; border-radius: var(--radius-sm); }
 .brand-mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-.brand-mini:hover .brand-title { color: var(--accent); }
-.brand-title { transition: color .15s; }
-.brand-mark {
-  width: 32px; height: 32px; border-radius: 8px; flex: none;
-  box-shadow: var(--glow);
-  transition: transform .35s cubic-bezier(.3, 1.6, .5, 1);
+/* The supplied wordmark, inlined as a symbol so its ink follows the theme. */
+.brand-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.brand-logo {
+  display: block; height: 1.45rem; width: 7.22rem; align-self: flex-start; color: var(--ink);
+  transition: transform .3s cubic-bezier(.3, 1.5, .5, 1), opacity .15s;
+  transform-origin: left center;
 }
-.brand-mini:hover .brand-mark { transform: rotate(-8deg) scale(1.08); }
-.brand-text { display: flex; flex-direction: column; gap: 0; line-height: 1.15; }
-.brand-title { font-size: .92rem; font-weight: 800; letter-spacing: -.015em; white-space: nowrap; color: var(--ink); }
+.brand-mini:hover .brand-logo { transform: scale(1.03); }
+.brand-text { display: flex; flex-direction: column; gap: .18rem; line-height: 1.15; }
 .brand-subtitle { font-size: .79rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
 .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: .85rem; flex: none; }
 
@@ -380,14 +379,14 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 .landing-signin-hint { margin: 0; }
 
 /* --- the 3D model ----------------------------------------------------------------
- * The building rests assembled (--p: 1) and comes apart into an exploded
- * axonometric on hover (--p: 0), reassembling when the pointer leaves. Touch
- * devices get the same thing on tap, via .is-exploded from landing.js.
+ * The building rests taken apart as an exploded axonometric (--p: 0) and
+ * assembles on hover (--p: 1), coming apart again when the pointer leaves.
+ * Touch devices get the same on tap, via .is-assembled from landing.js.
  * Every transform derives from that one value, so the browser only
  * recomposites — and the model is never tied to the scroll position, which
  * used to carry it off-screen before it finished moving. */
 .hero-visual {
-  --p: 1;
+  --p: 0;
   position: relative;
   min-height: 26rem;
   display: grid;
@@ -502,8 +501,8 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
   position: absolute; left: 0; right: 0; bottom: .25rem; margin: 0;
   display: flex; align-items: center; justify-content: center; gap: .45rem;
   color: var(--muted); font-size: .8rem; font-weight: 600;
-  /* the hint has done its job once the model is open */
-  opacity: var(--p); transition: opacity .35s ease;
+  /* the hint has done its job once the building is together */
+  opacity: calc(1 - var(--p)); transition: opacity .35s ease;
 }
 .scan-dot {
   width: .45rem; height: .45rem; border-radius: 50%; background: var(--accent-2);
@@ -513,9 +512,9 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 /* Take it apart on hover, put it back on leave. Pointer-capable devices only;
    touch taps toggle .is-exploded instead. */
 @media (hover: hover) and (pointer: fine) {
-  .hero-visual:hover, .hero-visual:focus-within { --p: 0; }
+  .hero-visual:hover, .hero-visual:focus-within { --p: 1; }
 }
-.hero-visual.is-exploded { --p: 0; }
+.hero-visual.is-assembled { --p: 1; }
 .tower-scene { cursor: pointer; }
 
 /* --- the figures from the study --------------------------------------------------- */
@@ -657,6 +656,88 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 .wf-cta { align-self: start; justify-self: start; }
 .wf-cta span { transition: transform .25s ease; display: inline-block; }
 .wf-cta:hover span { transform: translateX(3px); }
+
+/* --- landing bands: what is checked, and what comes back ------------------------ */
+.landing-band { display: grid; gap: .35rem; }
+.band-title {
+  margin: 0; font-size: 1.15rem; font-weight: 800; letter-spacing: -.02em;
+  display: flex; align-items: center; gap: .55rem;
+}
+.band-title::after {
+  content: ""; flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--line-strong), transparent);
+}
+.band-lede { margin: 0 0 1rem; color: var(--muted); font-size: .9rem; }
+
+/* the eight things the checks look at */
+.check-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .7rem;
+}
+.check-grid li {
+  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto;
+  column-gap: .75rem; row-gap: .15rem; align-items: center;
+  padding: .85rem .95rem;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--card); box-shadow: var(--shadow);
+  transition: transform .25s cubic-bezier(.3, 1.3, .5, 1), border-color .2s, box-shadow .25s;
+}
+.check-grid li:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.check-ico {
+  grid-row: 1 / 3; display: inline-flex; align-items: center; justify-content: center;
+  width: 2.3rem; height: 2.3rem; flex: none; border-radius: var(--radius-sm);
+  color: var(--accent); background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  transition: transform .3s cubic-bezier(.3, 1.6, .5, 1);
+}
+.check-grid li:hover .check-ico { transform: rotate(-6deg) scale(1.08); }
+.check-ico svg { width: 60%; height: 60%; }
+.check-grid b { font-size: .88rem; align-self: end; }
+.check-grid li > span:last-child { color: var(--muted); font-size: .8rem; line-height: 1.45; align-self: start; }
+
+/* a worked example of a report, in the same language the app uses */
+.report-demo {
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: var(--card); box-shadow: var(--shadow-md); overflow: hidden;
+}
+.rd-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: .7rem 1rem; border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 8%, var(--card)), var(--card));
+}
+.rd-file { font-family: var(--font-mono); font-size: .82rem; font-weight: 600; }
+.rd-summary { color: var(--bad); font-size: .82rem; font-weight: 700; }
+.rd-row {
+  --row: var(--line-strong);
+  display: grid; grid-template-columns: 5.2rem 1fr auto; align-items: center; gap: .9rem;
+  padding: .75rem 1rem; border-bottom: 1px solid var(--line);
+  border-left: 3px solid var(--row);
+  transition: background-color .2s;
+}
+.rd-row:last-child { border-bottom: 0; }
+.rd-row:hover { background: color-mix(in srgb, var(--row) 6%, transparent); }
+.rd-row.bad { --row: var(--bad); }
+.rd-row.ok { --row: var(--ok); }
+.rd-row.warn { --row: var(--warn); }
+.rd-verdict {
+  justify-self: start; font-size: .78rem; font-weight: 700;
+  border: 1px solid currentColor; border-radius: 999px; padding: .08rem .55rem;
+  color: var(--row); background: color-mix(in srgb, var(--row) 12%, transparent);
+}
+.rd-body { display: grid; gap: .1rem; min-width: 0; }
+.rd-body b { font-size: .88rem; }
+.rd-body span { color: var(--muted); font-size: .8rem; }
+.rd-measure { display: grid; gap: .1rem; text-align: right; justify-items: end; }
+.rd-measure b { font-size: .95rem; font-variant-numeric: tabular-nums; color: var(--row); }
+.rd-measure span { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+@media (max-width: 40rem) {
+  .rd-row { grid-template-columns: 1fr auto; }
+  .rd-verdict { grid-column: 1 / -1; }
+}
 
 .landing-credits {
   margin: 0; padding-top: 1.4rem; border-top: 1px solid var(--line);
@@ -1373,8 +1454,7 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
   font-size: .82rem;
 }
 .footer-brand { display: flex; align-items: center; gap: .55rem; }
-.footer-mark { width: 22px; height: 22px; border-radius: 6px; flex: none; box-shadow: var(--shadow); }
-.footer-brand-title { font-weight: 700; font-size: .82rem; color: var(--ink); letter-spacing: -.01em; }
+.footer-logo { display: block; height: 1.1rem; width: 5.48rem; flex: none; color: var(--ink); opacity: .85; }
 .footer-bottom { white-space: nowrap; }
 
 /* --- motion: shared keyframes and entrance effects -------------------------------
@@ -1441,4 +1521,37 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
   .progress-bar.indeterminate .progress-fill { animation-duration: 3s !important; animation-iteration-count: infinite !important; }
   .progress .ptext::before { animation-duration: 2.4s !important; animation-iteration-count: infinite !important; }
   .button-spinner, .viewer-loading::before { animation-duration: 1.5s !important; animation-iteration-count: infinite !important; }
+}
+
+/* --- workflow card: what to do, and what comes back ------------------------------ */
+.run-steps {
+  list-style: none; counter-reset: none; margin: .2rem 0 .85rem; padding: 0;
+  display: grid; gap: .5rem;
+}
+.run-steps li {
+  display: flex; align-items: flex-start; gap: .7rem;
+  padding: .6rem .75rem;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--chip);
+}
+.run-steps li > div { display: grid; gap: .1rem; min-width: 0; }
+.run-steps b { font-size: .86rem; }
+.run-steps li span:not(.run-step-n) { color: var(--muted); font-size: .81rem; line-height: 1.5; }
+.run-steps em { font-style: normal; font-weight: 600; color: var(--ink); }
+.run-step-n {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 1.4rem; height: 1.4rem; border-radius: 50%;
+  background: var(--grad-brand); color: #fff;
+  font: 700 .76rem/1 var(--font-mono);
+}
+.run-outcome {
+  margin: 0 0 1rem; padding: .65rem .8rem;
+  font-size: .83rem; line-height: 1.55; color: var(--muted);
+  border-left: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+.run-outcome b { color: var(--ink); }
+@container (min-width: 52rem) {
+  .run-steps { grid-template-columns: repeat(3, 1fr); }
 }
