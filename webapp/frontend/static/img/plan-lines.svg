@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" fill="none" stroke="#3e7bdb" stroke-linecap="round" stroke-linejoin="round">
+  <!-- A floor plan drawn as a decorative backdrop: walls, door swings,
+       a stair, and dimension lines. Stroke opacity keeps it faint in both
+       themes; the page never needs it to be legible. -->
+  <g stroke-opacity=".22" stroke-width="3">
+    <path d="M60 60H1140V360H60Z"/>
+    <path d="M360 60V230M360 290V360"/>
+    <path d="M700 60V150M700 210V360"/>
+    <path d="M700 230H940M1000 230H1140"/>
+    <path d="M60 210H200M260 210H360"/>
+  </g>
+  <g stroke-opacity=".18" stroke-width="1.6">
+    <!-- door swings -->
+    <path d="M360 230A60 60 0 0 1 420 290"/><path d="M360 230L420 230"/>
+    <path d="M700 150A60 60 0 0 1 760 210"/><path d="M700 150L760 150"/>
+    <path d="M200 210A60 60 0 0 0 260 270"/><path d="M200 210L200 270"/>
+    <path d="M940 230A60 60 0 0 0 1000 290"/><path d="M1000 230L1000 290"/>
+    <!-- stair -->
+    <path d="M470 110H610V200H470Z"/>
+    <path d="M490 110V200M510 110V200M530 110V200M550 110V200M570 110V200M590 110V200"/>
+    <path d="M480 155H600M588 146 600 155 588 164"/>
+  </g>
+  <g stroke-opacity=".16" stroke-width="1.2">
+    <!-- dimension lines -->
+    <path d="M60 30H360M360 30H700M700 30H1140"/>
+    <path d="M60 22V38M360 22V38M700 22V38M1140 22V38"/>
+    <path d="M1170 60V230M1170 230V360M1162 60H1178M1162 230H1178M1162 360H1178"/>
+    <path d="M30 60V360M22 60H38M22 360H38"/>
+  </g>
+  <g fill="#3e7bdb" fill-opacity=".2" stroke="none" font-family="IBM Plex Mono, monospace" font-size="15">
+    <text x="192" y="24">5 400</text>
+    <text x="512" y="24">6 100</text>
+    <text x="900" y="24">7 900</text>
+    <text x="1184" y="150" transform="rotate(90 1184 150)">3 060</text>
+  </g>
+</svg>

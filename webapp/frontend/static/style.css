@@ -673,13 +673,39 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 .link-cta:focus-visible { outline: 2px solid var(--hue); outline-offset: 3px; border-radius: 4px; }
 
 /* the output, tilted a little towards the copy, settling flat on hover */
-.feature-visual { perspective: 1400px; min-width: 0; }
-.feature-visual > * {
+.feature-visual { position: relative; perspective: 1400px; min-width: 0; }
+.feature-visual > .report-demo, .feature-visual > .mut-demo {
+  position: relative; z-index: 1;
+  /* sit low and to one side, so the photo shows above and beside the card */
+  margin: 7.5rem 0 0 13%;
   transform: rotateY(-7deg) rotateX(3deg);
   transition: transform .6s cubic-bezier(.2, .7, .2, 1), box-shadow .6s;
 }
-.feature-reverse .feature-visual > * { transform: rotateY(7deg) rotateX(3deg); }
-.feature-visual:hover > * { transform: none; }
+.feature-reverse .feature-visual > .report-demo,
+.feature-reverse .feature-visual > .mut-demo { margin: 7.5rem 13% 0 0; transform: rotateY(7deg) rotateX(3deg); }
+.feature-visual:hover > .report-demo, .feature-visual:hover > .mut-demo { transform: none; }
+
+/* the photograph behind each feature's output */
+.feature-photo {
+  position: absolute; top: 0; left: 0; right: 9%; bottom: 34%;
+  margin: 0; overflow: hidden; border-radius: 18px;
+  box-shadow: var(--shadow-md);
+}
+.feature-reverse .feature-photo { left: 9%; right: 0; }
+.feature-photo img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transform: scale(1.04);
+  transition: transform 1.4s cubic-bezier(.2, .7, .2, 1);
+}
+.feature-visual:hover .feature-photo img { transform: scale(1.1); }
+/* tie the photo to the feature's colour, and fade it into the page at the bottom */
+.feature-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, transparent 45%, color-mix(in srgb, var(--bg) 55%, transparent)),
+    linear-gradient(150deg, color-mix(in srgb, var(--hue) 22%, transparent), transparent 60%);
+}
+:root[data-theme="dark"] .feature-photo img { filter: brightness(.72) saturate(.85); }
 
 /* a mutation, as the Mutation Lab reports it */
 .mut-demo {
@@ -733,7 +759,11 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 }
 
 /* --- coverage: what the checks look at, as a cluster of chips ------------------ */
-.coverage { display: grid; justify-items: center; gap: 1.5rem; text-align: center; }
+.coverage {
+  display: grid; justify-items: center; gap: 1.5rem; text-align: center;
+  padding: 2.4rem 0;
+  background: url("img/plan-lines.svg") center / min(100%, 72rem) auto no-repeat;
+}
 .section-title {
   margin: 0; font-size: clamp(1.35rem, 2.4vw, 1.85rem); font-weight: 800;
   letter-spacing: -.02em; line-height: 1.2;
@@ -800,6 +830,11 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
   -webkit-mask-image: radial-gradient(70% 90% at 50% 50%, #000, transparent);
   mask-image: radial-gradient(70% 90% at 50% 50%, #000, transparent);
 }
+.cta-band::after {
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background: url("img/facades-up.webp") center / cover;
+  opacity: .2; mix-blend-mode: luminosity;
+}
 .cta-band h2 { margin: 0 0 .4rem; font-size: clamp(1.45rem, 2.8vw, 2.05rem); font-weight: 800; letter-spacing: -.02em; }
 .cta-band p { margin: 0; opacity: .85; }
 .cta-band .hero-cta { justify-content: center; margin-bottom: 0; }
@@ -826,7 +861,11 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
   .proof-strip { margin-top: -1.5rem; gap: .6rem 1.4rem; }
   .feature, .feature-reverse { grid-template-columns: 1fr; gap: 1.6rem; }
   .feature-reverse .feature-copy { order: 0; }
-  .feature-visual > *, .feature-reverse .feature-visual > * { transform: none; }
+  .feature-visual > .report-demo, .feature-visual > .mut-demo,
+  .feature-reverse .feature-visual > .report-demo, .feature-reverse .feature-visual > .mut-demo {
+    transform: none; margin: 5.5rem 4% 0;
+  }
+  .feature-photo, .feature-reverse .feature-photo { left: 0; right: 0; bottom: 40%; }
   .how-steps { grid-template-columns: 1fr; }
 }
 
