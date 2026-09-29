@@ -28,7 +28,7 @@
       </svg>
       <div class="brand-text">
         <span class="brand-title">ComplyBIM</span>
-        <span class="brand-subtitle">Engineering review workspace</span>
+        <span class="brand-subtitle">Code compliance, measured — not guessed</span>
       </div>
     </div>
     <nav class="workflow-switch hidden" id="workflow-switch" aria-label="Choose workflow">
@@ -77,47 +77,248 @@
 
   <main id="auth-main">
     <section class="landing" id="landing-view">
-      <div class="landing-intro">
-        <span class="tag landing-badge">BNBC compliance for IFC models</span>
-        <h1 class="hero-title">Check your building model <span class="accent-text">before it's built.</span></h1>
-        <p class="hero-sub">Upload an IFC model and run the accepted BNBC rule checkers, or generate an independently verified test case with a known violation. Deterministic, fixture-verified checkers — no LLM calls at check time.</p>
-        <p class="hint landing-signin-hint">Already have an account? <button id="landing-signin" class="link-btn" type="button">Sign in</button></p>
+      <!-- hero: the claim, and the model that assembles itself as you scroll -->
+      <div class="landing-hero">
+        <div class="landing-intro">
+          <span class="tag landing-badge">BUET CSE capstone · BNBC 2020</span>
+          <h1 class="hero-title">From building code to <span class="accent-text">verified correction.</span></h1>
+          <p class="hero-sub">A building design must satisfy thousands of code rules, and checking them by hand takes expert time on every revision. ComplyBIM measures your IFC model against the Bangladesh National Building Code and tells you which clause is violated, by how much, and exactly which element is at fault.</p>
+          <div class="hero-cta">
+            <button class="btn primary landing-option" type="button" data-intent="check-card">Check a model</button>
+            <button class="btn landing-option" type="button" data-intent="inject-card">Generate a test case</button>
+          </div>
+          <p class="hint landing-signin-hint">Free to try — takes one IFC file. Already have an account? <button id="landing-signin" class="link-btn" type="button">Sign in</button></p>
+        </div>
+
+        <!-- Scroll-driven 3D: an exploded axonometric that assembles into a
+             tower while a checker plane sweeps it. Pure CSS 3D transforms
+             driven by one custom property (--p) written by landing.js. -->
+        <div class="hero-visual" id="tower-stage">
+          <div class="tower-scene" aria-hidden="true">
+            <div class="tower">
+              <span class="column" style="--cx:-1"></span>
+              <span class="column" style="--cx:1"></span>
+              <span class="column" style="--cy:-1"></span>
+              <span class="column" style="--cy:1"></span>
+              <div class="floor" style="--i:0"></div>
+              <div class="floor" style="--i:1"></div>
+              <div class="floor" style="--i:2"></div>
+              <div class="floor" style="--i:3"></div>
+              <div class="floor flagged" style="--i:4"><span class="floor-flag">A6 · ceiling height</span></div>
+              <div class="floor" style="--i:5"></div>
+              <div class="floor" style="--i:6"></div>
+              <div class="floor" style="--i:7"></div>
+              <div class="floor roof" style="--i:8"></div>
+              <div class="scan-plane"></div>
+            </div>
+          </div>
+          <p class="tower-caption"><span class="scan-dot"></span>Scroll to assemble the model</p>
+        </div>
       </div>
-      <div class="hero-visual">
-        <img class="hero-photo" src="https://images.unsplash.com/photo-1574848296471-28f79a036f79?auto=format&amp;fit=crop&amp;w=900&amp;q=70" alt="Angular modern high-rise building facade" loading="lazy">
-        <p class="hero-photo-credit">Photo: <a href="https://unsplash.com/photos/high-rise-building-EvczjigoKzk" target="_blank" rel="noopener">Unsplash</a></p>
-      </div>
+
+      <!-- the numbers from the study, counted up on first view -->
+      <dl class="landing-stats" id="landing-stats">
+        <div class="stat"><dt>Checker-generation accuracy</dt><dd><span class="stat-num" data-to="86.4" data-decimals="1">0</span>%</dd></div>
+        <div class="stat"><dt>IFC test cases generated</dt><dd><span class="stat-num" data-to="74">0</span></dd></div>
+        <div class="stat"><dt>Accepted BNBC checkers</dt><dd><span class="stat-num" data-to="20">0</span></dd></div>
+        <div class="stat"><dt>Safety gates per injection</dt><dd><span class="stat-num" data-to="3">0</span></dd></div>
+      </dl>
+
+      <!-- the two workflows, each expanding into how it actually works -->
       <div class="landing-options">
-        <button class="landing-option" type="button" data-intent="check-card">
-          <span class="choice-icon">
-            <svg viewBox="0 0 20 20" aria-hidden="true">
-              <rect x="4.5" y="3" width="11" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
-              <path d="M7.5 3V2.3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V3" fill="none" stroke="currentColor" stroke-width="1.4"/>
-              <path d="M7 10.4l2 2 4-4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <span class="landing-option-body">
-            <span class="landing-option-title">Design Validation</span>
-            <span class="landing-option-desc">Run the accepted BNBC rule checkers against your model and get pass/fail verdicts with evidence.</span>
-          </span>
-          <span class="landing-option-arrow" aria-hidden="true">&rarr;</span>
-        </button>
-        <button class="landing-option" type="button" data-intent="inject-card">
-          <span class="choice-icon warn">
-            <svg viewBox="0 0 20 20" aria-hidden="true">
-              <path d="M11 2 4.5 11.3h4.3l-.8 6.7 7-9.3H10.7l.3-6.7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <span class="landing-option-body">
-            <span class="landing-option-title">Mutation Lab</span>
-            <span class="landing-option-desc">Inject a known, independently verified violation into a model to validate a checker or build a fixture.</span>
-          </span>
-          <span class="landing-option-arrow" aria-hidden="true">&rarr;</span>
-        </button>
+        <p class="section-lede">Two workflows, one model. <span>Hover or tap a card to see how it works.</span></p>
+
+        <article class="wf-panel" data-hue="check">
+          <button class="wf-head" type="button" aria-expanded="false" aria-controls="wf-details-check">
+            <span class="wf-index">01</span>
+            <span class="choice-icon">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <rect x="4.5" y="3" width="11" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M7.5 3V2.3a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M7 10.4l2 2 4-4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="wf-head-body">
+              <span class="wf-title">Design Validation</span>
+              <span class="wf-lede">Measure the model against 20 accepted BNBC checkers and get a verdict per rule — with the measured value, the clause it cites, and the offending element highlighted in 3D.</span>
+            </span>
+            <span class="wf-chevron" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </button>
+          <div class="wf-details" id="wf-details-check">
+            <div class="wf-details-inner">
+              <div class="wf-steps">
+                <div class="wf-step"><span class="wf-step-n">1</span><b>Codified requirement</b><span>The clause becomes machine-readable: scope, applicability, limits.</span></div>
+                <div class="wf-step"><span class="wf-step-n">2</span><b>Checker synthesis</b><span>An agent writes the checking program — offline, never at check time.</span></div>
+                <div class="wf-step"><span class="wf-step-n">3</span><b>Element extraction</b><span>Every relevant door, stair, beam and slab is pulled from the IFC.</span></div>
+                <div class="wf-step"><span class="wf-step-n">4</span><b>Limit comparison</b><span>Measured quantities are compared against the required values.</span></div>
+              </div>
+              <p class="wf-note"><b>The LLM never judges your design.</b> It only writes the program; the numbers come from measuring the model, so a check is deterministic and repeatable. A checker is accepted only after it finds the correct elements, covers every case, catches multiple violations, and repeats identically.</p>
+              <ul class="wf-verdicts">
+                <li><span class="dot ok"></span><b>pass</b> — checked, no violation</li>
+                <li><span class="dot bad"></span><b>fail</b> — violations found, with evidence</li>
+                <li><span class="dot warn"></span><b>unknown</b> — the IFC lacks the data; never an unsafe pass</li>
+                <li><span class="dot na"></span><b>not applicable</b> — the rule does not apply</li>
+              </ul>
+              <button class="btn primary landing-option wf-cta" type="button" data-intent="check-card">Check a model <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+        </article>
+
+        <article class="wf-panel" data-hue="inject">
+          <button class="wf-head" type="button" aria-expanded="false" aria-controls="wf-details-inject">
+            <span class="wf-index">02</span>
+            <span class="choice-icon warn">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M11 2 4.5 11.3h4.3l-.8 6.7 7-9.3H10.7l.3-6.7z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="wf-head-body">
+              <span class="wf-title">Mutation Lab</span>
+              <span class="wf-lede">No public dataset of code-violating BIM models exists. So build one: inject a known, documented violation into a real design, then verify it independently.</span>
+            </span>
+            <span class="wf-chevron" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </button>
+          <div class="wf-details" id="wf-details-inject">
+            <div class="wf-details-inner">
+              <div class="wf-steps">
+                <div class="wf-step"><span class="wf-step-n">1</span><b>Read the design</b><span>List every door, stair, wall and room in the model.</span></div>
+                <div class="wf-step"><span class="wf-step-n">2</span><b>Choose the rule</b><span>Pick the BNBC clause the fixture should violate.</span></div>
+                <div class="wf-step"><span class="wf-step-n">3</span><b>Write the change</b><span>An agent emits the edit part by part, rewriting only what breaks.</span></div>
+                <div class="wf-step"><span class="wf-step-n">4</span><b>Apply and check</b><span>Apply it, then confirm the rule genuinely fails.</span></div>
+              </div>
+              <p class="wf-note"><b>Three gates, no trust.</b> Every generated script is read and blocked from risky actions, run as a separate program under a time limit so a crash cannot spread, and the result is measured again independently — only the stated change may appear. If a violation cannot be applied and verified, nothing is delivered.</p>
+              <ul class="wf-verdicts">
+                <li><span class="dot na"></span><b>Gate 1 · scan</b> — no file deletion, no network</li>
+                <li><span class="dot na"></span><b>Gate 2 · sandbox</b> — isolated, time-limited run</li>
+                <li><span class="dot na"></span><b>Gate 3 · recheck</b> — independent re-measurement</li>
+              </ul>
+              <button class="btn primary landing-option wf-cta" type="button" data-intent="inject-card">Generate a test case <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+        </article>
       </div>
+
+      <p class="landing-credits">
+        <b>Automated Building Code Compliance Checking</b> — agent-driven compliance checking for architectural design.
+        Supervised by Dr. Anindya Iqbal, Professor, CSE, BUET.
+        Sheikh Iftikharun Nisa · Mishal Rahman · Satak Kumar Dey · Azmain Apro · Jannatul Ferdous Prity.
+      </p>
     </section>
 
     <section class="login-view hidden" id="login-view">
+      <!-- Decorative: an axonometric construction drawing that draws itself in
+           and drifts with the pointer. Generated geometry, no external asset. -->
+      <div class="skeleton-bg" id="skeleton-bg" aria-hidden="true">
+      <svg class="skeleton-art" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <g class="sk-grid">
+      <line x1="0" y1="0" x2="0" y2="700"/>
+      <line x1="50" y1="0" x2="50" y2="700"/>
+      <line x1="100" y1="0" x2="100" y2="700"/>
+      <line x1="150" y1="0" x2="150" y2="700"/>
+      <line x1="200" y1="0" x2="200" y2="700"/>
+      <line x1="250" y1="0" x2="250" y2="700"/>
+      <line x1="300" y1="0" x2="300" y2="700"/>
+      <line x1="350" y1="0" x2="350" y2="700"/>
+      <line x1="400" y1="0" x2="400" y2="700"/>
+      <line x1="450" y1="0" x2="450" y2="700"/>
+      <line x1="500" y1="0" x2="500" y2="700"/>
+      <line x1="550" y1="0" x2="550" y2="700"/>
+      <line x1="600" y1="0" x2="600" y2="700"/>
+      <line x1="650" y1="0" x2="650" y2="700"/>
+      <line x1="700" y1="0" x2="700" y2="700"/>
+      <line x1="750" y1="0" x2="750" y2="700"/>
+      <line x1="800" y1="0" x2="800" y2="700"/>
+      <line x1="850" y1="0" x2="850" y2="700"/>
+      <line x1="900" y1="0" x2="900" y2="700"/>
+      <line x1="0" y1="0" x2="900" y2="0"/>
+      <line x1="0" y1="50" x2="900" y2="50"/>
+      <line x1="0" y1="100" x2="900" y2="100"/>
+      <line x1="0" y1="150" x2="900" y2="150"/>
+      <line x1="0" y1="200" x2="900" y2="200"/>
+      <line x1="0" y1="250" x2="900" y2="250"/>
+      <line x1="0" y1="300" x2="900" y2="300"/>
+      <line x1="0" y1="350" x2="900" y2="350"/>
+      <line x1="0" y1="400" x2="900" y2="400"/>
+      <line x1="0" y1="450" x2="900" y2="450"/>
+      <line x1="0" y1="500" x2="900" y2="500"/>
+      <line x1="0" y1="550" x2="900" y2="550"/>
+      <line x1="0" y1="600" x2="900" y2="600"/>
+      <line x1="0" y1="650" x2="900" y2="650"/>
+      <line x1="0" y1="700" x2="900" y2="700"/>
+      </g>
+      <g class="sk-body">
+      <ellipse class="sk-mark" pathLength="1" cx="546.1" cy="597.5" rx="17" ry="9"/>
+      <ellipse class="sk-mark" pathLength="1" cx="679.4" cy="430" rx="17" ry="9"/>
+      <ellipse class="sk-mark" pathLength="1" cx="412.8" cy="390" rx="17" ry="9"/>
+      <ellipse class="sk-mark" pathLength="1" cx="494.5" cy="392.5" rx="17" ry="9"/>
+      <line class="sk-line" pathLength="1" x1="430" y1="545" x2="430" y2="297.5"/>
+      <line class="sk-line" pathLength="1" x1="640.7" y1="422.5" x2="640.7" y2="175"/>
+      <line class="sk-line" pathLength="1" x1="279.5" y1="457.5" x2="279.5" y2="210"/>
+      <line class="sk-line sk-hidden" pathLength="1" x1="490.2" y1="335" x2="490.2" y2="87.5"/>
+      <line class="sk-line" pathLength="1" x1="430" y1="545" x2="640.7" y2="422.5"/>
+      <line class="sk-line" pathLength="1" x1="430" y1="545" x2="279.5" y2="457.5"/>
+      <line class="sk-line sk-hidden" pathLength="1" x1="640.7" y1="422.5" x2="490.2" y2="335"/>
+      <line class="sk-line sk-hidden" pathLength="1" x1="279.5" y1="457.5" x2="490.2" y2="335"/>
+      <line class="sk-line" pathLength="1" x1="430" y1="297.5" x2="640.7" y2="175"/>
+      <line class="sk-line" pathLength="1" x1="430" y1="297.5" x2="279.5" y2="210"/>
+      <line class="sk-line" pathLength="1" x1="640.7" y1="175" x2="490.2" y2="87.5"/>
+      <line class="sk-line" pathLength="1" x1="279.5" y1="210" x2="490.2" y2="87.5"/>
+      <line class="sk-line sk-slab" pathLength="1" x1="430" y1="483.1" x2="640.7" y2="360.6"/>
+      <line class="sk-line sk-slab" pathLength="1" x1="430" y1="483.1" x2="279.5" y2="395.6"/>
+      <line class="sk-line sk-slab sk-hidden" pathLength="1" x1="640.7" y1="360.6" x2="490.2" y2="273.1"/>
+      <line class="sk-line sk-slab sk-hidden" pathLength="1" x1="279.5" y1="395.6" x2="490.2" y2="273.1"/>
+      <line class="sk-line sk-slab" pathLength="1" x1="430" y1="421.3" x2="640.7" y2="298.8"/>
+      <line class="sk-line sk-slab" pathLength="1" x1="430" y1="421.3" x2="279.5" y2="333.8"/>
+      <line class="sk-line sk-slab sk-hidden" pathLength="1" x1="640.7" y1="298.8" x2="490.2" y2="211.3"/>
+      <line class="sk-line sk-slab sk-hidden" pathLength="1" x1="279.5" y1="333.8" x2="490.2" y2="211.3"/>
+      <line class="sk-line sk-slab" pathLength="1" x1="430" y1="359.4" x2="640.7" y2="236.9"/>
+      <line class="sk-line sk-slab" pathLength="1" x1="430" y1="359.4" x2="279.5" y2="271.9"/>
+      <line class="sk-line sk-slab sk-hidden" pathLength="1" x1="640.7" y1="236.9" x2="490.2" y2="149.4"/>
+      <line class="sk-line sk-slab sk-hidden" pathLength="1" x1="279.5" y1="271.9" x2="490.2" y2="149.4"/>
+      <line class="sk-line sk-mullion" pathLength="1" x1="472.1" y1="520.5" x2="472.1" y2="273"/>
+      <line class="sk-line sk-mullion" pathLength="1" x1="514.3" y1="496" x2="514.3" y2="248.5"/>
+      <line class="sk-line sk-mullion" pathLength="1" x1="556.4" y1="471.5" x2="556.4" y2="224"/>
+      <line class="sk-line sk-mullion" pathLength="1" x1="598.6" y1="447" x2="598.6" y2="199.5"/>
+      <line class="sk-line sk-mullion" pathLength="1" x1="392.4" y1="523.1" x2="392.4" y2="275.6"/>
+      <line class="sk-line sk-mullion" pathLength="1" x1="354.8" y1="501.3" x2="354.8" y2="253.8"/>
+      <line class="sk-line sk-mullion" pathLength="1" x1="317.1" y1="479.4" x2="317.1" y2="231.9"/>
+      <line class="sk-line" pathLength="1" x1="576.2" y1="575" x2="576.2" y2="470.5"/>
+      <line class="sk-line" pathLength="1" x1="705.2" y1="500" x2="705.2" y2="395.5"/>
+      <line class="sk-line" pathLength="1" x1="481.6" y1="520" x2="481.6" y2="415.5"/>
+      <line class="sk-line" pathLength="1" x1="576.2" y1="575" x2="705.2" y2="500"/>
+      <line class="sk-line" pathLength="1" x1="576.2" y1="575" x2="481.6" y2="520"/>
+      <line class="sk-line" pathLength="1" x1="576.2" y1="470.5" x2="705.2" y2="395.5"/>
+      <line class="sk-line" pathLength="1" x1="576.2" y1="470.5" x2="481.6" y2="415.5"/>
+      <line class="sk-line" pathLength="1" x1="705.2" y1="395.5" x2="610.6" y2="340.5"/>
+      <line class="sk-line" pathLength="1" x1="481.6" y1="415.5" x2="610.6" y2="340.5"/>
+      <line class="sk-line sk-mullion" pathLength="1" x1="608.5" y1="556.3" x2="608.5" y2="451.8"/>
+      <line class="sk-line sk-mullion" pathLength="1" x1="640.7" y1="537.5" x2="640.7" y2="433"/>
+      <line class="sk-line sk-mullion" pathLength="1" x1="673" y1="518.8" x2="673" y2="414.3"/>
+      <line class="sk-line" pathLength="1" x1="537.5" y1="652.5" x2="842.8" y2="475"/>
+      <line class="sk-line" pathLength="1" x1="537.5" y1="652.5" x2="197.8" y2="455"/>
+      <line class="sk-line" pathLength="1" x1="842.8" y1="475" x2="503.1" y2="277.5"/>
+      <line class="sk-line" pathLength="1" x1="197.8" y1="455" x2="503.1" y2="277.5"/>
+      <line class="sk-line" pathLength="1" x1="537.5" y1="641.5" x2="842.8" y2="464"/>
+      <line class="sk-line" pathLength="1" x1="537.5" y1="641.5" x2="197.8" y2="444"/>
+      <line class="sk-line" pathLength="1" x1="842.8" y1="464" x2="503.1" y2="266.5"/>
+      <line class="sk-line" pathLength="1" x1="197.8" y1="444" x2="503.1" y2="266.5"/>
+      <line class="sk-line" pathLength="1" x1="537.5" y1="652.5" x2="537.5" y2="641.5"/>
+      <line class="sk-line" pathLength="1" x1="842.8" y1="475" x2="842.8" y2="464"/>
+      <line class="sk-line" pathLength="1" x1="197.8" y1="455" x2="197.8" y2="444"/>
+      <line class="sk-line" pathLength="1" x1="503.1" y1="277.5" x2="503.1" y2="266.5"/>
+      <line class="sk-line sk-guide" pathLength="1" x1="640.7" y1="175" x2="746.1" y2="113.8"/>
+      <line class="sk-line sk-guide" pathLength="1" x1="279.5" y1="210" x2="204.3" y2="166.3"/>
+      <line class="sk-line sk-guide" pathLength="1" x1="640.7" y1="422.5" x2="729.2" y2="371.1"/>
+      <line class="sk-line sk-guide" pathLength="1" x1="279.5" y1="457.5" x2="216.3" y2="420.8"/>
+      <line class="sk-line sk-guide" pathLength="1" x1="430" y1="297.5" x2="430" y2="223.3"/>
+      <line class="sk-line sk-guide" pathLength="1" x1="705.2" y1="395.5" x2="782.6" y2="350.5"/>
+      </g>
+      </svg>
+      </div>
       <button id="login-back" class="link-btn login-back" type="button">&larr; Back</button>
       <section class="card auth-card" id="auth-card">
         <h2>Sign in to your workspace</h2>
@@ -345,5 +546,6 @@
   <script src="app.js"></script>
   <script type="module" src="ifc-viewer.js"></script>
   <script src="layout.js"></script>
+  <script src="landing.js"></script>
 </body>
 </html>

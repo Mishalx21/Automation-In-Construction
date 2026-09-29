@@ -236,6 +236,29 @@
     $("login-back")?.addEventListener("click", () => showLanding(true));
   }
 
+  // --- the brand mark is always the way home ------------------------------------
+  // Signed out that means the landing page; signed in it means the workspace at
+  // its default task, since the workspace *is* home once you have an account.
+  const brand = document.querySelector(".brand-mini");
+  if (brand) {
+    brand.tabIndex = 0;
+    brand.setAttribute("role", "link");
+    brand.setAttribute("aria-label", "ComplyBIM home");
+    const goHome = () => {
+      if (isSignedIn()) {
+        window.selectWorkflow?.("check-card");
+        pushTaskUrl("check-card", false);
+      } else {
+        showLanding(true);
+      }
+      window.scrollTo({top: 0, behavior: "smooth"});
+    };
+    brand.addEventListener("click", goHome);
+    brand.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); goHome(); }
+    });
+  }
+
   // --- file strip: collapse the dropzone once a file is picked -------------------
   const dropzone = $("dropzone");
   const fileInput = $("file-input");
