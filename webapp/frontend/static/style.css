@@ -242,10 +242,71 @@ h3 { font-size: .82rem; margin: .85rem 0 .35rem; color: var(--muted); text-trans
 }
 .link-btn { border: 0; padding: 0; background: none; color: var(--accent); font: inherit; cursor: pointer; text-decoration: underline; }
 
-/* --- user chip ---------------------------------------------------------------- */
-.user-bar { display: flex; align-items: center; gap: .55rem; font-size: .8rem; padding-left: .85rem; border-left: 1px solid var(--line-strong); }
-.user-avatar { display: inline-flex; width: 1.55rem; height: 1.55rem; align-items: center; justify-content: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-weight: 800; font-size: .82rem; }
-#user-name { font-weight: 600; }
+/* --- topbar pill (recent activity) ------------------------------------------------ */
+.topbar-pill {
+  display: inline-flex; align-items: center; gap: .45rem; flex: none;
+  height: 2.1rem; padding: 0 .9rem 0 .7rem;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  background: var(--card); color: var(--ink); box-shadow: var(--shadow);
+  font: 600 .82rem/1 var(--font-sans); cursor: pointer;
+  transition: border-color .15s, color .15s, background-color .15s, box-shadow .2s;
+}
+.topbar-pill:hover { border-color: var(--accent); color: var(--accent); }
+.topbar-pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.topbar-pill[aria-expanded="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.history-icon { width: 1.05rem; height: 1.05rem; transition: transform .45s cubic-bezier(.3, 1.4, .5, 1); }
+.topbar-pill:hover .history-icon { transform: rotate(-40deg); }
+
+/* --- account menu ----------------------------------------------------------------- */
+.user-menu { position: relative; padding-left: .85rem; border-left: 1px solid var(--line-strong); }
+.user-chip {
+  display: inline-flex; align-items: center; gap: .5rem;
+  height: 2.1rem; padding: 0 .55rem 0 .2rem;
+  border: 1px solid transparent; border-radius: 999px;
+  background: transparent; color: var(--ink);
+  font: 600 .82rem/1 var(--font-sans); cursor: pointer;
+  transition: background-color .15s, border-color .15s;
+}
+.user-chip:hover { background: var(--chip); }
+.user-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.user-chip[aria-expanded="true"] { background: var(--card); border-color: var(--line-strong); }
+#user-name { max-width: 10rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-avatar {
+  display: inline-grid; place-items: center; flex: none;
+  width: 1.7rem; height: 1.7rem; border-radius: 50%;
+  background: var(--grad-brand); color: #fff;
+  font-size: .72rem; font-weight: 700; letter-spacing: .02em;
+}
+.user-avatar.lg { width: 2.3rem; height: 2.3rem; font-size: .86rem; }
+.user-chevron { width: .95rem; height: .95rem; color: var(--muted); transition: transform .2s; }
+.user-chip[aria-expanded="true"] .user-chevron { transform: rotate(180deg); }
+.user-menu-panel {
+  position: absolute; right: 0; top: calc(100% + .55rem); z-index: 30;
+  min-width: 15.5rem; padding: .4rem;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  animation: menu-in .14s ease-out;
+}
+@keyframes menu-in { from { opacity: 0; transform: translateY(-4px); } }
+.user-menu-head {
+  display: flex; align-items: center; gap: .65rem;
+  padding: .5rem .5rem .7rem; margin-bottom: .35rem; border-bottom: 1px solid var(--line);
+}
+.user-menu-id { display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+.user-menu-id b { font-size: .88rem; }
+.user-menu-id span, .user-menu-id b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-menu-id span { font-size: .79rem; color: var(--muted); }
+.user-menu-item {
+  display: flex; align-items: center; gap: .55rem; width: 100%;
+  padding: .5rem .55rem; border: 0; border-radius: var(--radius-sm);
+  background: none; color: var(--ink); text-align: left;
+  font: 600 .84rem/1.2 var(--font-sans); cursor: pointer;
+  transition: background-color .12s;
+}
+.user-menu-item svg { width: 1.05rem; height: 1.05rem; flex: none; }
+.user-menu-item:hover, .user-menu-item:focus-visible { background: var(--chip); outline: none; }
+.user-menu-item.danger { color: var(--bad); }
+.user-menu-item.danger:hover, .user-menu-item.danger:focus-visible { background: color-mix(in srgb, var(--bad) 10%, transparent); }
 
 /* --- workflow switch (topbar segmented control) ------------------------------- */
 /* .mode-choice (the per-panel manual/batch switch) shares this same visual
@@ -1673,8 +1734,6 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
 .drawer-backdrop { -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
 .history-item { transition: border-color .15s, transform .15s; }
 .history-item:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); transform: translateX(-2px); }
-
-.user-avatar { background: var(--grad-brand); color: #fff; }
 
 /* The viewer canvas keeps its dark stage in both themes (the red violation
    highlight is tuned against it); by night its frame picks up the accent. */

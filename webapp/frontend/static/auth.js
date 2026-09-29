@@ -38,7 +38,14 @@ async function setSignedIn(user) {
   auth$("auth-main").classList.add("hidden");
   auth$("workspace").classList.remove("hidden");
   auth$("user-bar").classList.remove("hidden");
-  auth$("user-name").textContent = user.display_name || user.email;
+  const name = user.display_name || user.email;
+  const initials = name.split(/[\s@._-]+/).filter(Boolean).slice(0, 2)
+    .map((part) => part[0].toUpperCase()).join("") || "?";
+  auth$("user-name").textContent = name;
+  auth$("user-avatar").textContent = initials;
+  auth$("user-avatar-lg").textContent = initials;
+  auth$("user-menu-name").textContent = name;
+  auth$("user-menu-email").textContent = user.email;
   await refreshHistory();
   window.dispatchEvent(new Event("auth:ready"));
 }

@@ -167,6 +167,31 @@
     if (event.key === "Escape" && historyDrawer.classList.contains("open")) setDrawerOpen(false);
   });
 
+  // --- account menu --------------------------------------------------------------
+  const userMenuBtn = $("user-menu-btn");
+  const userMenuPanel = $("user-menu-panel");
+  function setUserMenuOpen(open, focusItem) {
+    show(userMenuPanel, open);
+    userMenuBtn.setAttribute("aria-expanded", String(open));
+    if (open && focusItem) $("logout-btn").focus();
+  }
+  userMenuBtn.addEventListener("click", (event) => {
+    const opening = userMenuPanel.classList.contains("hidden");
+    // Keyboard activation (detail 0) moves focus into the menu; a mouse click does not.
+    setUserMenuOpen(opening, event.detail === 0);
+  });
+  document.addEventListener("click", (event) => {
+    if (!userMenuPanel.classList.contains("hidden") && !$("user-bar").contains(event.target)) {
+      setUserMenuOpen(false);
+    }
+  });
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !userMenuPanel.classList.contains("hidden")) {
+      setUserMenuOpen(false);
+      userMenuBtn.focus();
+    }
+  });
+
   // --- task URLs: the signed-in workspace also gets a real path per task ---------
   // /design-validation for Design Validation, /mutation-lab for Mutation Lab
   // — nginx's SPA catch-all serves index.html for any path, so this is
