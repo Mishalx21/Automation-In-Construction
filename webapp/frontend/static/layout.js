@@ -41,6 +41,12 @@
   let state = Object.assign({ leftWidth: null, collapsed: null }, loadState());
 
   function applyLayout() {
+    // Nothing to split while the preview pane is hidden, and an inline
+    // grid-template would override the single-column rule.
+    if (split.classList.contains("solo")) {
+      split.style.gridTemplateColumns = "";
+      return;
+    }
     if (!isSplitLayout()) {
       split.style.gridTemplateColumns = "";
       split.classList.remove("collapsed-left", "collapsed-right");
@@ -270,6 +276,19 @@
     show(changeFileBtn, true);
     show(previewPlaceholder, false);
   }
+  // --- hide the preview pane until there is a preview ----------------------------
+  // app.js and ifc-viewer.js own #preview-card's visibility; watching it keeps
+  // this presentational and avoids reaching into their state.
+  const previewCard = $("preview-card");
+  if (split && previewCard) {
+    const syncSolo = () => {
+      split.classList.toggle("solo", previewCard.classList.contains("hidden"));
+      applyLayout();
+    };
+    new MutationObserver(syncSolo).observe(previewCard, {attributes: true, attributeFilter: ["class"]});
+    syncSolo();
+  }
+
   fileInput.addEventListener("change", () => { if (fileInput.files.length) onFilePicked(); });
   dropzone.addEventListener("drop", () => onFilePicked());
   changeFileBtn.addEventListener("click", () => fileInput.click());

@@ -43,8 +43,8 @@
   --chip: #eef0f3;
   --shadow: 0 1px 2px rgba(16, 24, 40, .07);
   --shadow-md: 0 3px 10px rgba(16, 24, 40, .1);
-  --radius: 7px;
-  --radius-sm: 5px;
+  --radius: 13px;
+  --radius-sm: 9px;
   --topbar-h: 58px;
   --content-max: 92rem;
   --gutter: max(1.5rem, calc((100vw - var(--content-max)) / 2));
@@ -881,34 +881,55 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 .history-list:empty::after { content: "No completed jobs yet."; color: var(--muted); }
 
 /* --- dropzone / file strip ------------------------------------------------------ */
+/* The drop target used to be a tall empty rectangle with a hard dashed edge.
+   It is now a soft, rounded well: the dashes are an inset outline, which keeps
+   the corners round, and the whole thing is shorter. */
 .dropzone {
-  border: 1.5px dashed var(--line-strong);
-  border-radius: var(--radius);
-  padding: 1.4rem 1.5rem;
+  position: relative;
+  display: grid; justify-items: center; gap: .1rem;
+  border: 0;
+  border-radius: 18px;
+  padding: 1.5rem 1.5rem 1.6rem;
   text-align: center;
   color: var(--muted);
-  transition: border-color .12s, background-color .12s;
+  background:
+    radial-gradient(120% 150% at 50% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 68%),
+    var(--card);
+  outline: 1.5px dashed color-mix(in srgb, var(--accent) 32%, var(--line-strong));
+  outline-offset: -7px;
+  cursor: pointer;
+  transition: outline-color .18s, background-color .18s, transform .18s;
 }
 .dropzone:hover, .dropzone:focus-visible {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-  outline: none;
+  outline-color: var(--accent);
+  transform: translateY(-1px);
 }
-.dropzone.drag { border-color: var(--accent); background: var(--accent-soft); }
-.dropzone p { margin: .35rem 0; }
-.dz-icon { width: 34px; height: 34px; opacity: .6; }
+.dropzone.drag { outline-color: var(--accent); outline-style: solid; }
+.dropzone p { margin: 0; }
+.dz-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 3.1rem; height: 3.1rem; margin-bottom: .55rem; border-radius: 50%;
+  color: #fff; background: var(--grad-brand);
+  box-shadow: var(--glow);
+  transition: transform .3s cubic-bezier(.3, 1.5, .5, 1);
+}
+.dropzone:hover .dz-chip { transform: translateY(-2px) scale(1.05); }
+.dz-icon { width: 55%; height: 55%; }
+.dz-title { font-size: .95rem; font-weight: 700; color: var(--ink); }
+.dz-sub { font-size: .82rem; margin-bottom: .7rem !important; }
 .picked { font-weight: 600; color: var(--ok); margin-top: .4rem !important; }
 
 /* Once a file is picked, collapse the dropzone to a compact strip. */
 .dropzone.collapsed {
-  padding: .55rem .8rem;
+  padding: .6rem .9rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: .7rem;
-  border-style: solid;
+  outline-style: solid;
+  outline-color: color-mix(in srgb, var(--ok) 45%, var(--line-strong));
 }
-.dropzone.collapsed .dz-icon,
+.dropzone.collapsed .dz-chip,
 .dropzone.collapsed p:not(.picked),
 .dropzone.collapsed label.btn { display: none; }
 .dropzone.collapsed .picked { margin: 0 !important; }
@@ -1370,14 +1391,20 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
 #workspace-split.collapsed-right #pane-resizer { cursor: default; }
 
 .preview-card { margin: 0; }
+/* Shown only while a preview is being prepared — the pane itself is hidden
+   until there is something to show, so this is never a large empty box. */
 .preview-placeholder {
-  border: 1px dashed var(--line);
-  border-radius: var(--radius);
-  padding: 2rem 1rem;
+  display: grid; justify-items: center; gap: .6rem;
+  border: 0;
+  border-radius: 18px;
+  padding: 2.2rem 1.5rem;
   text-align: center;
   color: var(--muted);
-  font-size: .84rem;
+  font-size: .85rem;
+  background: radial-gradient(110% 130% at 50% 10%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 70%);
 }
+.pp-art { width: min(15rem, 70%); height: auto; color: var(--accent); opacity: .5; }
+.preview-placeholder p { margin: 0; max-width: 28ch; }
 .preview-head-actions { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .viewer-shell { position: relative; height: min(58vw, 32rem); min-height: 18rem; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-sm); background: #1c232c; }
 
@@ -1609,3 +1636,11 @@ body.pane-dragging #pane-resizer .pane-grip { background: var(--accent); }
   border-color: var(--warn);
   box-shadow: 0 8px 18px -10px color-mix(in srgb, var(--warn) 70%, transparent);
 }
+
+/* --- workspace: no empty half ------------------------------------------------------
+ * Until a preview exists there is nothing to put in the left pane, so the
+ * workflow panel takes the full width rather than sitting beside a blank frame. */
+#workspace-split.solo { grid-template-columns: 1fr; }
+#workspace-split.solo #preview-pane,
+#workspace-split.solo #pane-resizer { display: none; }
+#workspace-split.solo #panel-pane { max-height: none; overflow: visible; }

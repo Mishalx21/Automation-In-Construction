@@ -440,12 +440,14 @@
       </div>
       <div id="dropzone" class="dropzone" tabindex="0" role="button"
            aria-label="Upload an IFC file">
-        <svg class="dz-icon" viewBox="0 0 48 48" aria-hidden="true">
-          <path d="M12 6h16l8 8v28H12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          <path d="M28 6v8h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          <path d="M18 22h12M18 28h12M18 34h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <p>Drop an <code>.ifc</code> file here</p>
+        <span class="dz-chip" aria-hidden="true">
+          <svg class="dz-icon" viewBox="0 0 48 48">
+            <path d="M24 32V13m0 0-7 7m7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 30v5a4 4 0 0 0 4 4h20a4 4 0 0 0 4-4v-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <p class="dz-title">Drop your building model here</p>
+        <p class="dz-sub">An <code>.ifc</code> file, up to 400 MB</p>
         <label class="btn primary" for="file-input">Browse files</label>
         <input type="file" id="file-input" accept=".ifc" hidden>
         <p id="picked-name" class="picked hidden"></p>
@@ -482,7 +484,15 @@
         <div id="viewer-properties" class="viewer-selection hidden" aria-live="polite"></div>
       </section>
       <div class="preview-placeholder" id="preview-placeholder">
-        <p>Pick an IFC model above, then upload it in either workflow to prepare its preview.</p>
+        <svg class="pp-art" viewBox="0 0 160 110" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M80 18 128 44v42L80 60 32 86V44z" stroke-width="2"/>
+            <path d="M32 44 80 70l48-26" stroke-width="1.4" opacity=".55"/>
+            <path d="M80 70v34" stroke-width="1.4" opacity=".55"/>
+            <path d="M56 57v22M104 57v22" stroke-width="1.2" opacity=".3"/>
+          </g>
+        </svg>
+        <p>Your model will appear here once it is uploaded.</p>
       </div>
       </div>
 
