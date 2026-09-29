@@ -226,6 +226,7 @@ function renderInjectMatrix(job) {
     `${job.filename} — ${a.schema_name || "IFC"} — ${(a.file_size_bytes / 1048576).toFixed(1)} MB`;
   buildRuleTable($("inject-table-archi"), a.rules.filter((r) => r.domain === "architectural"), true, "inject-cb");
   buildRuleTable($("inject-table-struct"), a.rules.filter((r) => r.domain === "structural"), true, "inject-cb");
+  setupRuleFilter("inject", "inject-cb", "inject-btn");
   show("inject-rules", true);
   refreshRunButton("inject-btn", ".inject-cb");
   lastAnalysisRules = a.rules || [];
@@ -254,6 +255,17 @@ function compareRuleIds(a, b) {
   return String(a).localeCompare(String(b));
 }
 
+// The injection analysis prefixes every description with "Inject a controlled
+// A10 violation." — the rule id is already in the bubble beside it, so the
+// sentence only pushes the part that matters further down the column.
+const RULE_PREFIX = /^inject a controlled\s+[a-z]?\d+[a-z]?\s+violation\.?\s*/i;
+const ruleText = (r) =>
+  (r.description || "").replace(RULE_PREFIX, "").trim()
+  || r.title
+  || catalogueById[r.rule_id]?.title
+  || r.description
+  || r.rule_id;
+
 function buildRuleTable(table, rules, withApplicability, cbClass) {
   // Candidate count and the "not applicable" badge only ever have content
   // for the per-model injection analysis; the check-compliance catalogue
@@ -266,9 +278,9 @@ function buildRuleTable(table, rules, withApplicability, cbClass) {
       ? `<th title="Elements in this model eligible for this rule's violation">Found</th><th></th>` : ""}</tr>` +
     sorted.map((r) => `
     <tr class="${r.applicable === false ? "na" : ""}">
-      <td>${r.applicable === false ? "" : `<input type="checkbox" class="${cbClass}" value="${r.rule_id}" checked aria-label="${escapeHtml(r.rule_id)}">`}</td>
+      <td>${r.applicable === false ? "" : `<input type="checkbox" class="${cbClass}" value="${r.rule_id}" aria-label="${escapeHtml(r.rule_id)}">`}</td>
       <td class="rule-id"><span class="rule-bubble">${escapeHtml(r.rule_id)}</span></td>
-      <td>${escapeHtml(r.description || r.title)}<span class="clause">${escapeHtml(r.clause || r.reference)}</span>
+      <td>${escapeHtml(ruleText(r))}<span class="clause">${escapeHtml(r.clause || r.reference)}</span>
         ${!withApplicability && r.rule_preview ? `<details class="source-rule"><summary>View source rule</summary><pre>${escapeHtml(r.rule_preview)}</pre></details>` : ""}</td>
       ${withApplicability ? `
       <td class="num">${r.candidate_count != null ? r.candidate_count : ""}</td>
@@ -277,7 +289,71 @@ function buildRuleTable(table, rules, withApplicability, cbClass) {
         : ""}</td>` : ""}
     </tr>`).join("");
   table.querySelectorAll(`.${cbClass}`).forEach((cb) =>
-    cb.addEventListener("change", () => refreshRunButton(cbClass === "inject-cb" ? "inject-btn" : "check-btn", `.${cbClass}`)));
+    cb.addEventListener("change", () => {
+      cb.closest("tr")?.classList.toggle("is-picked", cb.checked);
+      refreshRunButton(cbClass === "inject-cb" ? "inject-btn" : "check-btn", `.${cbClass}`);
+    }));
+  // The whole row picks the rule, not just the 13px box. Clicks on the box
+  // itself, and on "View source rule", keep their own behaviour.
+  table.querySelectorAll("tr").forEach((row) => {
+    const cb = row.querySelector(`.${cbClass}`);
+    if (!cb) return;
+    row.classList.add("is-pickable");
+    row.addEventListener("click", (event) => {
+      if (event.target.closest("input, details, a, button")) return;
+      if (window.getSelection()?.toString()) return; // selecting text, not picking
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  });
+}
+
+// --- rule filter -------------------------------------------------------------------
+// Twenty rules in two tables is more than anyone reads at once, so the list is
+// searchable and starts with nothing selected. Rows are hidden rather than
+// removed, so a checkbox that scrolls out of the filter keeps its state.
+function setupRuleFilter(prefix, cbClass, btnId) {
+  const search = $(`${prefix}-filter`);
+  const count = $(`${prefix}-count`);
+  const tables = [$(`${prefix}-table-archi`), $(`${prefix}-table-struct`)].filter(Boolean);
+  if (!search || !tables.length) return;
+
+  const rows = () => tables.flatMap((t) => [...t.querySelectorAll("tr")].slice(1));
+  const boxes = () => [...document.querySelectorAll(`.${cbClass}`)];
+
+  function updateCount() {
+    const all = boxes();
+    const picked = all.filter((cb) => cb.checked).length;
+    if (count) count.textContent = `${picked}/${all.length} selected`;
+    refreshRunButton(btnId, `.${cbClass}`);
+  }
+
+  function applyFilter() {
+    const q = search.value.trim().toLowerCase();
+    rows().forEach((row) => {
+      row.classList.toggle("filtered-out", q !== "" && !row.textContent.toLowerCase().includes(q));
+    });
+  }
+
+  search.oninput = applyFilter;
+  // Select all / Clear act on what the filter is currently showing, which is
+  // what "all" means once a filter is typed.
+  $(`${prefix}-select-all`).onclick = () => {
+    rows().forEach((row) => {
+      if (row.classList.contains("filtered-out")) return;
+      const cb = row.querySelector(`.${cbClass}`);
+      if (cb) { cb.checked = true; row.classList.add("is-picked"); }
+    });
+    updateCount();
+  };
+  $(`${prefix}-clear`).onclick = () => {
+    boxes().forEach((cb) => { cb.checked = false; cb.closest("tr")?.classList.remove("is-picked"); });
+    updateCount();
+  };
+  boxes().forEach((cb) => cb.addEventListener("change", updateCount));
+  search.value = "";
+  applyFilter();
+  updateCount();
 }
 
 function refreshRunButton(btnId, cbClass) {
@@ -507,7 +583,7 @@ function verificationPanel(ver) {
   const passed = checks.filter((c) => c.passed).length;
   return `
   <details class="ver-checks">
-    <summary>Independent verification — ${passed}/${checks.length} checks passed</summary>
+    <summary>How the result was double-checked — ${passed} of ${checks.length} passed</summary>
     <ul>${rows}</ul>
   </details>`;
 }
@@ -522,17 +598,17 @@ function renderInjectResults(job) {
 
   const banner = allPassed
     ? `<div class="banner ok"><span class="b-icon" aria-hidden="true">✓</span>
-        <div><strong>${muts.length} violation${muts.length !== 1 ? "s" : ""} injected and independently verified.</strong>
-        Download the model below, pick it in step 1, and run step 3 — the checkers should now flag these violations.</div></div>`
+        <div><strong>Done — ${muts.length} rule${muts.length !== 1 ? "s" : ""} broken, and each one confirmed.</strong>
+        Take the broken model below, pick it in step 1, and run Design Validation: the checks should now catch it.</div></div>`
     : `<div class="banner bad"><span class="b-icon" aria-hidden="true">✕</span>
-        <div><strong>Verification did not pass</strong> (${passedChecks}/${checks.length} checks passed) —
-        treat the downloaded file with caution and inspect the report.</div></div>`;
+        <div><strong>The change could not be confirmed</strong> (${passedChecks} of ${checks.length} checks passed).
+        Do not rely on this file — open the report to see which check failed.</div></div>`;
 
   $("inject-mutations").innerHTML = `
     ${banner}
     <div class="tiles">
-      ${statTile("Violations injected", muts.length, "bad")}
-      ${statTile("Verification checks", checks.length, "na")}
+      ${statTile("Rules broken", muts.length, "bad")}
+      ${statTile("Checks run on the result", checks.length, "na")}
       ${statTile("Checks passed", checks.length ? `${passedChecks}/${checks.length}` : "—", allPassed ? "ok" : "bad")}
     </div>
     ${muts.map(mutationCard).join("")}
@@ -576,6 +652,7 @@ async function renderCheckerCatalogue() {
     catalogueById = Object.fromEntries(checkers.map((c) => [c.rule_id, c]));
     buildRuleTable($("check-table-archi"), checkers.filter((c) => c.domain === "architectural"), false, "check-cb");
     buildRuleTable($("check-table-struct"), checkers.filter((c) => c.domain === "structural"), false, "check-cb");
+    setupRuleFilter("check", "check-cb", "check-btn");
     refreshRunButton("check-btn", ".check-cb");
   } catch (e) {
     showError("check-error", `Could not load the checker catalogue: ${e.message}`);
@@ -607,6 +684,8 @@ $("check-btn").addEventListener("click", async () => {
   hideError("check-error");
   const rules = [...document.querySelectorAll(".check-cb:checked")].map((cb) => cb.value);
   $("check-btn").disabled = true;
+  checkFilter = null;
+  openRules.clear();
   setProgress("check-progress", "Queued…");
   try {
     await api(`/bnbc/api/jobs/${bnbcJobId}/check`, {
@@ -626,7 +705,7 @@ $("check-btn").addEventListener("click", async () => {
       });
     stopProgress("check-progress");
     lastCheckJob = job;
-    renderCheckResults(job);
+    renderCheckResults(job, true);
     window.recordHistory?.("bnbc", job);
   } catch (e) {
     stopProgress("check-progress");
@@ -715,43 +794,43 @@ const EXPLAINERS = {
   },
   // --- architectural, BNBC clauses (A6–A10) ---
   room_min_ceiling_height: {
-    plain: (kv) => `This room is only <b>${kv.height || "?"}</b> from floor to ceiling — BNBC asks for at least <b>${kv.required || "2750 mm"}</b> in a habitable room. A low ceiling makes a room feel oppressive and traps warm, stale air over the people in it.`,
-    why: "BNBC Part 3 Sec 1.14.2.1(a) sets 2.75 m so that a habitable room holds enough air volume and can be ventilated and lit properly.",
+    plain: (kv) => `This room is only <b>${kv.height || "?"}</b> from floor to ceiling — the code asks for at least <b>${kv.required || "2750 mm"}</b> in a habitable room. A low ceiling makes a room feel oppressive and traps warm, stale air over the people in it.`,
+    why: "The code sets 2.75 m so that a habitable room holds enough air volume and can be ventilated and lit properly.",
     check: "Raise the floor-to-floor height, or reduce the floor and ceiling build-ups so the clear height comes back.",
   },
   corridor_min_ceiling_height: {
     plain: (kv) => `This escape corridor has only <b>${kv.height || "?"}</b> of headroom — the minimum for a corridor used as a means of egress is <b>${kv.required || "2400 mm"}</b>.`,
-    why: "BNBC Part 4 Sec 3.7.3: smoke banks down from the ceiling, so a low corridor fills with it sooner and leaves less clear air to escape through.",
+    why: "Smoke banks down from the ceiling, so a low corridor fills with it sooner and leaves less clear air to escape through.",
     check: "Raise the ceiling, or re-route the services and bulkheads that are eating the headroom.",
   },
   room_min_floor_area: {
     plain: (kv) => `This room has only <b>${kv.area || "?"}</b> of floor area; the minimum for a ${kv.room_type === "other" ? "non-habitable" : "habitable"} room is <b>${kv.required || "?"}</b>.`,
-    why: "BNBC Part 3 Sec 1.14.2.2 sets a floor area per room so a dwelling cannot be subdivided into cells too small to live or breathe in.",
+    why: "The code sets a floor area per room so a dwelling cannot be subdivided into cells too small to live or breathe in.",
     check: "Combine it with the adjoining space, or re-plan the floor so the room reaches the minimum area.",
   },
   room_min_least_width: {
     plain: (kv) => `The narrow side of this room measures <b>${kv.width || "?"}</b>, below the <b>${kv.required || "?"}</b> minimum. A room can meet its area target and still be an unusable corridor-shaped strip — this one does.`,
-    why: "BNBC Part 3 Sec 1.14.2.2 fixes a least width as well as an area, precisely so the area cannot be met by a long thin room.",
+    why: "The code fixes a least width as well as an area, precisely so the area cannot be met by a long thin room.",
     check: "Re-proportion the room, moving the partition so the short dimension reaches the minimum.",
   },
   space_min_opening_area_ratio: {
-    plain: (kv) => `The windows serving this room add up to <b>${kv.opening_area || "?"}</b> against a floor area of <b>${kv.floor_area || "?"}</b> — an opening ratio of <b>${kv.opening_ratio || "?"}</b>, where BNBC requires <b>${kv.required || "?"}</b>.`,
-    why: "BNBC Part 3 Sec 1.19.6 / Table 3.1.12 ties daylight and natural ventilation to floor area; under-glazed rooms stay dark and stuffy in Bangladesh's climate.",
+    plain: (kv) => `The windows serving this room add up to <b>${kv.opening_area || "?"}</b> against a floor area of <b>${kv.floor_area || "?"}</b> — an opening ratio of <b>${kv.opening_ratio || "?"}</b>, where the code requires <b>${kv.required || "?"}</b>.`,
+    why: "The code ties daylight and natural ventilation to floor area; under-glazed rooms stay dark and stuffy in a hot, humid climate.",
     check: "Enlarge or add windows in the exterior wall. Doors do not count towards this ratio, even glazed ones.",
   },
   guard_min_height: {
     plain: (kv) => `This guard stands <b>${kv.height || "?"}</b> above the floor — the minimum is <b>${kv.required || "1000 mm"}</b>. A guard below waist height stops being a barrier and becomes something to trip over the top of.`,
-    why: "BNBC Part 3 Sec 1.14.14 requires a 1 m parapet or guardrail at every accessible flat roof and open edge, because an adult's centre of gravity sits above a low rail.",
+    why: "The code requires a 1 m parapet or guardrail at every accessible flat roof and open edge, because an adult's centre of gravity sits above a low rail.",
     check: "Raise the guard to at least 1 m, or replace it with a parapet of the required height.",
   },
   stair_handrail_min_height: {
     plain: (kv) => `This handrail sits <b>${kv.height || "?"}</b> above the stair nosing, below the <b>${kv.required || "900 mm"}</b> minimum — too low to catch hold of naturally on the way down.`,
-    why: "BNBC Part 3 Sec 1.14.5.6 sets 0.9 m from the nose of the stair so the rail meets the hand where it falls.",
+    why: "The code sets 0.9 m from the nose of the stair so the rail meets the hand where it falls.",
     check: "Raise the handrail, measuring from the tread nosing rather than from the landing.",
   },
   stairway_min_width: {
     plain: (kv) => `This stairway is <b>${kv.width || "?"}</b> wide against a minimum of <b>${kv.required || "1120 mm"}</b>${kv.measured_on && kv.measured_on.indexOf("enclosure") !== -1 ? " (measured across the whole stair enclosure, so the flight itself is narrower still)" : ""}. Two people cannot pass on it, and it cannot carry the flow of a floor emptying at once.`,
-    why: "BNBC Part 4 Table 4.3.6 sizes egress stairs by occupancy; 1120 mm is the lowest value in the table, and a hospital or a large school needs 2235 mm.",
+    why: "The code sizes egress stairs by occupancy; 1120 mm is the lowest value in the table, and a hospital or a large school needs 2235 mm.",
     check: "Widen the flight, or add a second stair so each carries less of the occupant load.",
   },
   // --- structural, international analogues (S1–S5) ---
@@ -790,38 +869,38 @@ const EXPLAINERS = {
   },
   // --- structural, BNBC clauses (S6–S10) ---
   masonry_bearing_wall_min_thickness: {
-    plain: (kv) => `This load-bearing masonry wall is only <b>${kv.thickness || "?"}</b> thick — BNBC requires a nominal <b>${kv.required || "250 mm"}</b> for a wall carrying vertical load.`,
-    why: "BNBC Part 6 Sec 7.4.9.1: a thin masonry bearing wall is slender out of plane, so it buckles or is pushed over long before its bricks are crushed.",
+    plain: (kv) => `This load-bearing masonry wall is only <b>${kv.thickness || "?"}</b> thick — the code requires a nominal <b>${kv.required || "250 mm"}</b> for a wall carrying vertical load.`,
+    why: "A thin masonry bearing wall is slender out of plane, so it buckles or is pushed over long before its bricks are crushed.",
     check: "Thicken the wall, or take the load off it with a frame and re-classify it as non-load-bearing.",
   },
   concrete_bearing_wall_min_thickness: {
     plain: (kv) => `This concrete bearing wall is <b>${kv.thickness || "?"}</b> thick, under the <b>${kv.required || "?"}</b> its supported height demands.`,
-    why: "BNBC Part 6 Sec 6.6.5.3.1 ties a bearing wall's thickness to 1/25 of the height it supports, with 100 mm as the floor — the taller the wall, the thicker it has to be to stay stable.",
+    why: "The code ties a bearing wall's thickness to 1/25 of the height it supports, with 100 mm as the floor — the taller the wall, the thicker it has to be to stay stable.",
     check: "Thicken the wall, brace it at mid-height to shorten the supported height, or design it explicitly rather than by the empirical method.",
   },
   smf_column_min_dimension: {
     plain: (kv) => `The short side of this column measures <b>${kv.short_dimension || "?"}</b> (section ${kv.section || "?"}), below the <b>${kv.required || "300 mm"}</b> a special moment frame column needs.`,
-    why: "BNBC Part 6 Sec 8.3.5.1(a): an earthquake frame column has to fit confinement hoops and a beam-column joint inside it, and a thin section cannot be cast properly around that congestion.",
+    why: "An earthquake frame column has to fit confinement hoops and a beam-column joint inside it, and a thin section cannot be cast properly around that congestion.",
     check: "Enlarge the section to at least 300 mm on its short side, or exclude the column from the seismic frame and design it to carry gravity only.",
   },
   smf_column_dimension_ratio: {
     plain: (kv) => `This column is <b>${kv.section || "?"}</b> — a short-to-long ratio of <b>${kv.ratio || "?"}</b> against a minimum of <b>${kv.required || "0.4"}</b>. It is a blade, strong one way and weak the other.`,
-    why: "BNBC Part 6 Sec 8.3.5.1(b): an earthquake arrives from any direction, so a column that is far stiffer about one axis than the other is loaded on its weak side half the time.",
+    why: "An earthquake arrives from any direction, so a column that is far stiffer about one axis than the other is loaded on its weak side half the time.",
     check: "Square the section up towards 0.4 or better, or model it as a wall and design it as one.",
   },
   storey_plan_dimension_jump: {
     plain: (kv) => `On the ${kv.axis || "?"} axis this storey spans <b>${kv.dimension || "?"}</b> while the storey next to it (${kv.adjacent || "?"}) spans a different amount — a ratio of <b>${kv.ratio || "?"}</b> against a limit of <b>${kv.limit || "1.30"}</b>. The building steps in or out sharply here.`,
-    why: "BNBC Part 6 Table 6.1.4 Type III: a setback concentrates earthquake forces at the level where the plan changes, and the structure above and below no longer shares them evenly.",
+    why: "A setback concentrates earthquake forces at the level where the plan changes, and the structure above and below no longer shares them evenly.",
     check: "Soften the setback across more than one floor, or design the transition level explicitly for the concentrated forces.",
   },
   plan_reentrant_corner: {
     plain: (kv) => `This storey's plan has an inside corner at its <b>${kv.corner || "?"}</b>, with wings projecting <b>${kv.projection_x || "?"}</b> and <b>${kv.projection_y || "?"}</b> of the plan — both past the <b>${kv.limit || "15%"}</b> limit. The floor is an L rather than a rectangle.`,
-    why: "BNBC Part 6 Table 6.1.5 Type II: in an earthquake the two wings of an L move differently and tear at the inside corner, which is where the cracking starts.",
+    why: "In an earthquake the two wings of an L move differently and tear at the inside corner, which is where the cracking starts.",
     check: "Separate the wings with a seismic joint, or add collectors and chords at the corner to carry the forces across it.",
   },
   footing_min_thickness: {
     plain: (kv) => `This footing is <b>${kv.thickness || "?"}</b> thick, below the <b>${kv.required || "?"}</b> minimum for a ${kv.support === "pile" ? "pile-supported" : "soil-supported"} footing.`,
-    why: "BNBC Part 6 Sec 6.8.7: a footing needs depth to develop its reinforcement and to resist punching shear where the column pushes through it — a thin pad fails suddenly, in shear, without warning.",
+    why: "A footing needs depth to develop its reinforcement and to resist punching shear where the column pushes through it — a thin pad fails suddenly, in shear, without warning.",
     check: "Deepen the footing, or spread the load over a larger pad so the punching shear drops.",
   },
 };
@@ -880,6 +959,14 @@ function measuredKv(measured) {
  * element's GlobalId always comes first, so this takes the *first*
  * GUID-shaped "(...)" found rather than the last — matching against the
  * end of the string would grab the unrelated object's id instead. */
+// An element string can name more than one object — a door clearance finding
+// reads "Door … (door-id) <- obstructed by Railing … (railing-id)". The first
+// id alone is the door, which is the same for every obstruction of that door,
+// so "Show in model" would light up the same thing each time. Take them all.
+function elementGuids(element) {
+  return [...String(element ?? "").matchAll(/\(([^()]{22})\)/g)].map((m) => m[1]);
+}
+
 function splitElement(element) {
   const s = String(element ?? "");
   const m = s.match(/\s*\(([^()]{22})\)/);
@@ -892,7 +979,7 @@ function kvChips(measured) {
     `<span class="kv">${k ? `<b>${escapeHtml(k)}</b>=` : ""}${escapeHtml(v)}</span>`).join(" ");
 }
 
-function violationCard(v, idx) {
+function violationCard(v, idx, sharedRef = null) {
   const locations = (v.locations || []).map((loc) => {
     const { name, guid } = splitElement(loc.element);
     return `
@@ -901,7 +988,7 @@ function violationCard(v, idx) {
             ${guid ? `<span class="v-guid" title="GlobalId">${escapeHtml(guid)}</span>` : ""}</td>
         <td class="v-storey">${escapeHtml(loc.storey || "")}</td>
         <td class="v-measured">${kvChips(loc.measured)}</td>
-        <td class="v-action">${guid ? `<button class="show-in-model" type="button" data-guid="${escapeHtml(guid)}">Show in model</button>` : ""}</td>
+        <td class="v-action">${guid ? `<button class="show-in-model" type="button" data-guid="${escapeHtml(elementGuids(loc.element).join(" "))}">Show in model</button>` : ""}</td>
       </tr>`;
   }).join("");
 
@@ -918,7 +1005,7 @@ function violationCard(v, idx) {
         <tr><th>Element</th><th>Storey</th><th>Measured</th><th>Preview</th></tr>
         ${locations}
       </table>` : ""}
-    ${v.rule_ref ? `<div class="v-ref">${escapeHtml(v.rule_ref)}</div>` : ""}
+    ${v.rule_ref && v.rule_ref !== sharedRef ? `<div class="v-ref">${escapeHtml(v.rule_ref)}</div>` : ""}
   </div>`;
 }
 
@@ -952,9 +1039,9 @@ function checkedSummaryLine(report) {
 // Stat tiles per the tile contract: status color lives on the dot + label
 // (never color alone); the big value always wears the ink token.
 
-function statTile(label, value, cls, title) {
+function statTile(label, value, cls, title, key) {
   return `
-    <div class="tile"${title ? ` title="${escapeHtml(title)}"` : ""}>
+    <div class="tile"${key ? ` data-key="${key}" role="button" tabindex="0" aria-pressed="false"` : ""}${title ? ` title="${escapeHtml(title)}"` : ""}>
       <span class="tile-label"><span class="dot ${cls}" aria-hidden="true"></span>${label}</span>
       <span class="tile-value">${value}</span>
     </div>`;
@@ -973,89 +1060,141 @@ function renderCheckSummary(job) {
   const failed = counts.fail + counts.error;
   const unknown = counts.unknown;
 
-  let banner;
+  let banner = null;
   if (results.length && failed) {
-    banner = `<div class="banner bad"><span class="b-icon" aria-hidden="true">✕</span>
-      <div><strong>${failed} rule${failed > 1 ? "s" : ""} failed</strong> —
-      ${totalViolations} violation${totalViolations !== 1 ? "s" : ""} found in this model.</div></div>`;
+    banner = {cls: "bad", icon: "✕", html: `<strong>${failed} rule${failed > 1 ? "s" : ""} failed</strong> —
+      ${totalViolations} violation${totalViolations !== 1 ? "s" : ""} found in this model.`};
   } else if (results.length && unknown) {
-    banner = `<div class="banner warn"><span class="b-icon" aria-hidden="true">?</span>
-      <div><strong>No violations found</strong>, but ${unknown} rule${unknown > 1 ? "s" : ""} could not be
-      determined — see the details below before relying on this result.</div></div>`;
+    banner = {cls: "warn", icon: "?", html: `<strong>No violations found</strong>, but ${unknown} rule${unknown > 1 ? "s" : ""} could not be
+      determined — see the details below before relying on this result.`};
   } else if (results.length) {
-    banner = `<div class="banner ok"><span class="b-icon" aria-hidden="true">✓</span>
-      <div><strong>All ${results.length} checked rule${results.length > 1 ? "s" : ""} passed.</strong>
-      No violations were found in this model.</div></div>`;
-  } else {
-    banner = "";
+    banner = {cls: "ok", icon: "✓", html: `<strong>All ${results.length} checked rule${results.length > 1 ? "s" : ""} passed.</strong>
+      No violations were found in this model.`};
   }
 
-  $("check-summary").innerHTML = `
-    ${banner}
-    <div class="tiles">
-      ${statTile("Passed", counts.pass, "ok")}
-      ${statTile("Failed", failed, "bad")}
-      ${statTile("Unknown", unknown, "warn")}
-      ${statTile("Not applicable", counts.not_applicable, "na")}
-      ${statTile("Violations found", totalViolations, "bad",
-        "Total violation findings across all rules — the same element can appear in more than one, so this can exceed the number of distinct flagged elements shown by “Show violations” in the model preview.")}
-    </div>`;
+  const tiles = [
+    ["passed", "Passed", counts.pass, "ok"],
+    ["failed", "Failed", failed, "bad"],
+    ["unknown", "Unknown", unknown, "warn"],
+    ["na", "Not applicable", counts.not_applicable, "na"],
+    ["violations", "Violations found", totalViolations, "bad",
+      "Total violation findings across all rules — the same element can appear in more than one, so this can exceed the number of distinct flagged elements shown by “Show violations” in the model preview."],
+  ];
+  const root = $("check-summary");
+  if (!root.querySelector(".tiles")) {
+    root.innerHTML = `<div class="summary-banner"></div>
+      <div class="tiles">${tiles.map(([key, label, value, cls, title]) => statTile(label, value, cls, title, key)).join("")}</div>`;
+  } else {
+    for (const [key, , value] of tiles) {
+      const tile = root.querySelector(`.tile[data-key="${key}"]`);
+      const out = tile?.querySelector(".tile-value");
+      if (!out || out.textContent === String(value)) continue;
+      out.textContent = value;
+      flash(tile, "tile-flash");
+    }
+  }
+  updateBanner(root.querySelector(".summary-banner"), banner);
 }
 
-function renderCheckResults(job) {
-  show("check-rules", false);
-  renderCheckSummary(job);
+// Replay a one-shot animation on an element that already exists. Removing the
+// class on a timer rather than on animationend: the value inside the tile runs
+// its own shorter animation, and its animationend would bubble up and cut the
+// tile's flash short.
+const flashTimers = new WeakMap();
+function flash(el, cls) {
+  clearTimeout(flashTimers.get(el));
+  el.classList.remove(cls);
+  void el.offsetWidth;
+  el.classList.add(cls);
+  flashTimers.set(el, setTimeout(() => el.classList.remove(cls), 900));
+}
 
-  const cards = (job.results || []).map((r) => {
+// Keep the banner node and change its words, so its entrance animation plays
+// once per verdict rather than once per poll.
+function updateBanner(slot, banner) {
+  if (!slot) return;
+  if (!banner) { slot.innerHTML = ""; return; }
+  const el = slot.querySelector(".banner");
+  if (!el || !el.classList.contains(banner.cls)) {
+    slot.innerHTML = `<div class="banner ${banner.cls}"><span class="b-icon" aria-hidden="true">${banner.icon}</span><div class="b-text"></div></div>`;
+  }
+  const box = slot.querySelector(".banner");
+  if (box.dataset.html !== banner.html) {
+    box.querySelector(".b-text").innerHTML = banner.html;
+    box.dataset.html = banner.html;
+  }
+}
+
+function checkResultCard(r) {
     const badgeCls = VERDICT_BADGE[r.verdict] || "wait";
     const verdictLabel = VERDICT_LABEL[r.verdict] || r.verdict;
     const report = r.report || {};
     const violations = report.violations || [];
     const shown = violations.slice(0, 3);
     const rest = violations.slice(3);
+    // Every finding of a rule usually cites the same clause; say it once
+    // under the summary rather than under each finding.
+    const refs = [...new Set(violations.map((v) => v.rule_ref).filter(Boolean))];
+    const sharedRef = refs.length === 1 ? refs[0] : null;
 
     return `
     <div class="rule-result ${r.verdict}">
-      <div class="rr-head">
+      <button class="rr-head" type="button" aria-expanded="false">
         <span class="badge ${badgeCls}">${escapeHtml(verdictLabel)}</span>
         <span class="rule-bubble ${badgeCls}">${escapeHtml(r.rule_id)}</span>
         <span class="rr-title">${escapeHtml(catalogueById[r.rule_id]?.title || "")}</span>
         ${violations.length ? `<span class="rr-count">${violations.length} violation${violations.length !== 1 ? "s" : ""}</span>` : ""}
         ${r.duration_s != null ? `<span class="rr-time">${r.duration_s}s</span>` : ""}
-      </div>
+        <span class="rr-chevron" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+      ${r.summary ? `<p class="rr-summary">${escapeHtml(r.summary)}</p>` : ""}
+      <div class="rr-body"><div class="rr-body-inner">
+      ${sharedRef ? `<p class="rr-ref">${escapeHtml(sharedRef)}</p>` : ""}
       ${catalogueById[r.rule_id]?.rule_preview ? `<details class="source-rule result-source-rule"><summary>View source rule and checking scope</summary><pre>${escapeHtml(catalogueById[r.rule_id].rule_preview)}</pre></details>` : ""}
       ${r.error ? `<p class="error">${escapeHtml(r.error)}</p>` : ""}
-      ${r.summary ? `<p class="rr-summary">${escapeHtml(r.summary)}</p>` : ""}
-      ${shown.map((v, i) => violationCard(v, i)).join("")}
+      ${shown.map((v, i) => violationCard(v, i, sharedRef)).join("")}
       ${rest.length ? `
         <button class="btn small show-more" type="button">
           Show ${rest.length} more
         </button>
-        <div class="v-rest hidden">${rest.map((v, i) => violationCard(v, i + 3)).join("")}</div>` : ""}
+        <div class="v-rest hidden">${rest.map((v, i) => violationCard(v, i + 3, sharedRef)).join("")}</div>` : ""}
       ${unknownReasonsPanel(report)}
       ${checkedSummaryLine(report)}
+      </div></div>
     </div>`;
-  }).join("");
+}
 
-  $("check-results-list").innerHTML = cards;
-  const violationIds = (job.results || []).flatMap((result) =>
-    (result.report?.violations || []).flatMap((violation) =>
-      (violation.locations || []).map((location) => splitElement(location.element).guid).filter(Boolean)));
-  // De-duplicated: the same element can be flagged by more than one rule
-  // (e.g. a door failing both a fire-rating and a clearance check), and the
-  // "Show violations" count should match how many distinct objects actually
-  // turn red in the viewer, not how many findings mention them.
-  window.highlightViolationIds?.([...new Set(violationIds)]);
-  $("check-results-list").querySelectorAll(".show-in-model").forEach((button) => {
+// The rendered HTML each card was built from, so an unchanged result is left
+// alone instead of being rebuilt (and re-animated) on every poll.
+const cardSource = new WeakMap();
+let lastHighlightKey = null;
+
+// Which rule cards are open. Cards start closed; the set lets a card that is
+// rebuilt with a newer result come back the way the user left it.
+const openRules = new Set();
+
+function setCardOpen(card, open) {
+  card.classList.toggle("is-open", open);
+  card.querySelector(".rr-head")?.setAttribute("aria-expanded", String(open));
+  if (open) openRules.add(card.dataset.rule); else openRules.delete(card.dataset.rule);
+}
+
+function wireResultCard(card) {
+  card.querySelector(".rr-head")?.addEventListener("click", () =>
+    setCardOpen(card, !card.classList.contains("is-open")));
+  card.querySelectorAll(".show-in-model").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
-      const guid = button.dataset.guid;
-      if (!guid) return;
-      window.showSingleViolation?.(guid);
+      const guids = (button.dataset.guid || "").split(" ").filter(Boolean);
+      if (!guids.length) return;
+      document.querySelectorAll("#check-results-list .show-in-model.is-current")
+        .forEach((b) => b.classList.remove("is-current"));
+      button.classList.add("is-current");
+      window.showSingleViolation?.(guids);
       $("preview-card").scrollIntoView({behavior: "smooth", block: "center"});
     });
   });
-  $("check-results-list").querySelectorAll(".show-more").forEach((btn) => {
+  card.querySelectorAll(".show-more").forEach((btn) => {
     btn.addEventListener("click", () => {
       const rest = btn.nextElementSibling;
       const expanding = rest.classList.contains("hidden");
@@ -1065,6 +1204,98 @@ function renderCheckResults(job) {
         : `Show ${rest.querySelectorAll(".violation").length} more`;
     });
   });
+}
+
+// --- summary tiles as filters ---------------------------------------------------
+// Clicking a tile narrows the list below to that group; clicking it again, or
+// another tile, changes or clears the filter. The list keeps every card; the
+// filter only hides, so streaming results slot in under the current filter.
+let checkFilter = null;
+const CHECK_FILTERS = {
+  passed: (c) => c.dataset.verdict === "pass",
+  failed: (c) => ["fail", "violation", "error"].includes(c.dataset.verdict),
+  unknown: (c) => c.dataset.verdict === "unknown",
+  na: (c) => c.dataset.verdict === "not_applicable",
+  violations: (c) => Number(c.dataset.violations) > 0,
+};
+
+function applyCheckFilter() {
+  const list = $("check-results-list");
+  const test = CHECK_FILTERS[checkFilter];
+  let visible = 0;
+  list.querySelectorAll(":scope > .rule-result").forEach((card) => {
+    const on = !test || test(card);
+    card.classList.toggle("is-filtered", !on);
+    if (on) visible++;
+  });
+  list.querySelector(":scope > .filter-empty")?.remove();
+  if (test && !visible) list.insertAdjacentHTML("beforeend", '<p class="filter-empty">No rules in this group yet.</p>');
+  const tiles = $("check-summary").querySelector(".tiles");
+  tiles?.classList.toggle("has-filter", Boolean(test));
+  tiles?.querySelectorAll(".tile[data-key]").forEach((tile) => {
+    const active = tile.dataset.key === checkFilter;
+    tile.classList.toggle("is-active", active);
+    tile.setAttribute("aria-pressed", String(active));
+  });
+}
+
+function toggleCheckFilter(key) {
+  checkFilter = checkFilter === key ? null : key;
+  applyCheckFilter();
+}
+$("check-summary").addEventListener("click", (event) => {
+  const tile = event.target.closest(".tile[data-key]");
+  if (tile) toggleCheckFilter(tile.dataset.key);
+});
+$("check-summary").addEventListener("keydown", (event) => {
+  const tile = event.target.closest(".tile[data-key]");
+  if (!tile || (event.key !== "Enter" && event.key !== " ")) return;
+  event.preventDefault();
+  toggleCheckFilter(tile.dataset.key);
+});
+
+function renderCheckResults(job, final = false) {
+  show("check-rules", false);
+  renderCheckSummary(job);
+
+  const list = $("check-results-list");
+  const results = job.results || [];
+  const present = new Set();
+  results.forEach((r, index) => {
+    present.add(r.rule_id);
+    const html = checkResultCard(r).trim();
+    const existing = [...list.children].find((n) => n.dataset.rule === r.rule_id);
+    if (existing && cardSource.get(existing) === html) return;
+    const tpl = document.createElement("template");
+    tpl.innerHTML = html;
+    const card = tpl.content.firstElementChild;
+    card.dataset.rule = r.rule_id;
+    if (openRules.has(r.rule_id)) setCardOpen(card, true);
+    card.dataset.verdict = r.verdict;
+    card.dataset.violations = String((r.report?.violations || []).length);
+    cardSource.set(card, html);
+    wireResultCard(card);
+    if (existing) existing.replaceWith(card);
+    else list.insertBefore(card, list.children[index] || null);
+  });
+  [...list.children].forEach((n) => { if (!present.has(n.dataset.rule)) n.remove(); });
+  applyCheckFilter();
+
+  const violationIds = results.flatMap((result) =>
+    (result.report?.violations || []).flatMap((violation) =>
+      (violation.locations || []).map((location) => splitElement(location.element).guid).filter(Boolean)));
+  // De-duplicated: the same element can be flagged by more than one rule
+  // (e.g. a door failing both a fire-rating and a clearance check), and the
+  // "Show violations" count should match how many distinct objects actually
+  // turn red in the viewer, not how many findings mention them.
+  const ids = [...new Set(violationIds)];
+  // Re-highlighting resets the viewer, so only do it when the set changes —
+  // and always once at the end, in case the user cleared it mid-run.
+  const key = ids.slice().sort().join(",");
+  if (final || key !== lastHighlightKey) {
+    lastHighlightKey = key;
+    window.highlightViolationIds?.(ids);
+  }
   $("check-report").href = `/bnbc/api/jobs/${bnbcJobId}/download/report`;
   $("check-report-pdf").href = `/bnbc/api/jobs/${bnbcJobId}/download/report.pdf`;
   show("check-results", true);

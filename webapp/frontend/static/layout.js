@@ -41,6 +41,12 @@
   let state = Object.assign({ leftWidth: null, collapsed: null }, loadState());
 
   function applyLayout() {
+    // Nothing to split while the preview pane is hidden, and an inline
+    // grid-template would override the single-column rule.
+    if (split.classList.contains("solo")) {
+      split.style.gridTemplateColumns = "";
+      return;
+    }
     if (!isSplitLayout()) {
       split.style.gridTemplateColumns = "";
       split.classList.remove("collapsed-left", "collapsed-right");
@@ -198,6 +204,7 @@
   // --- reveal topbar controls once signed in ------------------------------------
   window.addEventListener("auth:ready", () => {
     signedIn = true;
+    document.body.classList.add("is-signed-in");
     show(document.querySelector(".landing-signin-hint"), false);
     show($("workflow-switch"), true);
     show(historyToggle, true);
@@ -206,7 +213,10 @@
     const intent = sessionStorage.getItem("workbench:intent");
     const chosen = SLUG_TASKS[currentPath().slice(1)] || intent || "check-card";
     window.selectWorkflow?.(chosen);
-    pushTaskUrl(chosen, true);
+    // "/" is the front page for everyone, so a signed-in reload there stays
+    // put; signing in from /login, or any task URL, opens the workspace.
+    if (currentPath() === "/" && !intent) showLanding(false);
+    else pushTaskUrl(chosen, true);
     if (intent) sessionStorage.removeItem("workbench:intent");
   });
 
@@ -227,9 +237,20 @@
   }
   function showLanding(push) {
     if (!landingView || !loginView) return;
+    // The front page lives in #auth-main, which sign-in hides; bring it back
+    // (and put the workspace away) so it is reachable signed in too.
+    show($("auth-main"), true);
+    show($("workspace"), false);
     show(landingView, true);
     show(loginView, false);
     if (push) history.pushState({view: "landing"}, "", "/");
+    window.scrollTo(0, 0);
+  }
+  function showWorkspace(task, push) {
+    show($("auth-main"), false);
+    show($("workspace"), true);
+    window.selectWorkflow?.(task);
+    pushTaskUrl(task, !push);
     window.scrollTo(0, 0);
   }
   if (landingView && loginView) {
@@ -269,6 +290,21 @@
     });
   }
 
+  // --- the brand mark always leads to the front page ------------------------------
+  // Signed in or not. From there the calls to action and the workflow switch
+  // lead back into the workspace.
+  const brand = document.querySelector(".brand-mini");
+  if (brand) {
+    brand.tabIndex = 0;
+    brand.setAttribute("role", "link");
+    brand.setAttribute("aria-label", "ComplyBIM home");
+    const goHome = () => showLanding(true);
+    brand.addEventListener("click", goHome);
+    brand.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); goHome(); }
+    });
+  }
+
   // --- file strip: collapse the dropzone once a file is picked -------------------
   const dropzone = $("dropzone");
   const fileInput = $("file-input");
@@ -280,6 +316,19 @@
     show(changeFileBtn, true);
     show(previewPlaceholder, false);
   }
+  // --- hide the preview pane until there is a preview ----------------------------
+  // app.js and ifc-viewer.js own #preview-card's visibility; watching it keeps
+  // this presentational and avoids reaching into their state.
+  const previewCard = $("preview-card");
+  if (split && previewCard) {
+    const syncSolo = () => {
+      split.classList.toggle("solo", previewCard.classList.contains("hidden"));
+      applyLayout();
+    };
+    new MutationObserver(syncSolo).observe(previewCard, {attributes: true, attributeFilter: ["class"]});
+    syncSolo();
+  }
+
   fileInput.addEventListener("change", () => { if (fileInput.files.length) onFilePicked(); });
   dropzone.addEventListener("drop", () => onFilePicked());
   changeFileBtn.addEventListener("click", () => fileInput.click());
