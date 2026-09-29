@@ -1857,3 +1857,7 @@ tr.is-pickable { cursor: pointer; }
 tr.is-pickable td { transition: background-color .15s; }
 tr.is-picked td { background: color-mix(in srgb, var(--accent) 9%, transparent) !important; }
 tr.is-picked .rule-bubble { border-color: var(--accent); color: var(--accent); }
+
+/* the clause a rule's findings share, stated once */
+.rr-ref { margin: .5rem 0 .2rem; color: var(--muted); font-size: .8rem; }
+.rr-ref::before { content: "Reference: "; font-weight: 700; color: var(--ink); }

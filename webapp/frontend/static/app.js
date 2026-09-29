@@ -979,7 +979,7 @@ function kvChips(measured) {
     `<span class="kv">${k ? `<b>${escapeHtml(k)}</b>=` : ""}${escapeHtml(v)}</span>`).join(" ");
 }
 
-function violationCard(v, idx) {
+function violationCard(v, idx, sharedRef = null) {
   const locations = (v.locations || []).map((loc) => {
     const { name, guid } = splitElement(loc.element);
     return `
@@ -1005,7 +1005,7 @@ function violationCard(v, idx) {
         <tr><th>Element</th><th>Storey</th><th>Measured</th><th>Preview</th></tr>
         ${locations}
       </table>` : ""}
-    ${v.rule_ref ? `<div class="v-ref">${escapeHtml(v.rule_ref)}</div>` : ""}
+    ${v.rule_ref && v.rule_ref !== sharedRef ? `<div class="v-ref">${escapeHtml(v.rule_ref)}</div>` : ""}
   </div>`;
 }
 
@@ -1132,6 +1132,10 @@ function checkResultCard(r) {
     const violations = report.violations || [];
     const shown = violations.slice(0, 3);
     const rest = violations.slice(3);
+    // Every finding of a rule usually cites the same clause; say it once
+    // under the summary rather than under each finding.
+    const refs = [...new Set(violations.map((v) => v.rule_ref).filter(Boolean))];
+    const sharedRef = refs.length === 1 ? refs[0] : null;
 
     return `
     <div class="rule-result ${r.verdict}">
@@ -1145,14 +1149,15 @@ function checkResultCard(r) {
       </button>
       ${r.summary ? `<p class="rr-summary">${escapeHtml(r.summary)}</p>` : ""}
       <div class="rr-body"><div class="rr-body-inner">
+      ${sharedRef ? `<p class="rr-ref">${escapeHtml(sharedRef)}</p>` : ""}
       ${catalogueById[r.rule_id]?.rule_preview ? `<details class="source-rule result-source-rule"><summary>View source rule and checking scope</summary><pre>${escapeHtml(catalogueById[r.rule_id].rule_preview)}</pre></details>` : ""}
       ${r.error ? `<p class="error">${escapeHtml(r.error)}</p>` : ""}
-      ${shown.map((v, i) => violationCard(v, i)).join("")}
+      ${shown.map((v, i) => violationCard(v, i, sharedRef)).join("")}
       ${rest.length ? `
         <button class="btn small show-more" type="button">
           Show ${rest.length} more
         </button>
-        <div class="v-rest hidden">${rest.map((v, i) => violationCard(v, i + 3)).join("")}</div>` : ""}
+        <div class="v-rest hidden">${rest.map((v, i) => violationCard(v, i + 3, sharedRef)).join("")}</div>` : ""}
       ${unknownReasonsPanel(report)}
       ${checkedSummaryLine(report)}
       </div></div>
