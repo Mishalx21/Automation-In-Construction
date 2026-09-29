@@ -690,7 +690,24 @@ main { padding-top: .9rem; padding-bottom: 1.4rem; }
 @media (min-width: 64rem) {
   .login-view { margin-left: max(2rem, 9vw); margin-right: auto; }
 }
-.login-back { display: block; margin-bottom: 1rem; position: relative; z-index: 1; }
+/* A pill rather than a bare underlined link: it sits on top of the drawing,
+   where loose text reads as a stray caption instead of a control. */
+.login-back {
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: .3rem;
+  margin-bottom: .9rem; padding: .4rem .8rem .4rem .55rem;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  background: color-mix(in srgb, var(--card) 72%, transparent);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  color: var(--muted); font: 600 .84rem/1.4 var(--font-sans);
+  cursor: pointer; text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: color .15s, border-color .15s, background-color .15s, box-shadow .2s;
+}
+.login-back:hover { color: var(--accent); border-color: var(--accent); box-shadow: var(--glow); }
+.login-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.back-arrow { width: 1.05rem; height: 1.05rem; flex: none; transition: transform .25s cubic-bezier(.3, 1.4, .5, 1); }
+.login-back:hover .back-arrow { transform: translateX(-2px); }
 .auth-card { max-width: 26rem; margin: 0; position: relative; z-index: 1; }
 
 /* --- sign-in backdrop: an axonometric construction drawing ----------------------
