@@ -507,7 +507,7 @@ function verificationPanel(ver) {
   const passed = checks.filter((c) => c.passed).length;
   return `
   <details class="ver-checks">
-    <summary>Independent verification — ${passed}/${checks.length} checks passed</summary>
+    <summary>How the result was double-checked — ${passed} of ${checks.length} passed</summary>
     <ul>${rows}</ul>
   </details>`;
 }
@@ -522,17 +522,17 @@ function renderInjectResults(job) {
 
   const banner = allPassed
     ? `<div class="banner ok"><span class="b-icon" aria-hidden="true">✓</span>
-        <div><strong>${muts.length} violation${muts.length !== 1 ? "s" : ""} injected and independently verified.</strong>
-        Download the model below, pick it in step 1, and run step 3 — the checkers should now flag these violations.</div></div>`
+        <div><strong>Done — ${muts.length} rule${muts.length !== 1 ? "s" : ""} broken, and each one confirmed.</strong>
+        Take the broken model below, pick it in step 1, and run Design Validation: the checks should now catch it.</div></div>`
     : `<div class="banner bad"><span class="b-icon" aria-hidden="true">✕</span>
-        <div><strong>Verification did not pass</strong> (${passedChecks}/${checks.length} checks passed) —
-        treat the downloaded file with caution and inspect the report.</div></div>`;
+        <div><strong>The change could not be confirmed</strong> (${passedChecks} of ${checks.length} checks passed).
+        Do not rely on this file — open the report to see which check failed.</div></div>`;
 
   $("inject-mutations").innerHTML = `
     ${banner}
     <div class="tiles">
-      ${statTile("Violations injected", muts.length, "bad")}
-      ${statTile("Verification checks", checks.length, "na")}
+      ${statTile("Rules broken", muts.length, "bad")}
+      ${statTile("Checks run on the result", checks.length, "na")}
       ${statTile("Checks passed", checks.length ? `${passedChecks}/${checks.length}` : "—", allPassed ? "ok" : "bad")}
     </div>
     ${muts.map(mutationCard).join("")}

@@ -505,13 +505,29 @@
           </span>
           <div class="workflow-card-head">
             <div class="workflow-card-title">
-              <div class="workflow-meta"><span class="workflow-step">Step 2B</span><span class="tag">ifcfault</span></div>
+              <div class="workflow-meta"><span class="workflow-step">Step 2B</span><span class="tag">Test cases</span></div>
               <h2>Mutation Lab</h2>
-              <p class="workflow-purpose">Generate a controlled test model with verified rule violations.</p>
+              <p class="workflow-purpose">Make a copy of your model with a known code violation in it.</p>
             </div>
           </div>
-          <p class="hint">Deterministically perturbs the model into a fixture with a known,
-          documented code violation — then independently re-verifies it.</p>
+          <ol class="run-steps">
+            <li>
+              <span class="run-step-n">1</span>
+              <div><b>Pick your model</b><span>Drop your IFC file into the box above. The original is never changed — you get a copy.</span></div>
+            </li>
+            <li>
+              <span class="run-step-n">2</span>
+              <div><b>Choose what to break</b><span>Select <em>Analyze model</em>, then pick the rules yourself, or ask for a set of cases at once.</span></div>
+            </li>
+            <li>
+              <span class="run-step-n">3</span>
+              <div><b>Take the files</b><span>The broken copy, a coloured version to look at, the edit that was made, and proof the rule now fails.</span></div>
+            </li>
+          </ol>
+          <p class="run-outcome run-outcome-warn">
+            <b>All or nothing.</b> Each change is made in a sealed run and then measured again on its own.
+            If a violation cannot be applied and confirmed, nothing is delivered — never a half-finished file.
+          </p>
           <button id="inject-upload-btn" class="btn primary" disabled>Analyze model</button>
           <p class="error hidden" id="inject-error"></p>
           <p class="progress hidden" id="inject-progress"></p>
@@ -519,12 +535,13 @@
           <div id="inject-rules" class="hidden">
             <p id="inject-file-meta" class="file-meta"></p>
 
-            <div class="workflow-switch mode-switch" role="tablist" aria-label="Test case generation mode">
-              <button class="mode-choice active" type="button" id="inject-mode-manual" data-mode="manual">Manual selection</button>
-              <button class="mode-choice" type="button" id="inject-mode-batch" data-mode="batch">Batch generation</button>
+            <div class="workflow-switch mode-switch" role="tablist" aria-label="How to choose the violations">
+              <button class="mode-choice active" type="button" id="inject-mode-manual" data-mode="manual">Pick the rules myself</button>
+              <button class="mode-choice" type="button" id="inject-mode-batch" data-mode="batch">Make a set for me</button>
             </div>
 
             <div id="inject-manual-mode">
+              <p class="hint">Tick the rules you want broken. Only the ones your model has the data for can be selected.</p>
               <div class="tables">
                 <div>
                   <h3>Architectural</h3>
@@ -535,16 +552,16 @@
                   <table id="inject-table-struct"></table>
                 </div>
               </div>
-              <button id="inject-btn" class="btn primary" disabled>Inject selected</button>
+              <button id="inject-btn" class="btn primary" disabled>Break the selected rules</button>
             </div>
 
             <div id="inject-batch-mode" class="hidden">
               <div class="batch-config">
-                <label>Number of test cases
+                <label>How many copies do you want?
                   <input type="number" id="batch-count" min="1" max="20" value="5">
                 </label>
-                <p class="hint" id="batch-pool-hint">Each case injects a random number of violations, chosen from the rules applicable to this model.</p>
-                <button id="batch-generate-btn" class="btn primary" type="button">Generate batch</button>
+                <p class="hint" id="batch-pool-hint">Each copy gets a random handful of violations, drawn from the rules that apply to this model. Useful when you want a set to test against rather than one specific case.</p>
+                <button id="batch-generate-btn" class="btn primary" type="button">Make the copies</button>
               </div>
               <div id="batch-progress" class="hidden">
                 <p class="progress" id="batch-progress-summary"></p>
@@ -555,12 +572,33 @@
 
           <div id="inject-results" class="hidden">
             <div id="inject-mutations"></div>
-            <p class="dl-row">
-              <a id="inject-download" class="btn">Download violating .ifc</a>
-              <a id="inject-colored-download" class="btn">Download coloured review .ifc</a>
-              <a id="inject-script" class="btn">Download injection script</a>
-              <a id="inject-report" class="btn" target="_blank">Verification report (JSON)</a>
-            </p>
+            <h3 class="dl-heading">Your files</h3>
+            <div class="dl-grid">
+              <a id="inject-download" class="dl-card is-primary">
+                <span class="dl-ico">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </span>
+                <span class="dl-body"><b>The broken model</b><span>The copy with the violation in it. This is the file you run your checker against.</span></span>
+              </a>
+              <a id="inject-colored-download" class="dl-card">
+                <span class="dl-ico">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="9" cy="9.5" r="1.3" fill="currentColor"/><circle cx="15" cy="9.5" r="1.3" fill="currentColor"/><circle cx="12" cy="15.5" r="1.3" fill="currentColor"/></svg>
+                </span>
+                <span class="dl-body"><b>A coloured copy</b><span>The same model with the changed part painted red — for looking at, not for testing.</span></span>
+              </a>
+              <a id="inject-script" class="dl-card">
+                <span class="dl-ico">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 8-4 4 4 4M15 8l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="dl-body"><b>The edit that was made</b><span>The exact change, written out, so you can read it or run it again.</span></span>
+              </a>
+              <a id="inject-report" class="dl-card" target="_blank">
+                <span class="dl-ico">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 11.5 10.5 15 17 8.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                </span>
+                <span class="dl-body"><b>Proof it broke</b><span>The independent re-measurement showing the rule really does fail now.</span></span>
+              </a>
+            </div>
           </div>
         </section>
 
